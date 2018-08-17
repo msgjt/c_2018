@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="ear" name="jbugs-ear:ear">
-    <output-path>$PROJECT_DIR$/jbugs-ear/target</output-path>
-    <root id="archive" name="jbugs-ear-1.0.0-SNAPSHOT.ear">
-      <element id="artifact" artifact-name="jbugs-ear:ear exploded" />
-    </root>
-  </artifact>
-</component>
