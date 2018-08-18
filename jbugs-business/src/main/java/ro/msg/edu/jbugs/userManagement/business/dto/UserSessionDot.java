@@ -1,19 +1,20 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 
 import java.util.List;
 
 public class UserSessionDot {
     private String userName;
     private String password;
+    private List<PermissionDTO> permissionDTOS;
 
     public UserSessionDot() {
     }
 
-    public UserSessionDot(String userName, String password) {
+    public UserSessionDot(String userName, String password, List<PermissionDTO> permissionDTOS) {
         this.userName = userName;
         this.password = password;
+        this.permissionDTOS = permissionDTOS;
     }
 
     public String getUserName() {
@@ -32,11 +33,11 @@ public class UserSessionDot {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "UserSessionDot{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public List<PermissionDTO> getPermissionDTOS() {
+        return permissionDTOS;
+    }
+
+    public void setPermissionDTOS(List<PermissionDTO> permissionDTOS) {
+        this.permissionDTOS = permissionDTOS;
     }
 }
