@@ -8,6 +8,7 @@ public class RoleDTOHelper {
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(role.getIdRole());
         roleDTO.setType(role.getType());
+        roleDTO.setPermissions(role.getPermissions());
         return roleDTO;
     }
 
@@ -15,6 +16,7 @@ public class RoleDTOHelper {
         Role role = new Role();
         role.setIdRole(roleDTO.getId());
         role.setType(roleDTO.getType());
+        role.setPermissions(roleDTO.getPermissions());
         return role;
     }
 

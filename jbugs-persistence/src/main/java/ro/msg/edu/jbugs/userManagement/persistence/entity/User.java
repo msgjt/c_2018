@@ -66,8 +66,8 @@ public class User{
     }
 
     public void removeRole(Role role) {
-        this.roles.remove(role);
-        role.getUsers().remove(this);
+        this.roles.removeIf(e-> e.getIdRole().equals(role.getIdRole()));
+        role.getUsers().removeIf(e-> e.getIdUser().equals(this.getIdUser()));
     }
 
     public Long getIdUser() {

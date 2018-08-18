@@ -6,8 +6,6 @@ import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Optional;
@@ -26,7 +24,7 @@ public class PermissionManagementController implements PermissionManagement{
     }
 
     @Override
-    public PermissionDTO deletePermissionForRole(RoleDTO role, PermissionDTO permission) {
+    public PermissionDTO removePermissionForRole(RoleDTO role, PermissionDTO permission) {
         Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(RoleDTOHelper.toEntity(role),PermissionDTOHelper.toEntity(permission));
         return PermissionDTOHelper.fromEntity(permissionOptional.get());
     }

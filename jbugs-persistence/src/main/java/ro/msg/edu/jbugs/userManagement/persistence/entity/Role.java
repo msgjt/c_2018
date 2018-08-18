@@ -40,8 +40,8 @@ public class Role {
     }
 
     public void removePermission(Permission permission) {
-        this.permissions.remove(permission);
-        permission.getRoles().remove(this);
+        this.permissions.removeIf(e -> e.getIdPermission().equals(permission.getIdPermission()));
+        permission.getRoles().removeIf(e -> e.getIdRole().equals(this.idRole));
     }
 
     public static String getGetAllRoles() {

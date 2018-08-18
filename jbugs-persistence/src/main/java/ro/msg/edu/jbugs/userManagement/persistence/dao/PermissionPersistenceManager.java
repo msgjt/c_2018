@@ -49,6 +49,7 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
 
     @Override
     public Optional<Permission> removePermissionForRole(@NotNull Role role,@NotNull Permission permission) {
+        //System.out.print("AAAAAAAAAAAAAAAAAA" + role.getPermissions().size());
         role.removePermission(permission);
         em.merge(role);
         em.merge(permission);
