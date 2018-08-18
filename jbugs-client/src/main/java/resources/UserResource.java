@@ -1,7 +1,6 @@
 package resources;
 
-
-import authentification.Secured;
+import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.control.UserManagement;
 
 import javax.ejb.EJB;
@@ -14,14 +13,13 @@ import javax.ws.rs.core.Response;
 @Path("/users")
 public class UserResource {
     @EJB
-    private
-    UserManagement userManagement;
+    private UserManagement userManagement;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
         return Response.status(Response.Status.OK)
-                .entity(userManagement.getAllUsers())
+                .entity(new Gson().toJson(userManagement.getAllUsers()))
                 .build();
     }
 }
