@@ -1,4 +1,5 @@
 import authentification.AuthenticationFilter;
+import resources.AuthenticateUser;
 import resources.UserResource;
 
 import javax.ws.rs.ApplicationPath;
@@ -13,6 +14,7 @@ public class ManagementApplication extends Application {
         final Set<Class<?>> classes = new HashSet<>();
         classes.add(UserResource.class);
         classes.add(AuthenticationFilter.class);
+        classes.add(AuthenticateUser.class);
         return classes;
     }
 }
