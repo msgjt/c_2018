@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ejb-jar" name="jbugs-business:ejb">
+    <output-path>$PROJECT_DIR$/jbugs-business/target</output-path>
+    <root id="archive" name="jbugs-business-1.0.0-SNAPSHOT.jar">
+      <element id="artifact" artifact-name="jbugs-business:ejb exploded" />
+    </root>
+  </artifact>
+</component>

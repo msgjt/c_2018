@@ -75,6 +75,7 @@ public class UserPersistenceManager implements UserPersistenceManagement{
      */
     public Optional<Role> createRole(@NotNull Role role) {
         em.persist(role);
+        em.flush();
         return Optional.of(role);
     }
 

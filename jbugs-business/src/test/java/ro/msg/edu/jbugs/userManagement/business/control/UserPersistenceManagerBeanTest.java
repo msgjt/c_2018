@@ -1,5 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.control;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManager;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -30,6 +32,7 @@ public class UserPersistenceManagerBeanTest {
 
     @Mock
     private UserPersistenceManager userPersistenceManager;
+
 
     @Test
     public void generateUsername_expectedMarini() {
@@ -162,4 +165,17 @@ public class UserPersistenceManagerBeanTest {
             fail("Should not reach this point");
         }
     }
+
+    @Test
+    public void testCreateRole_Success(){
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setType("Administrator");
+        try{
+            RoleDTO createdRole = userManagementController.createRole(roleDTO);
+            assertEquals(createdRole.getType(),roleDTO.getType());
+        }catch(BusinessException e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,8 +1,12 @@
 package ro.msg.edu.jbugs.userManagement.business.control;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManagement;
 import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManager;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTOHelper;
@@ -10,10 +14,12 @@ import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -21,15 +27,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+
 @Stateless
 public class UserManagementController implements UserManagement {
-    //TODO rename;
+
+
     private final static int MAX_LAST_NAME_LENGTH = 5;
     private final static int MIN_USERNAME_LENGTH = 6;
     private static final Logger logger = LogManager.getLogger(UserManagementController.class);
 
+
     @EJB
-    private UserPersistenceManager userPersistenceManager;
+    private UserPersistenceManagement userPersistenceManager;
 
     /**
      * Creates a user entity using a user DTO.
@@ -41,7 +50,6 @@ public class UserManagementController implements UserManagement {
     public UserDTO createUser(UserDTO userDTO) throws BusinessException {
 
         logger.log(Level.INFO, "In createUser method");
-
         normalizeUserDTO(userDTO);
         validateUserForCreation(userDTO);
         User user = UserDTOHelper.toEntity(userDTO);
@@ -49,7 +57,6 @@ public class UserManagementController implements UserManagement {
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
         userPersistenceManager.createUser(user);
-
         return UserDTOHelper.fromEntity(user);
     }
 
@@ -84,7 +91,6 @@ public class UserManagementController implements UserManagement {
     /**
      * Creates a suffix for the username, if the username already exists. The suffix consists
      * of a number.
-     * TODO : Change this. Probably won't be needed.
      * @param username
      * @return
      */
@@ -123,7 +129,7 @@ public class UserManagementController implements UserManagement {
      * to add the first name's letters to the username until it has 6 characters.
      * If the username already exists it will append a number to the username.
      *
-     * TODO : Change the algorithm.
+     *
      *
      * @param firstName
      * @param lastName
@@ -207,6 +213,19 @@ public class UserManagementController implements UserManagement {
         }
 
         return UserDTOHelper.fromEntity(userOptional.get());
+    }
+
+    @Override
+    public RoleDTO createRole(RoleDTO roleDTO) throws BusinessException {
+        Role role = RoleDTOHelper.toEntity(roleDTO);
+        userPersistenceManager.createRole(role);
+        return RoleDTOHelper.fromEntity(role);
+    }
+
+    @Override
+    public RoleDTO getRoleById(long id) {
+        Role role = userPersistenceManager.getRoleForId(id).get();
+        return RoleDTOHelper.fromEntity(role);
     }
 
     private String generateFullUsername(String firstName, String lastName){

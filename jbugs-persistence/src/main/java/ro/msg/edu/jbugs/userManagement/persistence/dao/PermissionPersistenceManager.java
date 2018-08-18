@@ -1,14 +1,19 @@
 package ro.msg.edu.jbugs.userManagement.persistence.dao;
 
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.sound.midi.Soundbank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,19 +21,19 @@ import java.util.Optional;
 @Stateless(name = "PermissionManagementImpl", mappedName = "PermissionPersistenceManager")
 public class PermissionPersistenceManager implements PermissionPersistenceManagement {
 
-    private static final Logger logger = LogManager.getLogger(PermissionPersistenceManager.class);
+    //private static final Logger logger = LogManager.getLogger(PermissionPersistenceManager.class);
 
     @PersistenceContext(unitName = "jbugs-persistence")
     private EntityManager em;
 
     @Override
-    public Optional<Permission> addPermission(Permission permission) {
+    public Optional<Permission> addPermission(@NotNull Permission permission) {
         em.persist(permission);
         return Optional.of(permission);
     }
 
     @Override
-    public Optional<Permission> updatePermission(Permission permission) {
+    public Optional<Permission> updatePermission(@NotNull Permission permission) {
         em.merge(permission);
         return Optional.of(permission);
     }
@@ -43,17 +48,15 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
     }
 
     @Override
-    public Optional<Permission> removePermissionForRole(Role role, Permission permission) {
-        List<Permission> permissions = getPermissionsForRole(role);
-        permissions.remove(permission);
-        role.setPermissions(permissions);
+    public Optional<Permission> removePermissionForRole(@NotNull Role role,@NotNull Permission permission) {
+        role.removePermission(permission);
         em.merge(role);
+        em.merge(permission);
         return Optional.of(permission);
-
     }
 
     @Override
-    public Optional<Role> removeAllPermissionsForRole(Role role) {
+    public Optional<Role> removeAllPermissionsForRole(@NotNull Role role) {
         List<Permission> permissions = getPermissionsForRole(role);
         permissions.clear();
         role.setPermissions(permissions);
@@ -69,7 +72,7 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
     }
 
     @Override
-    public List<Permission> getPermissionsForRole(Role role) {
+    public List<Permission> getPermissionsForRole(@NotNull Role role) {
         Query query = em.createQuery("SELECT r.permissions FROM Role r WHERE r=:role");
         query.setParameter("role",role);
         return query.getResultList();
@@ -83,11 +86,10 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
     }
 
     @Override
-    public Optional<Permission> createPermissionForRole(Role role, Permission permission) {
-        List<Permission> permissions = new ArrayList<>();
-        permissions.add(permission);
-        role.setPermissions(permissions);
+    public Optional<Permission> createPermissionForRole(@NotNull Role role,@NotNull Permission permission) {
+        role.addPermission(permission);
         em.merge(role);
+        em.merge(permission);
         return Optional.of(permission);
     }
 }

@@ -1,6 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,12 @@ public class Permission {
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany
+    @JoinTable(name = "roles_permissions",
+            joinColumns = { @JoinColumn(name = "id_role") },
+            inverseJoinColumns = { @JoinColumn(name = "id_permission") })
+    private List<Role> roles = new ArrayList<>();
 
     public Long getIdPermission() {
         return idPermission;
@@ -43,5 +50,13 @@ public class Permission {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

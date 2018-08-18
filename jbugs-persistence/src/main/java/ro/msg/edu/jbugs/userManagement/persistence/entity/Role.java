@@ -1,6 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,9 +25,24 @@ public class Role {
     @Column(name = "type", length = MAX_STRING_LENGTH)
     private String type;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Permission> permissions;
+    @ManyToMany(mappedBy = "roles")
+    private List<Permission> permissions = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = { @JoinColumn(name = "id_user") },
+            inverseJoinColumns = { @JoinColumn(name = "id_role") })
+    private List<User> users = new ArrayList<>();
+
+    public void addPermission(Permission permission) {
+        this.permissions.add(permission);
+        permission.getRoles().add(this);
+    }
+
+    public void removePermission(Permission permission) {
+        this.permissions.remove(permission);
+        permission.getRoles().remove(this);
+    }
 
     public static String getGetAllRoles() {
         return GET_ALL_ROLES;
@@ -54,5 +70,13 @@ public class Role {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

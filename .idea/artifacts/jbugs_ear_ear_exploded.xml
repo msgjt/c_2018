@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="jbugs-ear:ear exploded">
+    <output-path>$PROJECT_DIR$/jbugs-ear/target/jbugs-ear-1.0.0-SNAPSHOT</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="jbugs-ear/javaeeApplication/JavaEE" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/jbugs-ear/target/jbugs-ear-1.0.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="archive" name="jbugs-client.war">
+        <element id="artifact" artifact-name="jbugs-client:war exploded" />
+      </element>
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/org/apache/logging/log4j/log4j-core/2.7/log4j-core-2.7.jar" output-file-name="log4j-core.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/org/apache/logging/log4j/log4j-api/2.7/log4j-api-2.7.jar" output-file-name="log4j-api.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.10.2/jjwt-jackson-0.10.2.jar" output-file-name="jjwt-jackson.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/io/jsonwebtoken/jjwt-api/0.10.2/jjwt-api-0.10.2.jar" output-file-name="jjwt-api.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.6/jackson-databind-2.9.6.jar" output-file-name="jackson-databind.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar" output-file-name="jackson-annotations.jar" />
+      <element id="file-copy" path="$USER_HOME$/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.6/jackson-core-2.9.6.jar" output-file-name="jackson-core.jar" />
+    </root>
+  </artifact>
+</component>

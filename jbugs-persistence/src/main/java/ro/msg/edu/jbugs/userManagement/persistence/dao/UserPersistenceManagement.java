@@ -2,12 +2,13 @@ package ro.msg.edu.jbugs.userManagement.persistence.dao;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserPersistenceManagement {
+
+public interface UserPersistenceManagement extends Serializable {
 
     Optional<User> createUser(@NotNull User user);
     Optional<User> updateUser(@NotNull User user);
