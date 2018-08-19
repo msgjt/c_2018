@@ -230,6 +230,12 @@ public class UserManagementController implements UserManagement {
         return RoleDTOHelper.fromEntity(role);
     }
 
+    @Override
+    public List<RoleDTO> getAllRoles() {
+        List<Role> roles = userPersistenceManager.getAllRoles();
+        return roles.stream().map(x -> RoleDTOHelper.fromEntity(x)).collect(Collectors.toList());
+    }
+
     private String generateFullUsername(String firstName, String lastName) {
         String prefix = generateUsername(firstName, lastName);
         String suffix = createSuffix(prefix);
