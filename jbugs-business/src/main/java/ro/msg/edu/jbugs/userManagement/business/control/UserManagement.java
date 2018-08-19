@@ -60,6 +60,10 @@ public interface UserManagement {
      */
     RoleDTO getRoleById(long id);
 
+    /**
+     * @return a list of DTOs containing information about roles.
+     */
+    List<RoleDTO> getAllRoles();
 
 
 

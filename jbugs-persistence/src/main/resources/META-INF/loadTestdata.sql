@@ -18,4 +18,12 @@ INSERT INTO PERMISSIONS (type,description) values ('BUG_CLOSE','descriere');
 INSERT INTO PERMISSIONS (type,description) values ('BUG_EXPORT_PDF','descriere');
 INSERT INTO PERMISSIONS (type,description) values ('ADDRESED_USER','descriere');
 INSERT INTO PERMISSIONS (type,description) values ('REPORT_MANAGEMENT','descriere');
+
+
+
+INSERT INTO roles_permissions (id_role,id_permission) values ('1','1');
+INSERT INTO roles_permissions (id_role,id_permission) values ('1','2');
+INSERT INTO roles_permissions (id_role,id_permission) values ('1','3');
+INSERT INTO roles_permissions (id_role,id_permission) values ('2','2');
+INSERT INTO roles_permissions (id_role,id_permission) values ('2','3');
 -- other tables TODO

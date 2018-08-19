@@ -4,6 +4,9 @@ import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class PermissionDTOHelper {
     public static PermissionDTO fromEntity(Permission permission){
         PermissionDTO permissionDTO = new PermissionDTO();
@@ -11,6 +14,7 @@ public class PermissionDTOHelper {
         permissionDTO.setType(permission.getType());
         permissionDTO.setDescription(permission.getDescription());
         permissionDTO.setRoles(permission.getRoles());
+        permissionDTO.setRolesList(permission.getRoles().stream().map(x->x.getType()).collect(Collectors.toList()));
         return permissionDTO;
     }
 
