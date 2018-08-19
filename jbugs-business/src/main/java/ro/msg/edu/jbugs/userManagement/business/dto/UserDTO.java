@@ -8,7 +8,6 @@ public class UserDTO {
     private String email;
     private String phoneNumber;
 
-
     public String getFirstName() {
         return firstName;
     }
