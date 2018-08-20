@@ -39,7 +39,6 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Creates a user entity using a user DTO.
-     *
      * @param userDTO user information
      * @return : the user DTO of the created entity
      * @throws BusinessException
@@ -61,7 +60,6 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Validates the DTO. To use before sending it further.
-     *
      * @param userDTO
      * @throws BusinessException
      */
@@ -90,7 +88,6 @@ public class UserManagementController implements UserManagement {
     /**
      * Creates a suffix for the username, if the username already exists. The suffix consists
      * of a number.
-     *
      * @param username
      * @return
      */
@@ -129,6 +126,8 @@ public class UserManagementController implements UserManagement {
      * to add the first name's letters to the username until it has 6 characters.
      * If the username already exists it will append a number to the username.
      *
+     *
+     *
      * @param firstName
      * @param lastName
      * @return generated username
@@ -157,7 +156,6 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Deactivates a user, removing them the ability to login, but keeping their bugs, comments, etc.
-     *
      * @param username
      */
     @Override
@@ -169,7 +167,6 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Activates a user, granting them the ability to login.
-     *
      * @param username
      */
     @Override
@@ -191,7 +188,6 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Get a list of all Users that are registered.
-     *
      * @return
      */
     @Override
@@ -205,7 +201,6 @@ public class UserManagementController implements UserManagement {
     /**
      * Takes the username and password of a user and if they are correct, it returns the
      * corresponding DTO. Otherwise it will throw an exception.
-     *
      * @param username
      * @param password
      * @return a user DTO if it succeeds.
@@ -238,6 +233,12 @@ public class UserManagementController implements UserManagement {
     public RoleDTO getRoleById(long id) {
         Role role = userPersistenceManager.getRoleForId(id).get();
         return RoleDTOHelper.fromEntity(role);
+    }
+
+    @Override
+    public List<RoleDTO> getAllRoles() {
+        List<Role> roles = userPersistenceManager.getAllRoles();
+        return roles.stream().map(x -> RoleDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 
     private String generateFullUsername(String firstName, String lastName) {

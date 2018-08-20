@@ -1,14 +1,23 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
+import ro.msg.edu.jbugs.userManagement.business.control.PermissionManagement;
+import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
-import java.util.List;
+import javax.ejb.EJB;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class PermissionDTO {
+
     private long id;
     private String description;
-    private String type;
-    private List<Role> roles;
+    private PermissionEnum type;
+    private transient List<Role> roles;
+    private List<String> rolesList;
 
     public String getDescription() {
         return description;
@@ -18,11 +27,11 @@ public class PermissionDTO {
         this.description = description;
     }
 
-    public String getType() {
+    public PermissionEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PermissionEnum type) {
         this.type = type;
     }
 
@@ -39,6 +48,15 @@ public class PermissionDTO {
     }
 
     public void setRoles(List<Role> roles) {
+        this.roles = new ArrayList<>();
         this.roles = roles;
+    }
+
+    public List<String> getRolesList() {
+        return rolesList;
+    }
+
+    public void setRolesList(List<String> rolesList) {
+        this.rolesList = rolesList;
     }
 }

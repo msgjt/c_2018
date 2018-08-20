@@ -8,7 +8,8 @@ public class RoleDTO {
 
     private long id;
     private String type;
-    private List<Permission> permissions;
+    private transient List<Permission> permissions;
+    private List<String> permissionsList;
 
     public RoleDTO() {
     }
@@ -39,5 +40,13 @@ public class RoleDTO {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public List<String> getPermissionsList() {
+        return permissionsList;
+    }
+
+    public void setPermissionsList(List<String> permissionsList) {
+        this.permissionsList = permissionsList;
     }
 }

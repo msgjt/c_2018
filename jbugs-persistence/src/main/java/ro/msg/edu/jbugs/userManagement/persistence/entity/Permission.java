@@ -17,7 +17,8 @@ public class Permission {
     private Long idPermission;
 
     @Column(name = "type", nullable = false, length = MAX_STRING_LENGTH, unique = true)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private PermissionEnum type;
 
     @Column(name = "description")
     private String description;
@@ -36,11 +37,11 @@ public class Permission {
         this.idPermission = idPermission;
     }
 
-    public String getType() {
+    public PermissionEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PermissionEnum type) {
         this.type = type;
     }
 

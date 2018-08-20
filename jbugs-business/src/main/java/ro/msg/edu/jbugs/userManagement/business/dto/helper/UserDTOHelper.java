@@ -36,7 +36,8 @@ public class UserDTOHelper {
     //ToDo: make not static and make fictional;
     public static UserSessionDto toEntity (UserLoginDot userLoginDot){
         List<PermissionEnum> permissions = new ArrayList<>();
-        permissions.add(PermissionEnum.Test);
+        permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
         return new UserSessionDto("doreld", permissions);
     }
 }
+

@@ -61,6 +61,10 @@ public interface UserManagement {
      */
     RoleDTO getRoleById(long id);
 
+    /**
+     * @return a list of DTOs containing information about roles.
+     */
+    List<RoleDTO> getAllRoles();
 
     /**
      * Method used to retrieve from database an user based on his unique username

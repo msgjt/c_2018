@@ -20,6 +20,7 @@ public interface PermissionPersistenceManagement extends Serializable {
     List<Permission> getPermissionsForRole(@NotNull Role role);
     List<Permission> getAllPermissions();
     Optional<Permission> createPermissionForRole(@NotNull Role role, @NotNull Permission permission);
+    Optional<Role> getRoleForId(long id);
 
 
 }

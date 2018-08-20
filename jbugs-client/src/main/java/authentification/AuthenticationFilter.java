@@ -1,6 +1,7 @@
 package authentification;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.annotation.Priority;
@@ -17,12 +18,16 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
+
+
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
