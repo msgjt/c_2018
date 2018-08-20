@@ -1,8 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.control;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class PermissionManagementController implements PermissionManagement{
+public class PermissionManagementController implements PermissionManagement {
 
     @EJB
     private PermissionPersistenceManagement permissionManagement;
@@ -23,13 +23,13 @@ public class PermissionManagementController implements PermissionManagement{
     @Override
     public PermissionDTO addPermissionForRole(RoleDTO role, PermissionDTO permission) {
 
-        Optional<Permission> permissionOptional = permissionManagement.createPermissionForRole(RoleDTOHelper.toEntity(role),PermissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionManagement.createPermissionForRole(RoleDTOHelper.toEntity(role), PermissionDTOHelper.toEntity(permission));
         return PermissionDTOHelper.fromEntity(permissionOptional.get());
     }
 
     @Override
     public PermissionDTO removePermissionForRole(RoleDTO role, PermissionDTO permission) {
-        Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(RoleDTOHelper.toEntity(role),PermissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(RoleDTOHelper.toEntity(role), PermissionDTOHelper.toEntity(permission));
         return PermissionDTOHelper.fromEntity(permissionOptional.get());
     }
 

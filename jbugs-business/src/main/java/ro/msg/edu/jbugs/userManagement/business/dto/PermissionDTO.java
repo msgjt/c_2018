@@ -1,15 +1,10 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
-import ro.msg.edu.jbugs.userManagement.business.control.PermissionManagement;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
-import javax.ejb.EJB;
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PermissionDTO {
 
