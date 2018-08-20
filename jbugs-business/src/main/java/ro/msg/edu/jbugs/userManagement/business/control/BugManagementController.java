@@ -2,7 +2,7 @@ package ro.msg.edu.jbugs.userManagement.business.control;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.BugPersistanceManagement;
+import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 public class BugManagementController implements BugManagement {
 
     @EJB
-    private BugPersistanceManagement bugPersistanceManagement;
+    private IBugPersistenceService IBugPersistenceService;
 
     @Override
     public List<BugDTO> getAllBugs() {
-        List<Bug> bugs = bugPersistanceManagement.getAllBugs();
+        List<Bug> bugs = IBugPersistenceService.getAllBugs();
         return bugs.stream().map(bug -> BugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
     }
 }

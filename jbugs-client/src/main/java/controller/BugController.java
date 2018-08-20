@@ -1,4 +1,4 @@
-package resources;
+package controller;
 
 import com.google.gson.Gson;
 
@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/bugs")
-public class BugResource {
+public class BugController {
 
     @EJB
     private BugManagement bugManagement;
