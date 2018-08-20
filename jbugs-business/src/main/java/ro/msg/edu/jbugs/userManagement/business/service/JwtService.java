@@ -1,4 +1,4 @@
-package services;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

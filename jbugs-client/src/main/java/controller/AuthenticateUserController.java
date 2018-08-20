@@ -1,9 +1,10 @@
-package resources;
+package controller;
 
-import ro.msg.edu.jbugs.userManagement.business.control.UserLoginControl;
+
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
-import services.JwtService;
+import ro.msg.edu.jbugs.userManagement.business.service.JwtService;
+import ro.msg.edu.jbugs.userManagement.business.service.UserLoginBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -16,17 +17,17 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @Path("/authenticate")
-public class AuthenticateUser {
+public class AuthenticateUserController {
     @EJB
     private JwtService jwtService;
     @EJB
-    private UserLoginControl userLoginControl;
+    private UserLoginBusinessService userLoginBusinessService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response userLogin(UserLoginDTO userLoginDTO) {
-        if (userLoginControl.validateUser(userLoginDTO)) {
+        if (userLoginBusinessService.validateUser(userLoginDTO)) {
             String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDTO));
             return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
         }
