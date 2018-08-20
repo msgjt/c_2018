@@ -1,16 +1,14 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PermissionDTO {
 
     private long id;
     private String description;
-    private PermissionEnum type;
+    private String type;
     private transient List<Role> roles;
     private List<String> rolesList;
 
@@ -22,11 +20,11 @@ public class PermissionDTO {
         this.description = description;
     }
 
-    public PermissionEnum getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PermissionEnum type) {
+    public void setType(String type) {
         this.type = type;
     }
 

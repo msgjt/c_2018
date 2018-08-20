@@ -1,15 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Calendar;
 
 public class BugDTO {
     private Long idBug;
