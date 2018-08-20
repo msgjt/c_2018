@@ -19,6 +19,7 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Secured
     public Response getUsers() {
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(userManagement.getAllUsers()))
