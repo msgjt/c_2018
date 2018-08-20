@@ -179,6 +179,16 @@ public class UserManagementController implements UserManagement {
         userPersistenceManager.updateUser(user);
     }
 
+    @Override
+    public UserDTO updateUser(UserDTO userDTO){
+        return UserDTOHelper.fromEntity(userPersistenceManager.updateUser(UserDTOHelper.toEntity(userDTO)).get());
+    }
+
+    @Override
+    public UserDTO getUserByUsername(String username){
+        return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+    }
+
     /**
      * Get a list of all Users that are registered.
      *
