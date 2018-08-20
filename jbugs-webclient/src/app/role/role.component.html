@@ -6,14 +6,53 @@
         <th class="fixedColumns" scope="col">#</th>
         <th class="fixedColumns" scope="col">Type</th>
         <th class="fixedColumns" scope="col">Roles</th>
+        <th class="fixedColumns" scope="col">Update</th>
       </tr>
       </thead>
       <tbody *ngFor="let r of roles">
       <td>{{r.id}}</td>
       <td>{{r.type}}</td>
-      <td>{{r.permissionsList}}</td>
+      <td>
+        <label [hidden]="showAllPermissions[r.id]">{{r.permissionsList}}</label>
+        <form *ngIf="showAllPermissions[r.id]">
+          <form *ngIf="isRemovedButtonSelected" >
+          <ul *ngFor="let p of r.permissionsList">
+            <input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.trim())" >{{p.trim()}}<br>
+            <form *ngIf="!isRemovedButtonSelected">
+            <input type="checkbox" checked disabled>{{p.trim()}}<br>
+            </form>
+          </ul>
+          </form>
+          <form *ngIf="!isRemovedButtonSelected">
+          <ul *ngFor="let p of noPermissionsForThisRole" >
+            <input  type="checkbox" #checkbox (change)="check(checkbox.checked,p)"  >{{p.type}}<br>
+          </ul>
+            <button type="submit"  (click)="updatePermissions(r)"
+                    class="btn btn-primary">Submit
+            </button>
+            <button type="submit"  (click)="backButton(r)"
+                    class="btn btn-primary">Back
+            </button>
+          </form>
+          <form *ngIf="isRemovedButtonSelected" >
+          <button type="submit"  (click)="updateRemovedPermissions(r)"
+                  class="btn btn-primary">Submit
+          </button>
+          <button type="submit"  (click)="backButton(r)"
+                  class="btn btn-primary">Back
+          </button>
+          </form>
+        </form>
+      </td>
+      <td>
+        <button type="submit" (click)="addPermissionForRole(r)"
+                class="btn btn-success">Add
+        </button>
+        <button type="submit" (click)="removePermissionForRole(r)"
+                class="btn btn-danger">Remove
+        </button>
+      </td>
       </tbody>
     </table>
-
   </form>
 </div>

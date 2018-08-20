@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs/internal/Observable";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 
 export interface Permission {
@@ -11,10 +10,9 @@ export interface Permission {
   rolesList: string[];
 
 
-
 }
 
-export class PermissionRest implements Permission{
+export class PermissionRest implements Permission {
 
   private _id: number;
   private _type: string;
@@ -57,25 +55,36 @@ export class PermissionRest implements Permission{
   set rolesList(value: string[]) {
     this._rolesList = value;
   }
+
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionService {
-  permissions: Permission[]= [];
+  permissions: Permission[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest';
-  constructor(private http: HttpClient) { }
 
-  getAll():Permission[] {
-    this.permissions=[];
+  constructor(private http: HttpClient) {
+  }
+
+  getAll(): Permission[] {
+    this.permissions = [];
     this.http.get(this.baseURL + '/permissions',).subscribe((response: Permission[]) => {
-      response.forEach((value) =>{
+      response.forEach((value) => {
         this.permissions.push(value);
       })
-      });
+    });
     return this.permissions;
   }
 
-
+  findByType(type: string): Permission {
+      var permission:Permission;
+      this.permissions.forEach((value,index) =>{
+        if (value.type.trim() == type.trim()) {
+          permission = value;
+        }
+      });
+    return permission;
+  }
 }

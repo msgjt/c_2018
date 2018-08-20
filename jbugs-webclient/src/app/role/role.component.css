@@ -2,11 +2,16 @@
   padding-right: 200px;
 
 }
+.buttonStyle{
+  margin-right: 10px;
+}
+button{
+  margin-right: 50px;
+}
 table{
   border-color: black;
   margin-top: 150px;
   border-right: black;
-
 }
 
 th{
