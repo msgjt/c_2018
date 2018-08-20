@@ -12,7 +12,7 @@ public class RoleDTOHelper {
         roleDTO.setId(role.getIdRole());
         roleDTO.setType(role.getType());
         roleDTO.setPermissions(role.getPermissions());
-        roleDTO.setPermissionsList(role.getPermissions().stream().map(x -> x.getType()).collect(Collectors.toList()));
+        roleDTO.setPermissionsList(role.getPermissions().stream().map(x -> x.getType().toString()).collect(Collectors.toList()));
         return roleDTO;
     }
 
