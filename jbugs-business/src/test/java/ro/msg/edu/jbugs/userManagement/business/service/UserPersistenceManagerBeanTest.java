@@ -1,9 +1,9 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManager;
+import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -28,10 +27,10 @@ public class UserPersistenceManagerBeanTest {
 
 
     @InjectMocks
-    private UserManagementController userManagementController;
+    private UserBusinessService userManagementController;
 
     @Mock
-    private UserPersistenceManager userPersistenceManager;
+    private UserPersistenceService userPersistenceManager;
 
 
     @Test

@@ -1,8 +1,8 @@
-package resources;
+package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.control.PermissionManagement;
-import ro.msg.edu.jbugs.userManagement.business.control.UserManagement;
+import ro.msg.edu.jbugs.userManagement.business.service.IPermissionBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.utils.IdGenerator;
@@ -13,18 +13,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/roles")
-public class RoleResource {
+public class RoleController {
     @EJB
-    private PermissionManagement permissionManagement;
+    private IPermissionBusinessService IPermissionBusinessService;
 
     @EJB
-    private UserManagement userManagement;
+    private IUserBusinessService IUserBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllRoles() {
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(userManagement.getAllRoles()))
+                .entity(new Gson().toJson(IUserBusinessService.getAllRoles()))
                 .build();
     }
 
@@ -33,7 +33,7 @@ public class RoleResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissionsForRole(@PathParam("idRole") long id) {
-        RoleDTO roleDTO = permissionManagement.getRoleById(id);
+        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(roleDTO))
                 .build();
@@ -58,11 +58,11 @@ public class RoleResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response removePermissionForRole(@PathParam("idRole") long id, IdGenerator idGenerator) {
-        RoleDTO roleDTO = permissionManagement.getRoleById(id);
-        PermissionDTO permission = permissionManagement.getPermissionById(idGenerator.getId());
-        permissionManagement.removePermissionForRole(roleDTO, permission);
+        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
+        PermissionDTO permission = IPermissionBusinessService.getPermissionById(idGenerator.getId());
+        IPermissionBusinessService.removePermissionForRole(roleDTO, permission);
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(permissionManagement.getRoleById(id)))
+                .entity(new Gson().toJson(IPermissionBusinessService.getRoleById(id)))
                 .build();
     }
 
@@ -71,11 +71,11 @@ public class RoleResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addPermissionForRole(@PathParam("idRole") long id, IdGenerator idGenerator) {
-        RoleDTO roleDTO = permissionManagement.getRoleById(id);
-        PermissionDTO permission = permissionManagement.getPermissionById(idGenerator.getId());
-        permissionManagement.addPermissionForRole(roleDTO, permission);
+        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
+        PermissionDTO permission = IPermissionBusinessService.getPermissionById(idGenerator.getId());
+        IPermissionBusinessService.addPermissionForRole(roleDTO, permission);
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(permissionManagement.getRoleById(id)))
+                .entity(new Gson().toJson(IPermissionBusinessService.getRoleById(id)))
                 .build();
     }
 }

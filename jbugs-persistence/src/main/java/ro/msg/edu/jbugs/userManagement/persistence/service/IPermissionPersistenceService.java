@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.persistence.dao;
+package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface PermissionPersistenceManagement extends Serializable {
+public interface IPermissionPersistenceService extends Serializable {
 
     Optional<Permission> addPermission(@NotNull Permission permission);
 

@@ -1,8 +1,8 @@
-package resources;
+package controller;
 
 import authentification.Secured;
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.control.UserManagement;
+import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -10,16 +10,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/users")
-public class UserResource {
+public class UserController {
     @EJB
-    private UserManagement userManagement;
+    private IUserBusinessService IUserBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Secured
     public Response getUsers() {
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(userManagement.getAllUsers()))
+                .entity(new Gson().toJson(IUserBusinessService.getAllUsers()))
                 .build();
     }
 
@@ -27,7 +27,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{userName}")
     public Response getUserByUsername(@PathParam("userName") String userName) {
-        return Response.status(Response.Status.OK).entity(userManagement.getUserByUsername(userName)).build();
+        return Response.status(Response.Status.OK).entity(IUserBusinessService.getUserByUsername(userName)).build();
     }
 
     @POST
