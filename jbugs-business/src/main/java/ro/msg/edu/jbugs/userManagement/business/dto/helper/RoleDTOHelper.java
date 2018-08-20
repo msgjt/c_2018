@@ -1,6 +1,9 @@
-package ro.msg.edu.jbugs.userManagement.business.dto;
+package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
+
+import java.util.stream.Collectors;
 
 public class RoleDTOHelper {
 
@@ -9,6 +12,7 @@ public class RoleDTOHelper {
         roleDTO.setId(role.getIdRole());
         roleDTO.setType(role.getType());
         roleDTO.setPermissions(role.getPermissions());
+        roleDTO.setPermissionsList(role.getPermissions().stream().map(x -> x.getType().toString()).collect(Collectors.toList()));
         return roleDTO;
     }
 

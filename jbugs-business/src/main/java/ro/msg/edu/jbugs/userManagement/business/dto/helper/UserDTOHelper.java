@@ -1,10 +1,16 @@
-package ro.msg.edu.jbugs.userManagement.business.dto;
+package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDot;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDto;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
-public class UserDTOHelper {
+import java.util.ArrayList;
+import java.util.List;
 
+
+public class UserDTOHelper {
 
     public static UserDTO fromEntity(User user){
         UserDTO userDTO = new UserDTO();
@@ -25,7 +31,12 @@ public class UserDTOHelper {
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         return user;
+    }
 
+    //ToDo: make not static and make fictional;
+    public static UserSessionDto toEntity (UserLoginDot userLoginDot){
+        List<PermissionEnum> permissions = new ArrayList<>();
+        permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
+        return new UserSessionDto("doreld", permissions);
     }
 }
-

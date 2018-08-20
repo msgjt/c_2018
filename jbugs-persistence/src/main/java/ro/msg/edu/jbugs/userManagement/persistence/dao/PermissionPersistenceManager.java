@@ -74,9 +74,10 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
 
     @Override
     public List<Permission> getPermissionsForRole(@NotNull Role role) {
-        Query query = em.createQuery("SELECT r.permissions FROM Role r WHERE r=:role");
-        query.setParameter("role",role);
-        return query.getResultList();
+          return role.getPermissions();
+//        Query query = em.createQuery("SELECT r.permissions FROM Role r WHERE r=:role");
+//        query.setParameter("role",role);
+//        return query.getResultList();
 
     }
 
@@ -92,5 +93,11 @@ public class PermissionPersistenceManager implements PermissionPersistenceManage
         em.merge(role);
         em.merge(permission);
         return Optional.of(permission);
+    }
+
+    @Override
+    public Optional<Role> getRoleForId(long id) {
+        Query q = em.createQuery("SELECT r FROM Role r WHERE r.idRole=" + id);
+        return Optional.of((Role) q.getSingleResult());
     }
 }

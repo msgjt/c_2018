@@ -28,6 +28,7 @@ public interface UserManagement {
     void activateUser(String username);
 
 
+    UserDTO updateUser(UserDTO userDTO);
     /**
      * @return a list of DTOs containing information about users.
      */
@@ -60,8 +61,17 @@ public interface UserManagement {
      */
     RoleDTO getRoleById(long id);
 
+    /**
+     * @return a list of DTOs containing information about roles.
+     */
+    List<RoleDTO> getAllRoles();
 
-
+    /**
+     * Method used to retrieve from database an user based on his unique username
+     * @param username
+     * @return the userDTO if it exists
+     */
+    UserDTO getUserByUsername(String username);
 
 
 }

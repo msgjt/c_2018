@@ -1,25 +1,22 @@
 package ro.msg.edu.jbugs.userManagement.business.control;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTOHelper;
-import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManagement;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManager;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTOHelper;
-import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
+import ro.msg.edu.jbugs.userManagement.persistence.dao.UserPersistenceManagement;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
+
 import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +39,7 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Creates a user entity using a user DTO.
+     *
      * @param userDTO user information
      * @return : the user DTO of the created entity
      * @throws BusinessException
@@ -53,7 +51,7 @@ public class UserManagementController implements UserManagement {
         normalizeUserDTO(userDTO);
         validateUserForCreation(userDTO);
         User user = UserDTOHelper.toEntity(userDTO);
-        user.setUsername(generateFullUsername(userDTO.getFirstName(),userDTO.getLastName()));
+        user.setUsername(generateFullUsername(userDTO.getFirstName(), userDTO.getLastName()));
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
         userPersistenceManager.createUser(user);
@@ -63,6 +61,7 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Validates the DTO. To use before sending it further.
+     *
      * @param userDTO
      * @throws BusinessException
      */
@@ -91,6 +90,7 @@ public class UserManagementController implements UserManagement {
     /**
      * Creates a suffix for the username, if the username already exists. The suffix consists
      * of a number.
+     *
      * @param username
      * @return
      */
@@ -129,8 +129,6 @@ public class UserManagementController implements UserManagement {
      * to add the first name's letters to the username until it has 6 characters.
      * If the username already exists it will append a number to the username.
      *
-     *
-     *
      * @param firstName
      * @param lastName
      * @return generated username
@@ -159,6 +157,7 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Deactivates a user, removing them the ability to login, but keeping their bugs, comments, etc.
+     *
      * @param username
      */
     @Override
@@ -170,6 +169,7 @@ public class UserManagementController implements UserManagement {
 
     /**
      * Activates a user, granting them the ability to login.
+     *
      * @param username
      */
     @Override
@@ -179,8 +179,19 @@ public class UserManagementController implements UserManagement {
         userPersistenceManager.updateUser(user);
     }
 
+    @Override
+    public UserDTO updateUser(UserDTO userDTO){
+        return UserDTOHelper.fromEntity(userPersistenceManager.updateUser(UserDTOHelper.toEntity(userDTO)).get());
+    }
+
+    @Override
+    public UserDTO getUserByUsername(String username){
+        return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+    }
+
     /**
      * Get a list of all Users that are registered.
+     *
      * @return
      */
     @Override
@@ -194,6 +205,7 @@ public class UserManagementController implements UserManagement {
     /**
      * Takes the username and password of a user and if they are correct, it returns the
      * corresponding DTO. Otherwise it will throw an exception.
+     *
      * @param username
      * @param password
      * @return a user DTO if it succeeds.
@@ -228,13 +240,19 @@ public class UserManagementController implements UserManagement {
         return RoleDTOHelper.fromEntity(role);
     }
 
-    private String generateFullUsername(String firstName, String lastName){
-        String prefix = generateUsername(firstName,lastName);
-        String suffix = createSuffix(prefix);
-        return prefix+suffix;
+    @Override
+    public List<RoleDTO> getAllRoles() {
+        List<Role> roles = userPersistenceManager.getAllRoles();
+        return roles.stream().map(x -> RoleDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 
-    private boolean isValidPhoneNumber(String phonenumber){
+    private String generateFullUsername(String firstName, String lastName) {
+        String prefix = generateUsername(firstName, lastName);
+        String suffix = createSuffix(prefix);
+        return prefix + suffix;
+    }
+
+    private boolean isValidPhoneNumber(String phonenumber) {
         //TODO Nu merge
         final Pattern VALID_PHONE_ADDRESS_REGEX =
                 Pattern.compile("(^\\+49)|(^01[5-7][1-9])", Pattern.CASE_INSENSITIVE);
