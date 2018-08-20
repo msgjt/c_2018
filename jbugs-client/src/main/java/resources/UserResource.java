@@ -29,7 +29,7 @@ public class UserResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsersPost() {
-        String[] blabla = {"Gica", "Eu", "Gica", "Eu", "Gica", "Eu",};
+        String[] blabla = {"Gica", "Eu", "Gica", "Eu", "Haam", "Eu",};
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(blabla))
                 .build();
