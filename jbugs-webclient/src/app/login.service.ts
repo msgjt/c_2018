@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 export interface User {
@@ -7,52 +7,37 @@ export interface User {
   password: string;
 }
 
-export const LSKEY = 'currentUser';
-export const TOKENKEY = 'webtoken';
+export interface Token {
+  key: string;
+}
+
+export const TOKENKEY = 'userToken';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  baseURL = 'http://localhost:8080/jbugs';
+  baseURL = 'http://localhost:8080/jbugs/rest';
 
-  constructor(private http: HttpClient) { }
-
-  validateUserCredentials(username: string, password: string): Observable<any> {
-
-    let body = new URLSearchParams();
-    body.set('username', username);
-    body.set('password', password);
-
-    return this.http.post(this.baseURL + '/authorize',
-      body.toString(),
-      {
-        headers: new HttpHeaders(
-          {'Content-Type': 'application/x-www-form-urlencoded'}
-        )
-      });
+  constructor(private http: HttpClient) {
   }
 
-  userAuthentication(userName, password) {
-    var data = "username=" + userName + "&password=" + password + "&grant_type=password";
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True' });
-    return this.http.post(this.baseURL + '/token', data, { headers: reqHeader });
+  userAuthentication(userName, password): Observable<string> {
+    var userModel = JSON.stringify({userName: userName, password: password});
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<any>(this.baseURL + '/authenticate', userModel, {headers: reqHeader});
   }
 
   isLoggedIn() {
-    let username = localStorage.getItem(LSKEY);
+    let username = localStorage.getItem(TOKENKEY);
     return username ? true : false;
   }
 
-  login(token: string, userModel: User) {
-    localStorage.setItem(LSKEY, userModel.username);
+  login(token: string) {
     localStorage.setItem(TOKENKEY, token);
   }
 
   logout() {
-    if (localStorage.getItem(LSKEY)) {
-      localStorage.removeItem(LSKEY);
-      localStorage.removeItem(TOKENKEY);
-    }
-  }
+    localStorage.removeItem(TOKENKEY);
+  };
 }

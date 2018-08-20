@@ -36,11 +36,8 @@
           </button>
           <p *ngIf="wrongCredentials ">Wrong credentials</p>
         </form>
-        <form *ngIf="!loggedIn">
+        <form *ngIf="loggedIn">
           <h2>You are logged in as: {{userModel.username}}</h2>
-          <button class="btn btn-danger form-control"
-                  (click)="logout()">Logout
-          </button>
         </form>
       </div>
     </div>

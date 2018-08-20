@@ -1,4 +1,5 @@
 import authentification.AuthenticationFilter;
+import authentification.CORSFilter;
 import resources.AuthenticateUser;
 import resources.PermissionResource;
 import resources.RoleResource;
@@ -19,6 +20,7 @@ public class ManagementApplication extends Application {
         classes.add(AuthenticateUser.class);
         classes.add(PermissionResource.class);
         classes.add(RoleResource.class);
+        classes.add(CORSFilter.class);
         return classes;
     }
 }
