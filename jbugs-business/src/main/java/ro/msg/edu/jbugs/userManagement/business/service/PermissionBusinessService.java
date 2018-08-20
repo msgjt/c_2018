@@ -1,10 +1,10 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.control;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IPermissionPersistenceService;
+import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
@@ -15,10 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class PermissionBusinessService implements IPermissionBusinessService {
+public class PermissionManagementController implements PermissionManagement {
 
     @EJB
-    private IPermissionPersistenceService permissionManagement;
+    private PermissionPersistenceManagement permissionManagement;
 
     @Override
     public PermissionDTO addPermissionForRole(RoleDTO role, PermissionDTO permission) {

@@ -4,8 +4,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
@@ -180,12 +180,12 @@ public class UserManagementController implements UserManagement {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO){
+    public UserDTO updateUser(UserDTO userDTO) {
         return UserDTOHelper.fromEntity(userPersistenceManager.updateUser(UserDTOHelper.toEntity(userDTO)).get());
     }
 
     @Override
-    public UserDTO getUserByUsername(String username){
+    public UserDTO getUserByUsername(String username) {
         return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
     }
 

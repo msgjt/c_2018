@@ -1,8 +1,8 @@
-package controller;
+package resources;
 
 import com.google.gson.Gson;
+import ro.msg.edu.jbugs.userManagement.business.control.PermissionManagement;
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.service.IPermissionBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -14,16 +14,16 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/permissions")
-public class PermissionController {
+public class PermissionResource {
 
     @EJB
-    private IPermissionBusinessService permissionBusinessService;
+    private PermissionManagement permissionManagement;
 
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissions() {
-        List<PermissionDTO> permissionDTOList = permissionBusinessService.getAllPermissions();
+        List<PermissionDTO> permissionDTOList = permissionManagement.getAllPermissions();
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(permissionDTOList))
                 .build();
@@ -33,7 +33,7 @@ public class PermissionController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissionById(@PathParam("idPermission") long id) {
-        PermissionDTO permissionDTO = permissionBusinessService.getPermissionById(id);
+        PermissionDTO permissionDTO = permissionManagement.getPermissionById(id);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(permissionDTO))
                 .build();
