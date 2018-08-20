@@ -1,15 +1,17 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
+
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
-import java.io.Serializable;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+
 import java.util.List;
 
-public interface UserManagement {
+public interface IUserBusinessService {
 
     /**
      * Method is used for persisting an user from an userDTO.
      * It generates the username and does the validations.
+     *
      * @param userDTO user information
      * @return the newly created entity as a userDTO
      */
@@ -17,18 +19,21 @@ public interface UserManagement {
 
     /**
      * Deactivates a user, restricting the access of said user to the app.
+     *
      * @param username
      */
     void deactivateUser(String username);
 
     /**
      * Activates a deactivated user.
+     *
      * @param username
      */
     void activateUser(String username);
 
 
     UserDTO updateUser(UserDTO userDTO);
+
     /**
      * @return a list of DTOs containing information about users.
      */
@@ -37,6 +42,7 @@ public interface UserManagement {
 
     /**
      * Tries to log in a user.
+     *
      * @param username
      * @param password
      * @return UserDTO of said user
@@ -48,6 +54,7 @@ public interface UserManagement {
     /**
      * Method is used for persisting an role from an roleDTO.
      * It generates the type of role and does the validations.
+     *
      * @param roleDTO user information
      * @return the newly created entity as a roleDTO
      */
@@ -56,6 +63,7 @@ public interface UserManagement {
 
     /**
      * Method used for finding a role from db
+     *
      * @param id
      * @return the roleDTO with the id that is sent
      */
@@ -68,6 +76,7 @@ public interface UserManagement {
 
     /**
      * Method used to retrieve from database an user based on his unique username
+     *
      * @param username
      * @return the userDTO if it exists
      */

@@ -1,26 +1,29 @@
-package resources;
+package controller;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import ro.msg.edu.jbugs.userManagement.business.control.PermissionManagement;
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
+import ro.msg.edu.jbugs.userManagement.business.service.IPermissionBusinessService;
+
 import javax.ejb.EJB;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/permissions")
-public class PermissionResource {
+public class PermissionController {
 
     @EJB
-    private PermissionManagement permissionManagement;
+    private IPermissionBusinessService permissionBusinessService;
 
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissions() {
-        List<PermissionDTO> permissionDTOList = permissionManagement.getAllPermissions();
+        List<PermissionDTO> permissionDTOList = permissionBusinessService.getAllPermissions();
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(permissionDTOList))
                 .build();
@@ -29,13 +32,10 @@ public class PermissionResource {
     @Path("/{idPermission}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPermissionById (@PathParam("idPermission") long id) {
-        PermissionDTO permissionDTO = permissionManagement.getPermissionById(id);
+    public Response getPermissionById(@PathParam("idPermission") long id) {
+        PermissionDTO permissionDTO = permissionBusinessService.getPermissionById(id);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(permissionDTO))
                 .build();
     }
-
-
-
 }

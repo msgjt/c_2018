@@ -14,6 +14,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.lang.reflect.AnnotatedElement;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,9 +69,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
 
     private void validateToken(String token) throws Exception {
-        JWT.require(Algorithm.HMAC256("secret"))
-                .withIssuer("auth0")
-                .acceptExpiresAt(4)
-                .build();
+        if (JWT.decode(token).getClaim("iat").asDate().compareTo(Date.from(Instant.now())) < 0) {
+            throw new Exception("your token has expired");
+        }
     }
 }

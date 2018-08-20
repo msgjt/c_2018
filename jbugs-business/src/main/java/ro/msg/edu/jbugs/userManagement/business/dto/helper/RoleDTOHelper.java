@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class RoleDTOHelper {
 
-    public static RoleDTO fromEntity(Role role){
+    public static RoleDTO fromEntity(Role role) {
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(role.getIdRole());
         roleDTO.setType(role.getType());
@@ -16,13 +16,11 @@ public class RoleDTOHelper {
         return roleDTO;
     }
 
-    public static Role toEntity(RoleDTO roleDTO){
+    public static Role toEntity(RoleDTO roleDTO) {
         Role role = new Role();
         role.setIdRole(roleDTO.getId());
         role.setType(roleDTO.getType());
         role.setPermissions(roleDTO.getPermissions());
         return role;
     }
-
-
 }

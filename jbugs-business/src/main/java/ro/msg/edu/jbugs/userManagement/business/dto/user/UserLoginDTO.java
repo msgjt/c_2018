@@ -1,14 +1,14 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.user;
 
 
-public class UserLoginDot {
+public class UserLoginDTO {
     private String userName;
     private String password;
 
-    public UserLoginDot() {
+    public UserLoginDTO() {
     }
 
-    public UserLoginDot(String userName, String password) {
+    public UserLoginDTO(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }

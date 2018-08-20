@@ -1,8 +1,8 @@
 import authentification.AuthenticationFilter;
-import resources.AuthenticateUser;
-import resources.PermissionResource;
-import resources.RoleResource;
-import resources.UserResource;
+import controller.AuthenticateUserController;
+import controller.PermissionController;
+import controller.RoleController;
+import controller.UserController;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -14,11 +14,11 @@ public class ManagementApplication extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> classes = new HashSet<>();
-        classes.add(UserResource.class);
+        classes.add(UserController.class);
         classes.add(AuthenticationFilter.class);
-        classes.add(AuthenticateUser.class);
-        classes.add(PermissionResource.class);
-        classes.add(RoleResource.class);
+        classes.add(AuthenticateUserController.class);
+        classes.add(PermissionController.class);
+        classes.add(RoleController.class);
         return classes;
     }
 }

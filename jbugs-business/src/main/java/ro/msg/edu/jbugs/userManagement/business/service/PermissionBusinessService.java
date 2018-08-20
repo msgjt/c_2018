@@ -1,10 +1,10 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
-import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
+import ro.msg.edu.jbugs.userManagement.persistence.service.IPermissionPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
@@ -15,21 +15,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class PermissionManagementController implements PermissionManagement{
+public class PermissionBusinessService implements IPermissionBusinessService {
 
     @EJB
-    private PermissionPersistenceManagement permissionManagement;
+    private IPermissionPersistenceService permissionManagement;
 
     @Override
     public PermissionDTO addPermissionForRole(RoleDTO role, PermissionDTO permission) {
 
-        Optional<Permission> permissionOptional = permissionManagement.createPermissionForRole(RoleDTOHelper.toEntity(role),PermissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionManagement.createPermissionForRole(RoleDTOHelper.toEntity(role), PermissionDTOHelper.toEntity(permission));
         return PermissionDTOHelper.fromEntity(permissionOptional.get());
     }
 
     @Override
     public PermissionDTO removePermissionForRole(RoleDTO role, PermissionDTO permission) {
-        Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(RoleDTOHelper.toEntity(role),PermissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(RoleDTOHelper.toEntity(role), PermissionDTOHelper.toEntity(permission));
         return PermissionDTOHelper.fromEntity(permissionOptional.get());
     }
 

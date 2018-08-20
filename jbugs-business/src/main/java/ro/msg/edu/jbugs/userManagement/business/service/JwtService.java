@@ -1,11 +1,11 @@
-package services;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.google.gson.Gson;
 import org.apache.commons.codec.binary.Base64;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDto;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
 
 import javax.ejb.Stateless;
 import java.time.Instant;
@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Stateless
 public class JwtService {
-    public String generateToken(final UserSessionDto user) {
+    public String generateToken(final UserSessionDTO user) {
         try {
 
             Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -30,12 +30,9 @@ public class JwtService {
     }
 
     //ToDo: remove comments is it is all ok on monday
-    public UserSessionDto getUserSessionDot(final String token) {
+    public UserSessionDTO getUserSessionDot(final String token) {
         String[] split_string = token.split("\\.");
         Base64 base64Url = new Base64(true);
-        return new Gson().fromJson(new String(base64Url.decode(split_string[1])), UserSessionDto.class);
-        /*JsonParser parser = new JsonParser();
-        JsonObject obj = parser.parse(new String(base64Url.decode(split_string[1]))).getAsJsonObject();
-        return obj.get("username").getAsString();*/
+        return new Gson().fromJson(new String(base64Url.decode(split_string[1])), UserSessionDTO.class);
     }
 }
