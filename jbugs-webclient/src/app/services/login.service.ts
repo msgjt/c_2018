@@ -14,7 +14,7 @@ export const TOKENKEY = 'webtoken';
   providedIn: 'root'
 })
 export class LoginService {
-  baseURL = 'http://localhost:8080/jbugs';
+  baseURL = 'http://localhost:8080/jbugs/rest';
 
   constructor(private http: HttpClient) { }
 

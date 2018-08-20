@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Permission, PermissionService} from "../permission.service";
+import {Permission, PermissionService} from "../services/permission.service";
 
 @Component({
   selector: 'app-permission',
@@ -8,12 +8,17 @@ import {Permission, PermissionService} from "../permission.service";
 })
 export class PermissionComponent implements OnInit {
 
+  permissions: Permission[];
 
   constructor(private permissionService : PermissionService) {
-    this.permissionService.getAll();
+
   }
 
   ngOnInit() {
+    this.permissions = this.permissionService.getAll();
+  }
+
+  OnSubmit(){
 
   }
 

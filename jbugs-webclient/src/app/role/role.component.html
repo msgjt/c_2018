@@ -1,0 +1,19 @@
+<div class="container">
+  <form>
+    <table id="tableId" class="table table-bordered">
+      <thead>
+      <tr>
+        <th class="fixedColumns" scope="col">#</th>
+        <th class="fixedColumns" scope="col">Type</th>
+        <th class="fixedColumns" scope="col">Roles</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let r of roles">
+      <td>{{r.id}}</td>
+      <td>{{r.type}}</td>
+      <td>{{r.permissionsList}}</td>
+      </tbody>
+    </table>
+
+  </form>
+</div>

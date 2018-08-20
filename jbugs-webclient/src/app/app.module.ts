@@ -9,16 +9,19 @@ import { AuthGuard } from './auth/auth.guard';
 import {FormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { PermissionComponent } from './permission/permission.component';
+import { RoleComponent } from './role/role.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component:PermissionComponent},
+  {path: 'role', component:RoleComponent},
 ]
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    PermissionComponent
+    PermissionComponent,
+    RoleComponent
   ],
   imports: [
     BrowserModule,
