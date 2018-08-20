@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService, LSKEY, Token, TOKENKEY, User} from '../login.service';
-import {FilterService} from '../filter.service';
-import {HttpErrorResponse} from "@angular/common/http";
+import {LoginService, User} from "../services/login.service";
+import {FilterService} from "../services/filter.service";
 import {Router} from "@angular/router";
-
+import {HttpErrorResponse} from "@angular/common/http";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

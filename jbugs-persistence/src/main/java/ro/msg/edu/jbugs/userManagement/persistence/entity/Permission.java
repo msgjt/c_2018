@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Permission {
 
     @Transient
-    private final static int MAX_STRING_LENGTH = 20;
+    private final static int MAX_STRING_LENGTH = 40;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

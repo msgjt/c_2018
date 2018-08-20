@@ -1,0 +1,21 @@
+<div class="container">
+  <form (ngSubmit)="OnSubmit()">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th class="fixedColumns" scope="col">#</th>
+        <th class="fixedColumns" scope="col">Type</th>
+        <th class="fixedColumns" scope="col">Description</th>
+        <th class="fixedColumns" scope="col">Roles</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let p of permissions">
+        <td>{{p.id}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.rolesList}}</td>
+      </tbody>
+    </table>
+
+  </form>
+</div>

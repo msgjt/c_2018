@@ -1,15 +1,20 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "bugs")
+@NamedQueries({
+        @NamedQuery(name = Bug.GET_ALL_BUGS, query = "select b from Bug b order by b.targetdate desc")
+})
 public class Bug {
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
+    public static final String GET_ALL_BUGS = "get_All_Bugs";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

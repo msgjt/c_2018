@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.persistence.dao;
+package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
@@ -13,7 +13,7 @@ import java.util.Optional;
  * Provides functions for working with users in the persistence layer.
  */
 @Stateless
-public class UserPersistenceManager implements UserPersistenceManagement {
+public class UserPersistenceService implements IUserPersistenceService {
 
     private static final long serialVersionUID = 1L;
 

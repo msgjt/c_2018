@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.persistence.dao;
+package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface UserPersistenceManagement extends Serializable {
+public interface IUserPersistenceService extends Serializable {
 
     Optional<User> createUser(@NotNull User user);
 

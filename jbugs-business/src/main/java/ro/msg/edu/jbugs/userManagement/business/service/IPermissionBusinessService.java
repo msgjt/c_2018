@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
-public interface PermissionManagement {
+public interface IPermissionBusinessService {
     /**
      * This method adds a permission to a role
      *

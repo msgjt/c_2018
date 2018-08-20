@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.persistence.dao;
+package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
@@ -17,10 +17,10 @@ import java.util.Optional;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
-@Stateless(name = "PermissionManagementImpl", mappedName = "PermissionPersistenceManager")
-public class PermissionPersistenceManager implements PermissionPersistenceManagement {
+@Stateless(name = "PermissionManagementImpl", mappedName = "PermissionPersistenceService")
+public class PermissionPersistenceService implements IPermissionPersistenceService {
 
-    //private static final Logger logger = LogManager.getLogger(PermissionPersistenceManager.class);
+    //private static final Logger logger = LogManager.getLogger(PermissionPersistenceService.class);
 
     @PersistenceContext(unitName = "jbugs-persistence")
     private EntityManager em;

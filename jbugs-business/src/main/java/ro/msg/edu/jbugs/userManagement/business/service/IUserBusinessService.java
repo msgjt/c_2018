@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
@@ -6,7 +6,7 @@ import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 
 import java.util.List;
 
-public interface UserManagement {
+public interface IUserBusinessService {
 
     /**
      * Method is used for persisting an user from an userDTO.
