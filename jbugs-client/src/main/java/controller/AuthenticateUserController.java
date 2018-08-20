@@ -18,8 +18,10 @@ public class AuthenticateUserController {
     private JwtService jwtService;
     @EJB
     private UserLoginBusinessService userLoginBusinessService;
-
-    class Token {
+    /**
+     * This class is used for send token to angular client
+     */
+    private class Token {
         private String key;
 
         public String getKey() {
@@ -37,10 +39,10 @@ public class AuthenticateUserController {
     public Response userLogin(UserLoginDTO userLoginDTO) {
         if (userLoginBusinessService.validateUser(userLoginDTO)) {
             String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDTO));
-            Token token1 = new Token();
-            token1.setKey("Bearer " + token);
+            Token authetificationToken = new Token();
+            authetificationToken.setKey("Bearer " + token);
             return Response.status(Response.Status.OK)
-                    .entity(new Gson().toJson(token1))
+                    .entity(new Gson().toJson(authetificationToken))
                     .build();
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();

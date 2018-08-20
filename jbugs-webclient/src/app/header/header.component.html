@@ -10,7 +10,6 @@
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a *ngIf="!verify()" class="nav-item nav-link" routerLink="/register">Register</a>
       <a *ngIf="!verify()" class="nav-item nav-link active" routerLink="/login">Login</a>
       <a *ngIf="verify()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">Logout</a>
     </div>

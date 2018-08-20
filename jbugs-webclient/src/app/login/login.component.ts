@@ -3,6 +3,7 @@ import {LoginService, User} from "../services/login.service";
 import {FilterService} from "../services/filter.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,21 +23,31 @@ export class LoginComponent implements OnInit {
     this.loggedIn = this.loginService.isLoggedIn();
   }
 
-  OnSubmit() {
+  /**
+   * This method is use for submit login form
+   */
+  onSubmit() {
     this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
         localStorage.setItem('userToken', response.key);
         if (response) {
           this.login(response.key);
+          this.router.navigate(["permission"]);
         } else {
           this.wrongCredentials = true;
           this.loggedIn = false;
         }
       },
       (err: HttpErrorResponse) => {
-        console.log(err)
+        console.log(err);
+        this.wrongCredentials = true;
+        this.loggedIn = false;
       });
   }
 
+  /**
+   * This method set the loggedIn flag for the navigation bar
+   * @param token represents Authetification token return from the server
+   */
   login(token: string) {
     this.loginService.login(token);
     this.loggedIn = true;
