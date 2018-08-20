@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService, LSKEY, TOKENKEY, User} from '../services/login.service';
-import {FilterService} from '../services/filter.service';
-import {HttpErrorResponse} from "@angular/common/http";
+import {LoginService, User} from "../services/login.service";
+import {FilterService} from "../services/filter.service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -23,42 +23,35 @@ export class LoginComponent implements OnInit {
     this.loggedIn = this.loginService.isLoggedIn();
   }
 
-  submitForm() {
-    console.log('Form was submitted with the following data:' +
-      JSON.stringify(this.userModel));
-    this.loginService.validateUserCredentials(this.userModel.username,
-      this.userModel.password).subscribe((response) => {
-      console.log('credentials are valid is : ' + response);
-      if (response) {
-        this.loggedIn = true;
-        this.wrongCredentials = false;
-        this.login(response.token);
-
-      } else {
+  /**
+   * This method is use for submit login form
+   */
+  onSubmit() {
+    this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
+        localStorage.setItem('userToken', response.key);
+        if (response) {
+          this.login(response.key);
+          this.router.navigate(["permission"]);
+        } else {
+          this.wrongCredentials = true;
+          this.loggedIn = false;
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
         this.wrongCredentials = true;
         this.loggedIn = false;
-      }
-    });
-  }
-
-  OnSubmit(){
-    this.loginService.userAuthentication(this.userModel.username,this.userModel.password).subscribe((data : any)=>{
-        localStorage.setItem('userToken',data.access_token);
-      },
-      (err : HttpErrorResponse)=>{
-        this.wrongCredentials = true;
       });
   }
 
+  /**
+   * This method set the loggedIn flag for the navigation bar
+   * @param token represents Authetification token return from the server
+   */
   login(token: string) {
-    this.loginService.login(token, this.userModel);
+    this.loginService.login(token);
     this.loggedIn = true;
     this.filterService.setLoggedIn(true);
-  }
-
-  logout() {
-    localStorage.removeItem('userToken');
-    this.router.navigate(['/login']);
   }
 
   ngOnInit() {

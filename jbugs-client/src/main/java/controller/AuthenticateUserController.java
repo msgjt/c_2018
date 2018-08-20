@@ -1,20 +1,16 @@
 package controller;
 
-
+import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.JwtService;
 import ro.msg.edu.jbugs.userManagement.business.service.UserLoginBusinessService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @Path("/authenticate")
 public class AuthenticateUserController {
@@ -22,6 +18,20 @@ public class AuthenticateUserController {
     private JwtService jwtService;
     @EJB
     private UserLoginBusinessService userLoginBusinessService;
+    /**
+     * This class is used for send token to angular client
+     */
+    private class Token {
+        private String key;
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -29,7 +39,11 @@ public class AuthenticateUserController {
     public Response userLogin(UserLoginDTO userLoginDTO) {
         if (userLoginBusinessService.validateUser(userLoginDTO)) {
             String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDTO));
-            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+            Token authetificationToken = new Token();
+            authetificationToken.setKey("Bearer " + token);
+            return Response.status(Response.Status.OK)
+                    .entity(new Gson().toJson(authetificationToken))
+                    .build();
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
