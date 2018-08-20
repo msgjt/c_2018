@@ -1,9 +1,9 @@
 package ro.msg.edu.jbugs.userManagement.business.control;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.PermissionDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.dao.PermissionPersistenceManagement;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;

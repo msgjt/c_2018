@@ -1,6 +1,8 @@
 package resources;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.UserSessionDot;
+import ro.msg.edu.jbugs.userManagement.business.control.UserLoginControl;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDot;
 import services.JwtService;
 
 import javax.ejb.EJB;
@@ -17,13 +19,17 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 public class AuthenticateUser {
     @EJB
     private JwtService jwtService;
+    @EJB
+    private UserLoginControl userLoginControl;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response userLogin(UserSessionDot userAuth) {
-        String token = jwtService.generateToken(userAuth);
-        System.out.println(jwtService.getUserSessionDot(token));
-        return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+    public Response userLogin(UserLoginDot userLoginDot) {
+        if (userLoginControl.validateUser(userLoginDot)) {
+            String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDot));
+            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 }
