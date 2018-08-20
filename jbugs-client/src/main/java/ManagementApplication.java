@@ -3,6 +3,7 @@ import controller.AuthenticateUserController;
 import controller.PermissionController;
 import controller.RoleController;
 import controller.UserController;
+import resources.BugResource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -19,6 +20,7 @@ public class ManagementApplication extends Application {
         classes.add(AuthenticateUserController.class);
         classes.add(PermissionController.class);
         classes.add(RoleController.class);
+        classes.add(BugResource.class);
         return classes;
     }
 }
