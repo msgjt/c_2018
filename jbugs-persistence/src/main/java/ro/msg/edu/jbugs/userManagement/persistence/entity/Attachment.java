@@ -1,6 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,9 @@ public class Attachment {
     @ManyToOne
     @JoinColumn(name = "idBug", nullable = false)
     public Bug bug;
+
+    @Column(name = "blob")
+    public Blob blob;
 
     public Long getIdAtt() {
         return idAtt;
