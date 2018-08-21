@@ -21,4 +21,10 @@ public class BugManagementController implements BugManagement {
         List<Bug> bugs = IBugPersistenceService.getAllBugs();
         return bugs.stream().map(bug -> BugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
     }
+
+    @Override
+    public BugDTO addBug(BugDTO bugDTO) {
+        Bug bug = BugDTOHelper.toEntity(bugDTO);
+        return BugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug).get());
+    }
 }

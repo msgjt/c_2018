@@ -1,5 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
+import ro.msg.edu.jbugs.userManagement.persistence.entity.SeverityEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
+
 import java.util.Date;
 
 public class BugDTO {
@@ -8,11 +11,11 @@ public class BugDTO {
     private String description;
     private String version;
     private Date targetDate;
-    private String status;
+    private StatusEnum status; //combobox
     private String fixedVersion;
-    private String severity;
-    private UserDTO createdByUser;
-    private UserDTO assignedTo;
+    private SeverityEnum severity; //combobox
+    private String createdByUser;
+    private String assignedTo;//combobox
 
     public Long getIdBug() {
         return idBug;
@@ -54,11 +57,11 @@ public class BugDTO {
         this.targetDate = targetDate;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
@@ -70,28 +73,27 @@ public class BugDTO {
         this.fixedVersion = fixedVersion;
     }
 
-    public String getSeverity() {
+    public SeverityEnum getSeverity() {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(SeverityEnum severity) {
         this.severity = severity;
     }
 
-    public UserDTO getCreatedByUser() {
+    public String getCreatedByUser() {
         return createdByUser;
     }
 
-    public void setCreatedByUser(UserDTO createdByUser) {
+    public void setCreatedByUser(String createdByUser) {
         this.createdByUser = createdByUser;
     }
 
-    public UserDTO getAssignedTo() {
+    public String getAssignedTo() {
         return assignedTo;
     }
 
-    public void setAssignedTo(UserDTO assignedTo) {
+    public void setAssignedTo(String assignedTo) {
         this.assignedTo = assignedTo;
     }
-
 }

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class BugPersistenceService implements IBugPersistenceService {
@@ -20,4 +21,17 @@ public class BugPersistenceService implements IBugPersistenceService {
     public List<Bug> getAllBugs() {
         return em.createNamedQuery(Bug.GET_ALL_BUGS, Bug.class).getResultList();
     }
+
+    /**
+     * Method for adding a bug
+     * @param bug
+     * @return optional of the added bug
+     */
+    @Override
+    public Optional<Bug> addBug(Bug bug) {
+        em.persist(bug);
+        return Optional.of(bug);
+    }
+
+
 }

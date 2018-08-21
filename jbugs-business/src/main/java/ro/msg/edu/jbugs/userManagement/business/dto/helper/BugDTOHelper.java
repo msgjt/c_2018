@@ -1,17 +1,24 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
+import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 
 import javax.ejb.EJB;
 
 public class BugDTOHelper {
 
+
+    static IUserBusinessService userBussinesService = new UserBusinessService();
+
     public static BugDTO fromEntity(Bug bug){
         BugDTO bugDTO = new BugDTO();
         bugDTO.setIdBug(bug.getIdBug());
-        bugDTO.setAssignedTo(UserDTOHelper.fromEntity(bug.getAssignedTo()));
-        bugDTO.setCreatedByUser(UserDTOHelper.fromEntity(bug.getCreatedByUser()));
+        bugDTO.setAssignedTo(bug.getAssignedTo().getUsername());
+        bugDTO.setCreatedByUser(bug.getCreatedByUser().getUsername());
         bugDTO.setDescription(bug.getDescription());
         bugDTO.setFixedVersion(bug.getFixedVersion());
         bugDTO.setSeverity(bug.getSeverity());
@@ -24,15 +31,22 @@ public class BugDTOHelper {
 
     public static Bug toEntity(BugDTO bugDTO){
         Bug bug = new Bug();
+       
+
+        UserDTO userDTO = userBussinesService.getUserByUsername(bugDTO.getCreatedByUser());
+        System.out.println(userDTO.getUsername()+ "ssssssssssssssssssssssssssss");
+        bug.setCreatedByUser(UserDTOHelper.toEntity(userDTO));
+        userDTO = userBussinesService.getUserByUsername(bugDTO.getAssignedTo());
         bug.setIdBug(bugDTO.getIdBug());
-        bug.setCreatedByUser(UserDTOHelper.toEntity(bugDTO.getCreatedByUser()));
+        bug.setAssignedTo(UserDTOHelper.toEntity(userDTO));
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());
-        //bug.setTargetdate(bugDTO.getTargetDate());
+        bug.setTargetdate(bugDTO.getTargetDate());
         bug.setStatus(bugDTO.getStatus());
         bug.setTitle(bugDTO.getTitle());
         bug.setVersion(bugDTO.getVersion());
         return bug;
     }
+
 }
