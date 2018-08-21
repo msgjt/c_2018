@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { PermissionComponent } from './permission/permission.component';
 import { RoleComponent } from './role/role.component';
+import { AddBugComponentComponent } from './add-bug-component/add-bug-component.component';
 
 
 const appRoutes: Routes = [
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     PermissionComponent,
-    RoleComponent
+    RoleComponent,
+    AddBugComponentComponent
   ],
   imports: [
     BrowserModule,
