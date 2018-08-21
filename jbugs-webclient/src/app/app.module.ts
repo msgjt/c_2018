@@ -12,6 +12,8 @@ import { PermissionComponent } from './permission/permission.component';
 import { RoleComponent } from './role/role.component';
 import { AddBugComponentComponent } from './add-bug-component/add-bug-component.component';
 import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
+import {CreateUserComponent} from "./create-user/create-user.component";
+import {NgSelectModule} from "@ng-select/ng-select"
 
 
 const appRoutes: Routes = [
@@ -20,6 +22,8 @@ const appRoutes: Routes = [
   {path: 'role', component:RoleComponent},
   {path: 'bug', component:ViewBugsComponent},
   {path: 'bug/add', component:AddBugComponentComponent},
+  {path: 'bug', component:ViewBugsComponent},
+  {path: 'create-user', component: CreateUserComponent},
 
 ]
 @NgModule({
@@ -30,14 +34,17 @@ const appRoutes: Routes = [
     RoleComponent,
     AddBugComponentComponent,
     RoleComponent,
-    ViewBugsComponent
+    ViewBugsComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,
     LoginModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    NgSelectModule
+
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

@@ -16,12 +16,12 @@ import java.util.List;
 public class BugController {
 
     @EJB
-    private IBugBusinessService IBugBusinessService;
+    private IBugBusinessService bugBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBugs(){
-        List<BugDTO> bugDTOS = IBugBusinessService.getAllBugs();
+        List<BugDTO> bugDTOS = bugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugDTOS))
                 .build();
@@ -32,8 +32,7 @@ public class BugController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBug(BugDTO bugDTO){
-
-        BugDTO addedBug =IBugBusinessService.addBug(bugDTO);
+        BugDTO addedBug = bugBusinessService.addBug(bugDTO);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(addedBug))
                 .build();
