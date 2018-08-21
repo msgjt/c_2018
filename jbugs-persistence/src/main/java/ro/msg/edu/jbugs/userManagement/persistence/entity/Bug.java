@@ -33,13 +33,15 @@ public class Bug {
     private Date targetdate;
 
     @Column(name = "status", length = MAX_STRING_LENGTH, nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     @Column(name = "fixedVersion", length = MAX_STRING_LENGTH, nullable = false)
     private String fixedVersion;
 
     @Column(name = "severity", length = MAX_STRING_LENGTH, nullable = false)
-    private String severity;
+    @Enumerated(EnumType.STRING)
+    private SeverityEnum severity;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
     private List<Comment> comments;
@@ -96,11 +98,11 @@ public class Bug {
         this.targetdate = targetdate;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
@@ -112,11 +114,11 @@ public class Bug {
         this.fixedVersion = fixedVersion;
     }
 
-    public String getSeverity() {
+    public SeverityEnum getSeverity() {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(SeverityEnum severity) {
         this.severity = severity;
     }
 
