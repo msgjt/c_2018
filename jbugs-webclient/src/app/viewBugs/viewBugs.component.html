@@ -2,7 +2,11 @@
   <select [(ngModel)]="this.chosenSeverity"  (ngModelChange)="filterBySeverity()">
     <option disabled [ngValue]="undefined">Severity:</option>
     <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+  </select>
 
+  <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
+    <option disabled [ngValue]="undefined">Status:</option>
+    <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
   <table>
     <thead>
@@ -18,9 +22,9 @@
     <tr>
       <td>{{bug.title}}</td>
       <td>{{bug.targetDate}}</td>
-      <td>{{bug.status}}</td>
+      <td>{{bug.status.toLocaleLowerCase()}}</td>
       <td>
-        <label class="severity {{bug.severity}}">{{bug.severity}}</label>
+        <label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label>
       </td>
     </tr>
 

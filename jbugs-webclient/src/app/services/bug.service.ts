@@ -27,7 +27,4 @@ export class BugService {
     return this.bugs;
   }
 
-  filterBySeverity(severity:string): Bug[]{
-    return this.bugs.filter((item)=> item.severity == severity);
-  }
 }

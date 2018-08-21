@@ -14,6 +14,8 @@ export class ViewBugsComponent implements OnInit{
   cachedBugs: Bug[];
   severities:string[] = ["critical", "high", "medium", "low"];
   chosenSeverity:string;
+  statuses:string[] = ["fixed", "open", "in_progress", "rejected", "info_nedded", "closed"];
+  chosenStatus:string;
 
   constructor(private bugService: BugService){
   }
@@ -28,7 +30,17 @@ export class ViewBugsComponent implements OnInit{
       this.bugs = this.cachedBugs;
     }
     else{
-      this.bugs = this.bugService.filterBySeverity(this.chosenSeverity)
+      this.bugs = this.bugs.filter((item)=> item.severity == this.chosenSeverity.toUpperCase());
+    }
+  }
+
+
+  filterByStatus() {
+    if(this.chosenStatus == "undefined"){
+      this.bugs = this.cachedBugs;
+    }
+    else{
+      this.bugs = this.bugs.filter((item)=> item.status == this.chosenStatus.toUpperCase());
     }
   }
 }
