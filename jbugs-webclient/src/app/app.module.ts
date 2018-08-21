@@ -10,14 +10,14 @@ import {FormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { PermissionComponent } from './permission/permission.component';
 import { RoleComponent } from './role/role.component';
-import {BugComponent} from "./bug/bug.component";
+import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component:PermissionComponent},
   {path: 'role', component:RoleComponent},
-  {path: 'bug', component:BugComponent}
+  {path: 'bug', component:ViewBugsComponent}
 
 ]
 @NgModule({
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     HeaderComponent,
     PermissionComponent,
     RoleComponent,
-    BugComponent
+    ViewBugsComponent
   ],
   imports: [
     BrowserModule,
