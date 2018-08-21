@@ -3,8 +3,6 @@ package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
-import javax.ejb.EJB;
-
 public class BugDTOHelper {
 
     public static BugDTO fromEntity(Bug bug){
@@ -29,7 +27,7 @@ public class BugDTOHelper {
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());
-        //bug.setTargetdate(bugDTO.getTargetDate());
+        bug.setTargetdate(bugDTO.getTargetDate());
         bug.setStatus(bugDTO.getStatus());
         bug.setTitle(bugDTO.getTitle());
         bug.setVersion(bugDTO.getVersion());
