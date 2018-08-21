@@ -1,7 +1,8 @@
-package ro.msg.edu.jbugs.userManagement.business.control;
+package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class BugManagementController implements BugManagement {
+public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService {
 
     @EJB
     private IBugPersistenceService IBugPersistenceService;

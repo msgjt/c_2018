@@ -2,7 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 
-import ro.msg.edu.jbugs.userManagement.business.control.BugManagement;
+import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 
 import javax.ejb.EJB;
@@ -18,12 +18,12 @@ import java.util.List;
 public class BugController {
 
     @EJB
-    private BugManagement bugManagement;
+    private IBugBusinessService IBugBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBugs(){
-        List<BugDTO> bugDTOS = bugManagement.getAllBugs();
+        List<BugDTO> bugDTOS = IBugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugDTOS))
                 .build();
