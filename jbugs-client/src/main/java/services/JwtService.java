@@ -29,13 +29,13 @@ public class JwtService {
         }
     }
 
-    //ToDo: remove comments is it is all ok on monday
-    public UserSessionDto getUserSessionDot(final String token) {
+    public UserSessionDTO getUserSessionDot(final String token) {
         String[] split_string = token.split("\\.");
         Base64 base64Url = new Base64(true);
-        return new Gson().fromJson(new String(base64Url.decode(split_string[1])), UserSessionDto.class);
-        /*JsonParser parser = new JsonParser();
-        JsonObject obj = parser.parse(new String(base64Url.decode(split_string[1]))).getAsJsonObject();
-        return obj.get("username").getAsString();*/
+        String payload = new String(base64Url.decode(split_string[1]));
+        payload = payload.replace("\"[", "[");
+        payload = payload.replace("]\"", "]");
+        payload = payload.replace("username", "userName");
+        return new Gson().fromJson(payload, UserSessionDTO.class);
     }
 }

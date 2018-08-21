@@ -1,5 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.user;
 
+import com.google.gson.annotations.Expose;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.List;
 public class UserSessionDto {
     private String userName;
     private List<PermissionEnum> permissions;
+    private List<PermissionEnum> permissions;
+    @Expose(serialize = false)
+    private Long iat;
 
     public UserSessionDto() {
     }

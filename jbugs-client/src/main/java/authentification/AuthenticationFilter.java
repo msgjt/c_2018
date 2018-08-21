@@ -23,6 +23,12 @@ import java.util.List;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
+    @Context
+    private ResourceInfo resourceInfo;
+
+    @EJB
+    private JwtService jwtService;
+
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
@@ -39,8 +45,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         String token = authorizationHeader.substring("Bearer".length()).trim();
 
         try {
-
-            // Validate the user
             validateToken(token);
 
         } catch (Exception e) {
@@ -66,6 +70,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     private void validateToken(String token) throws Exception {
         if (JWT.decode(token).getClaim("iat").asDate().compareTo(Date.from(Instant.now())) < 0) {
             throw new Exception("your token has expired");
+        }
+    }
+
+    private void checkPermissions(List<PermissionEnum> allowedRoles, String token) throws Exception {
+        if (!jwtService.getUserSessionDot(token).getPermissions().containsAll(allowedRoles)) {
+            throw new Exception();
         }
     }
 }
