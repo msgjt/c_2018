@@ -14,6 +14,7 @@ import { AddBugComponentComponent } from './add-bug-component/add-bug-component.
 import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 import {CreateUserComponent} from './create-user/create-user.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 const appRoutes: Routes = [
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    NgSelectModule
+    NgSelectModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
