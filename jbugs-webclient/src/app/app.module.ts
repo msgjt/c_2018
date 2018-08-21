@@ -11,12 +11,14 @@ import { HeaderComponent } from './header/header.component';
 import { PermissionComponent } from './permission/permission.component';
 import { RoleComponent } from './role/role.component';
 import { AddBugComponentComponent } from './add-bug-component/add-bug-component.component';
+import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component:PermissionComponent},
   {path: 'role', component:RoleComponent},
+  {path: 'bug', component:ViewBugsComponent}
 
 ]
 @NgModule({
@@ -25,7 +27,9 @@ const appRoutes: Routes = [
     HeaderComponent,
     PermissionComponent,
     RoleComponent,
-    AddBugComponentComponent
+    AddBugComponentComponent,
+    RoleComponent,
+    ViewBugsComponent
   ],
   imports: [
     BrowserModule,
