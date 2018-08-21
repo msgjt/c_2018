@@ -1,11 +1,17 @@
 <div class="container">
+  <select [(ngModel)]="this.chosenSeverity"  (ngModelChange)="filterBySeverity()">
+    <option disabled [ngValue]="undefined">Severity:</option>
+    <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+
+  </select>
   <table>
     <thead>
     <tr>
       <th class="fixedColumns" scope="col">ISSUE</th>
       <th class="fixedColumns" scope="col">TARGET DATE</th>
       <th class="fixedColumns" scope="col">STATUS</th>
-      <th class="fixedColumns" scope="col">SEVERITY</th>
+      <th class="fixedColumns" scope="col">SEVERITY
+        </th>
     </tr>
     </thead>
     <tbody *ngFor="let bug of bugs">
@@ -14,7 +20,7 @@
       <td>{{bug.targetDate}}</td>
       <td>{{bug.status}}</td>
       <td>
-        <label>{{bug.severity}}</label>
+        <label class="severity {{bug.severity}}">{{bug.severity}}</label>
       </td>
     </tr>
 

@@ -11,12 +11,24 @@ import {Bug} from "../types/bugs";
 
 export class ViewBugsComponent implements OnInit{
   bugs: Bug[];
+  cachedBugs: Bug[];
+  severities:string[] = ["critical", "high", "medium", "low"];
+  chosenSeverity:string;
 
   constructor(private bugService: BugService){
   }
 
   ngOnInit(): void {
     this.bugs = this.bugService.getAll();
+    this.cachedBugs = this.bugs;
   }
 
+  filterBySeverity(){
+    if(this.chosenSeverity == "undefined"){
+      this.bugs = this.cachedBugs;
+    }
+    else{
+      this.bugs = this.bugService.filterBySeverity(this.chosenSeverity)
+    }
+  }
 }
