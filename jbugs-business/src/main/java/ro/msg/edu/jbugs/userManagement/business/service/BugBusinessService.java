@@ -17,6 +17,7 @@ public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.busin
     @EJB
     private IBugPersistenceService IBugPersistenceService;
 
+
     @Override
     public List<BugDTO> getAllBugs() {
         List<Bug> bugs = IBugPersistenceService.getAllBugs();
