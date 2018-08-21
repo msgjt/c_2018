@@ -14,8 +14,8 @@ public class BugDTO {
     private StatusEnum status; //combobox
     private String fixedVersion;
     private SeverityEnum severity; //combobox
-    private String createdByUser;
-    private String assignedTo;//combobox
+    private UserDTO createdByUser;
+    private UserDTO assignedTo;//combobox
 
     public Long getIdBug() {
         return idBug;
@@ -81,19 +81,19 @@ public class BugDTO {
         this.severity = severity;
     }
 
-    public String getCreatedByUser() {
+    public UserDTO getCreatedByUser() {
         return createdByUser;
     }
 
-    public void setCreatedByUser(String createdByUser) {
+    public void setCreatedByUser(UserDTO createdByUser) {
         this.createdByUser = createdByUser;
     }
 
-    public String getAssignedTo() {
+    public UserDTO getAssignedTo() {
         return assignedTo;
     }
 
-    public void setAssignedTo(String assignedTo) {
+    public void setAssignedTo(UserDTO assignedTo) {
         this.assignedTo = assignedTo;
     }
 }

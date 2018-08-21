@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "bugs")
 @NamedQueries({
-        @NamedQuery(name = Bug.GET_ALL_BUGS, query = "select b from Bug b order by b.targetdate desc")
+        @NamedQuery(name = Bug.GET_ALL_BUGS, query = "select b from Bug b order by b.targetDate desc")
 })
 public class Bug {
     @Transient
@@ -30,31 +30,32 @@ public class Bug {
     private String version;
 
     @Column(name = "targetDate", length = MAX_STRING_LENGTH, nullable = false)
-    private Date targetdate;
+    private Date targetDate;
 
     @Column(name = "status", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
     @Column(name = "fixedVersion", length = MAX_STRING_LENGTH, nullable = false)
+
     private String fixedVersion;
 
     @Column(name = "severity", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
     private SeverityEnum severity;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "bug")
     private List<Comment> comments;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "createdByUser", nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "createdByUser")
     private User createdByUser;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "assignedTo", nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "assignedTo")
     private User assignedTo;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "bug")
     private List<Attachment> attachments;
 
 
@@ -90,12 +91,12 @@ public class Bug {
         this.version = version;
     }
 
-    public Date getTargetdate() {
-        return targetdate;
+    public Date getTargetDate() {
+        return targetDate;
     }
 
-    public void setTargetdate(Date targetdate) {
-        this.targetdate = targetdate;
+    public void setTargetDate(Date targetdate) {
+        this.targetDate = targetdate;
     }
 
     public StatusEnum getStatus() {
