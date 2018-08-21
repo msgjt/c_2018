@@ -1,9 +1,18 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
+import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
+
+import javax.ejb.EJB;
 
 public class BugDTOHelper {
+
+    @EJB
+    IUserBusinessService userBussinesService;
 
     public static BugDTO fromEntity(Bug bug){
         BugDTO bugDTO = new BugDTO();
@@ -13,7 +22,7 @@ public class BugDTOHelper {
         bugDTO.setDescription(bug.getDescription());
         bugDTO.setFixedVersion(bug.getFixedVersion());
         bugDTO.setSeverity(bug.getSeverity());
-        bugDTO.setTargetDate(bug.getTargetdate());
+        bugDTO.setTargetDate(bug.getTargetDate());
         bugDTO.setStatus(bug.getStatus());
         bugDTO.setTitle(bug.getTitle());
         bugDTO.setVersion(bug.getVersion());
@@ -22,15 +31,17 @@ public class BugDTOHelper {
 
     public static Bug toEntity(BugDTO bugDTO){
         Bug bug = new Bug();
-        bug.setIdBug(bugDTO.getIdBug());
         bug.setCreatedByUser(UserDTOHelper.toEntity(bugDTO.getCreatedByUser()));
+        bug.setIdBug(bugDTO.getIdBug());
+        bug.setAssignedTo(UserDTOHelper.toEntity(bugDTO.getAssignedTo()));
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());
-        bug.setTargetdate(bugDTO.getTargetDate());
+        bug.setTargetDate(bugDTO.getTargetDate());
         bug.setStatus(bugDTO.getStatus());
         bug.setTitle(bugDTO.getTitle());
         bug.setVersion(bugDTO.getVersion());
         return bug;
     }
+
 }

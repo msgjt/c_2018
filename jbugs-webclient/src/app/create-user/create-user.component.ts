@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {$} from "jQuery";
-import {Role} from "../services/role.service";
+import {Role} from "../types/roles";
 
 @Component({
   selector: 'app-create-user',

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Role, RoleService} from "../services/role.service";
-import {Permission, PermissionService} from "../services/permission.service";
+import { RoleService} from "../services/role.service";
+import { PermissionService} from "../services/permission.service";
 import {$} from "jQuery";
+import {Role} from "../types/roles";
+import {Permission} from "../types/permissions";
 
 
 @Component({
@@ -23,58 +25,56 @@ export class RoleComponent implements OnInit {
 
 
   checkDelete(checked, type: string): Permission[] {
-      var p:Permission= this.permissionService.findByType(type.trim());
+      var permissions:Permission= this.permissionService.findByType(type.trim());
       if (checked) {
-        this.permissionsToBeUpdated.push(p);
-        console.log(p.id);
+        this.permissionsToBeUpdated.push(permissions);
       } else {
-        let startIndex = this.permissionsToBeUpdated.indexOf(p);
+        let startIndex = this.permissionsToBeUpdated.indexOf(permissions);
         this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
-        console.log("unchecked");
       }
     return this.permissionsToBeUpdated;
   }
 
-  check(checked, p: Permission): Permission[] {
+  check(checked, permission: Permission): Permission[] {
     if (checked) {
-      this.permissionsToBeUpdated.push(p);
-      console.log(p.id);
+      this.permissionsToBeUpdated.push(permission);
+      console.log(permission.id);
     } else {
-      let startIndex = this.permissionsToBeUpdated.indexOf(p);
+      let startIndex = this.permissionsToBeUpdated.indexOf(permission);
       this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
       console.log("unchecked");
     }
     return this.permissionsToBeUpdated;
   }
 
-  updatePermissions(r: Role) {
+  updatePermissions(role: Role) {
     this.permissionsToBeUpdated.forEach((value, index) => {
       console.log(this.permissionsToBeUpdated[index]);
-      this.roleService.addPermissionForRole(r.id, value.id);
+      this.roleService.addPermissionForRole(role.id, value.id);
       console.log(value.type);
     });
     location.reload();
   }
 
 
-  updateRemovedPermissions(r: Role) {
+  updateRemovedPermissions(role: Role) {
     this.permissionsToBeUpdated.forEach((value, index) => {
-      this.roleService.removePermissionForRole(r.id, value.id);
+      this.roleService.removePermissionForRole(role.id, value.id);
     });
     location.reload();
   }
 
 
-  addPermissionForRole(r: Role) {
+  addPermissionForRole(role: Role) {
     this.showAllPermissions.forEach((value, index) => {
       this.showAllPermissions[index] = false
     });
-    this.showAllPermissions[r.id] = true;
+    this.showAllPermissions[role.id] = true;
     this.permissionsToBeUpdated = [];
     this.isRemovedButtonSelected = false;
     this.noPermissionsForThisRole = [];
     this.permissions.forEach((value) => {
-      if (!r.permissionsList.includes(value.type.trim())) {
+      if (!role.permissionsList.includes(value.type.trim())) {
         this.noPermissionsForThisRole.push(value);
       }
     })
@@ -82,18 +82,18 @@ export class RoleComponent implements OnInit {
 
   }
 
-  removePermissionForRole(r: Role) {
+  removePermissionForRole(role: Role) {
     this.showAllPermissions.forEach((value, index) => {
       this.showAllPermissions[index] = false
     });
-    this.showAllPermissions[r.id] = true;
+    this.showAllPermissions[role.id] = true;
     this.permissionsToBeUpdated = [];
     this.isRemovedButtonSelected = true;
     console.log("Removed method submitted");
   }
 
-  backButton(r: Role){
-    this.showAllPermissions[r.id] = !this.showAllPermissions[r.id];
+  backButton(role: Role){
+    this.showAllPermissions[role.id] = !this.showAllPermissions[role.id];
   }
 
   ngOnInit() {

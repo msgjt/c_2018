@@ -13,7 +13,9 @@ import java.util.List;
 public class UserDTOHelper {
 
     public static UserDTO fromEntity(User user){
+
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getIdUser());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
@@ -24,6 +26,7 @@ public class UserDTOHelper {
 
     public static User toEntity(UserDTO userDTO){
         User user = new User();
+        user.setIdUser(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());

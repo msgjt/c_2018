@@ -1,5 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
+import ro.msg.edu.jbugs.userManagement.persistence.entity.SeverityEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
+
 import java.util.Date;
 
 public class BugDTO {
@@ -8,11 +11,11 @@ public class BugDTO {
     private String description;
     private String version;
     private Date targetDate;
-    private String status;
+    private StatusEnum status; //combobox
     private String fixedVersion;
-    private String severity;
+    private SeverityEnum severity; //combobox
     private UserDTO createdByUser;
-    private UserDTO assignedTo;
+    private UserDTO assignedTo;//combobox
 
     public Long getIdBug() {
         return idBug;
@@ -54,11 +57,11 @@ public class BugDTO {
         this.targetDate = targetDate;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
@@ -70,11 +73,11 @@ public class BugDTO {
         this.fixedVersion = fixedVersion;
     }
 
-    public String getSeverity() {
+    public SeverityEnum getSeverity() {
         return severity;
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(SeverityEnum severity) {
         this.severity = severity;
     }
 
@@ -93,5 +96,4 @@ public class BugDTO {
     public void setAssignedTo(UserDTO assignedTo) {
         this.assignedTo = assignedTo;
     }
-
 }

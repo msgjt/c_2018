@@ -6,9 +6,7 @@ import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,14 +16,25 @@ import java.util.List;
 public class BugController {
 
     @EJB
-    private IBugBusinessService IBugBusinessService;
+    private IBugBusinessService bugBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBugs(){
-        List<BugDTO> bugDTOS = IBugBusinessService.getAllBugs();
+        List<BugDTO> bugDTOS = bugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugDTOS))
+                .build();
+    }
+
+    @Path("/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addBug(BugDTO bugDTO){
+        BugDTO addedBug = bugBusinessService.addBug(bugDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(addedBug))
                 .build();
     }
 

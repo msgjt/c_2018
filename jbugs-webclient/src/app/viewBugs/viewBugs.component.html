@@ -1,0 +1,24 @@
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th class="fixedColumns" scope="col">ISSUE</th>
+      <th class="fixedColumns" scope="col">TARGET DATE</th>
+      <th class="fixedColumns" scope="col">STATUS</th>
+      <th class="fixedColumns" scope="col">SEVERITY</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let bug of bugs">
+    <tr>
+      <td>{{bug.title}}</td>
+      <td>{{bug.targetDate}}</td>
+      <td>{{bug.status}}</td>
+      <td>
+        <label>{{bug.severity}}</label>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+

@@ -2,6 +2,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +42,7 @@ public class User{
     @Column(name = "username", length = MAX_STRING_LENGTH, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(name = "password", length = MAX_STRING_LENGTH)
     private String password;
 
     @Column(name = "isActive", length = MAX_STRING_LENGTH, nullable = false)
@@ -50,8 +51,8 @@ public class User{
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "createdByUser")
-    private List<Bug> bugs;
+    @OneToMany( mappedBy = "createdByUser",fetch=FetchType.LAZY)
+    private List<Bug> bugs= new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments;
