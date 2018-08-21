@@ -227,6 +227,14 @@ public class UserBusinessService implements IUserBusinessService {
         return UserDTOHelper.fromEntity(userOptional.get());
     }
 
+    public boolean logout(String username) throws BusinessException{
+        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
+        if(!userOptional.isPresent()){
+            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+        }
+        return true;
+    }
+
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) throws BusinessException {
         Role role = RoleDTOHelper.toEntity(roleDTO);

@@ -50,7 +50,12 @@ public interface IUserBusinessService {
      */
     UserDTO login(String username, String password) throws BusinessException;
 
-
+    /**
+     * Checks if the user is existing in the db and, if so, logs him out
+     * @param username
+     * @return true if the use exists
+     */
+    public boolean logout(String username) throws BusinessException;
     /**
      * Method is used for persisting an role from an roleDTO.
      * It generates the type of role and does the validations.
