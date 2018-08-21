@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../types/user";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-add-bug-component',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBugComponentComponent implements OnInit {
 
-  constructor() { }
+  severity: string[] = ["CRITICAL","HIGH","MEDIUM","LOW"];
+  chosenSeverity: string;
+  chosenUsername: string;
+  allUsers: User[] = [];
+
+  constructor(private userService:UserService) {}
+
+  changedSelected(chosenSeverity: string){
+    console.log(chosenSeverity);
+  }
+
+  changedSelectedUsername(){
+    console.log(this.chosenUsername);
+}
 
   ngOnInit() {
+    this.allUsers = this.userService.getAllUsers();
   }
+
+
 
 }

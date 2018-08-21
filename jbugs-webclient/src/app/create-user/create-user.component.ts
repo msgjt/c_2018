@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {$} from "jQuery";
 import {Role} from "../types/roles";
 import {RoleService} from "../services/role.service";
+import {User} from "../types/user";
+import {UserService} from "../services/user.service";
+import {stringify} from "querystring";
 
 @Component({
   selector: 'app-create-user',
@@ -9,29 +12,28 @@ import {RoleService} from "../services/role.service";
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-  roles: Role[] = [];
   dropdownList = [];
   selectedItems = [];
+  roles = [];
   dropdownSettings = {};
+  user: User;
 
-  constructor(private roleService: RoleService) {
+  constructor(private userService: UserService) {
+    this.user = {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      rolesList: []
+    };
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-
-  onSelectAll(items: any) {
-    console.log(items);
-  }
-
-  show() {
-    console.log(this.roles);
-  }
-
+  /**
+   * Init dropdown list with existing roles and set dropdown options
+   */
   ngOnInit() {
-    this.roles = this.roleService.getAllRoles();
-    console.log(this.roles);
     this.dropdownList = [
       {idRole: 1, type: 'Administrator'},
       {idRole: 2, type: 'Project manager'},
@@ -48,6 +50,18 @@ export class CreateUserComponent implements OnInit {
       itemsShowLimit: 3,
       maxHeight: 130
     };
+  }
+
+  /**
+   * Get value of fields completed by user and call addUser from userService
+   */
+  addUser() {
+    for (let role of this.selectedItems) {
+      this.roles.push(role.type);
+    }
+    this.user.rolesList = this.roles;
+    this.roles = [];
+    this.userService.addUser(this.user);
   }
 
 }

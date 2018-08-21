@@ -3,6 +3,7 @@ package controller;
 import authentification.Secured;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
@@ -18,7 +19,6 @@ public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Secured
     public Response getUsers() {
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(IUserBusinessService.getAllUsers()))
@@ -50,4 +50,21 @@ public class UserController {
                 .entity(new Gson().toJson(blabla))
                 .build();
     }
+
+    @Path("/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(UserDTO userDTO){
+        UserDTO addedUser = null;
+        try {
+            addedUser = IUserBusinessService.createUser(userDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(addedUser))
+                .build();
+    }
+
 }

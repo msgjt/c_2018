@@ -1,6 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+
 import java.util.Objects;
 
 @Entity
@@ -9,13 +10,18 @@ public class Attachment {
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
 
+    @Lob
+    private byte[] file;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAtt;
 
     @ManyToOne
     @JoinColumn(name = "idBug", nullable = false)
-    public Bug bug;
+    private Bug bug;
+
 
     public Long getIdAtt() {
         return idAtt;
@@ -31,6 +37,14 @@ public class Attachment {
 
     public void setBug(Bug bug) {
         this.bug = bug;
+    }
+
+    public byte[] getBlob() {
+        return file;
+    }
+
+    public void setBlob(byte[] blob) {
+        this.file = blob;
     }
 
     @Override
