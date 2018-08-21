@@ -7,8 +7,6 @@ import ro.msg.edu.jbugs.userManagement.business.service.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 
-import javax.ejb.EJB;
-
 public class BugDTOHelper {
 
 
