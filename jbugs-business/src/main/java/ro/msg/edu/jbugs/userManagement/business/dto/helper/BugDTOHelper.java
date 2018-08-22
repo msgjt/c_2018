@@ -1,11 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
-import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 
 import javax.ejb.EJB;
 

@@ -24,7 +24,7 @@ export class BugService {
         })
       }
     );
-    console.log(this.bugs);
     return this.bugs;
   }
+
 }

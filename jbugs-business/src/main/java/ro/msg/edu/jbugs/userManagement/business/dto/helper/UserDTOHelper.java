@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
@@ -23,6 +23,7 @@ public class UserDTOHelper {
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRoles(user.getRoles());
+        userDTO.setPassword(user.getPassword());
         userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
         return userDTO;
     }

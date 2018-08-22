@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.dto;
+package ro.msg.edu.jbugs.userManagement.business.dto.user;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 

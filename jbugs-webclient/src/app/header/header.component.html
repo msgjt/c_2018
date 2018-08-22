@@ -1,18 +1,20 @@
 <nav class="navbar navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="/">JBugger</a>
+  <a class="navbar-brand" href="/">{{'header.nav-title' | translate}}</a>
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Home</a>
-      <a class="nav-item nav-link" href="#">Contact</a>
-      <a class="nav-item nav-link" routerLink="/permission">Permissions</a>
-      <a class="nav-item nav-link" routerLink="/role">Roles</a>
-      <a class="nav-item nav-link" routerLink="/bug">Bugs</a>
+      <a class="nav-item nav-link" href="#">{{'header.nav-item1' | translate}}</a>
+      <a class="nav-item nav-link" href="#">{{'header.nav-item2' | translate}}</a>
+      <a class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'| translate}}</a>
+      <a class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'| translate}}</a>
+      <a class="nav-item nav-link" routerLink="/bug">{{'header.nav-item5' | translate}}</a>
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a *ngIf="!verify()" class="nav-item nav-link active" routerLink="/login">Login</a>
-      <a *ngIf="verify()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">Logout</a>
+      <a *ngIf="!verify()" class="nav-item nav-link active" routerLink="/login">{{'header.btn-login' | translate}}</a>
+      <a *ngIf="verify()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout' | translate}}</a>
+      <button (click)="useLanguage('en')">en</button>
+      <button (click)="useLanguage('ro')">ro</button>
     </div>
   </div>
 </nav>

@@ -2,13 +2,13 @@
   <div class="jumbotron">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <h3> Login</h3>
+        <h3> {{'login.title' | translate}}</h3>
         <form (ngSubmit)="onSubmit()"
               *ngIf="!loggedIn"
               #formControl="ngForm"
               #formElement>
           <div class="form-group">
-            <label for="usernameInput">Username</label>
+            <label for="usernameInput">{{'login.username' | translate}}</label>
             <input type="text"
                    #usernameElement
                    #usernameControl="ngModel"
@@ -21,7 +21,7 @@
 
           </div>
           <div class="form-group">
-            <label for="passwordInput">Password</label>
+            <label for="passwordInput">{{'login.password' | translate}}</label>
             <input type="password"
                    #passwordElement
                    name="password"
@@ -32,12 +32,12 @@
           </div>
           <div class="form-group">
             <div *ngIf="wrongCredentials" class="alert alert-danger" >
-              <p style="color:red"> Login Failed. Please try again. </p>
+              <p style="color:red"> {{'login.message' | translate}} </p>
             </div>
           </div>
           <button type="submit"
                   [disabled]="formControl.invalid"
-                  class="btn btn-primary">Login
+                  class="btn btn-primary">{{'login.button' | translate}}
           </button>
         </form>
         <form *ngIf="loggedIn">

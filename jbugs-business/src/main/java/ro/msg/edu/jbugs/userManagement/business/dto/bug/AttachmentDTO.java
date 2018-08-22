@@ -1,4 +1,6 @@
-package ro.msg.edu.jbugs.userManagement.business.dto;
+package ro.msg.edu.jbugs.userManagement.business.dto.bug;
+
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 
 public class AttachmentDTO {
     private long idAttachment;
