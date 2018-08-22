@@ -1,18 +1,18 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.user;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
+import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -28,15 +28,16 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
-
+    @EJB
+    private IUserPersistenceService userPersistenceManager;
+    @EJB
+    private UserDTOHelper userDTOHelper;
+    @EJB
+    private RoleDTOHelper roleDTOHelper;
 
     private final static int MAX_LAST_NAME_LENGTH = 5;
     private final static int MIN_USERNAME_LENGTH = 6;
     private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
-
-
-    @EJB
-    private IUserPersistenceService userPersistenceManager;
 
     /**
      * Creates a user entity using a user DTO.
@@ -52,12 +53,12 @@ public class UserBusinessService implements IUserBusinessService {
         logger.log(Level.INFO, "In createUser method");
         normalizeUserDTO(userDTO);
         validateUserForCreation(userDTO);
-        User user = UserDTOHelper.toEntity(userDTO);
+        User user = userDTOHelper.toEntity(userDTO);
         user.setUsername(generateFullUsername(userDTO.getFirstName(), userDTO.getLastName()));
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceManager.createUser(user);
-        return UserDTOHelper.fromEntity(user);
+        return userDTOHelper.fromEntity(user);
     }
 
 
@@ -96,7 +97,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @param username
      * @return
      */
-    protected String createSuffix(String username) {
+    public String createSuffix(String username) {
 
         Optional<Integer> max = userPersistenceManager.getUsernamesLike(username)
                 .stream()
@@ -135,7 +136,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @param lastName
      * @return generated username
      */
-    protected String generateUsername(@NotNull final String firstName, @NotNull final String lastName) {
+    public String generateUsername(@NotNull final String firstName, @NotNull final String lastName) {
         StringBuilder username = new StringBuilder();
 
 
@@ -183,13 +184,13 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        return UserDTOHelper.fromEntity(userPersistenceManager.updateUser(UserDTOHelper.toEntity(userDTO)).get());
+        return userDTOHelper.fromEntity(userPersistenceManager.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);
-        return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+        return userDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
     }
 
     /**
@@ -201,27 +202,27 @@ public class UserBusinessService implements IUserBusinessService {
     public List<UserDTO> getAllUsers() {
         return userPersistenceManager.getAllUsers()
                 .stream()
-                .map(UserDTOHelper::fromEntity)
+                .map(userDTOHelper::fromEntity)
                 .collect(Collectors.toList());
     }
 
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) throws BusinessException {
-        Role role = RoleDTOHelper.toEntity(roleDTO);
+        Role role = roleDTOHelper.toEntity(roleDTO);
         userPersistenceManager.createRole(role);
-        return RoleDTOHelper.fromEntity(role);
+        return roleDTOHelper.fromEntity(role);
     }
 
     @Override
     public RoleDTO getRoleById(long id) {
         Role role = userPersistenceManager.getRoleForId(id).get();
-        return RoleDTOHelper.fromEntity(role);
+        return roleDTOHelper.fromEntity(role);
     }
 
     @Override
     public List<RoleDTO> getAllRoles() {
         List<Role> roles = userPersistenceManager.getAllRoles();
-        return roles.stream().map(x -> RoleDTOHelper.fromEntity(x)).collect(Collectors.toList());
+        return roles.stream().map(roleDTOHelper::fromEntity).collect(Collectors.toList());
     }
 
     private String generateFullUsername(String firstName, String lastName) {

@@ -3,8 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.userManagement.business.service.JwtService;
-import ro.msg.edu.jbugs.userManagement.business.service.UserLoginBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -16,8 +15,6 @@ import javax.ws.rs.core.Response;
 
 @Path("/authenticate")
 public class AuthenticateUserController {
-    @EJB
-    private JwtService jwtService;
     @EJB
     private UserLoginBusinessService loginBusinessService;
 

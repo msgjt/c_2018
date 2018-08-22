@@ -10,7 +10,10 @@ public enum ExceptionCode {
     ROLE_VALIDATION_EXCEPTION(1004, "Validation Exception"),
     USERNAME_NOT_VALID(1003, "Username not valid"),
     USER_INACTIVATED(1006, "User has been inactivated by admin"),
-    INVALID_USER_LOGIN(1007, "Invalid user");
+    INVALID_USER_LOGIN(1007, "Invalid user"),
+    EMAIL_FAIL(1008, "Email cod not be sent"),
+    TOKEN_EXPIRED(1009, "Token is no longer valid"),
+    PERMISSION_VALIDATION_EXCEPTION(1004, "Validation Exception");
     int id;
     String message;
 
