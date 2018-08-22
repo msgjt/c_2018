@@ -8,7 +8,9 @@ public enum ExceptionCode {
     EMAIL_EXISTS_ALREADY(1001, "Email already exists Exception"),
     PASSWORD_NOT_VALID(1002, "Password not valid."),
     ROLE_VALIDATION_EXCEPTION(1004, "Validation Exception"),
-    USERNAME_NOT_VALID(1003, "Username not valid");
+    USERNAME_NOT_VALID(1003, "Username not valid"),
+    USER_INACTIVATED(1006, "User has been inactivated by admin"),
+    INVALID_USER_LOGIN(1007, "Invalid user");
     int id;
     String message;
 

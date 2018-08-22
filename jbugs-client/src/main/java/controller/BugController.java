@@ -2,9 +2,8 @@ package controller;
 
 import com.google.gson.Gson;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;

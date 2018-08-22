@@ -1,15 +1,13 @@
 package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("/attachments")
 public class AttachmentController {
