@@ -1,0 +1,38 @@
+{
+  "header": {
+  "nav-title": "JBugger",
+    "nav-item1": "Home",
+    "nav-item2": "Contact",
+    "nav-item3": "Permissions",
+    "nav-item4": "Roles",
+    "btn-login": "Log In",
+    "btn-logout": "Log Out"
+},
+  "login":{
+  "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "message": "Login Failed. Please try again.",
+    "button": "login"
+},
+  "permission": {
+  "col-id": "Id",
+    "col-type": "Type",
+    "col-description": "Description",
+    "col-roles": "Roles"
+},
+  "role":{
+  "col-id": "Id",
+    "col-type": "Type",
+    "col-roles": "Roles",
+    "col-update": "Update",
+    "btn-update": "Submit",
+    "btn-back1": "Back",
+    "btn-update-remove":"Submit",
+    "btn-back2": "Back",
+    "btn-add": "Add",
+    "btn-remove": "Remove"
+
+}
+
+}

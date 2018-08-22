@@ -3,17 +3,17 @@
     <table class="table table-bordered">
       <thead>
       <tr>
-        <th class="fixedColumns" scope="col">#</th>
-        <th class="fixedColumns" scope="col">Type</th>
-        <th class="fixedColumns" scope="col">Description</th>
-        <th class="fixedColumns" scope="col">Roles</th>
+        <th class="fixedColumns" scope="col">{{'permission.col-id' | translate}}</th>
+        <th class="fixedColumns" scope="col">{{'permission.col-type'| translate}}</th>
+        <th class="fixedColumns" scope="col">{{'permission.col-description' | translate}}</th>
+        <th class="fixedColumns" scope="col">{{'permission.col-roles' | translate}}</th>
       </tr>
       </thead>
       <tbody *ngFor="let p of permissions">
-        <td>{{p.id}}</td>
-        <td>{{p.type}}</td>
-        <td>{{p.description}}</td>
-        <td>{{p.rolesList}}</td>
+      <td>{{p.id}}</td>
+      <td>{{p.type}}</td>
+      <td>{{p.description}}</td>
+      <td>{{p.rolesList}}</td>
       </tbody>
     </table>
 

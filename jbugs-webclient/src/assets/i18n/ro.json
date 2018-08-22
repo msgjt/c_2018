@@ -1,0 +1,36 @@
+{
+  "header": {
+  "nav-title": "JBugger",
+    "nav-item1": "Acasa",
+    "nav-item2": "Contact",
+    "nav-item3": "Drepturi",
+    "nav-item4": "Roluri",
+    "btn-login": "Conecteaza-te",
+    "btn-logout": "Deconectare"
+},
+  "login": {
+  "title": "Login",
+    "username": "Nume utilizator",
+    "password": "Parola",
+    "message": "Autentificare esuata. Vă rugăm să încercați din nou.",
+    "button": "login"
+},
+  "permission": {
+  "col-id": "Id",
+    "col-type": "Tip",
+    "col-description": "Descriere",
+    "col-roles": "Roluri"
+},
+  "role":{
+  "col-id": "Id",
+    "col-type": "Tip",
+    "col-roles": "Roluri",
+    "col-update": "Update",
+    "btn-update": "Submit",
+    "btn-back1": "Inapoi",
+    "btn-update-remove":"Submit",
+    "btn-back2": "Inapoi",
+    "btn-add": "Adauga",
+    "btn-remove": "Sterge"
+}
+}

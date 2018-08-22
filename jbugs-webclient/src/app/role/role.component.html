@@ -3,10 +3,10 @@
     <table id="tableId" class="table table-bordered">
       <thead>
       <tr>
-        <th class="fixedColumns" scope="col">#</th>
-        <th class="fixedColumns" scope="col">Type</th>
-        <th class="fixedColumns" scope="col">Roles</th>
-        <th class="fixedColumns" scope="col">Update</th>
+        <th class="fixedColumns" scope="col">{{'role.col-id' | translate}}</th>
+        <th class="fixedColumns" scope="col">{{'role.col-type'| translate}}</th>
+        <th class="fixedColumns" scope="col">{{'role.col-roles' | translate}}</th>
+        <th class="fixedColumns" scope="col">{{'role.col-update' | translate}}</th>
       </tr>
       </thead>
       <tbody *ngFor="let r of roles">
@@ -15,41 +15,41 @@
       <td>
         <label [hidden]="showAllPermissions[r.id]">{{r.permissionsList}}</label>
         <form *ngIf="showAllPermissions[r.id]">
-          <form *ngIf="isRemovedButtonSelected" >
-          <ul *ngFor="let p of r.permissionsList">
-            <input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.trim())" >{{p.trim()}}<br>
-            <form *ngIf="!isRemovedButtonSelected">
-            <input type="checkbox" checked disabled>{{p.trim()}}<br>
-            </form>
-          </ul>
+          <form *ngIf="isRemovedButtonSelected">
+            <ul *ngFor="let p of r.permissionsList">
+              <input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.trim())">{{p.trim()}}<br>
+              <form *ngIf="!isRemovedButtonSelected">
+                <input type="checkbox" checked disabled>{{p.trim()}}<br>
+              </form>
+            </ul>
           </form>
           <form *ngIf="!isRemovedButtonSelected">
-          <ul *ngFor="let p of noPermissionsForThisRole" >
-            <input  type="checkbox" #checkbox (change)="check(checkbox.checked,p)"  >{{p.type}}<br>
-          </ul>
-            <button type="submit"  (click)="updatePermissions(r)"
-                    class="btn btn-primary">Submit
+            <ul *ngFor="let p of noPermissionsForThisRole">
+              <input type="checkbox" #checkbox (change)="check(checkbox.checked,p)">{{p.type}}<br>
+            </ul>
+            <button type="submit" (click)="updatePermissions(r)"
+                    class="btn btn-primary">{{'role.btn-update' | translate}}
             </button>
-            <button type="submit"  (click)="backButton(r)"
-                    class="btn btn-primary">Back
+            <button type="submit" (click)="backButton(r)"
+                    class="btn btn-primary">{{'role.btn-back1' | translate}}
             </button>
           </form>
-          <form *ngIf="isRemovedButtonSelected" >
-          <button type="submit"  (click)="updateRemovedPermissions(r)"
-                  class="btn btn-primary">Submit
-          </button>
-          <button type="submit"  (click)="backButton(r)"
-                  class="btn btn-primary">Back
-          </button>
+          <form *ngIf="isRemovedButtonSelected">
+            <button type="submit" (click)="updateRemovedPermissions(r)"
+                    class="btn btn-primary">{{'role.btn-update-remove'| translate}}
+            </button>
+            <button type="submit" (click)="backButton(r)"
+                    class="btn btn-primary">{{'role.btn-back2'| translate }}
+            </button>
           </form>
         </form>
       </td>
       <td>
         <button type="submit" (click)="addPermissionForRole(r)"
-                class="btn btn-success">Add
+                class="btn btn-success">{{'role.btn-add' | translate}}
         </button>
         <button type="submit" (click)="removePermissionForRole(r)"
-                class="btn btn-danger">Remove
+                class="btn btn-danger">{{'role.btn-remove' | translate}}
         </button>
       </td>
       </tbody>
