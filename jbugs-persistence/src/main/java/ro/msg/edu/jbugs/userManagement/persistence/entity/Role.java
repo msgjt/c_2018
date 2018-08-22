@@ -7,13 +7,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-@NamedQueries(
-        {
-                @NamedQuery(name = Role.GET_ALL_ROLES, query = "SELECT r FROM Role r")
-        }
-)
+@NamedQueries({
+        @NamedQuery(name = Role.GET_ALL_ROLES, query = "SELECT r FROM Role r")
+})
 public class Role {
-
     @Transient
     private final static int MAX_STRING_LENGTH = 20;
     public static final String GET_ALL_ROLES = "get_all_roles";
@@ -30,8 +27,8 @@ public class Role {
 
     @ManyToMany
     @JoinTable(name = "users_roles",
-            joinColumns = { @JoinColumn(name = "id_user") },
-            inverseJoinColumns = { @JoinColumn(name = "id_role") })
+            joinColumns = {@JoinColumn(name = "id_user")},
+            inverseJoinColumns = {@JoinColumn(name = "id_role")})
     private List<User> users = new ArrayList<>();
 
     public void addPermission(Permission permission) {

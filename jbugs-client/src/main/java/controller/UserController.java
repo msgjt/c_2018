@@ -2,20 +2,26 @@ package controller;
 
 import authentification.Secured;
 import com.google.gson.Gson;
+import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/users")
 public class UserController {
     @EJB
     private IUserBusinessService IUserBusinessService;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +61,7 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(UserDTO userDTO){
+    public Response addUser(UserDTO userDTO) {
         UserDTO addedUser = null;
         try {
             addedUser = IUserBusinessService.createUser(userDTO);

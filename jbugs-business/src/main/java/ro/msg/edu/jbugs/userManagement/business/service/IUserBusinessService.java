@@ -3,6 +3,7 @@ package ro.msg.edu.jbugs.userManagement.business.service;
 import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import java.util.List;
 
@@ -52,10 +53,12 @@ public interface IUserBusinessService {
 
     /**
      * Checks if the user is existing in the db and, if so, logs him out
+     *
      * @param username
      * @return true if the use exists
      */
     public boolean logout(String username) throws BusinessException;
+
     /**
      * Method is used for persisting an role from an roleDTO.
      * It generates the type of role and does the validations.

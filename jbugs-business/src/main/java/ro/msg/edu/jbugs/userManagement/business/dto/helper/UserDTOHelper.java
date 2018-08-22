@@ -22,8 +22,7 @@ public class UserDTOHelper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setRoles(user.getRoles());
-        userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
+        userDTO.setRoles(user.getRoles().stream().map(RoleDTOHelper::fromEntity).collect(Collectors.toList()));
         return userDTO;
     }
 
@@ -36,7 +35,7 @@ public class UserDTOHelper {
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRoles(userDTO.getRoles());
+        user.setRoles(userDTO.getRoles().stream().map(RoleDTOHelper::toEntity).collect(Collectors.toList()));
         return user;
     }
 

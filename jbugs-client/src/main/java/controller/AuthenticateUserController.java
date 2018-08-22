@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.JwtService;
@@ -30,7 +31,7 @@ public class AuthenticateUserController {
             String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDot));
             return Response
                     .status(Response.Status.OK)
-                    .entity(token)
+                    .entity(new Gson().toJson(token))
                     .build();
         }
         return Response

@@ -1,29 +1,20 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
-
 import java.util.List;
 
 public class RoleDTO {
 
     private long id;
     private String type;
-    private transient List<Permission> permissions;
-    private List<String> permissionsList;
+    private List<PermissionDTO> permissions;
 
     public RoleDTO() {
     }
 
-    public RoleDTO(String type) {
+    public RoleDTO(long id, String type, List<PermissionDTO> permissions) {
+        this.id = id;
         this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        this.permissions = permissions;
     }
 
     public long getId() {
@@ -34,19 +25,19 @@ public class RoleDTO {
         this.id = id;
     }
 
-    public List<Permission> getPermissions() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<PermissionDTO> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<Permission> permissions) {
+    public void setPermissions(List<PermissionDTO> permissions) {
         this.permissions = permissions;
-    }
-
-    public List<String> getPermissionsList() {
-        return permissionsList;
-    }
-
-    public void setPermissionsList(List<String> permissionsList) {
-        this.permissionsList = permissionsList;
     }
 }
