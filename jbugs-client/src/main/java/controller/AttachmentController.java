@@ -1,8 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 
