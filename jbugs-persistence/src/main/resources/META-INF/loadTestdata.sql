@@ -36,4 +36,10 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 2,1);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 2,2);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 1,3);
+
+insert into users_roles(id_user,id_role) values (1,1);
+insert into users_roles(id_user,id_role) values (2,2);
+
+INSERT INTO attachments(idBug,file) values (1,'blablabla');
+INSERT INTO attachments(idBug,file) values (1,'hahahaha');
 -- other tables TODO
