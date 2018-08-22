@@ -1,7 +1,7 @@
 package authentification;
 
 import com.auth0.jwt.JWT;
-import ro.msg.edu.jbugs.userManagement.business.service.JwtService;
+import ro.msg.edu.jbugs.userManagement.business.service.utils.JwtService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.annotation.Priority;

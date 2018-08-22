@@ -1,18 +1,16 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.user;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.utils.JwtService;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.HashMap;
-import java.util.Optional;
 
 @Stateless
 public class UserLoginBusinessService {

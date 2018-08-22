@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService {
+public class BugBusinessService implements IBugBusinessService {
 
     @EJB
     private IBugPersistenceService IBugPersistenceService;

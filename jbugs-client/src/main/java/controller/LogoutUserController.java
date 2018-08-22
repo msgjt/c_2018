@@ -3,7 +3,7 @@ package controller;
 import authentification.Secured;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.userManagement.business.service.UserLogoutBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.user.UserLogoutBusinessService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;

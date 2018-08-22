@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.user;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -94,7 +94,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @param username
      * @return
      */
-    protected String createSuffix(String username) {
+    public String createSuffix(String username) {
 
         Optional<Integer> max = userPersistenceManager.getUsernamesLike(username)
                 .stream()
@@ -133,7 +133,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @param lastName
      * @return generated username
      */
-    protected String generateUsername(@NotNull final String firstName, @NotNull final String lastName) {
+    public String generateUsername(@NotNull final String firstName, @NotNull final String lastName) {
         StringBuilder username = new StringBuilder();
 
 

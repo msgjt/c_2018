@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.user;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
