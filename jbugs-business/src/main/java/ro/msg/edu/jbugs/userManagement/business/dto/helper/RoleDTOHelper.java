@@ -1,10 +1,13 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -27,4 +30,5 @@ public class RoleDTOHelper {
         role.setPermissions(roleDTO.getPermissions().stream().map(permissionDTOHelper::toEntity).collect(Collectors.toList()));
         return role;
     }
+
 }

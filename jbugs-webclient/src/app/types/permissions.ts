@@ -11,7 +11,6 @@ export class PermissionRest implements Permission {
   private _type: string;
   private _description: string;
 
-
   constructor(id: number, type: string, description: string, rolesList: string[]) {
     this._id = id;
     this._type = type;

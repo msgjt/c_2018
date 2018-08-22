@@ -27,8 +27,8 @@ public class Role {
 
     @ManyToMany
     @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "id_user")},
-            inverseJoinColumns = {@JoinColumn(name = "id_role")})
+            joinColumns = {@JoinColumn(name = "id_role")},
+            inverseJoinColumns = {@JoinColumn(name = "id_user")})
     private List<User> users = new ArrayList<>();
 
     public void addPermission(Permission permission) {

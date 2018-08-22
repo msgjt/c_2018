@@ -4,6 +4,7 @@ import {User} from "../types/user";
 import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
 import {Role} from "../types/roles";
+import {Permission, PermissionRest} from "../types/permissions";
 
 @Component({
   selector: 'app-create-user',
@@ -17,6 +18,7 @@ export class CreateUserComponent implements OnInit {
   dropdownSettings = {};
   user: User;
   showRoles: boolean;
+  permission: Permission[];
 
   constructor(private userService: UserService, private rolesService: RoleService) {
     this.user = {
@@ -35,6 +37,7 @@ export class CreateUserComponent implements OnInit {
    * Init dropdown list with existing roles and set dropdown options
    */
   ngOnInit() {
+    this.permission=[];
     this.dropdownList = [];
     this.selectedItems = [];
     this.roles = [];
@@ -61,10 +64,12 @@ export class CreateUserComponent implements OnInit {
    * Get value of fields completed by user and call addUser from userService
    */
   addUser() {
+
     for (let role of this.selectedItems) {
       this.roles.push(role);
     }
     this.user.roles = this.roles;
+    this.user.roles.map(value => value.permissions=this.permission);
     this.roles = [];
     this.userService.addUser(this.user);
   }
