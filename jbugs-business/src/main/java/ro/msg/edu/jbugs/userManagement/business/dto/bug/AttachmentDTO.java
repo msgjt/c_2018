@@ -5,7 +5,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 public class AttachmentDTO {
     private long idAttachment;
     private BugDTO bugDto;
-    private byte[] blob;
+    private String blob;
 
 
     public long getIdAttachment() {
@@ -24,11 +24,11 @@ public class AttachmentDTO {
         this.bugDto = bugDto;
     }
 
-    public byte[] getBlob() {
+    public String getBlob() {
         return blob;
     }
 
-    public void setBlob(byte[] blob) {
+    public void setBlob(String blob) {
         this.blob = blob;
     }
 }

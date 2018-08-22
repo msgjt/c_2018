@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Bug} from "../types/bugs";
 import {Permission} from "../types/permissions";
+import {Attachment} from "../types/attachment";
 
 
 @Injectable({
@@ -11,6 +12,8 @@ import {Permission} from "../types/permissions";
 export class BugService {
   bugs: Bug[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest/bugs';
+  attachementURL = 'http://localhost:8080/jbugs/rest/attachments';
+
 
   constructor(private http: HttpClient) {
   }
@@ -27,4 +30,12 @@ export class BugService {
     return this.bugs;
   }
 
+  testAttachment(attachment: Attachment ){
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var attachmentModel = JSON.stringify({bugDto: attachment.bug,blob: attachment.blob});
+    console.log(attachmentModel);
+    this.http.post<any>(this.attachementURL+ '/add',attachmentModel , {
+      headers: reqHeader
+    }).subscribe();
+  }
 }

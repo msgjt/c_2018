@@ -39,6 +39,8 @@ public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.busin
 
     @Override
     public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) {
+        System.out.println(attachmentDTO.getBlob() + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        System.out.println(attachmentDTO.getBugDto().getCreatedByUser() + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
         return AttachmentDTOHelper.fromEntity(IBugPersistenceService.addAttachment(attachment).get());
     }

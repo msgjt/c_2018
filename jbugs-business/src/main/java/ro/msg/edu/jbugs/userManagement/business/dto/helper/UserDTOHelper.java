@@ -24,7 +24,7 @@ public class UserDTOHelper {
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRoles(user.getRoles());
         userDTO.setPassword(user.getPassword());
-        userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
+        //userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
         return userDTO;
     }
 
