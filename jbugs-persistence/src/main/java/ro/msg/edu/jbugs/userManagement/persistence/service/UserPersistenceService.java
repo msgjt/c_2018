@@ -28,6 +28,7 @@ public class UserPersistenceService implements IUserPersistenceService {
      * @return : inserted user entity from database
      */
     public Optional<User> createUser(@NotNull User user) {
+        user.getRoles().forEach(r -> {r.getUsers().add(user); em.persist(r); em.flush();});
         em.persist(user);
         em.flush();
         return Optional.of(user);
@@ -154,5 +155,34 @@ public class UserPersistenceService implements IUserPersistenceService {
     public List<String> getUsernamesLike(String username) {
         Query q = em.createQuery("select u.username from User u where u.username like '" + username + "%'");
         return q.getResultList();
+    }
+
+
+    /**
+     * Returns a user entity with roles added
+     * If none exist, returns an empty Optional Object
+     *
+     * @param role : Role added
+     * @param user : User
+     * @return : Optional, containing a user entity.
+     */
+    public Optional<User> createRoleForUser(@NotNull Role role, @NotNull User user) {
+        user.addRole(role);
+        em.merge(role);
+        em.merge(user);
+        return Optional.of(user);
+    }
+
+    public Optional<User> updateUserWithRoles(@NotNull User user, @NotNull List<Role> roles) {
+        user.getRoles().clear();
+        user.setRoles(roles);
+        roles.forEach(r -> {
+            if (!r.getUsers().contains(user)) {
+                r.getUsers().add(user);
+            }
+            em.merge(r);
+        });
+        return Optional.of(em.merge(user));
+
     }
 }

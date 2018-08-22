@@ -11,8 +11,7 @@ public class RoleDTOHelper {
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(role.getIdRole());
         roleDTO.setType(role.getType());
-        roleDTO.setPermissions(role.getPermissions());
-        roleDTO.setPermissionsList(role.getPermissions().stream().map(x -> x.getType().toString()).collect(Collectors.toList()));
+        roleDTO.setPermissions(role.getPermissions().stream().map(PermissionDTOHelper::fromEntity).collect(Collectors.toList()));
         return roleDTO;
     }
 
@@ -20,7 +19,7 @@ public class RoleDTOHelper {
         Role role = new Role();
         role.setIdRole(roleDTO.getId());
         role.setType(roleDTO.getType());
-        role.setPermissions(roleDTO.getPermissions());
+        role.setPermissions(roleDTO.getPermissions().stream().map(PermissionDTOHelper::toEntity).collect(Collectors.toList()));
         return role;
     }
 }

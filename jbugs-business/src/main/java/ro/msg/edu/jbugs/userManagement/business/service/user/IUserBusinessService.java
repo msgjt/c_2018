@@ -3,6 +3,7 @@ package ro.msg.edu.jbugs.userManagement.business.service.user;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import java.util.List;
 

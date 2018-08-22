@@ -3,6 +3,7 @@ package controller;
 import authentification.Secured;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.norification.EmailDto;
+
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
@@ -35,8 +36,8 @@ public class UserController {
     @Path("/{userName}")
     public Response getUserByUsername(@PathParam("userName") String userName) {
         Response response;
-        try{
-            UserDTO userDTO= IUserBusinessService.getUserByUsername(userName);
+        try {
+            UserDTO userDTO = IUserBusinessService.getUserByUsername(userName);
             response = Response.status(Response.Status.UNAUTHORIZED)
                     .entity(userDTO)
                     .build();
@@ -72,7 +73,7 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(UserDTO userDTO){
+    public Response addUser(UserDTO userDTO) {
         UserDTO addedUser = null;
         try {
             addedUser = IUserBusinessService.createUser(userDTO);

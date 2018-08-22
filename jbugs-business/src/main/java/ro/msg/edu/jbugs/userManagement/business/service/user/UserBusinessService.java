@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -44,6 +45,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @return : the user DTO of the created entity
      * @throws BusinessException
      */
+
     @Override
     public UserDTO createUser(UserDTO userDTO) throws BusinessException {
 
@@ -53,7 +55,7 @@ public class UserBusinessService implements IUserBusinessService {
         User user = UserDTOHelper.toEntity(userDTO);
         user.setUsername(generateFullUsername(userDTO.getFirstName(), userDTO.getLastName()));
         user.setActive(true);
-        user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
+        user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceManager.createUser(user);
         return UserDTOHelper.fromEntity(user);
     }
@@ -186,8 +188,8 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
-       validateUserName(username);
-       return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+        validateUserName(username);
+        return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
     }
 
     /**
@@ -237,8 +239,16 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
+
+    private String generatePassword(String password) {
+        Random r = new Random();
+        char c = (char) (r.nextInt(26) + 'a');
+        return password + c;
+    }
+
+
     private void validateUserName(String userName) throws BusinessException {
-        if(!userPersistenceManager.getUserByUsername(userName).isPresent())
+        if (!userPersistenceManager.getUserByUsername(userName).isPresent())
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
     }
 }

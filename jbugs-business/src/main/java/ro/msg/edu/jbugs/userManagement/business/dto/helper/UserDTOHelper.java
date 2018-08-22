@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class UserDTOHelper {
 
-    public static UserDTO fromEntity(User user){
+    public static UserDTO fromEntity(User user) {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getIdUser());
@@ -22,13 +22,12 @@ public class UserDTOHelper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setRoles(user.getRoles());
+        userDTO.setRoles(user.getRoles().stream().map(RoleDTOHelper::fromEntity).collect(Collectors.toList()));
         userDTO.setPassword(user.getPassword());
-        userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
         return userDTO;
     }
 
-    public static User toEntity(UserDTO userDTO){
+    public static User toEntity(UserDTO userDTO) {
         User user = new User();
         user.setIdUser(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
@@ -37,12 +36,12 @@ public class UserDTOHelper {
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRoles(userDTO.getRoles());
+        user.setRoles(userDTO.getRoles().stream().map(RoleDTOHelper::toEntity).collect(Collectors.toList()));
         return user;
     }
 
     //ToDo: make not static and make fictional;
-    public static UserSessionDTO toEntity (UserLoginDTO userLoginDTO){
+    public static UserSessionDTO toEntity(UserLoginDTO userLoginDTO) {
         List<PermissionEnum> permissions = new ArrayList<>();
         permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
         return new UserSessionDTO("doreld", permissions);
