@@ -88,7 +88,9 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
 
     @Override
     public Optional<Permission> createPermissionForRole(@NotNull Role role, @NotNull Permission permission) {
-        role.addPermission(permission);
+        //role.addPermission(permission);
+        role.getPermissions().add(permission);
+        permission.getRoles().add(role);
         em.merge(role);
         em.merge(permission);
         return Optional.of(permission);

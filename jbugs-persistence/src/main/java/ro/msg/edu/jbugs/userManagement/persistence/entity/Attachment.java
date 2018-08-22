@@ -2,6 +2,8 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Objects;
 
 @Entity
@@ -9,7 +11,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = Attachment.GET_ALL_ATTACHMENTS, query = "select a from Attachment a")
 })
-public class Attachment {
+public class Attachment implements Serializable {
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
     public final static String GET_ALL_ATTACHMENTS = "get_All_Attachments";
@@ -44,12 +46,12 @@ public class Attachment {
         this.bug = bug;
     }
 
-    public byte[] getBlob() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setBlob(byte[] blob) {
-        this.file = blob;
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     @Override

@@ -1,35 +1,22 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Permission} from "../types/permissions";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionService {
-  permissions: Permission[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest';
 
   constructor(private http: HttpClient) {
 
   }
 
-  getAll(): Permission[] {
+  getAll(): Observable<any> {
     let permissions: Permission[] = [];
-    this.http.get(this.baseURL + '/permissions',).subscribe((response: Permission[]) => {
-      response.forEach((value) => {
-        permissions.push(value);
-      })
-    });
-    return permissions;
+    return this.http.get(this.baseURL + '/permissions');
   }
 
-  findByType(type: string): Permission {
-      var permission:Permission;
-      this.permissions.forEach((value) =>{
-        if (value.type.trim() == type.trim()) {
-          permission = value;
-        }
-      });
-    return permission;
-  }
+
 }

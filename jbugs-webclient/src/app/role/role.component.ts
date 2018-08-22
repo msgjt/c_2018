@@ -24,12 +24,23 @@ export class RoleComponent implements OnInit {
   }
 
 
+  findByType(type: string): Permission {
+    console.log(this.permissions.length);
+    let permission:Permission;
+    permission=this.permissions.filter((value) =>{
+      value.type.trim() === type.trim();
+
+    })[0];
+    return permission;
+  }
+
   checkDelete(checked, type: string): Permission[] {
-      var permissions:Permission= this.permissionService.findByType(type.trim());
+      var permission:Permission= this.findByType(type.trim());
+      console.log(permission);
       if (checked) {
-        this.permissionsToBeUpdated.push(permissions);
+        this.permissionsToBeUpdated.push(permission);
       } else {
-        let startIndex = this.permissionsToBeUpdated.indexOf(permissions);
+        let startIndex = this.permissionsToBeUpdated.indexOf(permission);
         this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
       }
     return this.permissionsToBeUpdated;
@@ -58,7 +69,9 @@ export class RoleComponent implements OnInit {
 
 
   updateRemovedPermissions(role: Role) {
-    this.permissionsToBeUpdated.forEach((value, index) => {
+    console.log(this.permissionsToBeUpdated.length);
+    this.permissionsToBeUpdated.forEach((value) => {
+      console.log(value);
       this.roleService.removePermissionForRole(role.id, value.id);
     });
     location.reload();
@@ -83,11 +96,12 @@ export class RoleComponent implements OnInit {
   }
 
   removePermissionForRole(role: Role) {
+    this.permissionsToBeUpdated = [];
     this.showAllPermissions.forEach((value, index) => {
       this.showAllPermissions[index] = false
     });
     this.showAllPermissions[role.id] = true;
-    this.permissionsToBeUpdated = [];
+
     this.isRemovedButtonSelected = true;
     console.log("Removed method submitted");
   }
@@ -99,7 +113,12 @@ export class RoleComponent implements OnInit {
   ngOnInit() {
 
     this.roles = this.roleService.getAllRoles();
-    this.permissions = this.permissionService.getAll();
+    this.permissionService.getAll().subscribe((response: Permission[]) => {
+      response.forEach((value) => {
+        this.permissions.push(value);
+      })
+    });
+  };
 
   }
 
