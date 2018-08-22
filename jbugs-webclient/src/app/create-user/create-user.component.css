@@ -1,0 +1,16 @@
+.container{
+  width: 600px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+.ng-select.custom {
+  border:2px;
+  border-color: black;
+  height: 35px;
+  border-radius: 5px;
+  background-color: white;
+}
+.ng-select.custom .ng-select-container  {
+  min-height: 0px;
+  border-radius: 0;
+}

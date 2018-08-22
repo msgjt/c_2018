@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { RoleService} from "../services/role.service";
 import { PermissionService} from "../services/permission.service";
 import {$} from "jQuery";
-import {Permission} from "../types/permissions";
 import {Role} from "../types/roles";
+import {Permission} from "../types/permissions";
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PermissionService} from "../services/permission.service";
+import {PermissionService} from "../services/permission.service";
 import {Permission} from "../types/permissions";
 
 @Component({

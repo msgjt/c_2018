@@ -1,12 +1,29 @@
 package ro.msg.edu.jbugs.userManagement.business.dto;
 
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDTO {
+    private long id;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
+    private transient List<Role> roles;
+    private List<String> rolesList;
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -56,6 +73,23 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = new ArrayList<>();
+        this.roles = roles;
+    }
+
+    public List<String> getRolesList() {
+        return rolesList;
+    }
+
+    public void setRolesList(List<String> rolesList) {
+        this.rolesList = rolesList;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -67,4 +101,6 @@ public class UserDTO {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
+
 }
