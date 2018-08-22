@@ -10,16 +10,17 @@ export class PermissionService {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
   constructor(private http: HttpClient) {
+
   }
 
   getAll(): Permission[] {
-    this.permissions = [];
+    let permissions: Permission[] = [];
     this.http.get(this.baseURL + '/permissions',).subscribe((response: Permission[]) => {
       response.forEach((value) => {
-        this.permissions.push(value);
+        permissions.push(value);
       })
     });
-    return this.permissions;
+    return permissions;
   }
 
   findByType(type: string): Permission {

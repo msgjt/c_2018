@@ -48,7 +48,7 @@ public class User{
     @Column(name = "isActive", length = MAX_STRING_LENGTH, nullable = false)
     private boolean isActive;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "users")
     private List<Role> roles;
 
     @OneToMany( mappedBy = "createdByUser",fetch=FetchType.LAZY)

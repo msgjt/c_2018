@@ -1,8 +1,11 @@
 export interface User {
-  firstname:string;
-  lastname:string;
-  username:string;
+  firstName:string;
+  lastName:string;
+  userName:string;
   email:string;
-  phonenumber:string;
+  password:string;
+  phoneNumber:string;
+  rolesList: string[];
 }
+
 

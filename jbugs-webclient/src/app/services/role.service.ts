@@ -7,19 +7,19 @@ import {Role} from "../types/roles";
   providedIn: 'root'
 })
 export class RoleService {
-  roles: Role[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest';
 
   constructor(private http: HttpClient) {
   }
 
   getAllRoles(): Role[] {
+    let roles :Role[] = [];
     this.http.get(this.baseURL + '/roles',).subscribe((response: Role[]) => {
       response.forEach((value) => {
-        this.roles.push(value);
+        roles.push(value);
       })
     });
-    return this.roles;
+    return roles;
   }
 
   addPermissionForRole(idRole: number, idPermission: number) {

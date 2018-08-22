@@ -8,6 +8,7 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class UserDTOHelper {
@@ -21,6 +22,8 @@ public class UserDTOHelper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setRoles(user.getRoles());
+        userDTO.setRolesList(user.getRoles().stream().map(x -> x.getType()).collect(Collectors.toList()));
         return userDTO;
     }
 
@@ -33,6 +36,7 @@ public class UserDTOHelper {
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setRoles(userDTO.getRoles());
         return user;
     }
 

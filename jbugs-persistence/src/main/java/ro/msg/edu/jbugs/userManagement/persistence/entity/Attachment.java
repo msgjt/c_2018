@@ -1,28 +1,39 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+
 import java.util.Objects;
 
 @Entity
 @Table(name = "attachments")
+@NamedQueries({
+        @NamedQuery(name = Attachment.GET_ALL_ATTACHMENTS, query = "select a from Attachment a")
+})
 public class Attachment {
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
+    public final static String GET_ALL_ATTACHMENTS = "get_All_Attachments";
+
+    @Lob
+    @Column(name="file")
+    private byte[] file;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAtt;
+    private Long idAttachment;
 
     @ManyToOne
     @JoinColumn(name = "idBug", nullable = false)
-    public Bug bug;
+    private Bug bug;
 
-    public Long getIdAtt() {
-        return idAtt;
+
+    public Long getIdAttachment() {
+        return idAttachment;
     }
 
-    public void setIdAtt(Long idAtt) {
-        this.idAtt = idAtt;
+    public void setIdAttachment(Long idAtt) {
+        this.idAttachment = idAtt;
     }
 
     public Bug getBug() {
@@ -33,25 +44,33 @@ public class Attachment {
         this.bug = bug;
     }
 
+    public byte[] getBlob() {
+        return file;
+    }
+
+    public void setBlob(byte[] blob) {
+        this.file = blob;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attachment that = (Attachment) o;
-        return Objects.equals(idAtt, that.idAtt) &&
+        return Objects.equals(idAttachment, that.idAttachment) &&
                 Objects.equals(bug, that.bug);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idAtt, bug);
+        return Objects.hash(idAttachment, bug);
     }
 
     @Override
     public String toString() {
         return "Attachment{" +
-                "idAtt=" + idAtt +
+                "idAtt=" + idAttachment +
                 ", bug=" + bug +
                 '}';
     }

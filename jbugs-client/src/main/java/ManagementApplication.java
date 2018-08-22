@@ -1,10 +1,8 @@
 import authentification.AuthenticationFilter;
 import authentification.CORSFilter;
-import controller.AuthenticateUserController;
-import controller.PermissionController;
-import controller.RoleController;
-import controller.UserController;
-import controller.BugController;
+import controller.*;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -22,6 +20,7 @@ public class ManagementApplication extends Application {
         classes.add(RoleController.class);
         classes.add(BugController.class);
         classes.add(CORSFilter.class);
+        classes.add(AttachmentController.class);
         return classes;
     }
 }
