@@ -56,7 +56,7 @@ public class Bug {
     @JoinColumn(name = "assignedTo")
     private User assignedTo;
 
-    @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "bug")
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy = "bug")
     private List<Attachment> attachments = new ArrayList<>();
 
 

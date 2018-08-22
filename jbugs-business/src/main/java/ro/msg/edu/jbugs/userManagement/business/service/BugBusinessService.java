@@ -29,9 +29,7 @@ public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.busin
     @Override
     public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
         Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa           O TRECUT");
         Bug bug = BugDTOHelper.toEntity(bugDTO);
-
         return BugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
     }
 
@@ -42,8 +40,6 @@ public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.busin
 
     @Override
     public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) {
-        System.out.println(attachmentDTO.getBlob() + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        System.out.println(attachmentDTO.getBugDto().getCreatedByUser() + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
         return AttachmentDTOHelper.fromEntity(IBugPersistenceService.addAttachment(attachment).get());
     }

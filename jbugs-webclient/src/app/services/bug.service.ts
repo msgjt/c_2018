@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Bug} from "../types/bugs";
 import {Permission} from "../types/permissions";
 import {Attachment} from "../types/attachment";
-import {BugAttachmentMapper} from "../types/mapper";
 
 
 @Injectable({
@@ -31,12 +30,11 @@ export class BugService {
     return this.bugs;
   }
 
-  addBug(mapper: BugAttachmentMapper ){
+  addBug(attachment:Attachment ){
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
-    var attachmentModel = JSON.stringify({bugDTO: mapper._bug,attachmentDTO: mapper.attachment});
-    var am = attachmentModel.replace("_","");
+    var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
-    this.http.post<any>(this.baseURL+ '/add',attachmentModel , {
+    this.http.post(this.baseURL+ '/add',attachmentModel, {
       headers: reqHeader
     }).subscribe();
   }
