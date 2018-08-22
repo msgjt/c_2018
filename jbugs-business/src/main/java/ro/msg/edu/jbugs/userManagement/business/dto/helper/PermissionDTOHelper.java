@@ -3,8 +3,11 @@ package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class PermissionDTOHelper {
-    public static PermissionDTO fromEntity(Permission permission) {
+    public PermissionDTO fromEntity(Permission permission) {
         PermissionDTO permissionDTO = new PermissionDTO();
         permissionDTO.setId(permission.getIdPermission());
         permissionDTO.setType(permission.getType());
@@ -12,7 +15,7 @@ public class PermissionDTOHelper {
         return permissionDTO;
     }
 
-    public static Permission toEntity(PermissionDTO permissionDTO) {
+    public Permission toEntity(PermissionDTO permissionDTO) {
         Permission permission = new Permission();
         permission.setType(permissionDTO.getType());
         permission.setIdPermission(permissionDTO.getId());

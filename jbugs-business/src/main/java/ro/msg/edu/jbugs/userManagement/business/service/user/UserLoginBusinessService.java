@@ -18,6 +18,8 @@ public class UserLoginBusinessService {
     private IUserBusinessService userBusinessService;
     @EJB
     private JwtService jwtService;
+    @EJB
+    private UserDTOHelper userDTOHelper;
 
     private HashMap<String, Integer> userOverflow = new HashMap<>();
 
@@ -27,7 +29,7 @@ public class UserLoginBusinessService {
         validatePassword(loginDTO, userDTO);
         userOverflow.remove(loginDTO.getUserName());
         validateUserActive(loginDTO.getUserName());
-        return jwtService.generateToken(UserDTOHelper.toEntity(loginDTO));
+        return jwtService.generateToken(userDTOHelper.toEntity(loginDTO));
     }
 
     public void validatePassword(UserLoginDTO loginDTO, UserDTO userDTO) throws BusinessException {
