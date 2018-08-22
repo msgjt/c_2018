@@ -3,8 +3,8 @@ package ro.msg.edu.jbugs.userManagement.business.service;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
@@ -185,8 +185,9 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO getUserByUsername(String username) {
-        return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+    public UserDTO getUserByUsername(String username) throws BusinessException {
+       validateUserName(username);
+       return UserDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
     }
 
     /**
@@ -200,39 +201,6 @@ public class UserBusinessService implements IUserBusinessService {
                 .stream()
                 .map(UserDTOHelper::fromEntity)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Takes the username and password of a user and if they are correct, it returns the
-     * corresponding DTO. Otherwise it will throw an exception.
-     *
-     * @param username
-     * @param password
-     * @return a user DTO if it succeeds.
-     * @throws BusinessException
-     */
-    @Override
-    public UserDTO login(String username, String password) throws BusinessException {
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
-        if (!userOptional.isPresent()) {
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
-        }
-        if (!Encryptor.encrypt(password).equals(userOptional.get().getPassword())) {
-            System.out.println(userOptional.get().getFirstName());
-            System.out.println(userOptional.get().getPassword());
-            System.out.println(password);
-            throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
-        }
-
-        return UserDTOHelper.fromEntity(userOptional.get());
-    }
-
-    public boolean logout(String username) throws BusinessException{
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
-        if(!userOptional.isPresent()){
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
-        }
-        return true;
     }
 
     @Override
@@ -267,5 +235,10 @@ public class UserBusinessService implements IUserBusinessService {
 
         Matcher matcher = VALID_PHONE_ADDRESS_REGEX.matcher(phonenumber);
         return matcher.find();
+    }
+
+    private void validateUserName(String userName) throws BusinessException {
+        if(!userPersistenceManager.getUserByUsername(userName).isPresent())
+            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
     }
 }

@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import java.util.stream.Collectors;

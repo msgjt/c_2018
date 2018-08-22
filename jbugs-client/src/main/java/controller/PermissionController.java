@@ -1,7 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.IPermissionBusinessService;
 
 import javax.ejb.EJB;

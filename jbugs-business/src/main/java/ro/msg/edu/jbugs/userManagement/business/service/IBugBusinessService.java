@@ -1,9 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 
 import java.util.List;
 

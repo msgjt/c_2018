@@ -3,8 +3,8 @@ package controller;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.service.IPermissionBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.utils.IdGenerator;
 
 import javax.ejb.EJB;
