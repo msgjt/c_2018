@@ -18,6 +18,7 @@ public class BugDTO {
     private UserDTO createdByUser;
     private UserDTO assignedTo;//combobox
 
+
     public Long getIdBug() {
         return idBug;
     }

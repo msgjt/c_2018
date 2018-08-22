@@ -27,9 +27,12 @@ public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.busin
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO) {
+    public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
+        Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa           O TRECUT");
         Bug bug = BugDTOHelper.toEntity(bugDTO);
-        return BugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug).get());
+
+        return BugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
     }
 
     @Override

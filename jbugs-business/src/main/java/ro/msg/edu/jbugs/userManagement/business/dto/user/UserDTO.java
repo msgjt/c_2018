@@ -14,7 +14,7 @@ public class UserDTO {
     private String email;
     private String phoneNumber;
     private transient List<Role> roles;
-    private List<String> rolesList;
+    private transient List<String> rolesList;
 
 
     public long getId() {

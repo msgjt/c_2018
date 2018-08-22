@@ -4,7 +4,8 @@ import {UserService} from "../services/user.service";
 import {Attachment, AttachmentRest} from "../types/attachment";
 import {Encoding} from "tslint/lib/utils";
 import {BugService} from "../services/bug.service";
-import {Bug} from "../types/bugs";
+import {Bug, BugRest} from "../types/bugs";
+import {BugAttachmentMapper} from "../types/mapper";
 
 @Component({
   selector: 'app-add-bug-component',
@@ -19,7 +20,8 @@ export class AddBugComponentComponent implements OnInit {
   allUsers: User[] = [];
   attachment: Attachment = new AttachmentRest();
   readerResult: string;
-  bugs: Bug[];
+  bug : Bug = new BugRest();
+  mapper : BugAttachmentMapper;
 
 
 
@@ -52,17 +54,29 @@ export class AddBugComponentComponent implements OnInit {
   }
 
   onSubmit(){
-    //this.attachment.blob = "SEICUL";
-    console.log(this.bugs.length);
-    this.attachment.bug = this.bugs.pop();
-    console.log(this.attachment.bug);
-    this.bugService.testAttachment(this.attachment);
+    this.mapper = new BugAttachmentMapper();
+    this.bug.severity = this.chosenSeverity;
+    this.bug.version = '1.0';
+    this.bug.status = 'new';
+    this.bug.targetDate = Date.now();
+    this.bug.fixedVersion = null;
+    this.bug.createdByUser = this.allUsers[0];
+    this.bug.assignedTo = this.allUsers.filter(value =>{
+      return value.userName === this.chosenUsername;
+    })[0];
+    this.attachment.bug = this.bug;
+    this.mapper.bug = this.bug;
+    this.mapper.attachment = this.attachment;
+
+
+    console.log(this.mapper);
+    this.bugService.addBug(this.mapper);
   }
 
 
   ngOnInit() {
     this.allUsers = this.userService.getAllUsers();
-    this.bugs=this.bugService.getAll();
+
   }
 
 

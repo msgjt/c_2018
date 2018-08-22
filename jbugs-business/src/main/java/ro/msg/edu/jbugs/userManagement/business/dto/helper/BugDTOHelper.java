@@ -28,9 +28,10 @@ public class BugDTOHelper {
 
     public static Bug toEntity(BugDTO bugDTO){
         Bug bug = new Bug();
-        bug.setCreatedByUser(UserDTOHelper.toEntity(bugDTO.getCreatedByUser()));
+
         bug.setIdBug(bugDTO.getIdBug());
         bug.setAssignedTo(UserDTOHelper.toEntity(bugDTO.getAssignedTo()));
+        bug.setCreatedByUser(UserDTOHelper.toEntity(bugDTO.getCreatedByUser()));
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());

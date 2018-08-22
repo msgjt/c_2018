@@ -5,14 +5,14 @@
         <form>
           <div class="form-group">
             <label for="title">Title</label>
-            <input name="title" id="title" type="text" class="form-control"/>
+            <input name="title" id="title" [(ngModel)]="bug.title" type="text" class="form-control"/>
             <div *ngIf="" class="invalid-feedback">
               <div *ngIf="">Title is required</div>
             </div>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input id="description" name="description" type="text" class="form-control"/>
+            <input id="description" name="this" type="text" [(ngModel)]="bug.description"  class="form-control"/>
             <div *ngIf="" class="invalid-feedback">
               <div *ngIf="">Description is required</div>
             </div>
@@ -26,9 +26,9 @@
           </div>
           <div class="form-group">
             <label for="assignedTo">AssignedTo</label>
-            <select name="assignedTo" id="assignedTo" [(ngModel)]="this.chosenUsername" class="form-control" (ngModelChange)="changedSelectedUsername()" required>
+            <select name="assignedTo" id="assignedTo"  class="form-control" (ngModelChange)="changedSelectedUsername()" required>
               <option disabled [ngValue]="undefined">Select user</option>
-              <option *ngFor="let username of this.allUsers" [ngValue]="username.userName">{{username.userName}}</option>
+              <option *ngFor="let username of this.allUsers" [ngValue]="username">{{username.firstName}}</option>
             </select>
           </div>
           <div class="form-group">
