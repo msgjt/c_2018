@@ -11,9 +11,9 @@ import {Role} from "../types/roles";
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-  dropdownList = [];
-  selectedItems = [];
-  roles = [];
+  dropdownList: Role[];
+  selectedItems: Role[];
+  roles: Role [];
   dropdownSettings = {};
   user: User;
   showRoles: boolean;
@@ -26,7 +26,7 @@ export class CreateUserComponent implements OnInit {
       email: '',
       password: '',
       phoneNumber: '',
-      rolesList: []
+      roles: []
     };
     this.showRoles = false;
   }
@@ -35,9 +35,11 @@ export class CreateUserComponent implements OnInit {
    * Init dropdown list with existing roles and set dropdown options
    */
   ngOnInit() {
-
+    this.dropdownList = [];
+    this.selectedItems = [];
+    this.roles = [];
     this.rolesService.getRoles().subscribe((response: Role[]) => {
-      response.forEach(value => this.dropdownList.push({id: value.id, type: value.type}))
+      response.forEach(value => this.dropdownList.push(value))
     }, () => {
       console.log('errors')
     }, () => {
@@ -60,9 +62,9 @@ export class CreateUserComponent implements OnInit {
    */
   addUser() {
     for (let role of this.selectedItems) {
-      this.roles.push(role.type);
+      this.roles.push(role);
     }
-    this.user.rolesList = this.roles;
+    this.user.roles = this.roles;
     this.roles = [];
     this.userService.addUser(this.user);
   }

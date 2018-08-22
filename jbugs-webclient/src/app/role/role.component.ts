@@ -87,7 +87,7 @@ export class RoleComponent implements OnInit {
     this.isRemovedButtonSelected = false;
     this.noPermissionsForThisRole = [];
     this.permissions.forEach((value) => {
-      if (!role.permissionsList.includes(value.type.trim())) {
+      if (!role.permissions.includes(value)) {
         this.noPermissionsForThisRole.push(value);
       }
     })
