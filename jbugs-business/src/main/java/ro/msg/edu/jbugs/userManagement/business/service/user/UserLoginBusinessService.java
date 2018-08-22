@@ -48,7 +48,6 @@ public class UserLoginBusinessService {
     public void removeUserFromOverflow(String userName) {
         userOverflow.remove(userName);
     }
-
     //ToDo: persist user deactivation
     private void validateUserActive(String userName) throws BusinessException {
         if(userOverflow.get(userName) != null && userOverflow.get(userName) > 5) {

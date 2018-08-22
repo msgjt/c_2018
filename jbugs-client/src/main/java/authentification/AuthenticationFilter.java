@@ -1,6 +1,8 @@
 package authentification;
 
 import com.auth0.jwt.JWT;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.business.service.utils.JwtService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
@@ -15,7 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.time.Instant;
@@ -34,33 +35,41 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     @EJB
     private JwtService service;
 
-
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
-
+    public void filter(ContainerRequestContext requestContext) {
         String authorizationHeader =
                 requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new NotAuthorizedException("Authorization header must be provided");
         }
         String token = authorizationHeader.substring("Bearer".length()).trim();
-        try {
-            validateToken(token);
+        authorizeUserToken(token, requestContext);
+        authorizeUserRequest(token, requestContext);
+    }
 
-        } catch (Exception e) {
-            requestContext.abortWith(
-                    Response.status(Response.Status.UNAUTHORIZED).build());
-        }
+    private void authorizeUserRequest(String token, ContainerRequestContext requestContext) {
         Method resourceMethod = resourceInfo.getResourceMethod();
         List<PermissionEnum> methodRoles = extractRoles(resourceMethod);
         try {
             if (!methodRoles.isEmpty()) {
                 checkPermissions(methodRoles, token);
             }
-
-        } catch (Exception e) {
+        } catch (BusinessException e) {
             requestContext.abortWith(
-                    Response.status(Response.Status.FORBIDDEN).build());
+                    Response.status(Response.Status.FORBIDDEN)
+                            .entity(e.getExceptionCode())
+                            .build());
+        }
+    }
+
+    private void authorizeUserToken(String token, ContainerRequestContext requestContext) {
+        try {
+            validateToken(token);
+        } catch (BusinessException e) {
+            requestContext.abortWith(
+                    Response.status(Response.Status.UNAUTHORIZED)
+                            .entity(e.getExceptionCode())
+                            .build());
         }
     }
 
@@ -78,14 +87,14 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         }
     }
 
-    private void validateToken(String token) throws Exception {
+    private void validateToken(String token) throws BusinessException {
         if (JWT.decode(token).getClaim("iat").asDate().compareTo(Date.from(Instant.now())) < 0) {
-            throw new Exception("your token has expired");
+            throw new BusinessException(ExceptionCode.TOKEN_EXPIRED);
         }
     }
 
-    private void checkPermissions(List<PermissionEnum> allowedRoles, String token) throws Exception {
+    private void checkPermissions(List<PermissionEnum> allowedRoles, String token) throws BusinessException {
         if (!service.getUserSessionDot(token).getPermissions().containsAll(allowedRoles))
-            throw new Exception("you have no permission");
+            throw new BusinessException(ExceptionCode.PERMISSION_VALIDATION_EXCEPTION);
     }
 }

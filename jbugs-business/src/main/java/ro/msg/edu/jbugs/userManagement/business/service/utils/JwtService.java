@@ -15,15 +15,12 @@ import java.util.Date;
 public class JwtService {
     public String generateToken(final UserSessionDTO user) {
         try {
-
             Algorithm algorithm = Algorithm.HMAC256("secret");
-
             return JWT.create()
                     .withClaim("username", user.getUserName())
                     .withClaim("permissions", user.getPermissions().toString())
                     .withIssuedAt(Date.from(Instant.now().plusSeconds(3600)))
                     .sign(algorithm);
-
         } catch (JWTCreationException exception) {
             return null;
         }

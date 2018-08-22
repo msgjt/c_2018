@@ -85,6 +85,7 @@ public class UserController {
                 .build();
     }
 
+    //ToDO:delete this
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/email")
