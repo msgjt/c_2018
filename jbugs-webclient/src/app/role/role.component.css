@@ -1,9 +1,10 @@
 .fixedColumns{
   padding-right: 200px;
 
+
 }
 .buttonStyle{
-  margin-right: 10px;
+  margin-right: 30px;
 }
 table {
   border-collapse: collapse;
@@ -15,13 +16,11 @@ tr {
   height: 50px
 }
 
-tr:hover {background-color: #f5f5f5;}
+tr:hover {
+  background-color: #f5f5f5;
+}
+
 th {
   text-align: left;
 }
-
-button{
-  margin-right: 30px;
-}
-
 

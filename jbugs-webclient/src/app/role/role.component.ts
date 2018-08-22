@@ -27,8 +27,8 @@ export class RoleComponent implements OnInit {
   findByType(type: string): Permission {
     console.log(this.permissions.length);
     let permission:Permission;
-    permission=this.permissions.filter((value) =>{
-      value.type.trim() === type.trim();
+    permission=this.permissions.filter(value =>{
+      return value.type.trim() === type.trim();
 
     })[0];
     return permission;
@@ -120,7 +120,7 @@ export class RoleComponent implements OnInit {
     });
   };
 
-  }
+
 
 
 }
