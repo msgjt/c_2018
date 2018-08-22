@@ -28,8 +28,13 @@ public class AuthenticateUserController {
     public Response userLogin(UserLoginDTO userLoginDot) {
         if (userLoginControl.validateUser(userLoginDot)) {
             String token = jwtService.generateToken(UserDTOHelper.toEntity(userLoginDot));
-            return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(token)
+                    .build();
         }
-        return Response.status(Response.Status.UNAUTHORIZED).build();
+        return Response
+                .status(Response.Status.UNAUTHORIZED)
+                .build();
     }
 }
