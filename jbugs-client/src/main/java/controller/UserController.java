@@ -2,20 +2,16 @@ package controller;
 
 import authentification.Secured;
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
+
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/users")
 public class UserController {
@@ -35,7 +31,19 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{userName}")
     public Response getUserByUsername(@PathParam("userName") String userName) {
-        return Response.status(Response.Status.OK).entity(IUserBusinessService.getUserByUsername(userName)).build();
+        Response response;
+        try {
+            UserDTO userDTO = IUserBusinessService.getUserByUsername(userName);
+            response = Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(userDTO)
+                    .build();
+        } catch (BusinessException e) {
+            response = Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(e.getExceptionCode())
+                    .build();
+        }
+
+        return response;
     }
 
 

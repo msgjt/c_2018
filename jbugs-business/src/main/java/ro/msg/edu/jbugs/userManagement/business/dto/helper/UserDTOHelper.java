@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.UserDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class UserDTOHelper {
 
-    public static UserDTO fromEntity(User user){
+    public static UserDTO fromEntity(User user) {
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getIdUser());
@@ -23,10 +23,11 @@ public class UserDTOHelper {
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRoles(user.getRoles().stream().map(RoleDTOHelper::fromEntity).collect(Collectors.toList()));
+        userDTO.setPassword(user.getPassword());
         return userDTO;
     }
 
-    public static User toEntity(UserDTO userDTO){
+    public static User toEntity(UserDTO userDTO) {
         User user = new User();
         user.setIdUser(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
@@ -40,7 +41,7 @@ public class UserDTOHelper {
     }
 
     //ToDo: make not static and make fictional;
-    public static UserSessionDTO toEntity (UserLoginDTO userLoginDTO){
+    public static UserSessionDTO toEntity(UserLoginDTO userLoginDTO) {
         List<PermissionEnum> permissions = new ArrayList<>();
         permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
         return new UserSessionDTO("doreld", permissions);

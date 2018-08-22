@@ -1,7 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

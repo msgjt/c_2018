@@ -31,6 +31,7 @@ public class BugPersistenceService implements IBugPersistenceService {
 
     /**
      * Method for adding a bug
+     *
      * @param bug
      * @return optional of the added bug
      */
@@ -47,6 +48,7 @@ public class BugPersistenceService implements IBugPersistenceService {
 
     /**
      * Method for finding a bug
+     *
      * @param id
      * @return optional of the bug or empty if doesn't exist
      */
@@ -58,13 +60,12 @@ public class BugPersistenceService implements IBugPersistenceService {
 
     /**
      * Method for adding a bug
+     *
      * @param attachment
      * @return optional of the attachment
      */
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
-//        Bug bug = this.findBugById(attachment.getBug().getIdBug()).get();
-//        bug.getAttachments().add(attachment);
         em.persist(attachment);
         return Optional.of(attachment);
     }
