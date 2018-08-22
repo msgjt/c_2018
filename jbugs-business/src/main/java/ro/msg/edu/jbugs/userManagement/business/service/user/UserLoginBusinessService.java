@@ -1,18 +1,16 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.user;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.utils.JwtService;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.HashMap;
-import java.util.Optional;
 
 @Stateless
 public class UserLoginBusinessService {
@@ -20,6 +18,8 @@ public class UserLoginBusinessService {
     private IUserBusinessService userBusinessService;
     @EJB
     private JwtService jwtService;
+    @EJB
+    private UserDTOHelper userDTOHelper;
 
     private HashMap<String, Integer> userOverflow = new HashMap<>();
 
@@ -29,7 +29,7 @@ public class UserLoginBusinessService {
         validatePassword(loginDTO, userDTO);
         userOverflow.remove(loginDTO.getUserName());
         validateUserActive(loginDTO.getUserName());
-        return jwtService.generateToken(UserDTOHelper.toEntity(loginDTO));
+        return jwtService.generateToken(userDTOHelper.toEntity(loginDTO));
     }
 
     public void validatePassword(UserLoginDTO loginDTO, UserDTO userDTO) throws BusinessException {
@@ -50,7 +50,6 @@ public class UserLoginBusinessService {
     public void removeUserFromOverflow(String userName) {
         userOverflow.remove(userName);
     }
-
     //ToDo: persist user deactivation
     private void validateUserActive(String userName) throws BusinessException {
         if(userOverflow.get(userName) != null && userOverflow.get(userName) > 5) {

@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;

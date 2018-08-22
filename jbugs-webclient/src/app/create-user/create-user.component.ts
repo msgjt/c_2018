@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {$} from "jQuery";
-import {Role} from "../types/roles";
-import {RoleService} from "../services/role.service";
 import {User} from "../types/user";
 import {UserService} from "../services/user.service";
-import {stringify} from "querystring";
+import {RoleService} from "../services/role.service";
+import {Role} from "../types/roles";
+import {Permission, PermissionRest} from "../types/permissions";
 
 @Component({
   selector: 'app-create-user',
@@ -12,13 +12,15 @@ import {stringify} from "querystring";
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent implements OnInit {
-  dropdownList = [];
-  selectedItems = [];
-  roles = [];
+  dropdownList: Role[];
+  selectedItems: Role[];
+  roles: Role [];
   dropdownSettings = {};
   user: User;
+  showRoles: boolean;
+  permission: Permission[];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private rolesService: RoleService) {
     this.user = {
       firstName: '',
       lastName: '',
@@ -26,24 +28,30 @@ export class CreateUserComponent implements OnInit {
       email: '',
       password: '',
       phoneNumber: '',
-      rolesList: []
+      roles: []
     };
+    this.showRoles = false;
   }
 
   /**
    * Init dropdown list with existing roles and set dropdown options
    */
   ngOnInit() {
-    this.dropdownList = [
-      {idRole: 1, type: 'Administrator'},
-      {idRole: 2, type: 'Project manager'},
-      {idRole: 3, type: 'Test manager'},
-      {idRole: 4, type: 'Developer'},
-      {idRole: 5, type: 'Tester'}
-    ];
+    this.permission=[];
+    this.dropdownList = [];
+    this.selectedItems = [];
+    this.roles = [];
+    this.rolesService.getRoles().subscribe((response: Role[]) => {
+      response.forEach(value => this.dropdownList.push(value))
+    }, () => {
+      console.log('errors')
+    }, () => {
+      console.log(this.dropdownList.length)
+    });
+
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'idRole',
+      idField: 'id',
       textField: 'type',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
@@ -56,12 +64,20 @@ export class CreateUserComponent implements OnInit {
    * Get value of fields completed by user and call addUser from userService
    */
   addUser() {
+
     for (let role of this.selectedItems) {
-      this.roles.push(role.type);
+      this.roles.push(role);
     }
-    this.user.rolesList = this.roles;
+    this.user.roles = this.roles;
+    this.user.roles.map(value => value.permissions=this.permission);
     this.roles = [];
     this.userService.addUser(this.user);
+  }
+
+  show() {
+    console.log(this.rolesService.getAllRoles());
+    this.showRoles = true;
+
   }
 
 }

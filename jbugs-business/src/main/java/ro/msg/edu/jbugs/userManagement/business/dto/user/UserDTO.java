@@ -13,9 +13,21 @@ public class UserDTO {
     private String password;
     private String email;
     private String phoneNumber;
-    private transient List<Role> roles;
-    private transient List<String> rolesList;
+    private List<RoleDTO> roles;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, String phoneNumber, List<RoleDTO> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+    }
 
     public long getId() {
         return id;
@@ -73,34 +85,12 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Role> getRoles() {
+    public List<RoleDTO> getRoles() {
+
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = new ArrayList<>();
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
     }
-
-    public List<String> getRolesList() {
-        return rolesList;
-    }
-
-    public void setRolesList(List<String> rolesList) {
-        this.rolesList = rolesList;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
-
-
 }

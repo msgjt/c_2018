@@ -3,13 +3,14 @@ package controller;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,6 @@ public class BugController {
 
     @EJB
     private IBugBusinessService bugBusinessService;
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,8 +41,6 @@ public class BugController {
                 .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
-
-
 
     @Path("/{idBug}")
     @GET

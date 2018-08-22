@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.service;
+package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
@@ -14,39 +14,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class BugBusinessService implements ro.msg.edu.jbugs.userManagement.business.service.IBugBusinessService {
+public class BugBusinessService implements IBugBusinessService {
 
     @EJB
     private IBugPersistenceService IBugPersistenceService;
+    @EJB
+    private BugDTOHelper bugDTOHelper;
+    @EJB
+    private AttachmentDTOHelper attachmentDTOHelper;
 
 
     @Override
     public List<BugDTO> getAllBugs() {
         List<Bug> bugs = IBugPersistenceService.getAllBugs();
-        return bugs.stream().map(bug -> BugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
+        return bugs.stream().map(bug -> bugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
     }
 
     @Override
     public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
-        Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
-        Bug bug = BugDTOHelper.toEntity(bugDTO);
-        return BugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
+        Bug bug = bugDTOHelper.toEntity(bugDTO);
+        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
+        return bugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
     }
 
     @Override
     public BugDTO findBugById(long id) {
-        return BugDTOHelper.fromEntity(IBugPersistenceService.findBugById(id).get());
+        return bugDTOHelper.fromEntity(IBugPersistenceService.findBugById(id).get());
     }
 
     @Override
     public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) {
-        Attachment attachment = AttachmentDTOHelper.toEntity(attachmentDTO);
-        return AttachmentDTOHelper.fromEntity(IBugPersistenceService.addAttachment(attachment).get());
+        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
+        return attachmentDTOHelper.fromEntity(IBugPersistenceService.addAttachment(attachment).get());
     }
 
     @Override
     public List<AttachmentDTO> getAllAttachments() {
         List<Attachment> attachments = IBugPersistenceService.getAllAttachments();
-        return attachments.stream().map(x -> AttachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
+        return attachments.stream().map(x -> attachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 }

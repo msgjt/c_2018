@@ -32,4 +32,6 @@ public interface IUserPersistenceService extends Serializable {
     Optional<User> getUserByEmail(@NotNull String email);
 
     List<String> getUsernamesLike(@NotNull String username);
+
+    Optional<User> createRoleForUser(@NotNull User user, @NotNull Role role);
 }
