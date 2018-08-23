@@ -25,7 +25,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   updateUser(){
-    
+
   }
 
 }

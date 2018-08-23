@@ -15,13 +15,13 @@
       <tr>
       <td>{{r.type}}</td>
       <td class="col-md-4">
-        <label [hidden]="showAllPermissions[r.id]">{{r.permissionsList}}</label>
+        <label [hidden]="showAllPermissions[r.id]">{{showPermission(r.permissions)}}</label>
         <form *ngIf="showAllPermissions[r.id]">
           <form *ngIf="isRemovedButtonSelected">
-            <ul *ngFor="let p of r.permissionsList">
-              <input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.trim())">{{p.trim()}}<br>
+            <ul *ngFor="let p of r.permissions">
+              <input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.type.trim())">{{p.type.trim()}}<br>
               <form *ngIf="!isRemovedButtonSelected">
-                <input type="checkbox" checked disabled>{{p.trim()}}<br>
+                <input type="checkbox" checked disabled>{{p.type.trim()}}<br>
               </form>
             </ul>
           </form>

@@ -6,6 +6,7 @@
     "nav-item3": "Permissions",
     "nav-item4": "Roles",
     "nav-item5": "Bugs",
+    "nav-item6": "Create user",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
 },
@@ -43,6 +44,7 @@
     "table-col4": "Severity"
   },
   "create-user":{
+    "title": "Create user"
     "first-name":"First Name",
     "last-name": "Last Name",
     "mobile-number": "Mobile number",
@@ -51,8 +53,8 @@
     "btn-role": "Choose a role",
     "add": "Add"
   },
-  "update-user":{
-    "first-name":"First Name",
+  "update-user": {
+    "first-name": "First Name",
     "last-name": "Last Name",
     "mobile-number": "Mobile number",
     "email": "Email",
@@ -60,5 +62,5 @@
     "btn-role": "Choose a role",
     "save": "Save"
   }
-
 }
+
