@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class BugBusinessService implements IBugBusinessService {
+
     @EJB
     private IBugPersistenceService IBugPersistenceService;
     @EJB
@@ -26,13 +27,14 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public List<BugDTO> getAllBugs() {
         List<Bug> bugs = IBugPersistenceService.getAllBugs();
-        return bugs.stream().map(bugDTOHelper::fromEntity).collect(Collectors.toList());
+        return bugs.stream().map(bug -> bugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO) {
+    public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        return bugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug).get());
+        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
+        return bugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
     }
 
     @Override
@@ -49,6 +51,6 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public List<AttachmentDTO> getAllAttachments() {
         List<Attachment> attachments = IBugPersistenceService.getAllAttachments();
-        return attachments.stream().map(attachmentDTOHelper::fromEntity).collect(Collectors.toList());
+        return attachments.stream().map(x -> attachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 }

@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RoleService} from "../services/role.service";
 import {PermissionService} from "../services/permission.service";
-import {$} from "jQuery";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
-import {stringDistance} from "codelyzer/util/utils";
 
 
 @Component({

@@ -1,5 +1,5 @@
 <div class="container">
-  <select [(ngModel)]="this.chosenSeverity"  (ngModelChange)="filterBySeverity()">
+  <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
     <option disabled [ngValue]="undefined">Severity:</option>
     <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
   </select>
@@ -15,10 +15,10 @@
       <th class="fixedColumns" scope="col">TARGET DATE</th>
       <th class="fixedColumns" scope="col">STATUS</th>
       <th class="fixedColumns" scope="col">SEVERITY
-        </th>
+      </th>
     </tr>
     </thead>
-    <tbody *ngFor="let bug of bugs">
+    <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }">
     <tr>
       <td>{{bug.title}}</td>
       <td>{{bug.targetDate}}</td>
@@ -27,8 +27,10 @@
         <label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label>
       </td>
     </tr>
-
     </tbody>
+    <div class="has-text-centered">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
   </table>
 </div>
 

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IBugBusinessService {
 
     List<BugDTO> getAllBugs();
-    BugDTO addBug(BugDTO bugDTO);
+    BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO);
     BugDTO findBugById(long id);
     AttachmentDTO addAttachment(AttachmentDTO attachmentDTO);
     List<AttachmentDTO> getAllAttachments();

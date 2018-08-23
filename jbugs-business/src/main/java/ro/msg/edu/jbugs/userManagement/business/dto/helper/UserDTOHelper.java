@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -39,7 +40,11 @@ public class UserDTOHelper {
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRoles(userDTO.getRoles().stream().map(roleDTOHelper::toEntity).collect(Collectors.toList()));
+        if(Optional.ofNullable(userDTO.getRoles()).isPresent())
+            user.setRoles(userDTO.getRoles().stream().map(roleDTOHelper::toEntity).collect(Collectors.toList()));
+        else{
+            user.setRoles(null);
+        }
         return user;
     }
 

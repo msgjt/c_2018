@@ -16,13 +16,14 @@ import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component: PermissionComponent},
   {path: 'role', component: RoleComponent},
-  {path: 'bug', component: ViewBugsComponent},
+  {path: 'bugDTO', component: ViewBugsComponent},
   {path: 'bug/add', component: AddBugComponentComponent},
   {path: 'bug', component: ViewBugsComponent},
   {path: 'create-user', component: CreateUserComponent},
@@ -57,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }}),
     NgSelectModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
