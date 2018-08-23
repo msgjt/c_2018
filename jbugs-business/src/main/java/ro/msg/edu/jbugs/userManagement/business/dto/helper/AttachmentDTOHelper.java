@@ -1,8 +1,9 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.BugDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 public class AttachmentDTOHelper {
 
@@ -11,7 +12,7 @@ public class AttachmentDTOHelper {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setIdAttachment(attachment.getIdAttachment());
         attachmentDTO.setBugDto(BugDTOHelper.fromEntity(attachment.getBug()));
-        attachmentDTO.setBlob(attachment.getBlob());
+        attachmentDTO.setBlob(attachment.getFile());
         return attachmentDTO;
     }
 
@@ -19,7 +20,7 @@ public class AttachmentDTOHelper {
         Attachment attachment = new Attachment();
         attachment.setIdAttachment(attachmentDTO.getIdAttachment());
         attachment.setBug(BugDTOHelper.toEntity(attachmentDTO.getBugDto()));
-        attachment.setBlob(attachmentDTO.getBlob());
+        attachment.setFile(attachmentDTO.getBlob());
         return attachment;
     }
 }

@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.PermissionDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 
 import java.util.stream.Collectors;

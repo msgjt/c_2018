@@ -1,19 +1,20 @@
 <div class="container">
+
   <form>
-    <table id="tableId">
+    <table id="tableId" class="table table-responsive-md">
       <thead>
       <tr>
-        <th class="fixedColumns" scope="col">{{'role.col-id' | translate}}</th>
         <th class="fixedColumns" scope="col">{{'role.col-type'| translate}}</th>
-        <th class="fixedColumns" scope="col">{{'role.col-roles' | translate}}</th>
+        <th class="fixed-side" scope="col">{{'role.col-roles' | translate}}</th>
         <th class="fixedColumns" scope="col">{{'role.col-update' | translate}}</th>
       </tr>
       </thead>
+
       <tbody *ngFor="let r of roles">
+
       <tr>
-      <td>{{r.id}}</td>
       <td>{{r.type}}</td>
-      <td>
+      <td class="col-md-4">
         <label [hidden]="showAllPermissions[r.id]">{{r.permissionsList}}</label>
         <form *ngIf="showAllPermissions[r.id]">
           <form *ngIf="isRemovedButtonSelected">

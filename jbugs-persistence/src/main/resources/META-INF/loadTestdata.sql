@@ -84,6 +84,6 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into users_roles(id_user,id_role) values (1,1);
 insert into users_roles(id_user,id_role) values (2,2);
 
-INSERT INTO attachments(idBug,file) values (1,'blablabla');
-INSERT INTO attachments(idBug,file) values (1,'hahahaha');
+INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
+
 -- other tables TODO
