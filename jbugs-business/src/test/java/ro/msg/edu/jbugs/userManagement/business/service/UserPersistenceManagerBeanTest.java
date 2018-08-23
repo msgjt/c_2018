@@ -1,12 +1,16 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import org.junit.Test;
@@ -15,10 +19,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -32,8 +36,15 @@ public class UserPersistenceManagerBeanTest {
     private UserBusinessService userBusinessService;
 
     @InjectMocks
+    private RoleBusinessService roleBusinessService;
+
+    @InjectMocks
     private UserLoginBusinessService loginBusinessService;
 
+    @Mock
+    private IRolePersistenceService rolePersistenceService;
+    @Mock
+    private RoleDTOHelper roleDTOHelper;
 
     @Mock
     private UserPersistenceService userPersistenceService;
@@ -65,7 +76,7 @@ public class UserPersistenceManagerBeanTest {
     @Test
     public void createSuffix_expectedEmpty(){
 
-        when(userPersistenceService.getUsernamesLike(any(String.class))).thenReturn(new ArrayList<>());
+        when(userPersistenceService.getUsernamesLike(any(String.class))).thenReturn(new HashSet<>());
         String suffix = userBusinessService.createSuffix("dorel0");
         assertEquals( "",suffix);
 
@@ -77,7 +88,7 @@ public class UserPersistenceManagerBeanTest {
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new ArrayList<String>(){{
+                        new HashSet<String>(){{
                             add("dorel0");
                             add("dorel01");
                             add("dorel02");
@@ -95,7 +106,7 @@ public class UserPersistenceManagerBeanTest {
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new ArrayList<String>(){{
+                        new HashSet<String>(){{
                             add("dorel0");
                             add("dorel06");
                         }}
@@ -111,7 +122,7 @@ public class UserPersistenceManagerBeanTest {
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new ArrayList<String>(){{
+                        new HashSet<String>(){{
                             add("marini");
                         }}
                 );
@@ -158,12 +169,9 @@ public class UserPersistenceManagerBeanTest {
     public void testCreateRole_Success(){
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setType(RoleEnum.ADMINISTRATOR);
-        try{
-            RoleDTO createdRole = userBusinessService.createRole(roleDTO);
+
+            RoleDTO createdRole = roleBusinessService.createRole(roleDTO);
             assertEquals(createdRole.getType(),roleDTO.getType());
-        }catch(BusinessException e){
-            e.printStackTrace();
-        }
     }
 
 }

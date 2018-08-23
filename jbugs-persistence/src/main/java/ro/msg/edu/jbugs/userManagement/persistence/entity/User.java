@@ -4,7 +4,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -36,10 +36,10 @@ public class User{
     @Column(name = "phoneNumber", length = MAX_STRING_LENGTH, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email", length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(name = "email", length = MAX_STRING_LENGTH, nullable = false)
     private String email;
 
-    @Column(name = "username", length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(name = "username", length = MAX_STRING_LENGTH, nullable = false)
     private String username;
 
     @Column(name = "password", length = MAX_STRING_LENGTH)
@@ -48,10 +48,10 @@ public class User{
     @Column(name = "isActive", length = MAX_STRING_LENGTH, nullable = false)
     private boolean isActive;
 
-    @ManyToMany(mappedBy = "users")
-    private List<Role> roles;
+    @ManyToMany
+    private Set<Role> roles;
 
-    @OneToMany( mappedBy = "createdByUser",fetch=FetchType.LAZY)
+    @OneToMany( mappedBy = "createdByUser",fetch=FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Bug> bugs= new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -124,11 +124,11 @@ public class User{
         isActive = active;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

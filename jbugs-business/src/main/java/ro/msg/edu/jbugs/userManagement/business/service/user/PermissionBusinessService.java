@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -20,21 +21,6 @@ public class PermissionBusinessService implements IPermissionBusinessService {
     private IPermissionPersistenceService permissionPersistenceService;
     @EJB
     private PermissionDTOHelper permissionDTOHelper;
-    @EJB
-    private RoleDTOHelper roleDTOHelper;
-
-    @Override
-    public PermissionDTO addPermissionForRole(RoleDTO role, PermissionDTO permission) {
-
-        Optional<Permission> permissionOptional = permissionPersistenceService.createPermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
-        return permissionDTOHelper.fromEntity(permissionOptional.get());
-    }
-
-    @Override
-    public PermissionDTO removePermissionForRole(RoleDTO role, PermissionDTO permission) {
-        Optional<Permission> permissionOptional = permissionPersistenceService.removePermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
-        return permissionDTOHelper.fromEntity(permissionOptional.get());
-    }
 
     @Override
     public PermissionDTO getPermissionById(long id) {
@@ -46,19 +32,6 @@ public class PermissionBusinessService implements IPermissionBusinessService {
     public List<PermissionDTO> getAllPermissions() {
         List<Permission> permissions = permissionPersistenceService.getAllPermissions();
         return permissions.stream().map(permissionDTOHelper::fromEntity).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PermissionDTO> getAllPermissionsForRole(RoleDTO roleDTO) {
-        Role role = roleDTOHelper.toEntity(roleDTO);
-        List<Permission> permissions = permissionPersistenceService.getPermissionsForRole(role);
-        return permissions.stream().map(permissionDTOHelper::fromEntity).collect(Collectors.toList());
-    }
-
-    @Override
-    public RoleDTO getRoleById(long id) {
-        Role role = permissionPersistenceService.getRoleForId(id).get();
-        return roleDTOHelper.fromEntity(role);
     }
 
 }

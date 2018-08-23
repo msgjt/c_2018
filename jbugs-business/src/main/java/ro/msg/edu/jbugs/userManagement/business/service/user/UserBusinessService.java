@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -183,8 +184,14 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) {
-        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
+    public UserDTO updateUser(UserDTO userToUpdate, UserDTO userDTO) {
+        userToUpdate.setFirstName(userDTO.getFirstName());
+        userToUpdate.setLastName(userDTO.getLastName());
+        userToUpdate.setEmail(userDTO.getEmail());
+        userToUpdate.setPassword(userDTO.getPassword());
+        userToUpdate.setPhoneNumber(userDTO.getPhoneNumber());
+        userToUpdate.setRoles(userDTO.getRoles());
+        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userToUpdate)).get());
     }
 
     @Override
@@ -204,25 +211,6 @@ public class UserBusinessService implements IUserBusinessService {
                 .stream()
                 .map(userDTOHelper::fromEntity)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public RoleDTO createRole(RoleDTO roleDTO) throws BusinessException {
-        Role role = roleDTOHelper.toEntity(roleDTO);
-        userPersistenceService.createRole(role);
-        return roleDTOHelper.fromEntity(role);
-    }
-
-    @Override
-    public RoleDTO getRoleById(long id) {
-        Role role = userPersistenceService.getRoleForId(id).get();
-        return roleDTOHelper.fromEntity(role);
-    }
-
-    @Override
-    public List<RoleDTO> getAllRoles() {
-        List<Role> roles = userPersistenceService.getAllRoles();
-        return roles.stream().map(roleDTOHelper::fromEntity).collect(Collectors.toList());
     }
 
     private String generateFullUsername(String firstName, String lastName) {

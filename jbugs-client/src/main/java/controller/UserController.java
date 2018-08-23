@@ -9,6 +9,7 @@ import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -39,7 +40,7 @@ public class UserController {
         try {
             UserDTO userDTO = IUserBusinessService.getUserByUsername(userName);
             response = Response.status(Response.Status.UNAUTHORIZED)
-                    .entity(userDTO)
+                    .entity(new Gson().toJson(userDTO))
                     .build();
         } catch (BusinessException e) {
             response = Response.status(Response.Status.UNAUTHORIZED)
@@ -54,19 +55,17 @@ public class UserController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Secured(PermissionEnum.PERMISSION_MANAGEMENT)
     @Path("/{userName}")
     public Response updateUser(@PathParam("userName") String userName, UserDTO userDTO) {
-        return Response.status(Response.Status.OK).entity(IUserBusinessService.updateUser(userDTO)).build();
-    }
+        UserDTO userToUpdate = null;
+        try {
+            userToUpdate = IUserBusinessService.getUserByUsername(userName);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+        UserDTO userUpdated = IUserBusinessService.updateUser(userToUpdate, userDTO);
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsersPost() {
-        String[] blabla = {"Gica", "Eu", "Gica", "Eu", "Gica", "Eu",};
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(blabla))
-                .build();
+        return Response.status(Response.Status.OK).entity(new Gson().toJson(userUpdated)).build();
     }
 
     @Path("/add")

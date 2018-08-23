@@ -1,9 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -23,18 +21,8 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleEnum type;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<Permission> permissions = new ArrayList<>();
-
     @ManyToMany
-    @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "id_role")},
-            inverseJoinColumns = {@JoinColumn(name = "id_user")})
-    private List<User> users = new ArrayList<>();
-
-    public static String getGetAllRoles() {
-        return GET_ALL_ROLES;
-    }
+    private Set<Permission> permissions;
 
     public Long getIdRole() {
         return idRole;
@@ -52,19 +40,12 @@ public class Role {
         this.type = type;
     }
 
-    public List<Permission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<Permission> permissions) {
+    public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

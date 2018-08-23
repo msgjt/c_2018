@@ -2,16 +2,16 @@ package ro.msg.edu.jbugs.userManagement.business.dto.user;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
-import java.util.List;
+import java.util.Set;
 
 public class UserSessionDTO {
     private String userName;
-    private List<PermissionEnum> permissions;
+    private Set<PermissionEnum> permissions;
 
     public UserSessionDTO() {
     }
 
-    public UserSessionDTO(String userName, List<PermissionEnum> permissions) {
+    public UserSessionDTO(String userName, Set<PermissionEnum> permissions) {
         this.userName = userName;
         this.permissions = permissions;
     }
@@ -24,11 +24,11 @@ public class UserSessionDTO {
         this.userName = userName;
     }
 
-    public List<PermissionEnum> getPermissions() {
+    public Set<PermissionEnum> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<PermissionEnum> permissions) {
+    public void setPermissions(Set<PermissionEnum> permissions) {
         this.permissions = permissions;
     }
 }

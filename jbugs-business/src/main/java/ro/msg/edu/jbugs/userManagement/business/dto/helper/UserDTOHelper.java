@@ -9,8 +9,9 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -26,7 +27,7 @@ public class UserDTOHelper {
         userDTO.setEmail(user.getEmail());
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setRoles(user.getRoles().stream().map(roleDTOHelper::fromEntity).collect(Collectors.toList()));
+        userDTO.setRoles(user.getRoles().stream().map(roleDTOHelper::fromEntity).collect(Collectors.toSet()));
         userDTO.setPassword(user.getPassword());
         return userDTO;
     }
@@ -41,7 +42,7 @@ public class UserDTOHelper {
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         if(Optional.ofNullable(userDTO.getRoles()).isPresent())
-            user.setRoles(userDTO.getRoles().stream().map(roleDTOHelper::toEntity).collect(Collectors.toList()));
+            user.setRoles(userDTO.getRoles().stream().map(roleDTOHelper::toEntity).collect(Collectors.toSet()));
         else{
             user.setRoles(null);
         }
@@ -50,7 +51,7 @@ public class UserDTOHelper {
 
     //ToDo: make not static and make fictional;
     public UserSessionDTO toEntity(UserLoginDTO userLoginDTO) {
-        List<PermissionEnum> permissions = new ArrayList<>();
+        Set<PermissionEnum> permissions = new HashSet<>();
         permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
         return new UserSessionDTO("doreld", permissions);
     }

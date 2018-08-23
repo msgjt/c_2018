@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 
 public interface IPermissionPersistenceService extends Serializable {
@@ -15,21 +16,10 @@ public interface IPermissionPersistenceService extends Serializable {
 
     Optional<Permission> updatePermission(@NotNull Permission permission);
 
-    Optional<Permission> removePermissionById(long id);
-
-    Optional<Permission> removePermissionForRole(@NotNull Role role, @NotNull Permission permission);
-
-    Optional<Role> removeAllPermissionsForRole(@NotNull Role role);
+    void removePermission(@NotNull Permission permission);
 
     Optional<Permission> getPermissionForId(@NotNull long id);
 
-    List<Permission> getPermissionsForRole(@NotNull Role role);
-
     List<Permission> getAllPermissions();
-
-    Optional<Permission> createPermissionForRole(@NotNull Role role, @NotNull Permission permission);
-
-    Optional<Role> getRoleForId(long id);
-
 
 }

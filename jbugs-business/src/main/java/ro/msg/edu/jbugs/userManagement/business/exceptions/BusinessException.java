@@ -2,7 +2,7 @@ package ro.msg.edu.jbugs.userManagement.business.exceptions;
 
 public class BusinessException extends Exception {
 
-    ExceptionCode exceptionCode;
+    private ExceptionCode exceptionCode;
 
     public BusinessException() {
     }
