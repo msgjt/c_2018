@@ -95,5 +95,12 @@ public class BugPersistenceService implements IBugPersistenceService {
         return Optional.of(bug);
     }
 
+    @Override
+    public Optional<Attachment> deleteAttachment(Attachment attachment) {
+       Attachment attachmentToBeDeleted = em.getReference(Attachment.class,attachment.getIdAttachment());
+       em.remove(attachmentToBeDeleted);
+        return Optional.of(attachment);
+    }
+
 
 }

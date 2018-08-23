@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       xmlns="http://www.w3.org/1999/html">
+
 <div class="container">
   <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
     <option [ngValue]="undefined">Severity:</option>
@@ -11,21 +12,22 @@
     <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
 
-  <table id="myTable">
+  <table>
     <thead>
     <tr>
-      <th class="fixedColumns" scope="col">TITLE</th>
-      <th class="fixedColumns" scope="col">DESCRIPTION</th>
-      <th class="fixedColumns" scope="col">VERSION</th>
-      <th class="fixedColumns" scope="col">FIXED VERSION</th>
-      <th class="fixedColumns" scope="col">SEVERITY</th>
-      <th class="fixedColumns" scope="col">STATUS</th>
-      <th class="fixedColumns" scope="col">ASSIGNED TO</th>
-      <th class="fixedColumns" scope="col">UPDATE</th>
+      <th  scope="col">TITLE</th>
+      <!--<th class="fixedColumns" scope="col">DESCRIPTION</th>-->
+      <th scope="col">VERSION</th>
+      <th scope="col">FIXED VERSION</th>
+      <th scope="col">SEVERITY</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">ASSIGNED TO</th>
+      <th scope="col">UPDATE</th>
+      <th scope="col">DETAILS</th>
     </tr>
     </thead>
 
-    <tbody *ngFor="let bug of bugs">
+    <tbody *ngFor="let bug of bugs" class="fixedColumns">
     <tr>
       <td>
         <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
@@ -33,20 +35,22 @@
           {{bug.title}}
         </div>
       </td>
-      <td >
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.description" (ngModelChange)="bug.description = $event"/>
-        <div *ngIf="!this.editableFunction(bug)">
-          {{bug.description}}
-        </div>
-      </td>
+      <!--<td >-->
+        <!--<input *ngIf="this.editableFunction(bug)" [ngModel]="bug.description" (ngModelChange)="bug.description = $event"/>-->
+        <!--<div *ngIf="!this.editableFunction(bug)">-->
+          <!--{{bug.description}}-->
+        <!--</div>-->
+      <!--</td>-->
       <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        <div class="fixedColumns">
+        <input  *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        </div>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.version}}
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
+        <input *ngIf="this.editableFunction(bug)"  class="fixedColumns" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.fixedVersion}}
         </div>
@@ -58,7 +62,12 @@
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.status" (ngModelChange)="bug.status = $event"/>
+        <div *ngIf="this.editableFunction(bug)" >
+          <select name="assignedTo" id="assignedTo"  class="form-control"  [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
+            <!--<option [disabled] [ngValue]="bug.status.trim()">{{bug.status.toLocaleUpperCase()}}</option>-->
+            <option  *ngFor="let status of this.updatedStatus" [ngValue]="status">{{status.toLocaleUpperCase()}}</option>
+          </select>
+        </div>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.status}}
         </div>
@@ -74,9 +83,34 @@
       <td>
         <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
       </td>
+      <td>
+        <button type="button" class="btn" (click)="loadAttachments(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>
+
+      </td>
+
     </tr>
+
     </tbody>
-  </table>
+  </table><div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Attachment for this bug</label>
+        <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
+          <option  *ngFor="let attachment of this.attachmentsForABug" [ngValue]="attachment">{{attachment.blob}}</option>
+        </select>
+        <br/>
+        <label>Download  <button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>
+        <label>Delete  <button class="btn" (click)="delete(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </div>
+  </div>
 </div>
 
 
