@@ -18,6 +18,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
 import { UpdateBugComponent } from './update-bug/update-bug.component';
+import {Bug} from "./types/bugs";
+import {BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
+import {BugDataService} from "./services/bugData.service";
 
 
 const appRoutes: Routes = [
@@ -29,6 +32,7 @@ const appRoutes: Routes = [
   {path: 'bug/update', component: UpdateBugComponent},
   {path: 'bug', component: ViewBugsComponent},
   {path: 'create-user', component: CreateUserComponent},
+  {path: 'bug/details', component: BugDetailsComponent}
 
 ]
 
@@ -46,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddBugComponentComponent,
     RoleComponent,
     ViewBugsComponent,
+    BugDetailsComponent,
     CreateUserComponent,
     UpdateBugComponent,
   ],
@@ -64,7 +69,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgMultiSelectDropDownModule.forRoot(),
     NgxPaginationModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, BugDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
