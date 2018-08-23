@@ -8,6 +8,7 @@
     <option disabled [ngValue]="undefined">Status:</option>
     <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
+  <button class="btn btn-group" style="float: right" (click)="resetList()">Reset</button>
   <table>
     <thead>
     <tr>

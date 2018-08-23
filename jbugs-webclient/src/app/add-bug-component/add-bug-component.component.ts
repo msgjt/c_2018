@@ -5,7 +5,6 @@ import {Attachment} from "../types/attachment";
 import {BugService} from "../services/bug.service";
 import {Bug} from "../types/bugs";
 import {$} from "jQuery";
-import {Permission} from "../types/permissions";
 
 
 @Component({
@@ -18,8 +17,7 @@ export class AddBugComponentComponent implements OnInit {
   severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
   chosenSeverity: string;
   chosenUsername: string;
-  chosenDate: string;
-  allUsers: User[];
+  allUsers: User[] = [];
   attachment: Attachment;
   bug: Bug;
 
@@ -30,7 +28,7 @@ export class AddBugComponentComponent implements OnInit {
       title: '',
       description: '',
       version: '',
-      targetDate: '',
+      targetDate: 0,
       status: '',
       fixedVersion: '',
       severity: '',
@@ -41,12 +39,10 @@ export class AddBugComponentComponent implements OnInit {
       bugDTO:null,
       blob:""
     }
-    this.allUsers = this.userService.getAllUsers();
   }
 
   changedSelected(chosenSeverity: string) {
     console.log(chosenSeverity);
-    console.log(this.chosenDate);
   }
 
   changedSelectedUsername() {
@@ -69,7 +65,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.severity = this.chosenSeverity;
     this.bug.version = '1.0';
     this.bug.status = 'OPEN';
-    this.bug.targetDate = this.chosenDate;
+    this.bug.targetDate = Date.now();
     this.bug.fixedVersion = '1.0';
     this.bug.createdByUser = this.allUsers[0];
     this.bug.assignedTo = this.allUsers.filter(value => {
@@ -81,12 +77,7 @@ export class AddBugComponentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((response: User[]) => {
-      this.allUsers = [];
-      response.forEach((value) => {
-        this.allUsers.push(value);
-      })
-    });
+    this.allUsers = this.userService.getAllUsers();
 
   }
 
