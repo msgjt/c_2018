@@ -32,7 +32,6 @@ public class UserPersistenceService implements IUserPersistenceService {
      */
 
     public Optional<User> createUser(@NotNull User user) {
-        //this MUST be modified
         int size = user.getRoles().size();
         for (int i = 0; i < size; i++) {
             createRoleForUser(user, user.getRoles().get(i));
@@ -165,6 +164,13 @@ public class UserPersistenceService implements IUserPersistenceService {
         return q.getResultList();
     }
 
+    /**
+     * Create a role for user
+     *
+     * @param user : user entity where add a role
+     * @param role : role entity to be added in user
+     * @return : Optional, containing a user entity.
+     */
     @Override
     public Optional<User> createRoleForUser(User user, Role role) {
         user.getRoles().add(role);

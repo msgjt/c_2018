@@ -70,16 +70,27 @@ insert into bugs (description, fixedVersion, severity, status, targetDate, title
 
 
 
-
-
-
-
-
-
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 1,2);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 2,1);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 2,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 3,2);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 1,3);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 4,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 5,1);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 6,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 7,3);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 8,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 9,1);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 10,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 11,3);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 12,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 13,1);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 14,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 15,3);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 16,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 17,1);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 18,2);
+insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 19,3);
 
 insert into users_roles(id_user,id_role) values (1,1);
 insert into users_roles(id_user,id_role) values (2,2);

@@ -2,6 +2,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -14,4 +15,6 @@ public interface IBugPersistenceService extends Serializable {
     Optional<Bug> findBugById(long id);
     Optional<Attachment> addAttachment(Attachment attachment);
     List<Attachment> getAllAttachments();
+    Optional<Bug> updateBug(Bug bug);
+    List<Comment> getCommentsForBug(Bug bug);
 }

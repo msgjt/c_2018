@@ -2,46 +2,50 @@
   <div class="jumbotron">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form #formControl="ngForm">
+        <form (ngSubmit)="addUser()" #formControl="ngForm" #formElement>
           <div class="form-group">
             <label for="firstName">First Name</label>
-            <input required="true" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text"
-                   class="form-control"/>
+            <input #firstNameElement required="true" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text"
+                   class="form-control" pattern="^[a-zA-Z]*$"/>
+            <div class="err" *ngIf="!firstNameElement.checkValidity()">First Name is required</div>
           </div>
+
           <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input required="true" [(ngModel)]="user.lastName" name="lastName" id="lastName" type="text"
-                   class="form-control"/>
+            <input #lastNameElement required="true" [(ngModel)]="user.lastName" name="lastName" id="lastName" type="text"
+                   class="form-control" pattern="^[a-zA-Z]*$"/>
+            <div class="err" *ngIf="!lastNameElement.checkValidity()">Last Name is required</div>
           </div>
           <div class="form-group">
             <label for="mobileNumber">Mobile number</label>
-            <input required="true" [(ngModel)]="user.phoneNumber" id="mobileNumber" name="mobileNumber" type="text"
-                   class="form-control"/>
+            <input #mobileNumberElement  required="true" [(ngModel)]="user.phoneNumber" id="mobileNumber" name="mobileNumber" type="text"
+                   class="form-control" minlength="10"
+                   maxlength="15"/>
+            <div class="err" *ngIf="!mobileNumberElement.checkValidity()">Mobile number must be valid(GER/RO)</div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$" [(ngModel)]="user.email" id="email"
-                   name="email" type="text" class="form-control"/>
+            <input #emailElement required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$" [(ngModel)]="user.email" id="email"
+                   name="email" type="text" class="form-control" placeholder="@msggroup.com" pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
+            <div class="err" *ngIf="!emailElement.checkValidity()">Email must be a valid email</div>
           </div>
-          <div class=" form-group">
-            <label>Roles</label>
-            <div *ngIf="!showRoles" class=" form-group">
-              <button class="btn btn-primary" (click)="show()">Choose a role</button>
-            </div>
-            <div class="form-group">
+          <label>Roles</label>
+          <div class="form-group">
+            <ng-multiselect-dropdown
+              #selectElement
+              required
 
-              <ng-multiselect-dropdown
-                *ngIf="showRoles"
-                name="roles"
-                [data]="dropdownList"
-                [placeholder]="'Choose a role'"
-                [(ngModel)]="selectedItems"
-                [settings]="dropdownSettings">
-              </ng-multiselect-dropdown>
-            </div>
+              *ngIf="showRoles"
+              name="roles"
+              [data]="dropdownList"
+              [placeholder]="'Choose a role'"
+              [(ngModel)]="selectedItems"
+              [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+            <div class="err" *ngIf="!verifySelectMenu()">Select at least one role</div>
           </div>
           <div class=" form-group">
-            <button class="btn btn-primary" (click)="addUser()">Add</button>
+            <button type="submit" class="btn btn-primary" >Add</button>
           </div>
         </form>
       </div>

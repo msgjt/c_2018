@@ -1,4 +1,13 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
 .gray{
   color: darkgray;
+  padding: 10px;
+}
+
+tr {
+  height: 50px
 }

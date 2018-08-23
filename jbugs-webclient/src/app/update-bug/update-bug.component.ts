@@ -1,17 +1,14 @@
-///<reference path="../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
-import {Component, OnInit} from "@angular/core";
-import {BugService} from "../services/bug.service";
+import { Component, OnInit } from '@angular/core';
 import {Bug} from "../types/bugs";
-import {BugDataService} from "../services/bugData.service";
+import {BugService} from "../services/bug.service";
 
 @Component({
-  selector: 'app-bug',
-  templateUrl: './viewBugs.component.html',
-  styleUrls: ['./viewBugs.component.css', './severity.css']
+  selector: 'app-update-bug',
+  templateUrl: './update-bug.component.html',
+  styleUrls: ['./update-bug.component.css']
 })
+export class UpdateBugComponent implements OnInit {
 
-export class ViewBugsComponent implements OnInit{
-  page: number=1;
   bugs: Bug[];
   cachedBugs: Bug[];
   severities:string[] = ["critical", "high", "medium", "low"];
@@ -19,7 +16,7 @@ export class ViewBugsComponent implements OnInit{
   statuses:string[] = ["fixed", "open", "in_progress", "rejected", "info_nedded", "closed"];
   chosenStatus:string;
 
-  constructor(private bugService: BugService, public dataService: BugDataService){
+  constructor(private bugService: BugService){
   }
 
   ngOnInit(): void {
@@ -27,9 +24,6 @@ export class ViewBugsComponent implements OnInit{
     this.cachedBugs = this.bugs;
   }
 
-  setSelectedBug(bug: Bug){
-    this.dataService.bug = bug;
-  }
   filterBySeverity(){
     if(this.chosenSeverity == "undefined"){
       this.bugs = this.cachedBugs;
@@ -49,7 +43,5 @@ export class ViewBugsComponent implements OnInit{
     }
   }
 
-  resetList(){
-    this.bugs = this.cachedBugs;
-  }
+
 }

@@ -6,13 +6,23 @@
       <a class="nav-item nav-link" href="#">{{'header.nav-item2' | translate}}</a>
       <a class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'| translate}}</a>
       <a class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'| translate}}</a>
-      <a class="nav-item nav-link" routerLink="/bug">{{'header.nav-item5' | translate}}</a>
+      <a class="nav-item nav-link" routerLink="/create-user">{{'header.nav-item6' | translate}}</a>
+      <div class="dropdown">
+        <a class="nav-item nav-link" routerLink="/bug">{{'header.nav-item5' | translate}}</a>
+        <div class="dropdown-content">
+          <a routerLink="/bug">View</a>
+          <a routerLink="/bug/add">Add</a>
+          <a href="/bug/update">Update</a>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
       <a *ngIf="!verify()" class="nav-item nav-link active" routerLink="/login">{{'header.btn-login' | translate}}</a>
-      <a *ngIf="verify()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout' | translate}}</a>
+      <a *ngIf="verify()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout'
+        | translate}}</a>
       <button (click)="useLanguage('en')">en</button>
       <button (click)="useLanguage('ro')">ro</button>
     </div>
