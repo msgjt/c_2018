@@ -60,17 +60,6 @@ public class User{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserNotification> userNotifications;
 
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(Role role) {
-        this.roles.removeIf(e-> e.getIdRole().equals(role.getIdRole()));
-        role.getUsers().removeIf(e-> e.getIdUser().equals(this.getIdUser()));
-    }
-
     public Long getIdUser() {
         return idUser;
     }

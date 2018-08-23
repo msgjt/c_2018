@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.service.notification;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.norification.EmailDto;
+import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 

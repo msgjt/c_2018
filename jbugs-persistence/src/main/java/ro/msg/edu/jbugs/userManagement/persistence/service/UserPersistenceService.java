@@ -1,16 +1,13 @@
 package ro.msg.edu.jbugs.userManagement.persistence.service;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Provides functions for working with users in the persistence layer.
@@ -35,7 +32,7 @@ public class UserPersistenceService implements IUserPersistenceService {
         //this MUST be modified
         int size = user.getRoles().size();
         for (int i = 0; i < size; i++) {
-            createRoleForUser(user, user.getRoles().get(i));
+            addRoleForUser(user, user.getRoles().get(i));
         }
         em.persist(user);
         em.flush();
@@ -49,6 +46,8 @@ public class UserPersistenceService implements IUserPersistenceService {
      * @return : updated user entity from database
      */
     public Optional<User> updateUser(@NotNull User user) {
+        getUserByUsername(user.getUsername()).get().setRoles(user.getRoles());
+        user.getRoles().forEach(r -> {if(!r.getUsers().contains(user)) r.getUsers().add(user);});
         return Optional.of(em.merge(user));
     }
 
@@ -166,26 +165,12 @@ public class UserPersistenceService implements IUserPersistenceService {
     }
 
     @Override
-    public Optional<User> createRoleForUser(User user, Role role) {
+    public Optional<User> addRoleForUser(User user, Role role) {
         user.getRoles().add(role);
         role.getUsers().add(user);
         em.persist(user);
         em.persist(role);
         return Optional.of(user);
-    }
-
-
-    public Optional<User> updateUserWithRoles(@NotNull User user, @NotNull List<Role> roles) {
-        user.getRoles().clear();
-        user.setRoles(roles);
-        roles.forEach(r -> {
-            if (!r.getUsers().contains(user)) {
-                r.getUsers().add(user);
-            }
-            em.merge(r);
-        });
-        return Optional.of(em.merge(user));
-
     }
 
 }

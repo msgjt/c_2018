@@ -2,7 +2,7 @@ package controller;
 
 import authentification.Secured;
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.norification.EmailDto;
+import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;

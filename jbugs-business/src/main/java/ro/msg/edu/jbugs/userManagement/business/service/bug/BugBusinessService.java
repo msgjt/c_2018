@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class BugBusinessService implements IBugBusinessService {
 
     @EJB
-    private IBugPersistenceService IBugPersistenceService;
+    private IBugPersistenceService bugPersistenceService;
     @EJB
     private BugDTOHelper bugDTOHelper;
     @EJB
@@ -26,7 +26,7 @@ public class BugBusinessService implements IBugBusinessService {
 
     @Override
     public List<BugDTO> getAllBugs() {
-        List<Bug> bugs = IBugPersistenceService.getAllBugs();
+        List<Bug> bugs = bugPersistenceService.getAllBugs();
         return bugs.stream().map(bug -> bugDTOHelper.fromEntity(bug)).collect(Collectors.toList());
     }
 
@@ -34,23 +34,23 @@ public class BugBusinessService implements IBugBusinessService {
     public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return bugDTOHelper.fromEntity(IBugPersistenceService.addBug(bug,attachment).get());
+        return bugDTOHelper.fromEntity(bugPersistenceService.addBug(bug,attachment).get());
     }
 
     @Override
     public BugDTO findBugById(long id) {
-        return bugDTOHelper.fromEntity(IBugPersistenceService.findBugById(id).get());
+        return bugDTOHelper.fromEntity(bugPersistenceService.findBugById(id).get());
     }
 
     @Override
     public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) {
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return attachmentDTOHelper.fromEntity(IBugPersistenceService.addAttachment(attachment).get());
+        return attachmentDTOHelper.fromEntity(bugPersistenceService.addAttachment(attachment).get());
     }
 
     @Override
     public List<AttachmentDTO> getAllAttachments() {
-        List<Attachment> attachments = IBugPersistenceService.getAllAttachments();
+        List<Attachment> attachments = bugPersistenceService.getAllAttachments();
         return attachments.stream().map(x -> attachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 }

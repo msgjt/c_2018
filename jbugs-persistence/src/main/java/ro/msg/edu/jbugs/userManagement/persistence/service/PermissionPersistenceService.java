@@ -48,8 +48,8 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
 
     @Override
     public Optional<Permission> removePermissionForRole(@NotNull Role role, @NotNull Permission permission) {
-        //System.out.print("AAAAAAAAAAAAAAAAAA" + role.getPermissions().size());
-        role.removePermission(permission);
+        role.getPermissions().removeIf(e -> e.getIdPermission().equals(permission.getIdPermission()));
+        permission.getRoles().removeIf(e -> e.getIdRole().equals(role.getIdRole()));
         em.merge(role);
         em.merge(permission);
         return Optional.of(permission);
@@ -88,7 +88,6 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
 
     @Override
     public Optional<Permission> createPermissionForRole(@NotNull Role role, @NotNull Permission permission) {
-        //role.addPermission(permission);
         role.getPermissions().add(permission);
         permission.getRoles().add(role);
         em.merge(role);

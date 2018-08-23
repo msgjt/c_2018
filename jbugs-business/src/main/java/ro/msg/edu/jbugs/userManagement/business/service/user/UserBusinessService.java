@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
     @EJB
-    private IUserPersistenceService userPersistenceManager;
+    private IUserPersistenceService userPersistenceService;
     @EJB
     private UserDTOHelper userDTOHelper;
     @EJB
@@ -57,7 +57,7 @@ public class UserBusinessService implements IUserBusinessService {
         user.setUsername(generateFullUsername(userDTO.getFirstName(), userDTO.getLastName()));
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
-        userPersistenceManager.createUser(user);
+        userPersistenceService.createUser(user);
         return userDTOHelper.fromEntity(user);
     }
 
@@ -73,7 +73,7 @@ public class UserBusinessService implements IUserBusinessService {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
         }
         //validate if email already exists
-        if (userPersistenceManager.getUserByEmail(userDTO.getEmail()).isPresent()) {
+        if (userPersistenceService.getUserByEmail(userDTO.getEmail()).isPresent()) {
             throw new BusinessException(ExceptionCode.EMAIL_EXISTS_ALREADY);
         }
 
@@ -99,7 +99,7 @@ public class UserBusinessService implements IUserBusinessService {
      */
     public String createSuffix(String username) {
 
-        Optional<Integer> max = userPersistenceManager.getUsernamesLike(username)
+        Optional<Integer> max = userPersistenceService.getUsernamesLike(username)
                 .stream()
                 .map(x -> x.substring(MIN_USERNAME_LENGTH, x.length()))
                 .map(x -> x.equals("") ? 0 : Integer.parseInt(x))
@@ -165,9 +165,9 @@ public class UserBusinessService implements IUserBusinessService {
      */
     @Override
     public void deactivateUser(String username) {
-        User user = userPersistenceManager.getUserByUsername(username).get();
+        User user = userPersistenceService.getUserByUsername(username).get();
         user.setActive(false);
-        userPersistenceManager.updateUser(user);
+        userPersistenceService.updateUser(user);
     }
 
     /**
@@ -177,20 +177,20 @@ public class UserBusinessService implements IUserBusinessService {
      */
     @Override
     public void activateUser(String username) {
-        User user = userPersistenceManager.getUserByUsername(username).get();
+        User user = userPersistenceService.getUserByUsername(username).get();
         user.setActive(true);
-        userPersistenceManager.updateUser(user);
+        userPersistenceService.updateUser(user);
     }
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        return userDTOHelper.fromEntity(userPersistenceManager.updateUser(userDTOHelper.toEntity(userDTO)).get());
+        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);
-        return userDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+        return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
     }
 
     /**
@@ -200,7 +200,7 @@ public class UserBusinessService implements IUserBusinessService {
      */
     @Override
     public List<UserDTO> getAllUsers() {
-        return userPersistenceManager.getAllUsers()
+        return userPersistenceService.getAllUsers()
                 .stream()
                 .map(userDTOHelper::fromEntity)
                 .collect(Collectors.toList());
@@ -209,19 +209,19 @@ public class UserBusinessService implements IUserBusinessService {
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) throws BusinessException {
         Role role = roleDTOHelper.toEntity(roleDTO);
-        userPersistenceManager.createRole(role);
+        userPersistenceService.createRole(role);
         return roleDTOHelper.fromEntity(role);
     }
 
     @Override
     public RoleDTO getRoleById(long id) {
-        Role role = userPersistenceManager.getRoleForId(id).get();
+        Role role = userPersistenceService.getRoleForId(id).get();
         return roleDTOHelper.fromEntity(role);
     }
 
     @Override
     public List<RoleDTO> getAllRoles() {
-        List<Role> roles = userPersistenceManager.getAllRoles();
+        List<Role> roles = userPersistenceService.getAllRoles();
         return roles.stream().map(roleDTOHelper::fromEntity).collect(Collectors.toList());
     }
 
@@ -249,7 +249,7 @@ public class UserBusinessService implements IUserBusinessService {
 
 
     private void validateUserName(String userName) throws BusinessException {
-        if (!userPersistenceManager.getUserByUsername(userName).isPresent())
+        if (!userPersistenceService.getUserByUsername(userName).isPresent())
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
     }
 }

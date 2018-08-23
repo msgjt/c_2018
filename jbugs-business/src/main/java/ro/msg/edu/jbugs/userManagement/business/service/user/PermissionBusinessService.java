@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class PermissionBusinessService implements IPermissionBusinessService {
     @EJB
-    private IPermissionPersistenceService permissionManagement;
+    private IPermissionPersistenceService permissionPersistenceService;
     @EJB
     private PermissionDTOHelper permissionDTOHelper;
     @EJB
@@ -26,38 +26,38 @@ public class PermissionBusinessService implements IPermissionBusinessService {
     @Override
     public PermissionDTO addPermissionForRole(RoleDTO role, PermissionDTO permission) {
 
-        Optional<Permission> permissionOptional = permissionManagement.createPermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionPersistenceService.createPermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
         return permissionDTOHelper.fromEntity(permissionOptional.get());
     }
 
     @Override
     public PermissionDTO removePermissionForRole(RoleDTO role, PermissionDTO permission) {
-        Optional<Permission> permissionOptional = permissionManagement.removePermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
+        Optional<Permission> permissionOptional = permissionPersistenceService.removePermissionForRole(roleDTOHelper.toEntity(role), permissionDTOHelper.toEntity(permission));
         return permissionDTOHelper.fromEntity(permissionOptional.get());
     }
 
     @Override
     public PermissionDTO getPermissionById(long id) {
-        Optional<Permission> permissionOptional = permissionManagement.getPermissionForId(id);
+        Optional<Permission> permissionOptional = permissionPersistenceService.getPermissionForId(id);
         return permissionDTOHelper.fromEntity(permissionOptional.get());
     }
 
     @Override
     public List<PermissionDTO> getAllPermissions() {
-        List<Permission> permissions = permissionManagement.getAllPermissions();
+        List<Permission> permissions = permissionPersistenceService.getAllPermissions();
         return permissions.stream().map(permissionDTOHelper::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public List<PermissionDTO> getAllPermissionsForRole(RoleDTO roleDTO) {
         Role role = roleDTOHelper.toEntity(roleDTO);
-        List<Permission> permissions = permissionManagement.getPermissionsForRole(role);
+        List<Permission> permissions = permissionPersistenceService.getPermissionsForRole(role);
         return permissions.stream().map(permissionDTOHelper::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public RoleDTO getRoleById(long id) {
-        Role role = permissionManagement.getRoleForId(id).get();
+        Role role = permissionPersistenceService.getRoleForId(id).get();
         return roleDTOHelper.fromEntity(role);
     }
 

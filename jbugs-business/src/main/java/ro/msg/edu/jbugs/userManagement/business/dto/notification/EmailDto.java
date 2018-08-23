@@ -1,4 +1,4 @@
-package ro.msg.edu.jbugs.userManagement.business.dto.norification;
+package ro.msg.edu.jbugs.userManagement.business.dto.notification;
 
 public class EmailDto {
     private String message;

@@ -20,7 +20,8 @@ public class Role {
     private Long idRole;
 
     @Column(name = "type", length = MAX_STRING_LENGTH)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum type;
 
     @ManyToMany(mappedBy = "roles")
     private List<Permission> permissions = new ArrayList<>();
@@ -30,16 +31,6 @@ public class Role {
             joinColumns = {@JoinColumn(name = "id_role")},
             inverseJoinColumns = {@JoinColumn(name = "id_user")})
     private List<User> users = new ArrayList<>();
-
-    public void addPermission(Permission permission) {
-        this.permissions.add(permission);
-        permission.getRoles().add(this);
-    }
-
-    public void removePermission(Permission permission) {
-        this.permissions.removeIf(e -> e.getIdPermission().equals(permission.getIdPermission()));
-        permission.getRoles().removeIf(e -> e.getIdRole().equals(this.idRole));
-    }
 
     public static String getGetAllRoles() {
         return GET_ALL_ROLES;
@@ -53,11 +44,11 @@ public class Role {
         this.idRole = idRole;
     }
 
-    public String getType() {
+    public RoleEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RoleEnum type) {
         this.type = type;
     }
 
