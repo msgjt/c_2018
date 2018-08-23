@@ -4,29 +4,29 @@
       <div class="col-md-6">
         <form #formControl="ngForm">
           <div class="form-group">
-            <label for="firstName">{{'create-user.first-name'| translate}}</label>
+            <label for="firstName">{{'update-user.first-name'| translate}}</label>
             <input required="true" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text"
                    class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="lastName">{{'create-user.last-name' | translate}}</label>
+            <label for="lastName">{{'update-user.last-name' | translate}}</label>
             <input required="true" [(ngModel)]="user.lastName" name="lastName" id="lastName" type="text"
                    class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="mobileNumber">{{'create-user.mobile-number' | translate}}</label>
+            <label for="mobileNumber">{{'update-user.mobile-number' | translate}}</label>
             <input required="true" [(ngModel)]="user.phoneNumber" id="mobileNumber" name="mobileNumber" type="text"
                    class="form-control"/>
           </div>
           <div class="form-group">
-            <label for="email">{{'create-user.email' | translate}}</label>
+            <label for="email">{{'update-user.email' | translate}}</label>
             <input required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$" [(ngModel)]="user.email" id="email"
                    name="email" type="text" class="form-control"/>
           </div>
           <div class=" form-group">
-            <label>{{'create-user.roles' | translate}}</label>
+            <label>{{'update-user.roles' | translate}}</label>
             <div *ngIf="!showRoles" class=" form-group">
-              <button class="btn btn-primary" (click)="show()">{{'create-user.btn-role' | translate}}</button>
+              <button class="btn btn-primary" (click)="show()">{{'update-user.btn-role' | translate}}</button>
             </div>
             <div class="form-group">
 
@@ -41,10 +41,11 @@
             </div>
           </div>
           <div class=" form-group">
-            <button class="btn btn-primary" (click)="addUser()">{{'create-user.add' | translate}}</button>
+            <button class="btn btn-primary" (click)="addUser()">{{'update-user.add' | translate}}</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+

@@ -37,5 +37,8 @@ export class UserService {
     }).subscribe();
     return user;
   }
+  updateUser(user: User){
+
+  }
 
 }

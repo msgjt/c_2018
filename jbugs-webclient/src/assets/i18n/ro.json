@@ -33,5 +33,31 @@
     "btn-back2": "Inapoi",
     "btn-add": "Adauga",
     "btn-remove": "Sterge"
-}
+},
+  "bugs":{
+    "option1": "Severitate",
+    "option2": "Status",
+    "table-col1": "Denumire",
+    "table-col2": "Data",
+    "table-col3": "Status",
+    "table-col4": "Severitate"
+  },
+  "create-user":{
+    "first-name":"Prenume",
+    "last-name": "Nume de familie",
+    "mobile-number": "Numar de telefon",
+    "email": "Email",
+    "roles": "Roluri",
+    "btn-role": "Alege un rol",
+    "add": "Adauga"
+  },
+  "update-user":{
+    "first-name":"Prenume",
+    "last-name": "Nume de familie",
+    "mobile-number": "Numar de telefon",
+    "email": "Email",
+    "roles": "Roluri",
+    "btn-role": "Alege un rol",
+    "save": "Salveaza"
+  }
 }

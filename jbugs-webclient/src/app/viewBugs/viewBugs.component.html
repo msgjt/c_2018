@@ -1,21 +1,20 @@
 <div class="container">
   <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
-    <option disabled [ngValue]="undefined">Severity:</option>
+    <option disabled [ngValue]="undefined">{{'bugs.option1' | translate}}</option>
     <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
   </select>
 
   <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
-    <option disabled [ngValue]="undefined">Status:</option>
+    <option disabled [ngValue]="undefined">{{'bugs.option2' | translate}}</option>
     <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
   <table>
     <thead>
     <tr>
-      <th class="fixedColumns" scope="col">ISSUE</th>
-      <th class="fixedColumns" scope="col">TARGET DATE</th>
-      <th class="fixedColumns" scope="col">STATUS</th>
-      <th class="fixedColumns" scope="col">SEVERITY
-      </th>
+      <th class="fixedColumns" scope="col">{{'bugs.table-col1' | translate}}</th>
+      <th class="fixedColumns" scope="col">{{'bugs.table-col2' | translate}}</th>
+      <th class="fixedColumns" scope="col">{{'bugs.table-col3' | translate}}</th>
+      <th class="fixedColumns" scope="col">{{'bugs.table-col4' | translate}}</th>
     </tr>
     </thead>
     <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }">

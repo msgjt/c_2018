@@ -1,6 +1,6 @@
 {
   "header": {
-  "nav-title": "JBugger",
+    "nav-title": "JBugger",
     "nav-item1": "Home",
     "nav-item2": "Contact",
     "nav-item3": "Permissions",
@@ -10,20 +10,20 @@
     "btn-logout": "Log Out"
 },
   "login":{
-  "title": "Login",
+    "title": "Login",
     "username": "Username",
     "password": "Password",
     "message": "Login Failed. Please try again.",
     "button": "login"
 },
   "permission": {
-  "col-id": "Id",
+    "col-id": "Id",
     "col-type": "Type",
     "col-description": "Description",
     "col-roles": "Roles"
 },
   "role":{
-  "col-id": "Id",
+    "col-id": "Id",
     "col-type": "Type",
     "col-roles": "Roles",
     "col-update": "Update",
@@ -33,7 +33,32 @@
     "btn-back2": "Back",
     "btn-add": "Add",
     "btn-remove": "Remove"
-
-}
+},
+  "bugs":{
+    "option1": "Severity",
+    "option2": "Status",
+    "table-col1": "Issue",
+    "table-col2": "Target date",
+    "table-col3": "Status",
+    "table-col4": "Severity"
+  },
+  "create-user":{
+    "first-name":"First Name",
+    "last-name": "Last Name",
+    "mobile-number": "Mobile number",
+    "email": "Email",
+    "roles": "Roles",
+    "btn-role": "Choose a role",
+    "add": "Add"
+  },
+  "update-user":{
+    "first-name":"First Name",
+    "last-name": "Last Name",
+    "mobile-number": "Mobile number",
+    "email": "Email",
+    "roles": "Roles",
+    "btn-role": "Choose a role",
+    "save": "Save"
+  }
 
 }

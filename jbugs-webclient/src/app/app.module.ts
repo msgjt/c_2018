@@ -17,6 +17,7 @@ import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 const appRoutes: Routes = [
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleComponent,
     ViewBugsComponent,
     CreateUserComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,
