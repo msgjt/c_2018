@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 
@@ -22,6 +23,7 @@ public class BugController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    //ToDO add permission BUG_MANAGEMENT restriction
     public Response getBugs(){
         List<BugDTO> bugDTOS = bugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
@@ -35,7 +37,7 @@ public class BugController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(AttachmentDTO attachmentDTO){
         BugDTO bugDTO = attachmentDTO.getBugDTO();
-        bugDTO.setTargetDate(new Date());
+        System.out.println("aaaaaaaaaaaaaaa" + bugDTO.getTargetDate());
         bugBusinessService.addBug(bugDTO,attachmentDTO);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTO))
@@ -62,4 +64,13 @@ public class BugController {
                 .build();
     }
 
+    @Path("comments/{idBug}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllComments(@PathParam("idBug") long id){
+        List<CommentDTO> comments = bugBusinessService.getCommentsForBug(id);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(comments))
+                .build();
+    }
 }

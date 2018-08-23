@@ -6,7 +6,7 @@ export interface Bug {
   title: string;
   description: string;
   version: string;
-  targetDate: number;
+  targetDate: string;
   status: string;
   fixedVersion: string;
   severity: string;

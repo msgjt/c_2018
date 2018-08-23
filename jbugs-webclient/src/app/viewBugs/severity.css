@@ -1,0 +1,22 @@
+.severity {
+  width: 65px;
+  border-radius: 25px;
+  text-align: center;
+  color: whitesmoke;
+}
+.severity.critical {
+  background-color: darkred;
+}
+
+.severity.high {
+  background-color: orange;
+}
+
+.severity.medium {
+  background-color: dodgerblue;
+}
+
+.severity.low {
+  background-color: green;
+}
+
