@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Role} from "../types/roles";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../types/user";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class UserService {
       })
     });
     return users;
+  }
+
+  getUsers():Observable<any> {
+    return this.http.get(this.baseURL + '/users');
   }
 
   /**

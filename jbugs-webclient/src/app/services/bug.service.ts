@@ -38,4 +38,14 @@ export class BugService {
       headers: reqHeader
     }).subscribe();
   }
+
+  updateBug(bug:Bug){
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var attachmentModel = JSON.stringify(bug);
+    console.log(attachmentModel);
+    this.http.post(this.baseURL+ '/update',attachmentModel, {
+      headers: reqHeader
+    }).subscribe();
+  }
+
 }

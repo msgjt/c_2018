@@ -28,19 +28,19 @@ public class BugController {
                 .entity(new Gson().toJson(bugDTOS))
                 .build();
     }
-
     @Path("/add")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(AttachmentDTO attachmentDTO){
         BugDTO bugDTO = attachmentDTO.getBugDTO();
-        bugDTO.setTargetDate(new Date());
+        System.out.println("aaaaaaaaaaaaaaa" + bugDTO.getTargetDate());
         bugBusinessService.addBug(bugDTO,attachmentDTO);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
+
 
     @Path("/update")
     @POST
