@@ -24,7 +24,7 @@ export class CreateUserComponent implements OnInit {
     this.user = {
       firstName: '',
       lastName: '',
-      userName: '',
+      username: '',
       email: '',
       password: '',
       phoneNumber: '',

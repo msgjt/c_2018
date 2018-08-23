@@ -69,7 +69,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.fixedVersion = '1.0';
     this.bug.createdByUser = this.allUsers[0];
     this.bug.assignedTo = this.allUsers.filter(value => {
-      return value.userName === this.chosenUsername;
+      return value.username === this.chosenUsername;
     })[0];
     this.attachment.bugDTO = this.bug;
     this.bugService.addBug(this.attachment);

@@ -1,1 +1,44 @@
-<app-bug></app-bug>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      xmlns="http://www.w3.org/1999/html">
+<div class="container">
+  <select [(ngModel)]="this.chosenSeverity"  (ngModelChange)="filterBySeverity()">
+    <option  [ngValue]="undefined">Severity:</option>
+    <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+  </select>
+
+  <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
+    <option [ngValue]="undefined">Status:</option>
+    <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
+  </select>
+  <table>
+    <thead>
+    <tr>
+      <th class="fixedColumns" scope="col">TITLE</th>
+      <th class="fixedColumns" scope="col">DESCRIPTION</th>
+      <th class="fixedColumns" scope="col">VERSION</th>
+      <th class="fixedColumns" scope="col">FIXED VERSION</th>
+      <th class="fixedColumns" scope="col">SEVERITY</th>
+      <th class="fixedColumns" scope="col">STATUS</th>
+      <th class="fixedColumns" scope="col">ASSIGNED TO</th>
+      <th class="fixedColumns" scope="col">UPDATE</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let bug of bugs">
+    <tr>
+      <td contenteditable="true">{{bug.title}}</td>
+      <td contenteditable="true">{{bug.description}}</td>
+      <td contenteditable="true">{{bug.version}}</td>
+      <td contenteditable="true">{{bug.fixedVersion}}</td>
+      <td contenteditable="true">
+        <label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label>
+      </td>
+      <td contenteditable="true">{{bug.status.toLocaleLowerCase()}}</td>
+      <td contenteditable="true">{{bug.assignedTo.firstName}}</td>
+      <td><button class="btn"><i class="fa fa-upload"></i></button> </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+

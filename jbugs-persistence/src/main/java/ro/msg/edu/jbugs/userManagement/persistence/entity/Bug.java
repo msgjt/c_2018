@@ -30,7 +30,7 @@ public class Bug {
     @Column(name = "version", length = MAX_STRING_LENGTH, nullable = false)
     private String version;
 
-    @Column(name = "targetDate", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(name = "targetDate", length = MAX_STRING_LENGTH, nullable = false,updatable = false)
     private Date targetDate;
 
     @Column(name = "status", length = MAX_STRING_LENGTH, nullable = false)

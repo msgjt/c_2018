@@ -12,4 +12,5 @@ public interface IBugBusinessService {
     BugDTO findBugById(long id);
     AttachmentDTO addAttachment(AttachmentDTO attachmentDTO);
     List<AttachmentDTO> getAllAttachments();
+    BugDTO updateBug(BugDTO bugDTO);
 }

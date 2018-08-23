@@ -29,7 +29,7 @@ export class LoginService {
    * @return Observable which represent the response from the server
    */
   userAuthentication(userName: string, password: string): Observable<any> {
-    var userModel = JSON.stringify({userName: userName, password: password});
+    var userModel = JSON.stringify({username: userName, password: password});
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<any>(this.baseURL + '/authenticate', userModel, {headers: reqHeader});
   }
