@@ -1,11 +1,9 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.bug;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
-
 public class AttachmentDTO {
     private long idAttachment;
-    private BugDTO bugDto;
-    private byte[] blob;
+    private BugDTO bugDTO;
+    private String blob;
 
 
     public long getIdAttachment() {
@@ -16,19 +14,19 @@ public class AttachmentDTO {
         this.idAttachment = idAttachment;
     }
 
-    public BugDTO getBugDto() {
-        return bugDto;
+    public BugDTO getBugDTO() {
+        return bugDTO;
     }
 
-    public void setBugDto(BugDTO bugDto) {
-        this.bugDto = bugDto;
+    public void setBugDTO(BugDTO bugDTO) {
+        this.bugDTO = bugDTO;
     }
 
-    public byte[] getBlob() {
+    public String getBlob() {
         return blob;
     }
 
-    public void setBlob(byte[] blob) {
+    public void setBlob(String blob) {
         this.blob = blob;
     }
 }

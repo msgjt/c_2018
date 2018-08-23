@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component: PermissionComponent},
   {path: 'role', component: RoleComponent},
-  {path: 'bug', component: ViewBugsComponent},
+  {path: 'bugDTO', component: ViewBugsComponent},
   {path: 'bug/add', component: AddBugComponentComponent},
   {path: 'bug', component: ViewBugsComponent},
   {path: 'create-user', component: CreateUserComponent},

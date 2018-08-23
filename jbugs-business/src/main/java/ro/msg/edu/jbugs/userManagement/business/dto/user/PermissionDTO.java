@@ -11,8 +11,23 @@ public class PermissionDTO {
     private long id;
     private String description;
     private PermissionEnum type;
-    private transient List<Role> roles;
-    private List<String> rolesList;
+
+    public PermissionDTO() {
+    }
+
+    public PermissionDTO(long id, String description, PermissionEnum type) {
+        this.id = id;
+        this.description = description;
+        this.type = type;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -28,30 +43,5 @@ public class PermissionDTO {
 
     public void setType(PermissionEnum type) {
         this.type = type;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = new ArrayList<>();
-        this.roles = roles;
-    }
-
-    public List<String> getRolesList() {
-        return rolesList;
-    }
-
-    public void setRolesList(List<String> rolesList) {
-        this.rolesList = rolesList;
     }
 }

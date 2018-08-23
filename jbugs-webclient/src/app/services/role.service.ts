@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Role} from "../types/roles";
+import {Observable} from "rxjs/internal/Observable";
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import {Role} from "../types/roles";
 })
 export class RoleService {
   baseURL = 'http://localhost:8080/jbugs/rest';
-
+  roles :Role[] = [];
   constructor(private http: HttpClient) {
   }
 
@@ -20,6 +21,10 @@ export class RoleService {
       })
     });
     return roles;
+  }
+
+  getRoles(): Observable<any> {
+    return this.http.get(this.baseURL + '/roles');
   }
 
   addPermissionForRole(idRole: number, idPermission: number) {

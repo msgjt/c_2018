@@ -1,22 +1,23 @@
+import {Permission} from "./permissions";
+
 export interface Role {
   id: number;
   type: string;
-  permissionsList: string[];
+  permissions: Permission[];
 }
 
 export class RoleRest implements Role {
 
   private _id: number;
-  private _permissionsList: string[];
+  private _permissions: Permission[];
   private _type: string;
 
 
-  constructor(id: number, permissionsList: string[], type: string) {
+  constructor(id: number, permissions: Permission[], type: string) {
     this._id = id;
-    this._permissionsList = permissionsList;
+    this._permissions = permissions;
     this._type = type;
   }
-
 
   get id(): number {
     return this._id;
@@ -26,12 +27,12 @@ export class RoleRest implements Role {
     this._id = value;
   }
 
-  get permissionsList(): string[] {
-    return this._permissionsList || [];
+  get permissions(): Permission[] {
+    return this._permissions;
   }
 
-  set permissionsList(value: string[]) {
-    this._permissionsList = value;
+  set permissions(value: Permission[]) {
+    this._permissions = value;
   }
 
   get type(): string {
@@ -41,4 +42,5 @@ export class RoleRest implements Role {
   set type(value: string) {
     this._type = value;
   }
+
 }

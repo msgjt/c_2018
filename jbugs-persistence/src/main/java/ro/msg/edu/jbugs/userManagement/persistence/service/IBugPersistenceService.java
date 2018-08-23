@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface IBugPersistenceService extends Serializable {
     List<Bug> getAllBugs();
-    Optional<Bug> addBug(Bug bug);
+    Optional<Bug> addBug(Bug bug,Attachment attachment);
     Optional<Bug> findBugById(long id);
     Optional<Attachment> addAttachment(Attachment attachment);
     List<Attachment> getAllAttachments();

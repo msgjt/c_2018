@@ -36,12 +36,13 @@ public class BugPersistenceService implements IBugPersistenceService {
      * @return optional of the added bug
      */
     @Override
-    public Optional<Bug> addBug(Bug bug) {
+    public Optional<Bug> addBug(Bug bug,Attachment attachment) {
+        bug.getAttachments().add(attachment);
         User user = userPersistenceService.getUserByUsername(bug.getAssignedTo().getUsername()).get();
         bug.setAssignedTo(user);
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
         bug.setCreatedByUser(createByUser);
-        em.persist(bug);
+        em.persist(attachment);
         return Optional.of(bug);
     }
 
