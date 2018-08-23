@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { RoleService} from "../services/role.service";
-import { PermissionService} from "../services/permission.service";
+import {RoleService} from "../services/role.service";
+import {PermissionService} from "../services/permission.service";
 import {$} from "jQuery";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
+import {stringDistance} from "codelyzer/util/utils";
 
 
 @Component({
@@ -26,8 +27,8 @@ export class RoleComponent implements OnInit {
 
   findByType(type: string): Permission {
     console.log(this.permissions.length);
-    let permission:Permission;
-    permission=this.permissions.filter(value =>{
+    let permission: Permission;
+    permission = this.permissions.filter(value => {
       return value.type.trim() === type.trim();
 
     })[0];
@@ -35,14 +36,14 @@ export class RoleComponent implements OnInit {
   }
 
   checkDelete(checked, type: string): Permission[] {
-      var permission:Permission= this.findByType(type.trim());
-      console.log(permission);
-      if (checked) {
-        this.permissionsToBeUpdated.push(permission);
-      } else {
-        let startIndex = this.permissionsToBeUpdated.indexOf(permission);
-        this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
-      }
+    var permission: Permission = this.findByType(type.trim());
+    console.log(permission);
+    if (checked) {
+      this.permissionsToBeUpdated.push(permission);
+    } else {
+      let startIndex = this.permissionsToBeUpdated.indexOf(permission);
+      this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
+    }
     return this.permissionsToBeUpdated;
   }
 
@@ -87,12 +88,10 @@ export class RoleComponent implements OnInit {
     this.isRemovedButtonSelected = false;
     this.noPermissionsForThisRole = [];
     this.permissions.forEach((value) => {
-      if (!role.permissions.includes(value)) {
-        this.noPermissionsForThisRole.push(value);
+      if (!this.contains(role.permissions,value)) {
+          this.noPermissionsForThisRole.push(value);
       }
     })
-
-
   }
 
   removePermissionForRole(role: Role) {
@@ -106,7 +105,7 @@ export class RoleComponent implements OnInit {
     console.log("Removed method submitted");
   }
 
-  backButton(role: Role){
+  backButton(role: Role) {
     this.showAllPermissions[role.id] = !this.showAllPermissions[role.id];
   }
 
@@ -120,7 +119,31 @@ export class RoleComponent implements OnInit {
     });
   };
 
+  /**
+   * Make list of string with permissions types
+   @param permissions Permissions list
+   */
+  showPermission(permissions: Permission[]): string[] {
+    let permission = [];
+    for (let p of permissions) {
+      permission.push(p.type);
+    }
+    return permission;
+  }
 
+  /**
+   * Verify if permissions list contains a permission
+   @param permissions Permissions list
+   @param permission  Permission for looking
+   */
+  contains(permissions:Permission[],permission:Permission):boolean{
+    for(let p of permissions){
+      if(p.type===permission.type){
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 }
