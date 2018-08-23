@@ -62,9 +62,15 @@ export class CreateUserComponent implements OnInit {
    * Get value of fields completed by user and call addUser from userService
    */
   addUser() {
-    this.user.roles = this.selectedItems;
-    this.user.roles.map(value => value.permissions = this.permission);
-    this.userService.addUser(this.user);
+    if(this.verifySelectMenu()) {
+      this.user.roles = this.selectedItems;
+      this.user.roles.map(value => value.permissions = this.permission);
+      this.userService.addUser(this.user);
+    }
+  }
+
+  verifySelectMenu():boolean{
+    return this.selectedItems.length>0;
   }
 
 }
