@@ -10,6 +10,7 @@ import {Bug} from "../types/bugs";
 })
 
 export class ViewBugsComponent implements OnInit{
+  page: number=1;
   bugs: Bug[];
   cachedBugs: Bug[];
   severities:string[] = ["critical", "high", "medium", "low"];
