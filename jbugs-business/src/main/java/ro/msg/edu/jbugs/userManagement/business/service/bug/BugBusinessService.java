@@ -53,4 +53,10 @@ public class BugBusinessService implements IBugBusinessService {
         List<Attachment> attachments = IBugPersistenceService.getAllAttachments();
         return attachments.stream().map(x -> attachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
+
+    @Override
+    public BugDTO updateBug(BugDTO bugDTO) {
+        Bug bug = bugDTOHelper.toEntity(bugDTO);
+        return bugDTOHelper.fromEntity(IBugPersistenceService.updateBug(bug).get());
+    }
 }

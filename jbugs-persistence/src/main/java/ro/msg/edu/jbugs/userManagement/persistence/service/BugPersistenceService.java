@@ -60,7 +60,7 @@ public class BugPersistenceService implements IBugPersistenceService {
     }
 
     /**
-     * Method for adding a bug
+     * Method for adding an attachment
      *
      * @param attachment
      * @return optional of the attachment
@@ -71,9 +71,28 @@ public class BugPersistenceService implements IBugPersistenceService {
         return Optional.of(attachment);
     }
 
+    /**
+     * Method for getting all the attachments from db
+     *
+     * @param
+     * @return list of founded attachments
+     */
     @Override
     public List<Attachment> getAllAttachments() {
         return em.createNamedQuery(Attachment.GET_ALL_ATTACHMENTS, Attachment.class).getResultList();
+    }
+
+
+    /**
+     * Method for updating a bug
+     *
+     * @param bug
+     * @return optional of the updated bug
+     */
+    @Override
+    public Optional<Bug> updateBug(Bug bug) {
+        em.merge(bug);
+        return Optional.of(bug);
     }
 
 
