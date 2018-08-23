@@ -7,7 +7,7 @@ import {BugDataService} from "../services/bugData.service";
 @Component({
   selector: 'app-bug',
   templateUrl: './viewBugs.component.html',
-  styleUrls: ['./viewBugs.component.css']
+  styleUrls: ['./viewBugs.component.css', './severity.css']
 })
 
 export class ViewBugsComponent implements OnInit{
@@ -18,7 +18,6 @@ export class ViewBugsComponent implements OnInit{
   chosenSeverity:string;
   statuses:string[] = ["fixed", "open", "in_progress", "rejected", "info_nedded", "closed"];
   chosenStatus:string;
-  selectedBug: Bug;
 
   constructor(private bugService: BugService, public dataService: BugDataService){
   }
@@ -48,5 +47,9 @@ export class ViewBugsComponent implements OnInit{
     else{
       this.bugs = this.bugs.filter((item)=> item.status == this.chosenStatus.toUpperCase());
     }
+  }
+
+  resetList(){
+    this.bugs = this.cachedBugs;
   }
 }

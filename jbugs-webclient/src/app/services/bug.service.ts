@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Bug} from "../types/bugs";
 import {Attachment} from "../types/attachment";
+import {Comment} from "../types/comments";
 
 
 @Injectable({
@@ -10,6 +11,7 @@ import {Attachment} from "../types/attachment";
 
 export class BugService {
   bugs: Bug[] = [];
+  comments: Comment[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest/bugs';
   attachementURL = 'http://localhost:8080/jbugs/rest/attachments';
 
@@ -78,4 +80,14 @@ export class BugService {
     }).subscribe();
   }
 
+
+  getComments(bugId: number): Comment[] {
+    this.comments = [];
+    this.http.get(this.baseURL + '/comments/' + bugId.toString()).subscribe(
+      (response: Comment[]) => {
+        response.forEach((value) => this.comments.push(value));
+      }
+    )
+    return this.comments;
+  }
 }
