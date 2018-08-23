@@ -1,0 +1,21 @@
+<div class="container">
+  <h1 class="title">{{bug.title}}</h1>
+  <p class="gray">created by {{bug.createdByUser.username}}</p>
+  <p class="gray">ASSIGNED TO</p>
+  <p> {{bug.assignedTo.username}}</p>
+  <p class="gray">SEVERITY</p>
+  <label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label>
+  <p class="gray">STATUS</p>
+  <p>{{bug.status.toLowerCase()}}</p>
+  <p class="gray">TARGET DATE</p>
+  <p>{{bug.targetDate}}</p>
+  <p class="gray">VERSION</p>
+  <p>{{bug.version}}</p>
+  <p class="gray">FIXED VERSION</p>
+  <p>{{bug.fixedVersion}}</p>
+  <h4>Description</h4>
+  <p>{{bug.description}}</p>
+
+  <button class="btn btn-group" routerLink="/bug">Back to List</button>
+</div>
+
