@@ -19,7 +19,6 @@ export class AddBugComponentComponent implements OnInit {
   chosenUsername: string;
   allUsers: User[] = [];
   attachment: Attachment;
-  readerResult: string;
   bug: Bug;
 
 
@@ -31,7 +30,7 @@ export class AddBugComponentComponent implements OnInit {
       version: '',
       targetDate: 0,
       status: '',
-      fixedVersion: '2.0',
+      fixedVersion: '',
       severity: '',
       createdByUser: null,
       assignedTo: null
@@ -59,7 +58,6 @@ export class AddBugComponentComponent implements OnInit {
         this.attachment.blob = reader.result;
       }.bind(this);
       reader.readAsText(file);
-      console.log("Outside" + this.readerResult);
     }
   }
 
@@ -68,7 +66,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.version = '1.0';
     this.bug.status = 'OPEN';
     this.bug.targetDate = Date.now();
-    this.bug.fixedVersion = '2.0';
+    this.bug.fixedVersion = '1.0';
     this.bug.createdByUser = this.allUsers[0];
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.userName === this.chosenUsername;

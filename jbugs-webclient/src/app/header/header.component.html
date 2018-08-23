@@ -6,7 +6,15 @@
       <a class="nav-item nav-link" href="#">{{'header.nav-item2' | translate}}</a>
       <a class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'| translate}}</a>
       <a class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'| translate}}</a>
-      <a class="nav-item nav-link" routerLink="/bug">{{'header.nav-item5' | translate}}</a>
+        <div class="dropdown">
+          <a class="nav-item nav-link" routerLink="/bug">{{'header.nav-item5' | translate}}</a>
+        <div class="dropdown-content">
+          <a routerLink="/bug">View</a>
+          <a routerLink="/bug/add">Add</a>
+          <a href="/bug/update">Update</a>
+        </div>
+        </div>
+
     </div>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">

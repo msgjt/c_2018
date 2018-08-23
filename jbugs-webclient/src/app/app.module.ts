@@ -16,6 +16,7 @@ import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import { UpdateBugComponent } from './update-bug/update-bug.component';
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'role', component: RoleComponent},
   {path: 'bugDTO', component: ViewBugsComponent},
   {path: 'bug/add', component: AddBugComponentComponent},
+  {path: 'bug/update', component: UpdateBugComponent},
   {path: 'bug', component: ViewBugsComponent},
   {path: 'create-user', component: CreateUserComponent},
 
@@ -44,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleComponent,
     ViewBugsComponent,
     CreateUserComponent,
+    UpdateBugComponent,
   ],
   imports: [
     BrowserModule,
