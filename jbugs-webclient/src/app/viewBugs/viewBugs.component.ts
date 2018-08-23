@@ -2,6 +2,7 @@
 import {Component, OnInit} from "@angular/core";
 import {BugService} from "../services/bug.service";
 import {Bug} from "../types/bugs";
+import {BugDataService} from "../services/bugData.service";
 
 @Component({
   selector: 'app-bug',
@@ -17,8 +18,9 @@ export class ViewBugsComponent implements OnInit{
   chosenSeverity:string;
   statuses:string[] = ["fixed", "open", "in_progress", "rejected", "info_nedded", "closed"];
   chosenStatus:string;
+  selectedBug: Bug;
 
-  constructor(private bugService: BugService){
+  constructor(private bugService: BugService, public dataService: BugDataService){
   }
 
   ngOnInit(): void {
@@ -26,6 +28,9 @@ export class ViewBugsComponent implements OnInit{
     this.cachedBugs = this.bugs;
   }
 
+  setSelectedBug(bug: Bug){
+    this.dataService.bug = bug;
+  }
   filterBySeverity(){
     if(this.chosenSeverity == "undefined"){
       this.bugs = this.cachedBugs;

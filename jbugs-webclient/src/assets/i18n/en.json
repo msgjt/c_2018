@@ -6,6 +6,7 @@
     "nav-item3": "Permissions",
     "nav-item4": "Roles",
     "nav-item5": "Bugs",
+    "nav-item6": "Create user",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
 },
@@ -34,6 +35,9 @@
     "btn-add": "Add",
     "btn-remove": "Remove"
 
-}
+},
+  "create-user":{
+    "title": "Create user"
+  }
 
 }

@@ -18,7 +18,8 @@
       </th>
     </tr>
     </thead>
-    <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }">
+    <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }"
+           routerLink="/bug/details"  (click) = 'setSelectedBug(bug)'>
     <tr>
       <td>{{bug.title}}</td>
       <td>{{bug.targetDate}}</td>
