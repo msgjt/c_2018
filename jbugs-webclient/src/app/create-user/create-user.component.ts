@@ -14,7 +14,6 @@ import {Permission, PermissionRest} from "../types/permissions";
 export class CreateUserComponent implements OnInit {
   dropdownList: Role[];
   selectedItems: Role[];
-  roles: Role [];
   dropdownSettings = {};
   user: User;
   showRoles: boolean;
@@ -37,16 +36,15 @@ export class CreateUserComponent implements OnInit {
    * Init dropdown list with existing roles and set dropdown options
    */
   ngOnInit() {
-    this.permission=[];
+    this.permission = [];
     this.dropdownList = [];
     this.selectedItems = [];
-    this.roles = [];
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownList.push(value))
     }, () => {
       console.log('errors')
     }, () => {
-      console.log(this.dropdownList.length)
+      this.showRoles=true;
     });
 
     this.dropdownSettings = {
@@ -64,20 +62,9 @@ export class CreateUserComponent implements OnInit {
    * Get value of fields completed by user and call addUser from userService
    */
   addUser() {
-
-    for (let role of this.selectedItems) {
-      this.roles.push(role);
-    }
-    this.user.roles = this.roles;
-    this.user.roles.map(value => value.permissions=this.permission);
-    this.roles = [];
+    this.user.roles = this.selectedItems;
+    this.user.roles.map(value => value.permissions = this.permission);
     this.userService.addUser(this.user);
-  }
-
-  show() {
-    console.log(this.rolesService.getAllRoles());
-    this.showRoles = true;
-
   }
 
 }
