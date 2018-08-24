@@ -16,7 +16,7 @@ public class UserLogoutBusinessService {
     private IUserPersistenceService userPersistenceManager;
 
     public boolean logout(UserSessionDTO userSessionDTO) throws BusinessException {
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(userSessionDTO.getUserName());
+        Optional<User> userOptional = userPersistenceManager.getUserByUsername(userSessionDTO.getUsername());
         if (!userOptional.isPresent()) {
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
         }
