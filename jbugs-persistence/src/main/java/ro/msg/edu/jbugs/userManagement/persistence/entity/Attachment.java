@@ -25,8 +25,8 @@ public class Attachment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAttachment;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idBug", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "idBug")
     private Bug bug;
 
 

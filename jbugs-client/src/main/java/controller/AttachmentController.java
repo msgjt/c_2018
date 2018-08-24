@@ -33,7 +33,6 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBug(AttachmentDTO attachmentDTO){
-
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugBusinessService.addAttachment(attachmentDTO)))
                 .build();

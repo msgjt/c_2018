@@ -42,6 +42,7 @@ public class BugPersistenceService implements IBugPersistenceService {
         bug.setAssignedTo(user);
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
         bug.setCreatedByUser(createByUser);
+        System.out.println("Aaaaaaaaaaaaaaaaaaaaaaa " + bug.getAttachments().size());
         em.persist(attachment);
         return Optional.of(bug);
     }
@@ -94,6 +95,7 @@ public class BugPersistenceService implements IBugPersistenceService {
         em.merge(bug);
         return Optional.of(bug);
     }
+
 
     @Override
     public List<Comment> getCommentsForBug(Bug bug) {
