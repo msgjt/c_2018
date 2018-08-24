@@ -44,6 +44,7 @@ public class BugController {
                 .build();
     }
 
+
     @Path("/update")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,4 +74,6 @@ public class BugController {
                 .entity(new Gson().toJson(comments))
                 .build();
     }
+
+
 }

@@ -60,11 +60,10 @@ public class BugDTOHelper {
     }
 
     private String fromDateToString(Date date){
-//        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//        String stringDate;
-//        stringDate = formatter.format(date);
-//        return stringDate;
-        return date.toString();
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String stringDate;
+        stringDate = formatter.format(date);
+        return stringDate;
     }
 
 }
