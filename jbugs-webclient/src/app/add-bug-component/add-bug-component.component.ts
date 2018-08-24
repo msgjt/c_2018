@@ -7,6 +7,7 @@ import {Bug} from "../types/bugs";
 import {$} from "jQuery";
 
 
+
 @Component({
   selector: 'app-add-bug-component',
   templateUrl: './add-bug-component.component.html',
@@ -40,6 +41,13 @@ export class AddBugComponentComponent implements OnInit {
       bugDTO:null,
       blob:""
     }
+  }
+
+  checkUndefined(value: string){
+    let type = typeof value;
+    if(type === "undefined")
+      return false;
+    return true;
   }
 
   changedSelected(chosenSeverity: string) {

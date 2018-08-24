@@ -4,7 +4,7 @@
 <div class="container">
   <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
     <option [ngValue]="undefined">Severity:</option>
-    <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+    <option *ngFor="let severity of severity" [ngValue]="severity">{{severity}}</option>
   </select>
 
   <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
@@ -27,7 +27,7 @@
     </tr>
     </thead>
 
-    <tbody *ngFor="let bug of bugs" class="fixedColumns">
+    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" class="fixedColumns">
     <tr>
       <td>
         <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
@@ -35,12 +35,6 @@
           {{bug.title}}
         </div>
       </td>
-      <!--<td >-->
-        <!--<input *ngIf="this.editableFunction(bug)" [ngModel]="bug.description" (ngModelChange)="bug.description = $event"/>-->
-        <!--<div *ngIf="!this.editableFunction(bug)">-->
-          <!--{{bug.description}}-->
-        <!--</div>-->
-      <!--</td>-->
       <td>
         <div class="fixedColumns">
         <input  *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
@@ -96,9 +90,13 @@
       </td>
 
     </tr>
-
     </tbody>
-  </table><div id="myModal" class="modal fade" role="dialog">
+
+  </table>
+  <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+  <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-body">

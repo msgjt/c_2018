@@ -12,6 +12,7 @@ import {UserService} from "../services/user.service";
 })
 export class UpdateBugComponent implements OnInit {
 
+  page: number=1;
   bugs: Bug[];
   isEditable: boolean[] = [];
   cachedBugs: Bug[];

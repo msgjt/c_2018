@@ -7,42 +7,45 @@
         <form #formControl="ngForm">
           <div class="form-group">
             <label for="title">Title</label>
-            <input name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
+            <input #titleElement name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
+            <div class="err" *ngIf="!titleElement.checkValidity()">Title is required</div>
 
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control" required minlength="3"/>
-            <div *ngIf="" class="invalid-feedback">
-              <div *ngIf="">Description is required</div>
-            </div>
+            <input #descriptionElement id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control" required minlength="3"/>
+            <div class="err" *ngIf="!descriptionElement.checkValidity()">Description is required</div>
           </div>
-          <div class="form-group">
-            <label for="assignedTo">AssignedTo</label>
-            <select name="assignedTo" id="assignedTo"  class="form-control"  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
-              <option disabled [ngValue]="undefined">Select user</option>
-              <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="date">Target Date</label>
-            <br/>
-            <input type="date" id="date" name="chosenDate"
-                   [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()"
-                   min="2018-01-01" max="2030-12-31" required/>
-          </div>
-
           <div class="form-group">
             <label for="severity">Severity</label>
             <select name="severity" id="severity" [(ngModel)]="this.chosenSeverity" class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
               <option disabled [ngValue]="undefined">Select severity</option>
               <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
             </select>
+            <div class="err" *ngIf="!checkUndefined(this.chosenSeverity)">Select a severity for bug</div>
           </div>
+
+          <div class="form-group">
+            <label for="date">Target Date</label>
+            <br/>
+            <input #targetElement type="date" id="date" name="chosenDate"
+                   [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()"
+                   min="2018-01-01" max="2030-12-31" required/>
+            <div class="err" *ngIf="!targetElement.checkValidity()">Target date is required</div>
+          </div>
+          <div class="form-group">
+            <label for="assignedTo">AssignedTo</label>
+            <select  name="assignedTo" id="assignedTo"  class="form-control"  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
+              <option disabled [ngValue]="undefined">Select user</option>
+              <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
+            </select>
+            <div class="err" *ngIf="!checkUndefined(this.chosenUsername)">Assign an user for this bug</div>
+          </div>
+
           <div class="form-group">
             <label for="blob">Attachment</label>
             <br/>
-            <input type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob"  required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
+            <input #inputElement type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob"  required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
           </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit" [disabled]="formControl.invalid" (click)="onSubmit()">Register
