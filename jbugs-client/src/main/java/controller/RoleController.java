@@ -2,26 +2,20 @@ package controller;
 
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.service.user.IPermissionBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
-import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.utils.IdGenerator;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
+import ro.msg.edu.jbugs.userManagement.business.service.user.IRoleBusinessService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.function.Function;
 
 @Path("/roles")
 public class RoleController {
     @EJB
-    private IPermissionBusinessService IPermissionBusinessService;
-
-    @EJB
-    private RoleBusinessService roleBusinessService;
+    private IRoleBusinessService roleBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -62,12 +62,12 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public BugDTO updateBug(BugDTO bugDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        return bugDTOHelper.fromEntity(IBugPersistenceService.updateBug(bug).get());
+        return bugDTOHelper.fromEntity(bugPersistenceService.updateBug(bug).get());
     }
 
     public List<CommentDTO> getCommentsForBug(Long bugId){
         BugDTO bugDTO = findBugById(bugId);
-        List<Comment> comments = IBugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
+        List<Comment> comments = bugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
         return comments.stream().map(c -> commentDTOHelper.fromEntity(c)).collect(Collectors.toList());
     }
 }

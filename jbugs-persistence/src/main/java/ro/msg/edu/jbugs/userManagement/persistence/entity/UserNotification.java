@@ -16,7 +16,6 @@ public class UserNotification {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "idUser")
     private User user;
 
     @Column(name = "date")

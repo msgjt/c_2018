@@ -201,7 +201,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
-        validateUserName(username);
+        //validateUserName(username);
         return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
     }
 
