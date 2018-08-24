@@ -2,9 +2,12 @@ package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
@@ -22,6 +25,8 @@ public class BugBusinessService implements IBugBusinessService {
     private BugDTOHelper bugDTOHelper;
     @EJB
     private AttachmentDTOHelper attachmentDTOHelper;
+    @EJB
+    private CommentDTOHelper commentDTOHelper;
 
 
     @Override
@@ -52,5 +57,17 @@ public class BugBusinessService implements IBugBusinessService {
     public List<AttachmentDTO> getAllAttachments() {
         List<Attachment> attachments = bugPersistenceService.getAllAttachments();
         return attachments.stream().map(x -> attachmentDTOHelper.fromEntity(x)).collect(Collectors.toList());
+    }
+
+    @Override
+    public BugDTO updateBug(BugDTO bugDTO) {
+        Bug bug = bugDTOHelper.toEntity(bugDTO);
+        return bugDTOHelper.fromEntity(IBugPersistenceService.updateBug(bug).get());
+    }
+
+    public List<CommentDTO> getCommentsForBug(Long bugId){
+        BugDTO bugDTO = findBugById(bugId);
+        List<Comment> comments = IBugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
+        return comments.stream().map(c -> commentDTOHelper.fromEntity(c)).collect(Collectors.toList());
     }
 }

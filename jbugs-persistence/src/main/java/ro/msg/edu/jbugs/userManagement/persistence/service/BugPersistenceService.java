@@ -2,13 +2,13 @@ package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +60,7 @@ public class BugPersistenceService implements IBugPersistenceService {
     }
 
     /**
-     * Method for adding a bug
+     * Method for adding an attachment
      *
      * @param attachment
      * @return optional of the attachment
@@ -71,9 +71,39 @@ public class BugPersistenceService implements IBugPersistenceService {
         return Optional.of(attachment);
     }
 
+    /**
+     * Method for getting all the attachments from db
+     *
+     * @param
+     * @return list of founded attachments
+     */
     @Override
     public List<Attachment> getAllAttachments() {
         return em.createNamedQuery(Attachment.GET_ALL_ATTACHMENTS, Attachment.class).getResultList();
+    }
+
+
+    /**
+     * Method for updating a bug
+     *
+     * @param bug
+     * @return optional of the updated bug
+     */
+    @Override
+    public Optional<Bug> updateBug(Bug bug) {
+        em.merge(bug);
+        return Optional.of(bug);
+    }
+
+    @Override
+    public List<Comment> getCommentsForBug(Bug bug) {
+        TypedQuery<Comment> q = em.createNamedQuery(Comment.GET_COMMENTS_FOR_BUG, Comment.class);
+        q.setParameter("bugId", bug);
+        try {
+            return q.getResultList();
+        } catch (NoResultException ex) {
+            return new ArrayList<>();
+        }
     }
 
 

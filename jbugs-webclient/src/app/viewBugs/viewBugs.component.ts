@@ -2,14 +2,16 @@
 import {Component, OnInit} from "@angular/core";
 import {BugService} from "../services/bug.service";
 import {Bug} from "../types/bugs";
+import {BugDataService} from "../services/bugData.service";
 
 @Component({
   selector: 'app-bug',
   templateUrl: './viewBugs.component.html',
-  styleUrls: ['./viewBugs.component.css']
+  styleUrls: ['./viewBugs.component.css', './severity.css']
 })
 
 export class ViewBugsComponent implements OnInit{
+  page: number=1;
   bugs: Bug[];
   cachedBugs: Bug[];
   severities:string[] = ["critical", "high", "medium", "low"];
@@ -17,7 +19,7 @@ export class ViewBugsComponent implements OnInit{
   statuses:string[] = ["fixed", "open", "in_progress", "rejected", "info_nedded", "closed"];
   chosenStatus:string;
 
-  constructor(private bugService: BugService){
+  constructor(private bugService: BugService, public dataService: BugDataService){
   }
 
   ngOnInit(): void {
@@ -25,6 +27,9 @@ export class ViewBugsComponent implements OnInit{
     this.cachedBugs = this.bugs;
   }
 
+  setSelectedBug(bug: Bug){
+    this.dataService.bug = bug;
+  }
   filterBySeverity(){
     if(this.chosenSeverity == "undefined"){
       this.bugs = this.cachedBugs;
@@ -42,5 +47,9 @@ export class ViewBugsComponent implements OnInit{
     else{
       this.bugs = this.bugs.filter((item)=> item.status == this.chosenStatus.toUpperCase());
     }
+  }
+
+  resetList(){
+    this.bugs = this.cachedBugs;
   }
 }

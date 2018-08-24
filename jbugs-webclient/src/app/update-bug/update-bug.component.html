@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      xmlns="http://www.w3.org/1999/html">
+<div class="container">
+  <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
+    <option [ngValue]="undefined">Severity:</option>
+    <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+  </select>
+
+  <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
+    <option [ngValue]="undefined">Status:</option>
+    <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
+  </select>
+
+  <table id="myTable">
+    <thead>
+    <tr>
+      <th class="fixedColumns" scope="col">TITLE</th>
+      <th class="fixedColumns" scope="col">DESCRIPTION</th>
+      <th class="fixedColumns" scope="col">VERSION</th>
+      <th class="fixedColumns" scope="col">FIXED VERSION</th>
+      <th class="fixedColumns" scope="col">SEVERITY</th>
+      <th class="fixedColumns" scope="col">STATUS</th>
+      <th class="fixedColumns" scope="col">ASSIGNED TO</th>
+      <th class="fixedColumns" scope="col">UPDATE</th>
+    </tr>
+    </thead>
+
+    <tbody *ngFor="let bug of bugs">
+    <tr>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.title}}
+        </div>
+      </td>
+      <td >
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.description" (ngModelChange)="bug.description = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.description}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.version}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.fixedVersion}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          <label class="severity {{bug.severity.toLocaleLowerCase()}}"> {{bug.severity}}</label>
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.status" (ngModelChange)="bug.status = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.status}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.assignedTo.username" (ngModelChange)="bug.assignedTo.username = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.assignedTo.username}}
+        </div>
+      </td>
+
+
+      <td>
+        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
