@@ -17,4 +17,5 @@ public interface IBugPersistenceService extends Serializable {
     List<Attachment> getAllAttachments();
     Optional<Bug> updateBug(Bug bug);
     List<Comment> getCommentsForBug(Bug bug);
+    Optional<Attachment> deleteAttachment(Attachment attachment);
 }

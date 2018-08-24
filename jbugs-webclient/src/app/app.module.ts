@@ -17,11 +17,12 @@ import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
-import {Bug} from "./types/bugs";
-import {BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
+import {UpdateUserComponent} from "./update-user/update-user.component";
+import{BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
 import {BugDataService} from "./services/bugData.service";
-import { UpdateBugComponent } from './update-bug/update-bug.component';
-
+import {UpdateBugComponent} from './update-bug/update-bug.component';
+import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
+import {RecaptchaFormsModule} from "ng-recaptcha/forms";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -31,6 +32,8 @@ const appRoutes: Routes = [
   {path: 'bug/add', component: AddBugComponentComponent},
   {path: 'bug/update', component: UpdateBugComponent},
   {path: 'bug', component: ViewBugsComponent},
+  {path: 'user/add', component: CreateUserComponent},
+  {path: 'user/update', component: UpdateUserComponent},
   {path: 'create-user', component: CreateUserComponent},
   {path: 'bug/details', component: BugDetailsComponent}
 
@@ -52,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewBugsComponent,
     BugDetailsComponent,
     CreateUserComponent,
-    UpdateBugComponent,
+    UpdateUserComponent,
+    UpdateBugComponent
   ],
   imports: [
     BrowserModule,
@@ -60,16 +64,23 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    TranslateModule.forRoot({loader:{
+    TranslateModule.forRoot({
+      loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
-      }}),
+      }
+    }),
     NgSelectModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    RecaptchaFormsModule,
+    RecaptchaModule.forRoot()
   ],
-  providers: [AuthGuard, BugDataService],
+  providers: [AuthGuard, BugDataService, {
+    provide: RECAPTCHA_LANGUAGE,
+    useValue: 'ro'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

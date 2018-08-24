@@ -70,4 +70,10 @@ public class BugBusinessService implements IBugBusinessService {
         List<Comment> comments = bugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
         return comments.stream().map(c -> commentDTOHelper.fromEntity(c)).collect(Collectors.toList());
     }
+
+    @Override
+    public AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) {
+        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
+        return attachmentDTOHelper.fromEntity(IBugPersistenceService.deleteAttachment(attachment).get());
+    }
 }

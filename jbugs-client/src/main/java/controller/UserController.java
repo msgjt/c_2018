@@ -54,12 +54,12 @@ public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{userName}")
-    public Response getUserByUsername(@PathParam("userName") String userName) {
+    @Path("/{username}")
+    public Response getUserByUsername(@PathParam("username") String username) {
         Response response;
         try {
-            UserDTO userDTO = userBusinessService.getUserByUsername(userName);
-            response = Response.status(Response.Status.UNAUTHORIZED)
+            UserDTO userDTO = userBusinessService.getUserByUsername(username);
+            response = Response.status(Response.Status.OK)
                     .entity(new Gson().toJson(userDTO))
                     .build();
         } catch (BusinessException e) {
@@ -75,15 +75,9 @@ public class UserController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{userName}")
-    public Response updateUser(@PathParam("userName") String userName, UserDTO userDTO) {
-        UserDTO userToUpdate = null;
-        try {
-            userToUpdate = userBusinessService.getUserByUsername(userName);
-        } catch (BusinessException e) {
-            e.printStackTrace();
-        }
-        UserDTO userUpdated = userBusinessService.updateUser(userToUpdate, userDTO);
+    public Response updateUser(UserDTO userDTO) {
+        return Response.status(Response.Status.OK).entity(userBusinessService.updateUser(userDTO)).build();
+    }
 
         return Response.status(Response.Status.OK).entity(new Gson().toJson(userUpdated)).build();
     }

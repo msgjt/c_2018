@@ -5,12 +5,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
@@ -22,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -184,25 +181,14 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userToUpdate, UserDTO userDTO) {
-        userToUpdate.setFirstName(userDTO.getFirstName());
-        userToUpdate.setLastName(userDTO.getLastName());
-        userToUpdate.setEmail(userDTO.getEmail());
-        userToUpdate.setPassword(userDTO.getPassword());
-        userToUpdate.setPhoneNumber(userDTO.getPhoneNumber());
-        userToUpdate.setRoles(userDTO.getRoles());
-        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userToUpdate)).get());
-    }
-
-    public void deleteUser(String userName) throws BusinessException {
-        validateUserName(userName);
-        userPersistenceService.removeUser(userPersistenceService.getUserByUsername(userName).get());
+    public UserDTO updateUser(UserDTO userDTO) {
+        return userDTOHelper.fromEntity(userPersistenceManager.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
-        //validateUserName(username);
-        return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
+        validateUserName(username);
+        return userDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
     }
 
     /**

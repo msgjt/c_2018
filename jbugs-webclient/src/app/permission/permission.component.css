@@ -1,18 +1,25 @@
+/*
 .fixedColumns{
   padding-right: 200px;
 
 }
+*/
 table{
-  border-color: black;
-  margin-top: 150px;
-  border-right: black;
-
+  border-collapse: collapse;
+  width: 100%;
 }
 
 th{
-  color: black;
-  background-color: gray;
+  text-align: left;
 ;}
 
+tr {
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
 
 

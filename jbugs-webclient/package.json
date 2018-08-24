@@ -32,6 +32,7 @@
     "jquery": "^2.2.4",
     "ng-file-upload": "^12.2.13",
     "ng-multiselect-dropdown": "^0.2.1",
+    "ng-recaptcha": "^3.0.5",
     "ngx-pagination": "^3.2.0",
     "node-filelist": "^1.0.0",
     "rxjs": "^6.0.0",

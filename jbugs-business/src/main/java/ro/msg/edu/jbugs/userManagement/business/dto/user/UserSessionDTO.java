@@ -7,21 +7,23 @@ import java.util.Set;
 public class UserSessionDTO {
     private String userName;
     private Set<PermissionEnum> permissions;
+    private String username;
+    private List<PermissionEnum> permissions;
 
     public UserSessionDTO() {
     }
 
-    public UserSessionDTO(String userName, Set<PermissionEnum> permissions) {
-        this.userName = userName;
+    public UserSessionDTO(String username, Set<PermissionEnum> permissions) {
+        this.username = username;
         this.permissions = permissions;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Set<PermissionEnum> getPermissions() {

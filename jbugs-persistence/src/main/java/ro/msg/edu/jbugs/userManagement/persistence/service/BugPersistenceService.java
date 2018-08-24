@@ -67,7 +67,7 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
-        em.persist(attachment);
+        em.merge(attachment);
         return Optional.of(attachment);
     }
 
@@ -95,6 +95,7 @@ public class BugPersistenceService implements IBugPersistenceService {
         return Optional.of(bug);
     }
 
+
     @Override
     public List<Comment> getCommentsForBug(Bug bug) {
         TypedQuery<Comment> q = em.createNamedQuery(Comment.GET_COMMENTS_FOR_BUG, Comment.class);
@@ -104,6 +105,13 @@ public class BugPersistenceService implements IBugPersistenceService {
         } catch (NoResultException ex) {
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Optional<Attachment> deleteAttachment(Attachment attachment) {
+       Attachment attachmentToBeDeleted = em.getReference(Attachment.class,attachment.getIdAttachment());
+       em.remove(attachmentToBeDeleted);
+        return Optional.of(attachment);
     }
 
 

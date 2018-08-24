@@ -37,12 +37,12 @@ public class BugController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(AttachmentDTO attachmentDTO){
         BugDTO bugDTO = attachmentDTO.getBugDTO();
-        System.out.println("aaaaaaaaaaaaaaa" + bugDTO.getTargetDate());
         bugBusinessService.addBug(bugDTO,attachmentDTO);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
+
 
     @Path("/update")
     @POST
@@ -73,4 +73,6 @@ public class BugController {
                 .entity(new Gson().toJson(comments))
                 .build();
     }
+
+
 }

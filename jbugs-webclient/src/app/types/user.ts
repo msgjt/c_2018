@@ -7,6 +7,7 @@ export interface User {
   email:string;
   password:string;
   phoneNumber:string;
+  isActive: boolean;
   roles: Role[];
 }
 
