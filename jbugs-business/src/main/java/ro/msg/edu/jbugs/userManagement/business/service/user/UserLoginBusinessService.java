@@ -24,11 +24,11 @@ public class UserLoginBusinessService {
     private HashMap<String, Integer> userOverflow = new HashMap<>();
 
     public String login(UserLoginDTO loginDTO) throws BusinessException {
-        UserDTO userDTO = userBusinessService.getUserByUsername(loginDTO.getUserName());
-        addUserLoginRequest(loginDTO.getUserName());
+        UserDTO userDTO = userBusinessService.getUserByUsername(loginDTO.getUsername());
+        addUserLoginRequest(loginDTO.getUsername());
         validatePassword(loginDTO, userDTO);
-        userOverflow.remove(loginDTO.getUserName());
-        validateUserActive(loginDTO.getUserName());
+        userOverflow.remove(loginDTO.getUsername());
+        validateUserActive(loginDTO.getUsername());
         return jwtService.generateToken(userDTOHelper.toEntity(loginDTO));
     }
 
