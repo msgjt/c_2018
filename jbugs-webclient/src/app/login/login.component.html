@@ -35,9 +35,11 @@
               <p style="color:red"> {{'login.message' | translate}} </p>
             </div>
           </div>
+
+          <br>
           <re-captcha [(ngModel)]="recaptchaResponse"
                       name="captcha"
-                      (resolved)="resolved($event)" siteKey="6LdwLWsUAAAAALRUJUOLuIzx7IjhZddT-6P55787"></re-captcha>
+                      (resolved)="resolved($event)" siteKey="6LfaAGwUAAAAAJHvUMwIaUwZrwyAT9nAVYl87EG1"></re-captcha>
           <br>
           <button type="submit"
                   [disabled]="formControl.invalid"
