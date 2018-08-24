@@ -21,6 +21,8 @@ import {Bug} from "./types/bugs";
 import {BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
 import {BugDataService} from "./services/bugData.service";
 import { UpdateBugComponent } from './update-bug/update-bug.component';
+import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
+import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 
 
 const appRoutes: Routes = [
@@ -67,9 +69,14 @@ export function HttpLoaderFactory(http: HttpClient) {
       }}),
     NgSelectModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule,
   ],
-  providers: [AuthGuard, BugDataService],
+  providers: [AuthGuard, BugDataService,{
+    provide: RECAPTCHA_LANGUAGE,
+    useValue: 'ro'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

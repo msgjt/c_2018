@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService, User} from "../services/login.service";
 import {FilterService} from "../services/filter.service";
 import {Router} from "@angular/router";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -13,9 +13,11 @@ export class LoginComponent implements OnInit {
   userModel: User;
   wrongCredentials = false;
   loggedIn = false;
+  recaptchaResponse: any;
+  baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private loginService: LoginService, private filterService: FilterService, private router: Router) {
+  constructor(private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient) {
     this.userModel = {
       username: '',
       password: ''
@@ -27,21 +29,29 @@ export class LoginComponent implements OnInit {
    * This method is use for submit login form
    */
   onSubmit() {
-    this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
-        localStorage.setItem('userToken', response.key);
-        if (response) {
-          this.login(response.key);
-          this.router.navigate(["permission"]);
-        } else {
-          this.wrongCredentials = true;
-          this.loggedIn = false;
-        }
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-        this.wrongCredentials = true;
-        this.loggedIn = false;
-      });
+    this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
+      console.log(response);
+      if (response['success'] == true) {
+        console.log('Form was submitted with the following data:' +
+          JSON.stringify(this.userModel));
+        this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
+            localStorage.setItem('userToken', response.key);
+            if (response) {
+              this.login(response.key);
+              this.router.navigate(["permission"]);
+            } else {
+              this.wrongCredentials = true;
+              this.loggedIn = false;
+            }
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err);
+            this.wrongCredentials = true;
+            this.loggedIn = false;
+          });
+
+      }
+    });
   }
 
   /**
@@ -55,6 +65,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  resolved(captchaResponse: string) {
+    this.recaptchaResponse = captchaResponse;
   }
 
 }

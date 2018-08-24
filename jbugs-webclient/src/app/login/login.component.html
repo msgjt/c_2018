@@ -31,10 +31,14 @@
                    [(ngModel)]="userModel.password">
           </div>
           <div class="form-group">
-            <div *ngIf="wrongCredentials" class="alert alert-danger" >
+            <div *ngIf="wrongCredentials" class="alert alert-danger">
               <p style="color:red"> {{'login.message' | translate}} </p>
             </div>
           </div>
+          <re-captcha [(ngModel)]="recaptchaResponse"
+                      name="captcha"
+                      (resolved)="resolved($event)" siteKey="6LdwLWsUAAAAALRUJUOLuIzx7IjhZddT-6P55787"></re-captcha>
+          <br>
           <button type="submit"
                   [disabled]="formControl.invalid"
                   class="btn btn-primary">{{'login.button' | translate}}
