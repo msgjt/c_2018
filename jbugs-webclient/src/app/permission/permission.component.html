@@ -1,17 +1,19 @@
 <div class="container">
   <form (ngSubmit)="OnSubmit()">
-    <table class="table table-bordered">
+    <table>
       <thead>
       <tr>
-        <th class="fixedColumns" scope="col">{{'permission.col-id' | translate}}</th>
-        <th class="fixedColumns" scope="col">{{'permission.col-type'| translate}}</th>
-        <th class="fixedColumns" scope="col">{{'permission.col-description' | translate}}</th>
+        <th class="uppercase" scope="col">{{'permission.col-id' | translate}}</th>
+        <th class="uppercase" scope="col">{{'permission.col-type'| translate}}</th>
+        <th class="uppercase" scope="col">{{'permission.col-description' | translate}}</th>
       </tr>
       </thead>
       <tbody *ngFor="let p of permissions">
-      <td>{{p.id}}</td>
-      <td>{{p.type}}</td>
-      <td>{{p.description}}</td>
+      <tr>
+        <td>{{p.id}}</td>
+        <td>{{p.type}}</td>
+        <td>{{p.description}}</td>
+      </tr>
       </tbody>
     </table>
 
