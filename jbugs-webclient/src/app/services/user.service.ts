@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Role} from "../types/roles";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../types/user";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,6 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-
   getAllUsers(): User[] {
     let users: User[] = [];
     this.http.get(this.baseURL + '/users').subscribe((response: User[]) => {
@@ -22,6 +22,16 @@ export class UserService {
       })
     });
     return users;
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get(this.baseURL + '/users');
+  }
+
+  getUser(username: String): Observable<User> {
+    return this.http.get<User>(this.baseURL + '/users/' + username);
+
+
   }
 
   /**
@@ -37,8 +47,13 @@ export class UserService {
     }).subscribe();
     return user;
   }
-  updateUser(user: User){
 
+  updateUser(user: User) {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var userModelUpdate = JSON.stringify(user);
+    this.http.put<any>(this.baseURL + '/users', userModelUpdate, {
+      headers: reqHeader
+    }).subscribe();
   }
 
 }

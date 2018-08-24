@@ -30,8 +30,8 @@ const appRoutes: Routes = [
   {path: 'bug/add', component: AddBugComponentComponent},
   {path: 'bug/update', component: UpdateBugComponent},
   {path: 'bug', component: ViewBugsComponent},
-  {path: 'create-user', component: CreateUserComponent},
-
+  {path: 'user/add', component: CreateUserComponent},
+  {path: 'user/update', component: UpdateUserComponent}
 ]
 
 

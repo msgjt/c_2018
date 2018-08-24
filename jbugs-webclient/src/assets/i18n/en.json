@@ -5,8 +5,13 @@
     "nav-item2": "Contact",
     "nav-item3": "Permissions",
     "nav-item4": "Roles",
-    "nav-item5": "Bugs",
-    "nav-item6": "Create user",
+    "nav-item5": "User",
+    "dropdown1-item1": "Add",
+    "dropdown1-item2": "Update",
+    "nav-item6": "Bugs",
+    "dropdown2-item1": "View",
+    "dropdown2-item2": "Add",
+    "dropdown2-item3": "Update",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
 },
@@ -44,7 +49,7 @@
     "table-col4": "Severity"
   },
   "create-user":{
-    "title": "Create user"
+    "title": "Create user",
     "first-name":"First Name",
     "last-name": "Last Name",
     "mobile-number": "Mobile number",

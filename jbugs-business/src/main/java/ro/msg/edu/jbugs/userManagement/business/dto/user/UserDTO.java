@@ -13,12 +13,13 @@ public class UserDTO {
     private String password;
     private String email;
     private String phoneNumber;
+    private boolean isActive;
     private List<RoleDTO> roles;
 
     public UserDTO() {
     }
 
-    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, String phoneNumber, List<RoleDTO> roles) {
+    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, String phoneNumber, boolean isActive, List<RoleDTO> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +27,7 @@ public class UserDTO {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isActive = isActive;
         this.roles = roles;
     }
 
@@ -83,6 +85,14 @@ public class UserDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public List<RoleDTO> getRoles() {

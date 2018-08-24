@@ -33,13 +33,13 @@ public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{userName}")
-    public Response getUserByUsername(@PathParam("userName") String userName) {
+    @Path("/{username}")
+    public Response getUserByUsername(@PathParam("username") String username) {
         Response response;
         try {
-            UserDTO userDTO = IUserBusinessService.getUserByUsername(userName);
-            response = Response.status(Response.Status.UNAUTHORIZED)
-                    .entity(userDTO)
+            UserDTO userDTO = IUserBusinessService.getUserByUsername(username);
+            response = Response.status(Response.Status.OK)
+                    .entity(new Gson().toJson(userDTO))
                     .build();
         } catch (BusinessException e) {
             response = Response.status(Response.Status.UNAUTHORIZED)
@@ -54,9 +54,7 @@ public class UserController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Secured(PermissionEnum.PERMISSION_MANAGEMENT)
-    @Path("/{userName}")
-    public Response updateUser(@PathParam("userName") String userName, UserDTO userDTO) {
+    public Response updateUser(UserDTO userDTO) {
         return Response.status(Response.Status.OK).entity(IUserBusinessService.updateUser(userDTO)).build();
     }
 
