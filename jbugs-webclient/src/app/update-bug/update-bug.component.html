@@ -85,7 +85,7 @@
         <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
       </td>
       <td>
-        <button type="button" class="btn" (click)="loadAttachments(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>
+        <button type="button" class="btn" (click)="clickDetails(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>
 
       </td>
 
@@ -107,7 +107,11 @@
         </select>
         <br/>
         <label>Download  <button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>
-        <label>Delete  <button class="btn" (click)="delete(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
+        <label>Delete  <button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
+        <br>
+        <label>Add </label>
+          <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
+        <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>
       </div>
     </div>
     <div class="modal-footer">

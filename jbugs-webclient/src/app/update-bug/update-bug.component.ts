@@ -27,6 +27,7 @@ export class UpdateBugComponent implements OnInit {
   attachments: Attachment[];
   attachmentsForABug: Attachment[];
   attachmentChosen:Attachment;
+  attachmentToBeAdded: Attachment;
 
 
   constructor(private bugService: BugService,private userService: UserService) {
@@ -86,6 +87,20 @@ export class UpdateBugComponent implements OnInit {
     })[0];
   }
 
+  fileChange($event) {
+    this.attachmentToBeAdded = null;
+    var reader: FileReader = new FileReader();
+    let eventTarget = <HTMLInputElement>event.target;
+    if (eventTarget.files && eventTarget.files.length > 0) {
+      let file = eventTarget.files[0];
+      reader.onload = function () {
+        this.attachmentToBeAdded.blob = reader.result;
+        console.log(this.attachmentToBeAdded.blob)
+      }.bind(this);
+      reader.readAsText(file);
+    }
+  }
+
   onSubmit(bug: Bug) {
 
     if (this.isEditable[bug.idBug]) {
@@ -111,11 +126,12 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  loadAttachments(bug:Bug){
+  clickDetails(bug:Bug){
     this.attachmentsForABug = this.attachments.filter((value) =>{
       return value.bugDTO.idBug == bug.idBug;
     });
     console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
+    this.attachmentToBeAdded.bugDTO = bug;
   }
 
   editableFunction(bug: Bug): boolean {
@@ -138,9 +154,13 @@ export class UpdateBugComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-  delete(attachmentChosen:Attachment){
+  deleteAttachment(attachmentChosen:Attachment){
     this.bugService.deleteAttachment(attachmentChosen);
     location.reload();
+  }
+
+  addAttachment(attachmentChosen:Attachment){
+    this.bugService.addAttachment(attachmentChosen);
   }
 
 

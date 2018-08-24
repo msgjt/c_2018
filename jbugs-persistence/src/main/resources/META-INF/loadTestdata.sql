@@ -95,14 +95,14 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into users_roles(id_user,id_role) values (1,1);
 insert into users_roles(id_user,id_role) values (2,2);
 
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/blabla.txt'));
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (2,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (2,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (2,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (2,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
+INSERT INTO attachments(idBug,file) values (1,'./../attachments/blabla.txt');
 -- other tables TODO

@@ -80,6 +80,15 @@ export class BugService {
     }).subscribe();
   }
 
+  addAttachment(attachment:Attachment) {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var attachmentModel = JSON.stringify(attachment);
+    console.log(attachmentModel);
+    this.http.post(this.attachementURL + '/add', attachmentModel, {
+      headers: reqHeader
+    }).subscribe();
+  }
+
 
   getComments(bugId: number): Comment[] {
     this.comments = [];
