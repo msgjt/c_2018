@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit {
         console.log('Form was submitted with the following data:' +
           JSON.stringify(this.userModel));
         this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
-            localStorage.setItem('userToken', response.key);
             if (response) {
-              this.login(response.key);
+              this.login(response);
               this.router.navigate(["permission"]);
             } else {
               this.wrongCredentials = true;
