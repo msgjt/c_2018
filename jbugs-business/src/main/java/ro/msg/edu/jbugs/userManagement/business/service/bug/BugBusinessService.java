@@ -74,6 +74,6 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) {
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return attachmentDTOHelper.fromEntity(IBugPersistenceService.deleteAttachment(attachment).get());
+        return attachmentDTOHelper.fromEntity(bugPersistenceService.deleteAttachment(attachment).get());
     }
 }

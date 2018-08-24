@@ -5,10 +5,8 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import java.util.Set;
 
 public class UserSessionDTO {
-    private String userName;
     private Set<PermissionEnum> permissions;
     private String username;
-    private List<PermissionEnum> permissions;
 
     public UserSessionDTO() {
     }

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -182,13 +183,13 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        return userDTOHelper.fromEntity(userPersistenceManager.updateUser(userDTOHelper.toEntity(userDTO)).get());
+        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
 
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);
-        return userDTOHelper.fromEntity(userPersistenceManager.getUserByUsername(username).get());
+        return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
     }
 
     /**

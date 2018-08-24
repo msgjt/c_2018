@@ -1,23 +1,16 @@
 package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
-
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
-import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.HashSet;
 
 @Path("/users")
 public class UserController {
@@ -26,23 +19,24 @@ public class UserController {
     @EJB
     private SendEmailService emailService;
 
-    @DELETE
+    //ToDo please implement the shit from userBusinessService(you will see another toDo)
+    /*@DELETE
     @Path("/{userName}")
-    public Response deleteUser(@PathParam("userName")String userName){
+    public Response deleteUser(@PathParam("userName") String userName) {
         Response response;
         try {
             userBusinessService.deleteUser(userName);
             response = Response
                     .status(Response.Status.OK)
                     .build();
-        } catch (BusinessException e){
+        } catch (BusinessException e) {
             response = Response
                     .status(Response.Status.EXPECTATION_FAILED)
                     .entity(e.getExceptionCode())
                     .build();
         }
         return response;
-    }
+    }*/
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -76,10 +70,10 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(UserDTO userDTO) {
-        return Response.status(Response.Status.OK).entity(userBusinessService.updateUser(userDTO)).build();
-    }
-
-        return Response.status(Response.Status.OK).entity(new Gson().toJson(userUpdated)).build();
+        return Response
+                .status(Response.Status.OK)
+                .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
+                .build();
     }
 
     @Path("/add")
