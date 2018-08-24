@@ -131,7 +131,7 @@ export class UpdateBugComponent implements OnInit {
       return value.bugDTO.idBug == bug.idBug;
     });
     console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
-    this.attachmentToBeAdded.bugDTO = bug;
+    // this.attachmentToBeAdded.bugDTO = bug;
   }
 
   editableFunction(bug: Bug): boolean {
