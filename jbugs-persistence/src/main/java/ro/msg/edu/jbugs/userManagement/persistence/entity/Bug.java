@@ -1,9 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,15 +46,15 @@ public class Bug {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
     private List<Comment> comments;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdByUser")
     private User createdByUser;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assignedTo")
     private User assignedTo;
 
-    @OneToMany(cascade = CascadeType.MERGE,mappedBy = "bug")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "bug")
     private List<Attachment> attachments = new ArrayList<>();
 
 

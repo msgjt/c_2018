@@ -17,11 +17,11 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;
 
-    @Column(name = "type", length = MAX_STRING_LENGTH)
+    @Column(length = MAX_STRING_LENGTH)
     @Enumerated(EnumType.STRING)
     private RoleEnum type;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Permission> permissions;
 
     public Long getIdRole() {

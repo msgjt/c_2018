@@ -194,6 +194,11 @@ public class UserBusinessService implements IUserBusinessService {
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userToUpdate)).get());
     }
 
+    public void deleteUser(String userName) throws BusinessException {
+        validateUserName(userName);
+        userPersistenceService.removeUser(userPersistenceService.getUserByUsername(userName).get());
+    }
+
     @Override
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);

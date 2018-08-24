@@ -21,4 +21,6 @@ public interface IUserBusinessService {
     List<UserDTO> getAllUsers();
 
     UserDTO getUserByUsername(String username) throws BusinessException;
+
+    void deleteUser(String userName) throws BusinessException;
 }
