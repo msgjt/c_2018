@@ -2,7 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -31,9 +33,28 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBug(AttachmentDTO attachmentDTO){
-
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugBusinessService.addAttachment(attachmentDTO)))
+                .build();
+    }
+
+    @Path("/{idBug}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAttachments(@PathParam("idBug") long idBug){
+        List<AttachmentDTO> attachmentDTOS = bugBusinessService.getAllAttachments().stream().filter(x ->x.getBugDTO().getIdBug().equals(idBug)).collect(Collectors.toList());
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(attachmentDTOS))
+                .build();
+    }
+
+    @Path("/delete")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteAttachment(AttachmentDTO attachmentDTO){
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(bugBusinessService.deleteAttachment(attachmentDTO)))
                 .build();
     }
 }

@@ -7,6 +7,7 @@ import {Bug} from "../types/bugs";
 import {$} from "jQuery";
 
 
+
 @Component({
   selector: 'app-add-bug-component',
   templateUrl: './add-bug-component.component.html',
@@ -20,6 +21,7 @@ export class AddBugComponentComponent implements OnInit {
   allUsers: User[] = [];
   attachment: Attachment;
   bug: Bug;
+  chosenDate: string;
 
 
   constructor(private userService: UserService, private bugService: BugService) {
@@ -28,7 +30,7 @@ export class AddBugComponentComponent implements OnInit {
       title: '',
       description: '',
       version: '',
-      targetDate: 0,
+      targetDate: '',
       status: '',
       fixedVersion: '',
       severity: '',
@@ -39,6 +41,13 @@ export class AddBugComponentComponent implements OnInit {
       bugDTO:null,
       blob:""
     }
+  }
+
+  checkUndefined(value: string){
+    let type = typeof value;
+    if(type === "undefined")
+      return false;
+    return true;
   }
 
   changedSelected(chosenSeverity: string) {
@@ -65,7 +74,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.severity = this.chosenSeverity;
     this.bug.version = '1.0';
     this.bug.status = 'OPEN';
-    this.bug.targetDate = Date.now();
+    this.bug.targetDate = this.chosenDate;
     this.bug.fixedVersion = '1.0';
     this.bug.createdByUser = this.allUsers[0];
     this.bug.assignedTo = this.allUsers.filter(value => {

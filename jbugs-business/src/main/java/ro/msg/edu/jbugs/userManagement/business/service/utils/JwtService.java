@@ -17,7 +17,7 @@ public class JwtService {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
-                    .withClaim("username", user.getUserName())
+                    .withClaim("username", user.getUsername())
                     .withClaim("permissions", user.getPermissions().toString())
                     .withIssuedAt(Date.from(Instant.now().plusSeconds(3600)))
                     .sign(algorithm);

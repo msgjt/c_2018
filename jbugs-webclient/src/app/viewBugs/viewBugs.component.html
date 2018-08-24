@@ -1,3 +1,4 @@
+
 <div class="container">
   <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
     <option disabled [ngValue]="undefined">{{'bugs.option1' | translate}}</option>
@@ -8,6 +9,7 @@
     <option disabled [ngValue]="undefined">{{'bugs.option2' | translate}}</option>
     <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
+  <button class="btn btn-group" style="float: right" (click)="resetList()">Reset</button>
   <table>
     <thead>
     <tr>
@@ -17,7 +19,8 @@
       <th class="fixedColumns" scope="col">{{'bugs.table-col4' | translate}}</th>
     </tr>
     </thead>
-    <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }">
+    <tbody *ngFor="let bug of bugs | paginate: { itemsPerPage: 25, currentPage: page }"
+           routerLink="/bug/details"  (click) = 'setSelectedBug(bug)'>
     <tr>
       <td>{{bug.title}}</td>
       <td>{{bug.targetDate}}</td>

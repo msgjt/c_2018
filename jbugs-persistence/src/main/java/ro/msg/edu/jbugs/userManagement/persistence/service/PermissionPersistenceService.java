@@ -3,6 +3,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.service;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
+import ro.msg.edu.jbugs.userManagement.persistence.cache.InMemoryCache;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class PermissionPersistenceService implements IPermissionPersistenceService {
 
     //private static final Logger logger = LogManager.getLogger(PermissionPersistenceService.class);
+    InMemoryCache memoryCache=InMemoryCache.getInstance();
 
     @PersistenceContext(unitName = "jbugs-persistence")
     private EntityManager em;
@@ -28,6 +30,7 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
     @Override
     public Optional<Permission> addPermission(@NotNull Permission permission) {
         em.persist(permission);
+        memoryCache.addValue(Permission.class.getSimpleName(),(Object)permission);
         return Optional.of(permission);
     }
 
@@ -82,8 +85,14 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
 
     @Override
     public List<Permission> getAllPermissions() {
-        Query query = em.createQuery("SELECT p FROM Permission p");
-        return query.getResultList();
+        List<Object> permissionObjectsList=memoryCache.get(Permission.class.getSimpleName());
+        if(permissionObjectsList!=null)
+            return (List)permissionObjectsList;
+        else {
+            Query query = em.createQuery("SELECT p FROM Permission p");
+            memoryCache.add(Permission.class.getSimpleName(),query.getResultList(),86400000);
+            return query.getResultList();
+        }
     }
 
     @Override

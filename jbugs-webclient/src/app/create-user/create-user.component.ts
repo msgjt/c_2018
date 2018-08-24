@@ -67,6 +67,7 @@ export class CreateUserComponent implements OnInit {
       this.user.roles = this.selectedItems;
       this.user.roles.map(value => value.permissions = this.permission);
       this.userService.addUser(this.user);
+      this.selectedItems=[];
     }
   }
 

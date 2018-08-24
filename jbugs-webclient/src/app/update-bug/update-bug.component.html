@@ -1,44 +1,127 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       xmlns="http://www.w3.org/1999/html">
+
 <div class="container">
-  <select [(ngModel)]="this.chosenSeverity"  (ngModelChange)="filterBySeverity()">
-    <option  [ngValue]="undefined">Severity:</option>
-    <option *ngFor="let severity of severities" [ngValue]="severity">{{severity}}</option>
+  <select [(ngModel)]="this.chosenSeverity" (ngModelChange)="filterBySeverity()">
+    <option [ngValue]="undefined">Severity:</option>
+    <option *ngFor="let severity of severity" [ngValue]="severity">{{severity}}</option>
   </select>
 
   <select [(ngModel)]="this.chosenStatus" (ngModelChange)="filterByStatus()">
     <option [ngValue]="undefined">Status:</option>
     <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
   </select>
+
   <table>
     <thead>
     <tr>
-      <th class="fixedColumns" scope="col">TITLE</th>
-      <th class="fixedColumns" scope="col">DESCRIPTION</th>
-      <th class="fixedColumns" scope="col">VERSION</th>
-      <th class="fixedColumns" scope="col">FIXED VERSION</th>
-      <th class="fixedColumns" scope="col">SEVERITY</th>
-      <th class="fixedColumns" scope="col">STATUS</th>
-      <th class="fixedColumns" scope="col">ASSIGNED TO</th>
-      <th class="fixedColumns" scope="col">UPDATE</th>
+      <th  scope="col">TITLE</th>
+      <!--<th class="fixedColumns" scope="col">DESCRIPTION</th>-->
+      <th scope="col">VERSION</th>
+      <th scope="col">FIXED VERSION</th>
+      <th scope="col">SEVERITY</th>
+      <th scope="col">STATUS</th>
+      <th scope="col">ASSIGNED TO</th>
+      <th scope="col">UPDATE</th>
+      <th scope="col">DETAILS</th>
     </tr>
     </thead>
-    <tbody *ngFor="let bug of bugs">
-    <tr>
-      <td contenteditable="true">{{bug.title}}</td>
-      <td contenteditable="true">{{bug.description}}</td>
-      <td contenteditable="true">{{bug.version}}</td>
-      <td contenteditable="true">{{bug.fixedVersion}}</td>
-      <td contenteditable="true">
-        <label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label>
-      </td>
-      <td contenteditable="true">{{bug.status.toLocaleLowerCase()}}</td>
-      <td contenteditable="true">{{bug.assignedTo.firstName}}</td>
-      <td><button class="btn"><i class="fa fa-upload"></i></button> </td>
-    </tr>
 
+    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" class="fixedColumns">
+    <tr>
+      <td>
+        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.title}}
+        </div>
+      </td>
+      <td>
+        <div class="fixedColumns">
+        <input  *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        </div>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.version}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="this.editableFunction(bug)"  class="fixedColumns" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.fixedVersion}}
+        </div>
+      </td>
+      <td>
+        <div *ngIf="this.editableFunction(bug)">
+          <select name="severity" id="severity" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event" class="form-control">
+            <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
+          </select>
+        </div>
+        <div *ngIf="!this.editableFunction(bug)">
+          <label class="severity {{bug.severity.toLocaleLowerCase()}}"> {{bug.severity}}</label>
+        </div>
+      </td>
+      <td>
+        <div *ngIf="this.editableFunction(bug)" >
+          <select class="form-control"  [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
+            <option  *ngFor="let status of this.updatedStatus" [ngValue]="status">{{status.toLocaleUpperCase()}}</option>
+          </select>
+        </div>
+        <div *ngIf="!this.editableFunction(bug)">
+          {{bug.status}}
+        </div>
+      </td>
+      <td>
+        <div *ngIf="this.editableFunction(bug)">
+          <select  class="form-control"  [ngModel]="bug.assignedTo.username" (ngModelChange)="bug.assignedTo.username = $event">
+            <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
+          </select>
+        </div>
+          <div *ngIf="!this.editableFunction(bug)">
+          {{bug.assignedTo.username}}
+        </div>
+      </td>
+
+
+      <td>
+        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
+      </td>
+      <td>
+        <button type="button" class="btn" (click)="clickDetails(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>
+
+      </td>
+
+    </tr>
     </tbody>
+
   </table>
+  <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Attachment for this bug</label>
+        <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
+          <option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>
+        </select>
+        <br/>
+        <label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>
+        <label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
+        <br>
+        <label>Add:&nbsp;</label>
+          <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
+        <label>&nbsp;&nbsp;</label>
+        <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </div>
+  </div>
 </div>
+
 
 

@@ -33,7 +33,6 @@ export class UserService {
 
 
   }
-
   /**
    * Make a request to the server for addUser
    * @param user represents user from component

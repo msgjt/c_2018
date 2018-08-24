@@ -5,6 +5,10 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Stateless
 public class BugDTOHelper {
@@ -20,7 +24,7 @@ public class BugDTOHelper {
         bugDTO.setDescription(bug.getDescription());
         bugDTO.setFixedVersion(bug.getFixedVersion());
         bugDTO.setSeverity(bug.getSeverity());
-        bugDTO.setTargetDate(bug.getTargetDate());
+        bugDTO.setTargetDate(fromDateToString(bug.getTargetDate()));
         bugDTO.setStatus(bug.getStatus());
         bugDTO.setTitle(bug.getTitle());
         bugDTO.setVersion(bug.getVersion());
@@ -29,17 +33,37 @@ public class BugDTOHelper {
 
     public Bug toEntity(BugDTO bugDTO) {
         Bug bug = new Bug();
-        bug.setCreatedByUser(userDTOHelper.toEntity(bugDTO.getCreatedByUser()));
         bug.setIdBug(bugDTO.getIdBug());
         bug.setAssignedTo(userDTOHelper.toEntity(bugDTO.getAssignedTo()));
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());
-        bug.setTargetDate(bugDTO.getTargetDate());
+        bug.setTargetDate(fromStringToDate(bugDTO.getTargetDate()));
         bug.setStatus(bugDTO.getStatus());
         bug.setTitle(bugDTO.getTitle());
         bug.setVersion(bugDTO.getVersion());
+        bug.setCreatedByUser(userDTOHelper.toEntity(bugDTO.getCreatedByUser()));
         return bug;
+    }
+
+    private Date fromStringToDate(String stringToBeParsed){
+        stringToBeParsed = stringToBeParsed + " 20:00:00";
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = formatter.parse(stringToBeParsed);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    private String fromDateToString(Date date){
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String stringDate;
+        stringDate = formatter.format(date);
+        return stringDate;
     }
 
 }
