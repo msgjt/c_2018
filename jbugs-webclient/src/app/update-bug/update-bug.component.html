@@ -56,15 +56,18 @@
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event"/>
+        <div *ngIf="this.editableFunction(bug)">
+          <select name="severity" id="severity" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event" class="form-control">
+            <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
+          </select>
+        </div>
         <div *ngIf="!this.editableFunction(bug)">
           <label class="severity {{bug.severity.toLocaleLowerCase()}}"> {{bug.severity}}</label>
         </div>
       </td>
       <td>
         <div *ngIf="this.editableFunction(bug)" >
-          <select name="assignedTo" id="assignedTo"  class="form-control"  [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
-            <!--<option [disabled] [ngValue]="bug.status.trim()">{{bug.status.toLocaleUpperCase()}}</option>-->
+          <select class="form-control"  [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
             <option  *ngFor="let status of this.updatedStatus" [ngValue]="status">{{status.toLocaleUpperCase()}}</option>
           </select>
         </div>
@@ -73,8 +76,12 @@
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.assignedTo.username" (ngModelChange)="bug.assignedTo.username = $event"/>
-        <div *ngIf="!this.editableFunction(bug)">
+        <div *ngIf="this.editableFunction(bug)">
+          <select  class="form-control"  [ngModel]="bug.assignedTo.username" (ngModelChange)="bug.assignedTo.username = $event">
+            <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
+          </select>
+        </div>
+          <div *ngIf="!this.editableFunction(bug)">
           {{bug.assignedTo.username}}
         </div>
       </td>
@@ -98,7 +105,7 @@
       <div class="form-group">
         <label>Attachment for this bug</label>
         <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
-          <option  *ngFor="let attachment of this.attachmentsForABug" [ngValue]="attachment">{{attachment.blob}}</option>
+          <option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>
         </select>
         <br/>
         <label>Download  <button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>

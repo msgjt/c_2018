@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Bug} from "../types/bugs";
 import {BugService} from "../services/bug.service";
 import {Attachment} from "../types/attachment";
+import {User} from "../types/user";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -13,7 +15,8 @@ export class UpdateBugComponent implements OnInit {
   bugs: Bug[];
   isEditable: boolean[] = [];
   cachedBugs: Bug[];
-  severities: string[] = ["critical", "high", "medium", "low"];
+  allUsers: User[] = [];
+  severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
   chosenSeverity: string;
   statuses: string[] = ["fixed", "open", "in_progress", "rejected", "info_needed", "closed"];
   chosenStatus: string;
@@ -25,7 +28,7 @@ export class UpdateBugComponent implements OnInit {
   attachmentChosen:Attachment;
 
 
-  constructor(private bugService: BugService) {
+  constructor(private bugService: BugService,private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +39,11 @@ export class UpdateBugComponent implements OnInit {
     })
     this.createMap();
     this.attachments = this.bugService.getAllAttachments();
+    this.userService.getUsers().subscribe((response:User[])=>{
+        response.forEach((value => {
+          this.allUsers.push(value);
+        }))
+    })
   }
 
   createMap() {
@@ -71,13 +79,20 @@ export class UpdateBugComponent implements OnInit {
     }
   }
 
+  updateBugUser(bug:Bug):User{
+    return this.allUsers.filter((value) =>{
+      return value.username === bug.assignedTo.username;
+    })[0];
+  }
 
   onSubmit(bug: Bug) {
 
     if (this.isEditable[bug.idBug]) {
       console.log('Bug updated');
       bug.status = bug.status.toUpperCase();
+      bug.assignedTo = this.updateBugUser(bug);
       this.bugService.updateBug(bug);
+      location.reload();
     }
     else {
       console.log('Bug ready to be updated');
@@ -109,7 +124,7 @@ export class UpdateBugComponent implements OnInit {
   }
 
   download(content) {
-    var filename= 'from UI';
+    var filename= 'Attachment';
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
     element.setAttribute('download', filename);
@@ -124,6 +139,7 @@ export class UpdateBugComponent implements OnInit {
 
   delete(attachmentChosen:Attachment){
     this.bugService.deleteAttachment(attachmentChosen);
+    location.reload();
   }
 
 
