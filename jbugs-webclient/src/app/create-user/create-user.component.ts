@@ -18,6 +18,7 @@ export class CreateUserComponent implements OnInit {
   user: User;
   showRoles: boolean;
   permission: Permission[];
+  checkSelect: boolean;
 
   constructor(private userService: UserService, private rolesService: RoleService) {
     this.user = {
@@ -40,6 +41,7 @@ export class CreateUserComponent implements OnInit {
     this.permission = [];
     this.dropdownList = [];
     this.selectedItems = [];
+    this.checkSelect=false;
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownList.push(value))
     }, () => {
@@ -68,6 +70,9 @@ export class CreateUserComponent implements OnInit {
       this.user.roles.map(value => value.permissions = this.permission);
       this.userService.addUser(this.user);
       this.selectedItems=[];
+    }
+    else {
+      this.checkSelect=true;
     }
   }
 
