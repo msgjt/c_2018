@@ -14,13 +14,26 @@ export class RoleComponent implements OnInit {
   showAllPermissions: boolean[] = [];
   roles: Role[] = [];
   permissions: Permission[] = [];
+  selectedItems: Permission[][]=[];
   permissionsToBeUpdated: Permission[] = [];
   noPermissionsForThisRole: Permission[];
   isRemovedButtonSelected: boolean = false;
+  dropdownSettings={};
 
   constructor(private roleService: RoleService, private permissionService: PermissionService) {
-    this.roles = [];
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'type',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      maxHeight: 130
+    };
+
   }
+
+
 
 
   findByType(type: string): Permission {
@@ -31,6 +44,10 @@ export class RoleComponent implements OnInit {
 
     })[0];
     return permission;
+  }
+
+  selectPermissions(role: Role) {
+    return this.selectedItems[role.id] = role.permissions;
   }
 
   checkDelete(checked, type: string): Permission[] {
@@ -58,7 +75,7 @@ export class RoleComponent implements OnInit {
   }
 
   updatePermissions(role: Role) {
-    this.permissionsToBeUpdated.forEach((value, index) => {
+    this.selectedItems[role.id].forEach((value, index) => {
       console.log(this.permissionsToBeUpdated[index]);
       this.roleService.addPermissionForRole(role.id, value.id);
       console.log(value.type);
@@ -115,6 +132,9 @@ export class RoleComponent implements OnInit {
         this.permissions.push(value);
       })
     });
+    this.roles.forEach((value) =>{
+      this.selectPermissions(value);
+    })
   };
 
   /**

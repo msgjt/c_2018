@@ -35,7 +35,7 @@
     "ng-recaptcha": "^3.0.5",
     "ngx-pagination": "^3.2.0",
     "node-filelist": "^1.0.0",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.2.2",
     "save": "^2.3.2",
     "text-encoder": "0.0.3",
     "text-encoder-lite": "^1.0.1",
