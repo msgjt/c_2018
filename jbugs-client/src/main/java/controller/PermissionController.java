@@ -1,8 +1,10 @@
 package controller;
 
+import authentification.Secured;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IPermissionBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/permissions")
+@Secured(PermissionEnum.PERMISSION_MANAGEMENT)
 public class PermissionController {
 
     @EJB

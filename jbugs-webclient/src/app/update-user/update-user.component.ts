@@ -3,7 +3,6 @@ import {User} from "../types/user";
 import {Role} from "../types/roles";
 import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
-import {Permission} from "../types/permissions";
 
 @Component({
   selector: 'app-update-user',

@@ -19,6 +19,5 @@ public interface IUserBusinessService {
 
     UserDTO getUserByUsername(String username) throws BusinessException;
 
-    //@ToDo implement this shit
-    //void deleteUser(String userName) throws BusinessException;
+    void deleteUser(String userName) throws BusinessException;
 }

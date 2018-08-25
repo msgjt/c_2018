@@ -3,6 +3,8 @@ package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 public class UserDTOHelper {
     @EJB
     private RoleDTOHelper roleDTOHelper;
+    @EJB
+    private UserBusinessService userBusinessService;
 
     public UserDTO fromEntity(User user) {
         UserDTO userDTO = new UserDTO();
@@ -49,11 +53,11 @@ public class UserDTOHelper {
         return user;
     }
 
-    //ToDo: make not static and make fictional;
-    public UserSessionDTO toEntity(UserLoginDTO userLoginDTO) {
+    public UserSessionDTO toEntity(UserLoginDTO userLoginDTO) throws BusinessException {
         Set<PermissionEnum> permissions = new HashSet<>();
-        permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
-        return new UserSessionDTO("doreld", permissions);
+        UserDTO userDTO = userBusinessService.getUserByUsername(userLoginDTO.getUsername());
+        userDTO.getRoles().forEach(roleDTO -> roleDTO.getPermissions().forEach(permissionDTO -> permissions.add(permissionDTO.getType())));
+        return new UserSessionDTO(userDTO.getUsername(), permissions);
     }
 }
 

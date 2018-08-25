@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -190,6 +189,12 @@ public class UserBusinessService implements IUserBusinessService {
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);
         return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
+    }
+
+    @Override
+    public void deleteUser(String userName) throws BusinessException {
+        validateUserName(userName);
+        userPersistenceService.removeUser(userPersistenceService.getUserByUsername(userName).get());
     }
 
     /**
