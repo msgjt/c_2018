@@ -1,9 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -19,31 +17,12 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;
 
-    @Column(name = "type", length = MAX_STRING_LENGTH)
-    private String type;
+    @Column(length = MAX_STRING_LENGTH)
+    @Enumerated(EnumType.STRING)
+    private RoleEnum type;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<Permission> permissions = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "id_role")},
-            inverseJoinColumns = {@JoinColumn(name = "id_user")})
-    private List<User> users = new ArrayList<>();
-
-    public void addPermission(Permission permission) {
-        this.permissions.add(permission);
-        permission.getRoles().add(this);
-    }
-
-    public void removePermission(Permission permission) {
-        this.permissions.removeIf(e -> e.getIdPermission().equals(permission.getIdPermission()));
-        permission.getRoles().removeIf(e -> e.getIdRole().equals(this.idRole));
-    }
-
-    public static String getGetAllRoles() {
-        return GET_ALL_ROLES;
-    }
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private Set<Permission> permissions;
 
     public Long getIdRole() {
         return idRole;
@@ -53,27 +32,20 @@ public class Role {
         this.idRole = idRole;
     }
 
-    public String getType() {
+    public RoleEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RoleEnum type) {
         this.type = type;
     }
 
-    public List<Permission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<Permission> permissions) {
+    public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

@@ -2,9 +2,8 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,8 +14,7 @@ import java.util.Objects;
                 @NamedQuery(name = User.GET_USER_BY_EMAIL, query = "SELECT u from User u where u.email = :email "),
         }
 )
-public class User{
-
+public class User {
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
     public static final String GET_ALL_USERS = "get_All_Users";
@@ -27,49 +25,32 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
-    @Column(name = "firstName", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String firstName;
 
-    @Column(name = "lastName", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String lastName;
 
-    @Column(name = "phoneNumber", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email", length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String email;
 
-    @Column(name = "username", length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String username;
 
-    @Column(name = "password", length = MAX_STRING_LENGTH)
+    @Column(length = MAX_STRING_LENGTH)
     private String password;
 
-    @Column(name = "isActive", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private boolean isActive;
 
-    @ManyToMany(mappedBy = "users")
-    private List<Role> roles;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private Set<Role> roles;
 
-    @OneToMany( mappedBy = "createdByUser",fetch=FetchType.LAZY)
-    private List<Bug> bugs= new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Comment> comments;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserNotification> userNotifications;
-
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(Role role) {
-        this.roles.removeIf(e-> e.getIdRole().equals(role.getIdRole()));
-        role.getUsers().removeIf(e-> e.getIdUser().equals(this.getIdUser()));
-    }
 
     public Long getIdUser() {
         return idUser;
@@ -135,28 +116,12 @@ public class User{
         isActive = active;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<Bug> getBugs() {
-        return bugs;
-    }
-
-    public void setBugs(List<Bug> bugs) {
-        this.bugs = bugs;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     public List<UserNotification> getUserNotifications() {

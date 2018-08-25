@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 public interface IUserPersistenceService extends Serializable {
@@ -15,23 +16,14 @@ public interface IUserPersistenceService extends Serializable {
 
     Optional<User> updateUser(@NotNull User user);
 
-    List<User> getAllUsers();
+    void removeUser(@NotNull User user);
+
+    Set<User> getAllUsers();
 
     Optional<User> getUserByUsername(@NotNull String username);
 
-    Optional<Role> createRole(@NotNull Role role);
-
-    Optional<Role> removeRole(@NotNull Role role);
-
-    Optional<Role> updateRole(@NotNull Role role);
-
-    Optional<Role> getRoleForId(long id);
-
-    List<Role> getAllRoles();
-
     Optional<User> getUserByEmail(@NotNull String email);
 
-    List<String> getUsernamesLike(@NotNull String username);
+    Set<String> getUsernamesLike(@NotNull String username);
 
-    Optional<User> createRoleForUser(@NotNull User user, @NotNull Role role);
 }

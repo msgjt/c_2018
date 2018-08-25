@@ -14,7 +14,6 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-
   getAllUsers(): User[] {
     let users: User[] = [];
     this.http.get(this.baseURL + '/users').subscribe((response: User[]) => {
@@ -25,10 +24,15 @@ export class UserService {
     return users;
   }
 
-  getUsers():Observable<any> {
+  getUsers(): Observable<any> {
     return this.http.get(this.baseURL + '/users');
   }
 
+  getUser(username: String): Observable<User> {
+    return this.http.get<User>(this.baseURL + '/users/' + username);
+
+
+  }
   /**
    * Make a request to the server for addUser
    * @param user represents user from component
@@ -41,6 +45,14 @@ export class UserService {
       headers: reqHeader
     }).subscribe();
     return user;
+  }
+
+  updateUser(user: User) {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var userModelUpdate = JSON.stringify(user);
+    this.http.put<any>(this.baseURL + '/users', userModelUpdate, {
+      headers: reqHeader
+    }).subscribe();
   }
 
 }

@@ -1,30 +1,27 @@
 package controller;
 
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.service.user.IPermissionBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.utils.IdGenerator;
+import ro.msg.edu.jbugs.userManagement.business.service.user.IRoleBusinessService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/roles")
 public class RoleController {
     @EJB
-    private IPermissionBusinessService IPermissionBusinessService;
-
-    @EJB
-    private IUserBusinessService IUserBusinessService;
+    private IRoleBusinessService roleBusinessService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllRoles() {
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(IUserBusinessService.getAllRoles()))
+                .entity(new Gson().toJson(roleBusinessService.getAllRoles()))
                 .build();
     }
 
@@ -33,7 +30,7 @@ public class RoleController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissionsForRole(@PathParam("idRole") long id) {
-        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
+        RoleDTO roleDTO = roleBusinessService.getRoleById(id);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(roleDTO))
                 .build();
@@ -52,7 +49,7 @@ public class RoleController {
     public Response getMethodRemovePermissionForRole(@PathParam("idRole") long id) {
         return this.getPermissionsForRole(id);
     }
-
+    /*
     @Path("/remove/{idRole}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -78,4 +75,5 @@ public class RoleController {
                 .entity(new Gson().toJson(IPermissionBusinessService.getRoleById(id)))
                 .build();
     }
+    */
 }

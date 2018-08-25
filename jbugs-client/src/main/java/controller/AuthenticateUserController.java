@@ -20,11 +20,11 @@ public class AuthenticateUserController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response userLogin(UserLoginDTO userLoginDot) {
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response userLogin(UserLoginDTO userLoginDTO) {
         Response loginResponse;
         try {
-            String token = loginBusinessService.login(userLoginDot);
+            String token = loginBusinessService.login(userLoginDTO);
             loginResponse = Response
                     .status(Response.Status.OK)
                     .entity(new Gson().toJson(token))

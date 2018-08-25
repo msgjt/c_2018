@@ -1,14 +1,11 @@
 package controller;
 
-import authentification.Secured;
 import com.google.gson.Gson;
-import ro.msg.edu.jbugs.userManagement.business.dto.norification.EmailDto;
-
+import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -18,28 +15,46 @@ import javax.ws.rs.core.Response;
 @Path("/users")
 public class UserController {
     @EJB
-    private IUserBusinessService IUserBusinessService;
-
+    private IUserBusinessService userBusinessService;
     @EJB
     private SendEmailService emailService;
+
+    //ToDo please implement the shit from userBusinessService(you will see another toDo)
+    /*@DELETE
+    @Path("/{userName}")
+    public Response deleteUser(@PathParam("userName") String userName) {
+        Response response;
+        try {
+            userBusinessService.deleteUser(userName);
+            response = Response
+                    .status(Response.Status.OK)
+                    .build();
+        } catch (BusinessException e) {
+            response = Response
+                    .status(Response.Status.EXPECTATION_FAILED)
+                    .entity(e.getExceptionCode())
+                    .build();
+        }
+        return response;
+    }*/
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(IUserBusinessService.getAllUsers()))
+                .entity(new Gson().toJson(userBusinessService.getAllUsers()))
                 .build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{userName}")
-    public Response getUserByUsername(@PathParam("userName") String userName) {
+    @Path("/{username}")
+    public Response getUserByUsername(@PathParam("username") String username) {
         Response response;
         try {
-            UserDTO userDTO = IUserBusinessService.getUserByUsername(userName);
-            response = Response.status(Response.Status.UNAUTHORIZED)
-                    .entity(userDTO)
+            UserDTO userDTO = userBusinessService.getUserByUsername(username);
+            response = Response.status(Response.Status.OK)
+                    .entity(new Gson().toJson(userDTO))
                     .build();
         } catch (BusinessException e) {
             response = Response.status(Response.Status.UNAUTHORIZED)
@@ -54,18 +69,10 @@ public class UserController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Secured(PermissionEnum.PERMISSION_MANAGEMENT)
-    @Path("/{userName}")
-    public Response updateUser(@PathParam("userName") String userName, UserDTO userDTO) {
-        return Response.status(Response.Status.OK).entity(IUserBusinessService.updateUser(userDTO)).build();
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsersPost() {
-        String[] blabla = {"Gica", "Eu", "Gica", "Eu", "Gica", "Eu",};
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(blabla))
+    public Response updateUser(UserDTO userDTO) {
+        return Response
+                .status(Response.Status.OK)
+                .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
                 .build();
     }
 
@@ -76,7 +83,7 @@ public class UserController {
     public Response addUser(UserDTO userDTO) {
         UserDTO addedUser = null;
         try {
-            addedUser = IUserBusinessService.createUser(userDTO);
+            addedUser = userBusinessService.createUser(userDTO);
         } catch (BusinessException e) {
             e.printStackTrace();
         }

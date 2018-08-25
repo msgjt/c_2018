@@ -2,7 +2,30 @@
   <div class="jumbotron">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form (ngSubmit)="addUser()" #formControl="ngForm" #formElement>
+
+        <form (ngSubmit)="clickUpdate()" #formControl="ngForm" #formElement>
+          <label>Choose username</label>
+          <div class="form-group">
+            <ng-multiselect-dropdown
+              #selectElement
+              required
+              *ngIf="showUsers"
+              name="users"
+              [(data)]="dropdownUserList"
+              [(ngModel)]="selectedItem"
+              [settings]="dropdownSettings1">
+            </ng-multiselect-dropdown>
+
+            <button type="submit"
+                    style="float:right;"
+                    [disabled]="formControl.invalid"
+                    class="btn btn-primary">Update</button>
+
+          </div>
+        </form>
+        <br>
+        <br>
+        <div *ngIf="showDetails">
           <div class="form-group">
             <label for="firstName">First Name</label>
             <input #firstNameElement required="true" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text"
@@ -29,6 +52,7 @@
                    name="email" type="text" class="form-control" placeholder="@msggroup.com" pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
             <div class="err" *ngIf="!emailElement.checkValidity()">Email must be a valid email</div>
           </div>
+
           <label>Roles</label>
           <div class="form-group">
             <ng-multiselect-dropdown
@@ -36,17 +60,34 @@
               required
               *ngIf="showRoles"
               name="roles"
-              [data]="dropdownList"
+              [data]="dropdownRoleList"
               [placeholder]="'Choose a role'"
               [(ngModel)]="selectedItems"
-              [settings]="dropdownSettings">
+              [settings]="dropdownSettings2">
             </ng-multiselect-dropdown>
-            <div class="err" *ngIf="!verifySelectMenu()">Select at least one role</div>
           </div>
+
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+            <label class="btn btn-secondary active"  (click) = "setStatus(true)">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked > Active
+            </label>
+            <label class="btn btn-secondary" (click)="setStatus(false)">
+              <input type="radio" name="options" id="option2" autocomplete="off" > InActive
+            </label>
+          </div>
+
+
+
+
+
           <div class=" form-group">
-            <button [disabled]="!formElement.checkValidity()" type="submit" class="btn btn-primary" >Add</button>
+            <button type="submit"
+                    class="btn btn-primary"
+                    (click)="updateUser()"
+            >Update</button>
           </div>
-        </form>
+        </div>
+
       </div>
     </div>
   </div>

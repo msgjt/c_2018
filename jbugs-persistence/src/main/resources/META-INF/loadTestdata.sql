@@ -4,11 +4,11 @@ INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, 
 INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dore3', '1', '07414141', 'dore3@a.com','ddorel', 'ëØ[SŽL›@@í+<nS·', 1);
 
 
-INSERT INTO ROLES (type) VALUES ('Administrator');
-INSERT INTO ROLES (type) VALUES ('Project manager');
-INSERT INTO ROLES (type) VALUES ('Test manager');
-INSERT INTO ROLES (type) VALUES ('Developer');
-INSERT INTO ROLES (type) VALUES ('Tester');
+INSERT INTO ROLES (type) VALUES ('ADMINISTRATOR');
+INSERT INTO ROLES (type) VALUES ('PROJECT_MANAGER');
+INSERT INTO ROLES (type) VALUES ('TEST_MANAGER');
+INSERT INTO ROLES (type) VALUES ('DEVELOPER');
+INSERT INTO ROLES (type) VALUES ('TESTER');
 
 
 INSERT INTO PERMISSIONS (type,description) values ('PERMISSION_MANAGEMENT','descriere');
