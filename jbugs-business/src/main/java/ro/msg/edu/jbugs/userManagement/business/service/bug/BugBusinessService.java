@@ -36,10 +36,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
+    public BugDTO addBug(BugDTO bugDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return bugDTOHelper.fromEntity(bugPersistenceService.addBug(bug,attachment).get());
+        Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
+        return bugDTOHelper.fromEntity(addedBug);
     }
 
     @Override

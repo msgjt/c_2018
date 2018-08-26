@@ -38,12 +38,12 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Bug> addBug(Bug bug,Attachment attachment) {
-        bug.getAttachments().add(attachment);
+     //   bug.getAttachments().add(attachment);
         User user = userPersistenceService.getUserByUsername(bug.getAssignedTo().getUsername()).get();
         bug.setAssignedTo(user);
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
         bug.setCreatedByUser(createByUser);
-        em.persist(attachment);
+        em.persist(bug);
         return Optional.of(bug);
     }
 
@@ -68,7 +68,7 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
-        em.merge(attachment);
+        em.persist(attachment);
         return Optional.of(attachment);
     }
 

@@ -38,9 +38,9 @@ export class BugService {
   }
 
 
-  addBug(attachment: Attachment) {
+  addBug(bug:Bug) {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
-    var attachmentModel = JSON.stringify(attachment);
+    var attachmentModel = JSON.stringify(bug);
     console.log(attachmentModel);
     this.http.post(this.baseURL + '/add', attachmentModel, {
       headers: reqHeader

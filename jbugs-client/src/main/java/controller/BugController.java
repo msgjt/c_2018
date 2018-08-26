@@ -35,11 +35,10 @@ public class BugController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addBugAndAttachment(AttachmentDTO attachmentDTO){
-        BugDTO bugDTO = attachmentDTO.getBugDTO();
-        bugBusinessService.addBug(bugDTO,attachmentDTO);
+    public Response addBugAndAttachment(BugDTO bugDTO){
+        bugBusinessService.addBug(bugDTO);
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(attachmentDTO))
+                .entity(new Gson().toJson(bugDTO))
                 .build();
     }
 
