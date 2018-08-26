@@ -6,6 +6,7 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,5 @@ public interface IBugPersistenceService extends Serializable {
     Optional<Bug> updateBug(Bug bug);
     List<Comment> getCommentsForBug(Bug bug);
     Optional<Attachment> deleteAttachment(Attachment attachment);
+    Optional<Comment> addComment(Comment comment);
 }

@@ -75,4 +75,14 @@ public class BugController {
     }
 
 
+    @Path("comments/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addComment(CommentDTO commentDTO){
+        CommentDTO commentAdded = bugBusinessService.addComment(commentDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(commentAdded))
+                .build();
+    }
 }

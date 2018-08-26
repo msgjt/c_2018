@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,6 +113,19 @@ public class BugPersistenceService implements IBugPersistenceService {
        Attachment attachmentToBeDeleted = em.getReference(Attachment.class,attachment.getIdAttachment());
        em.remove(attachmentToBeDeleted);
         return Optional.of(attachment);
+    }
+
+
+    /**
+     * Method for adding a commment
+     * @param comment
+     * @return optional of the added comment
+     */
+    @Override
+    public Optional<Comment> addComment(Comment comment) {
+        comment.setDate(new Date());
+        em.persist(comment);
+        return Optional.of(comment);
     }
 
 

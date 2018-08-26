@@ -9,6 +9,7 @@ public class CommentDTO {
     private String user;
     private String text;
     private Date date;
+    private BugDTO bugDTO;
 
     public Long getId() {
         return id;
@@ -40,5 +41,13 @@ public class CommentDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public BugDTO getBugDTO() {
+        return bugDTO;
+    }
+
+    public void setBugDTO(BugDTO bugDTO) {
+        this.bugDTO = bugDTO;
     }
 }

@@ -72,6 +72,12 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
+    public CommentDTO addComment(CommentDTO commentDTO) {
+        Comment comment = commentDTOHelper.toEntity(commentDTO);
+        return commentDTOHelper.fromEntity(bugPersistenceService.addComment(comment).get());
+    }
+
+    @Override
     public AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) {
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
         return attachmentDTOHelper.fromEntity(bugPersistenceService.deleteAttachment(attachment).get());

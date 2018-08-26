@@ -16,4 +16,5 @@ public interface IBugBusinessService {
     BugDTO updateBug(BugDTO bugDTO);
     AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO);
     List<CommentDTO> getCommentsForBug(Long bugId);
+    CommentDTO addComment(CommentDTO commentDTO);
 }

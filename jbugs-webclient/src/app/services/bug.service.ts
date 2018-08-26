@@ -104,4 +104,13 @@ export class BugService {
     )
     return this.comments;
   }
+  addComment(comment:Comment){
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var attachmentModel = JSON.stringify(comment);
+    console.log('From sevice ' + attachmentModel);
+    this.http.post(this.baseURL + '/comments/add', attachmentModel, {
+      headers: reqHeader
+    }).subscribe();
+    location.reload();
+  }
 }

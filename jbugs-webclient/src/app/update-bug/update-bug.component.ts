@@ -54,11 +54,13 @@ export class UpdateBugComponent implements OnInit {
   }
 
   createMap() {
+    this.statusMap.set("new","fixed");
     this.statusMap.set("fixed", ["open", "closed"]);
     this.statusMap.set("open", ["in_progress", "rejected"]);
     this.statusMap.set("rejected", ["closed"]);
     this.statusMap.set("in_progress", ["fixed", "rejected","info_needed"]);
     this.statusMap.set("info_needed", ["in_progress"]);
+    this.statusMap.set("closed","closed");
     }
 
 
