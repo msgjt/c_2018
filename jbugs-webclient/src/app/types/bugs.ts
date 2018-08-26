@@ -13,5 +13,17 @@ export interface Bug {
   createdByUser: User;
   assignedTo: User;
 }
+export class BugClass implements Bug{
+  assignedTo: User;
+  createdByUser: User;
+  description: string;
+  fixedVersion: string;
+  idBug: number;
+  severity: string;
+  status: string;
+  targetDate: string;
+  title: string;
+  version: string;
 
+}
 

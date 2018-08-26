@@ -4,6 +4,7 @@ import {BugService} from "../services/bug.service";
 import {Attachment} from "../types/attachment";
 import {User} from "../types/user";
 import {UserService} from "../services/user.service";
+import {BugDataService} from "../services/bugData.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -30,7 +31,7 @@ export class UpdateBugComponent implements OnInit {
   attachmentToBeAdded: Attachment;
 
 
-  constructor(private bugService: BugService,private userService: UserService) {
+  constructor(private bugService: BugService,private userService: UserService,private dataService:BugDataService) {
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: ""
@@ -66,6 +67,11 @@ export class UpdateBugComponent implements OnInit {
       return finalList;
   }
 
+  setSelectedBug(bug: Bug){
+    this.dataService.bug = bug;
+    localStorage.setItem("idBug",bug.idBug.toString());
+  }
+
   filterBySeverity() {
     if (this.chosenSeverity == "undefined") {
       this.bugs = this.cachedBugs;
@@ -91,18 +97,18 @@ export class UpdateBugComponent implements OnInit {
     })[0];
   }
 
-  fileChange() {
-    var reader: FileReader = new FileReader();
-    let eventTarget = <HTMLInputElement>event.target;
-    if (eventTarget.files && eventTarget.files.length > 0) {
-      let file = eventTarget.files[0];
-      console.log("file name"+ file.name);
-      reader.onload = function () {
-        this.attachmentToBeAdded.blob = reader.result;
-      }.bind(this);
-      reader.readAsText(file);
-    }
-  }
+  // fileChange() {
+  //   var reader: FileReader = new FileReader();
+  //   let eventTarget = <HTMLInputElement>event.target;
+  //   if (eventTarget.files && eventTarget.files.length > 0) {
+  //     let file = eventTarget.files[0];
+  //     console.log("file name"+ file.name);
+  //     reader.onload = function () {
+  //       this.attachmentToBeAdded.blob = reader.result;
+  //     }.bind(this);
+  //     reader.readAsText(file);
+  //   }
+  // }
 
   onSubmit(bug: Bug) {
 
@@ -129,13 +135,13 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  clickDetails(bug:Bug){
-    this.attachmentsForABug = this.attachments.filter((value) =>{
-      return value.bugDTO.idBug == bug.idBug;
-    });
-    console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
-    this.attachmentToBeAdded.bugDTO = bug;
-  }
+  // clickDetails(bug:Bug){
+  //   this.attachmentsForABug = this.attachments.filter((value) =>{
+  //     return value.bugDTO.idBug == bug.idBug;
+  //   });
+  //   console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
+  //   this.attachmentToBeAdded.bugDTO = bug;
+  // }
 
   editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
@@ -143,29 +149,29 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  download(content) {
-    var filename= 'Attachment';
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
-
-  deleteAttachment(attachmentChosen:Attachment){
-    this.bugService.deleteAttachment(attachmentChosen);
-    location.reload();
-  }
-
-  addAttachment(attachmentChosen:Attachment){
-    console.log(attachmentChosen);
-    this.bugService.addAttachment(attachmentChosen);
-  }
+  // download(content) {
+  //   var filename= 'Attachment';
+  //   var element = document.createElement('a');
+  //   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+  //   element.setAttribute('download', filename);
+  //
+  //   element.style.display = 'none';
+  //   document.body.appendChild(element);
+  //
+  //   element.click();
+  //
+  //   document.body.removeChild(element);
+  // }
+  //
+  // deleteAttachment(attachmentChosen:Attachment){
+  //   this.bugService.deleteAttachment(attachmentChosen);
+  //   location.reload();
+  // }
+  //
+  // addAttachment(attachmentChosen:Attachment){
+  //   console.log(attachmentChosen);
+  //   this.bugService.addAttachment(attachmentChosen);
+  // }
 
 
 }

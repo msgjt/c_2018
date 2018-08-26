@@ -63,7 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes,{onSameUrlNavigation: 'reload'}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

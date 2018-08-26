@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Bug} from "../types/bugs";
+import {Bug, BugClass} from "../types/bugs";
 import {Attachment} from "../types/attachment";
 import {Comment} from "../types/comments";
+import {Observable} from "rxjs/internal/Observable";
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import {Comment} from "../types/comments";
 
 export class BugService {
   bugs: Bug[] = [];
+  bug: Bug = new BugClass();
   comments: Comment[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest/bugs';
   attachementURL = 'http://localhost:8080/jbugs/rest/attachments';
@@ -30,6 +32,11 @@ export class BugService {
     );
     return this.bugs;
   }
+
+  getBugById(idBug: number): Observable<Bug> {
+    return this.http.get<Bug>(this.baseURL + '/' + idBug);
+  }
+
 
   addBug(attachment: Attachment) {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
@@ -53,9 +60,7 @@ export class BugService {
     var attachmentsForBug: Attachment[] = [];
     this.http.get(this.attachementURL + '/' + idBug).subscribe((response: Attachment[]) => {
       response.forEach((value) => {
-        console.log("intra")
         attachmentsForBug.push(value);
-        console.log(attachmentsForBug.length);
       })
     });
     return attachmentsForBug;
@@ -71,7 +76,7 @@ export class BugService {
     return attachmentsForBug;
   }
 
-  deleteAttachment(attachment:Attachment) {
+  deleteAttachment(attachment: Attachment) {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
@@ -80,7 +85,7 @@ export class BugService {
     }).subscribe();
   }
 
-  addAttachment(attachment:Attachment) {
+  addAttachment(attachment: Attachment) {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);

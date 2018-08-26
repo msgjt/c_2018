@@ -1,6 +1,8 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      xmlns="http://www.w3.org/1999/html">
 <div class="container">
   <h1 class="title">{{bug.title}}</h1>
-  <p class="gray">created by {{bug.createdByUser.username}}</p>
+  <p class="gray">Created by {{bug.createdByUser.username}}</p>
   <table class="table-borderless">
     <thead class="gray">
     <tr>
@@ -34,6 +36,21 @@
     </tr>
     </tbody>
   </table>
-  <button class="btn btn-group" routerLink="/bug">Back to List</button>
+  <h4>Attachments</h4>
+  <div class="form-group">
+    <label>Attachment for this bug</label>
+    <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
+      <option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>
+    </select>
+    <br/>
+    <label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>
+    <label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
+    <br>
+    <label>Add:&nbsp;</label>
+    <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
+    <label>&nbsp;&nbsp;</label>
+    <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>
+  </div>
+  <button class="btn btn-group" routerLink="/bug/update">Back to List</button>
 </div>
 

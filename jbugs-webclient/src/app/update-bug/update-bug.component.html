@@ -23,11 +23,10 @@
       <th scope="col">STATUS</th>
       <th scope="col">ASSIGNED TO</th>
       <th scope="col">UPDATE</th>
-      <th scope="col">DETAILS</th>
     </tr>
     </thead>
 
-    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" class="fixedColumns">
+    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" routerLink="/bug/details" (click) = 'setSelectedBug(bug)' class="fixedColumns">
     <tr>
       <td>
         <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
@@ -85,7 +84,7 @@
         <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
       </td>
       <td>
-        <button type="button" class="btn" (click)="clickDetails(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>
+        <!--<button type="button" class="btn" (click)="clickDetails(bug)" data-toggle="modal" data-target="#myModal"><i class="fa fa-arrow-up" data-toggle="modal" data-target="#myModal"></i></button>-->
 
       </td>
 
