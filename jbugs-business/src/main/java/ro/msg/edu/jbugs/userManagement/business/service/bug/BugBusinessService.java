@@ -2,18 +2,22 @@ package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -28,6 +32,7 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private CommentDTOHelper commentDTOHelper;
 
+    private List<BugDTO> filteredBugs;
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -69,6 +74,43 @@ public class BugBusinessService implements IBugBusinessService {
         BugDTO bugDTO = findBugById(bugId);
         List<Comment> comments = bugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
         return comments.stream().map(c -> commentDTOHelper.fromEntity(c)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void filterBugs(List<BugFiltersDTO> filtersDTOs) {
+        Predicate<BugDTO> bugFilter = x -> true;
+        filteredBugs = new ArrayList<>();
+
+        List<BugDTO> bugDTOs = getAllBugs();
+        for(BugFiltersDTO criteria: filtersDTOs){
+            switch (criteria.getField()){
+                case "title":
+                    bugFilter = bugFilter.and(cl -> cl.getTitle().contains(criteria.getData().toLowerCase()));
+                    break;
+                case "description":
+                    bugFilter = bugFilter.and(cl -> cl.getDescription().contains(criteria.getData()));
+                    break;
+                case "assignedTo":
+                    bugFilter = bugFilter.and(cl -> cl.getAssignedTo().getUsername().equals(criteria.getData()));
+                    break;
+                case "createdByUser":
+                    bugFilter = bugFilter.and(cl -> cl.getCreatedByUser().getUsername().equals(criteria.getData()));
+                    break;
+                case "severity":
+                    bugFilter = bugFilter.and(cl -> cl.getSeverity().name().equals(criteria.getData().toUpperCase()));
+                    break;
+                case "status":
+                    bugFilter = bugFilter.and(cl -> cl.getStatus().name().equals(criteria.getData().toUpperCase()));
+                    break;
+                    //ToDO add version, fixedVersion, targetDate
+            }
+        }
+        filteredBugs = bugDTOs.stream().filter(bugFilter).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BugDTO> getFilteredBugs() {
+        return filteredBugs;
     }
 
     @Override

@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
@@ -12,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.lang.annotation.Repeatable;
 import java.util.Date;
 import java.util.List;
 
@@ -74,5 +76,21 @@ public class BugController {
                 .build();
     }
 
+    @Path("filter")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setFilters(List<BugFiltersDTO> filtersDTOs){
+        bugBusinessService.filterBugs(filtersDTOs);
+        return Response.status(Response.Status.OK)
+                .build();
+    }
 
+    @Path("filter")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFilteredBugs(){
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(bugBusinessService.getFilteredBugs()))
+                .build();
+    }
 }
