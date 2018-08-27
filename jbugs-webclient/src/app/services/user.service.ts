@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Role} from "../types/roles";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../types/user";
 import {Observable} from "rxjs/internal/Observable";
