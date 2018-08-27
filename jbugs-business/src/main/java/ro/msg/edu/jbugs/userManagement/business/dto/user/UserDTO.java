@@ -10,19 +10,21 @@ public class UserDTO {
     private String username;
     private String password;
     private String email;
+    private boolean isActive;
     private String phoneNumber;
     private Set<RoleDTO> roles;
 
     public UserDTO() {
     }
 
-    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, String phoneNumber, Set<RoleDTO> roles) {
+    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, boolean isActive, String phoneNumber, Set<RoleDTO> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.isActive = isActive;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
     }
@@ -73,6 +75,14 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getPhoneNumber() {

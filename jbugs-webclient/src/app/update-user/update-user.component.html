@@ -28,29 +28,54 @@
         <div *ngIf="showDetails">
           <div class="form-group">
             <label for="firstName">First Name</label>
-            <input #firstNameElement required="true" [(ngModel)]="user.firstName" name="firstName" id="firstName" type="text"
-                   class="form-control" pattern="^[a-zA-Z]*$"/>
-            <div class="err" *ngIf="!firstNameElement.checkValidity()">First Name is required</div>
+            <input #firstNameElement #firstNameControl="ngModel" required="true" [(ngModel)]="user.firstName"
+                   name="firstName" id="firstName" type="text"
+                   class="form-control" pattern="^[a-zA-Z]*$"
+                   [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
+            <p>
+              <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
+                First name is required
+              </small>
+            </p>
           </div>
 
           <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input #lastNameElement required="true" [(ngModel)]="user.lastName" name="lastName" id="lastName" type="text"
+            <input #lastNameElement #lastNameControl="ngModel" required="true" [(ngModel)]="user.lastName"
+                   name="lastName" id="lastName" type="text"
                    class="form-control" pattern="^[a-zA-Z]*$"/>
-            <div class="err" *ngIf="!lastNameElement.checkValidity()">Last Name is required</div>
+            <p>
+              <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
+                Last name is required
+              </small>
+            </p>
           </div>
+
           <div class="form-group">
             <label for="mobileNumber">Mobile number</label>
-            <input #mobileNumberElement  required="true" [(ngModel)]="user.phoneNumber" id="mobileNumber" name="mobileNumber" type="text"
+            <input #mobileNumberElement #mobileNumberControl="ngModel" required="true" [(ngModel)]="user.phoneNumber"
+                   id="mobileNumber" name="mobileNumber" type="text"
                    class="form-control" minlength="10"
+                   pattern="^[+0-9]*$"
                    maxlength="15"/>
-            <div class="err" *ngIf="!mobileNumberElement.checkValidity()">Mobile number must be valid(GER/RO)</div>
+            <p>
+              <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched " class="help-block text-danger">
+                Phone number must be a valid phone number
+              </small>
+            </p>
           </div>
+
           <div class="form-group">
             <label for="email">Email</label>
-            <input #emailElement required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$" [(ngModel)]="user.email" id="email"
-                   name="email" type="text" class="form-control" placeholder="@msggroup.com" pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
-            <div class="err" *ngIf="!emailElement.checkValidity()">Email must be a valid email</div>
+            <input #emailElement #emailControl="ngModel" required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$"
+                   [(ngModel)]="user.email" id="email"
+                   name="email" type="text" class="form-control" placeholder="@msggroup.com"
+                   pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
+            <p>
+              <small *ngIf="emailControl.invalid && emailControl.touched " class="help-block text-danger">
+                Email must be a valid email adress
+              </small>
+            </p>
           </div>
 
           <label>Roles</label>
@@ -59,25 +84,33 @@
               #selectElement
               required
               *ngIf="showRoles"
-              name="roles"
+              name="state"
               [data]="dropdownRoleList"
               [placeholder]="'Choose a role'"
               [(ngModel)]="selectedItems"
               [settings]="dropdownSettings2">
             </ng-multiselect-dropdown>
-          </div>
-
-          <div class="btn-group btn-group-toggle" data-toggle="buttons" >
-            <label class="btn btn-secondary active"  (click) = "setStatus(true)">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked > Active
-            </label>
-            <label class="btn btn-secondary" (click)="setStatus(false)">
-              <input type="radio" name="options" id="option2" autocomplete="off" > InActive
-            </label>
+            <p>
+              <small *ngIf="checkSelect" class="help-block text-danger">
+                Select at least one role
+              </small>
+            </p>
           </div>
 
 
-
+          <label>Status</label>
+          <div class="form-group">
+            <ng-multiselect-dropdown
+              #selectElement
+              required
+              *ngIf="showState"
+              name="status"
+              [data]="dropdownStatesList"
+              [(ngModel)]="selectedState"
+              (ngModelChange)="changeStatus(selectedState)"
+              [settings]="dropdownSettings3">
+            </ng-multiselect-dropdown>
+          </div>
 
 
           <div class=" form-group">

@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ResourceBundle;
 
 @Path("/users")
 public class UserController {
@@ -70,10 +71,16 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(UserDTO userDTO) {
-        return Response
-                .status(Response.Status.OK)
-                .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
-                .build();
+        Response response;
+        try {
+            response = Response
+                    .status(Response.Status.OK)
+                    .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
+                    .build();
+        } catch (BusinessException e) {
+            response = Response.status(Response.Status.METHOD_NOT_ALLOWED).entity(e.getExceptionCode()).build();
+        }
+        return response;
     }
 
     @Path("/add")

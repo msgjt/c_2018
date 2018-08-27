@@ -182,7 +182,10 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) {
+    public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
+        if(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).equals(userDTOHelper.toEntity(userDTO))){
+            throw new BusinessException(ExceptionCode.UNFINISHED_TASKS_EXCEPTIOM);
+        }
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
 

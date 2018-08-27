@@ -4,6 +4,7 @@ import {Role} from "../types/roles";
 import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
 import {Permission} from "../types/permissions";
+import {PermissionService} from "../services/permission.service";
 
 @Component({
   selector: 'app-update-user',
@@ -25,10 +26,21 @@ export class UpdateUserComponent implements OnInit {
   user: User;
 
 
+  showState: boolean;
+  dropdownStatesList: string[] ;
+  selectedState: string;
+  dropdownSettings3 = {};
+
+  checkSelect: boolean;
+  permission: Permission[];
+
   constructor(private userService: UserService, private rolesService: RoleService) {
     this.showRoles = false;
     this.showUsers = false;
     this.showDetails = false;
+    this.showState = false;
+    this.checkSelect = false;
+
 
   }
 
@@ -38,6 +50,8 @@ export class UpdateUserComponent implements OnInit {
     this.dropdownUserList = [];
     this.selectedItems = [];
     this.selectedItem = [];
+    this.permission = [];
+
 
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownRoleList.push(value))
@@ -76,6 +90,16 @@ export class UpdateUserComponent implements OnInit {
       maxHeight: 130,
     };
 
+    this.dropdownSettings3 = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'type',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      maxHeight: 130,
+    };
+
   }
 
   clickUpdate() {
@@ -85,25 +109,51 @@ export class UpdateUserComponent implements OnInit {
 
     this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
       this.user = user;
-      this.selectedItems=this.user.roles;
+      this.selectedItems = this.user.roles;
+
+
     }, (e) => {
       console.log('aparent am si o eroare');
     }, () => {
       this.showDetails = true;
-
+      this.showState = true;
+      console.log(this.user.isActive);
+      this.dropdownStatesList = this.user.isActive? ['DEACTIVATE']: ['ACTIVATE'];
     });
-
-
   }
+
 
   updateUser() {
-    this.selectedItem[0]= this.user;
-    this.userService.updateUser(this.selectedItem[0]);
+    if (this.verifySelectMenu()) {
+      this.selectedItem[0] = this.user;
+      this.user.roles=this.selectedItems;
+
+
+      this.user.roles.map(val=>val.permissions=this.permission);
+
+      console.log(this.selectedItem[0]);
+      this.userService.updateUser(this.selectedItem[0]);
+    }
+    else {
+      this.checkSelect = true;
+    }
+
   }
 
-  setStatus(status: boolean) {
-    this.user.isActive = status;
-    console.log(this.user);
+  verifySelectMenu(): boolean {
+    return this.selectedItems.length > 0;
+  }
+
+  changeStatus(status: string) {
     console.log(status);
+
+    if (status == "ACTIVATE") {
+      this.user.isActive = true;
+      console.log(this.user.isActive);
+    }
+    else {
+      this.user.isActive = false;
+      console.log(this.user.isActive);
+    }
   }
 }

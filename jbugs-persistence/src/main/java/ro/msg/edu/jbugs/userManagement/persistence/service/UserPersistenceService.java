@@ -26,6 +26,10 @@ public class UserPersistenceService implements IUserPersistenceService {
     public Optional<User> updateUser(@NotNull User user) {
 //        Query q = em.createNativeQuery("insert into users_roles (id_user,id_role) values (?1,?2) ON DUPLICATE KEY UPDATE id_user=?3,id_role=?4;");
 //        user.getRoles().forEach(r ->{q.setParameter(1,user.getIdUser()); q.setParameter(2,r.getIdRole()); q.setParameter(3,user.getIdUser()); q.setParameter(4,r.getIdRole()); q.executeUpdate();});
+            Query q = em.createQuery("select b from Bug b where b.assignedTo=" + user.getIdUser());
+            if(!q.getResultList().isEmpty()){
+                return Optional.of(user);
+            }
         return Optional.of(em.merge(user));
     }
 
