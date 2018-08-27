@@ -18,24 +18,26 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
 import {UpdateUserComponent} from "./update-user/update-user.component";
-import{BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
+import {BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
 import {BugDataService} from "./services/bugData.service";
 import {UpdateBugComponent} from './update-bug/update-bug.component';
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
 import {RecaptchaFormsModule} from "ng-recaptcha/forms";
+import {AuthenticateGuard} from "./guards/authenticate.guard";
+import { ErrorComponent } from './error/error.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
-  {path: 'permission', component: PermissionComponent},
-  {path: 'role', component: RoleComponent},
-  {path: 'bugDTO', component: ViewBugsComponent},
-  {path: 'bug/add', component: AddBugComponentComponent},
-  {path: 'bug/update', component: UpdateBugComponent},
-  {path: 'bug', component: ViewBugsComponent},
-  {path: 'user/add', component: CreateUserComponent},
-  {path: 'user/update', component: UpdateUserComponent},
-  {path: 'create-user', component: CreateUserComponent},
-  {path: 'bug/details', component: BugDetailsComponent}
+  {path: 'permission', component: PermissionComponent, canActivate: [AuthenticateGuard]},
+  {path: 'role', component: RoleComponent, canActivate: [AuthenticateGuard]},
+  {path: 'bugDTO', component: ViewBugsComponent,canActivate: [AuthenticateGuard]},
+  {path: 'bug/add', component: AddBugComponentComponent,canActivate: [AuthenticateGuard]},
+  {path: 'bug/update', component: UpdateBugComponent,canActivate: [AuthenticateGuard]},
+  {path: 'bug', component: ViewBugsComponent,canActivate: [AuthenticateGuard]},
+  {path: 'user/add', component: CreateUserComponent,canActivate: [AuthenticateGuard]},
+  {path: 'user/update', component: UpdateUserComponent,canActivate: [AuthenticateGuard]},
+  {path: 'create-user', component: CreateUserComponent,canActivate: [AuthenticateGuard]},
+  {path: '**', component: ErrorComponent}
 
 ]
 
@@ -56,14 +58,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     BugDetailsComponent,
     CreateUserComponent,
     UpdateUserComponent,
-    UpdateBugComponent
+    UpdateBugComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     LoginModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes,{onSameUrlNavigation: 'reload'}),
+    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
