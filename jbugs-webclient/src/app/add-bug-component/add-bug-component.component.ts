@@ -31,20 +31,14 @@ export class AddBugComponentComponent implements OnInit {
       idBug: 0,
       title: '',
       description: '',
-      version: '1.0',
+      version: '',
       targetDate: '',
       status: 'NEW',
-      fixedVersion: '1.0',
+      fixedVersion: '',
       severity: '',
       createdByUser: null,
       assignedTo: null
     }
-    // for(let i = 0 ; i<100;i++){
-    //   this.attachment[i] = {
-    //     bugDTO: null,
-    //     blob: ""
-    //   }
-    // }
   }
 
   checkUndefined(value: string) {
@@ -69,7 +63,6 @@ export class AddBugComponentComponent implements OnInit {
       for (let i = 0; i < eventTarget.files.length; i++) {
         let file = eventTarget.files[i];
         this.chosenFiles[i] = file.name;
-
         this.attachment[i] = {
           bugDTO: this.bug,
           blob: ""
@@ -91,13 +84,15 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
     })[0];
-    this.bugService.addBug(this.bug);
-    for (let i = 0; i < this.attachment.length; i++){
-      this.attachment[i].bugDTO = this.bug;
-      this.bugService.addAttachment(this.attachment[i]);
-    }
-
-    // location.reload();
+    this.bugService.addBug(this.bug).subscribe((value) =>{
+      for (let i = 0; i < this.attachment.length; i++){
+        this.attachment[i].bugDTO = this.bug;
+        this.bugService.addAttachment(this.attachment[i]);
+      }
+      this.attachment = [];
+      this.chosenFiles=[];
+    });
+    location.reload();
   }
 
 

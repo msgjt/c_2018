@@ -8,26 +8,34 @@
           <div class="form-group">
             <h4>ADD BUG</h4>
             <label for="title">Title</label>
-            <input #titleElement="ngModel" name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
-            <div class="err" *ngIf="titleElement.invalid && titleElement.touched">Title is required</div>
+            <input #titleElement="ngModel" name="title" id="title" type="text" class="form-control" required
+                   [(ngModel)]="bug.title" minlength="3"/>
+            <div class="err" *ngIf="titleElement.invalid && titleElement.touched">Title is invalid</div>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input #descriptionElement="ngModel" id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control"  minlength="3"/>
-            <div class="err" *ngIf="descriptionElement.invalid && descriptionElement.touched">Description is required</div>
+            <input #descriptionElement="ngModel" id="description" name="description" type="text"
+                   [(ngModel)]="bug.description" class="form-control" required minlength="3"/>
+            <div class="err" *ngIf="descriptionElement.invalid && descriptionElement.touched">Description is invalid
+            </div>
           </div>
 
           <div class="form-group">
             <label for="version">Version</label>
-            <input disabled id="version" name="version" type="text" [(ngModel)]="bug.version" class="form-control" required minlength="3"/>
+            <input #versionElement="ngModel" id="version" name="version" type="text" [(ngModel)]="bug.version"
+                   class="form-control" required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
+            <div class="err" *ngIf="versionElement.invalid && versionElement.touched">Version is invalid</div>
           </div>
           <div class="form-group">
             <label for="fversion">Fixed Version</label>
-            <input disabled id="fversion" name="fversion" type="text"  [(ngModel)]="bug.fixedVersion" class="form-control" required minlength="3"/>
+            <input #fixedElement="ngModel" id="fversion" name="fversion" type="text" [(ngModel)]="bug.fixedVersion"
+                   class="form-control" required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
+            <div class="err" *ngIf="fixedElement.invalid && fixedElement.touched">Fixed version is invalid</div>
           </div>
           <div class="form-group">
             <label for="severity">Severity</label>
-            <select #severityElement="ngModel" name="severity" id="severity" [(ngModel)]="this.chosenSeverity" class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
+            <select #severityElement="ngModel" name="severity" id="severity" [(ngModel)]="this.chosenSeverity"
+                    class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
               <option disabled [ngValue]="undefined">Select severity</option>
               <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
             </select>
@@ -38,35 +46,42 @@
             <label for="date">Target Date</label>
             <br/>
             <input #targetElement="ngModel" type="date" id="date" name="chosenDate"
-                   [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()" min="{{this.currentDate | date:'yyyy-MM-dd'}}"
-                    max="2030-12-31" required/>
-            <div class="err" *ngIf="targetElement.invalid && targetElement.touched">Target date is required</div>
+                   [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()"
+                   min="{{this.currentDate | date:'yyyy-MM-dd'}}"
+                   max="2030-12-31" required/>
+            <div class="err" *ngIf="targetElement.invalid && targetElement.touched">Target date is invalid</div>
           </div>
           <div class="form-group">
             <label for="createdby">Created by</label>
-            <input disabled id="createdBy" name="createdBy" type="text"  value = "doreld"  class="form-control" required minlength="3"/>
+            <input disabled id="createdBy" name="createdBy" type="text" value="doreld" class="form-control" required
+                   minlength="3"/>
           </div>
           <div class="form-group">
             <label for="assignedTo">AssignedTo</label>
-            <select #assignedElement="ngModel" name="assignedTo" id="assignedTo"  class="form-control"  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
+            <select #assignedElement="ngModel" name="assignedTo" id="assignedTo" class="form-control"
+                    [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
               <option disabled [ngValue]="undefined">Select user</option>
-              <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
+              <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}
+              </option>
             </select>
-            <div class="err" *ngIf="assignedElement.invalid && assignedElement.touched">Assign an user for this bug</div>
+            <div class="err" *ngIf="assignedElement.invalid && assignedElement.touched">Assign an user for this bug
+            </div>
           </div>
           <div class="form-group">
             <label for="status">Status</label>
-            <input disabled id="status" name="status" type="text"  [(ngModel)]="bug.status" class="form-control"/>
+            <input disabled id="status" name="status" type="text" [(ngModel)]="bug.status" class="form-control"/>
           </div>
           <div class="form-group">
             <label for="blob">Attachment</label>
             <br/>
-            <input #inputElement type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob"  required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
-            <div *ngFor="let name of this.chosenFiles">
-              {{name}}
+            <input #inputElement type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob" required
+                   (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple>
+            <div *ngIf="this.chosenFiles.length>1">
+              <div *ngFor="let name of this.chosenFiles">
+                {{name}}
+              </div>
             </div>
           </div>
-
           <div class="form-group">
             <button class="btn btn-primary" type="submit" [disabled]="formControl.invalid" (click)="onSubmit()">Register
             </button>

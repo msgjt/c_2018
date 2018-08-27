@@ -24,10 +24,11 @@
       <th scope="col">ASSIGNED TO</th>
       <th scope="col">TARGET DATE</th>
       <th scope="col">UPDATE</th>
+      <th scope="col">DETAILS</th>
     </tr>
     </thead>
 
-    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" routerLink="/bug/details" (click) = 'setSelectedBug(bug)' class="fixedColumns">
+    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }"  class="fixedColumns">
     <tr>
       <td>
         <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
@@ -88,6 +89,9 @@
       <td>
         <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
       </td>
+      <td>
+        <button class="btn" routerLink="/bug/details" (click) = 'setSelectedBug(bug)'><i class="fa fa-info"></i></button>
+      </td>
 
     </tr>
     </tbody>
@@ -96,31 +100,31 @@
   <div class="has-text-centered">
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-body">
-      <div class="form-group">
-        <label>Attachment for this bug</label>
-        <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
-          <option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>
-        </select>
-        <br/>
-        <label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>
-        <label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>
-        <br>
-        <label>Add:&nbsp;</label>
-          <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
-        <label>&nbsp;&nbsp;</label>
-        <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-  </div>
-  </div>
-  </div>
+  <!--<div id="myModal" class="modal fade" role="dialog">-->
+    <!--<div class="modal-dialog">-->
+  <!--<div class="modal-content">-->
+    <!--<div class="modal-body">-->
+      <!--<div class="form-group">-->
+        <!--<label>Attachment for this bug</label>-->
+        <!--<select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">-->
+          <!--<option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>-->
+        <!--</select>-->
+        <!--<br/>-->
+        <!--<label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>-->
+        <!--<label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>-->
+        <!--<br>-->
+        <!--<label>Add:&nbsp;</label>-->
+          <!--<input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >-->
+        <!--<label>&nbsp;&nbsp;</label>-->
+        <!--<button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+      <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 </div>
 
 

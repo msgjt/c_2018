@@ -33,9 +33,6 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addAttachment(AttachmentDTO attachmentDTO){
-        if(attachmentDTO.getBugDTO().getIdBug() == 0){
-            attachmentDTO.getBugDTO().setIdBug((long) (bugBusinessService.getAllBugs().size() + 1));
-        }
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugBusinessService.addAttachment(attachmentDTO)))
                 .build();

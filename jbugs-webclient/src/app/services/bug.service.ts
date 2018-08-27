@@ -16,6 +16,7 @@ export class BugService {
   comments: Comment[] = [];
   baseURL = 'http://localhost:8080/jbugs/rest/bugs';
   attachementURL = 'http://localhost:8080/jbugs/rest/attachments';
+  tokenHeader = localStorage.getItem("userToken");
 
 
   constructor(private http: HttpClient) {
@@ -23,7 +24,10 @@ export class BugService {
 
   getAll(): Bug[] {
     this.bugs = [];
-    this.http.get(this.baseURL).subscribe(
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+    this.http.get(this.baseURL, {
+      headers: reqHeader
+    }).subscribe(
       (response: Bug[]) => {
         response.forEach((value) => {
           this.bugs.push(value);
@@ -34,21 +38,24 @@ export class BugService {
   }
 
   getBugById(idBug: number): Observable<Bug> {
-    return this.http.get<Bug>(this.baseURL + '/' + idBug);
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+    return this.http.get<Bug>(this.baseURL + '/' + idBug, {
+      headers: reqHeader
+    });
   }
 
 
-  addBug(bug:Bug) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+  addBug(bug: Bug): Observable<any> {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(bug);
     console.log(attachmentModel);
-    this.http.post(this.baseURL + '/add', attachmentModel, {
+    return this.http.post(this.baseURL + '/add', attachmentModel, {
       headers: reqHeader
-    }).subscribe();
+    });
   }
 
   updateBug(bug: Bug) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(bug);
     console.log(attachmentModel);
     this.http.post(this.baseURL + '/update', attachmentModel, {
@@ -57,8 +64,11 @@ export class BugService {
   }
 
   getAllAttachmentsForABug(idBug: number): Attachment[] {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentsForBug: Attachment[] = [];
-    this.http.get(this.attachementURL + '/' + idBug).subscribe((response: Attachment[]) => {
+    this.http.get(this.attachementURL + '/' + idBug,{
+      headers:reqHeader
+    }).subscribe((response: Attachment[]) => {
       response.forEach((value) => {
         attachmentsForBug.push(value);
       })
@@ -68,7 +78,10 @@ export class BugService {
 
   getAllAttachments(): Attachment[] {
     var attachmentsForBug: Attachment[] = [];
-    this.http.get(this.attachementURL).subscribe((response: Attachment[]) => {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+    this.http.get(this.attachementURL,{
+      headers:reqHeader
+    }).subscribe((response: Attachment[]) => {
       response.forEach((value) => {
         attachmentsForBug.push(value);
       })
@@ -77,7 +90,7 @@ export class BugService {
   }
 
   deleteAttachment(attachment: Attachment) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
     this.http.post(this.attachementURL + '/delete', attachmentModel, {
@@ -86,7 +99,7 @@ export class BugService {
   }
 
   addAttachment(attachment: Attachment) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
     this.http.post(this.attachementURL + '/add', attachmentModel, {
@@ -97,15 +110,19 @@ export class BugService {
 
   getComments(bugId: number): Comment[] {
     this.comments = [];
-    this.http.get(this.baseURL + '/comments/' + bugId.toString()).subscribe(
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+    this.http.get(this.baseURL + '/comments/' + bugId.toString(),{
+      headers:reqHeader
+    }).subscribe(
       (response: Comment[]) => {
         response.forEach((value) => this.comments.push(value));
       }
     )
     return this.comments;
   }
-  addComment(comment:Comment){
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+
+  addComment(comment: Comment) {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(comment);
     console.log('From sevice ' + attachmentModel);
     this.http.post(this.baseURL + '/comments/add', attachmentModel, {

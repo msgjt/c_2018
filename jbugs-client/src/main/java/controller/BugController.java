@@ -1,11 +1,13 @@
 package controller;
 
+import authentification.Secured;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -16,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Path("/bugs")
+@Secured(value = PermissionEnum.BUG_MANAGEMENT)
 public class BugController {
 
     @EJB
