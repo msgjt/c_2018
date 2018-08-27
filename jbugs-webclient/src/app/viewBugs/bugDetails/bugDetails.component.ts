@@ -18,6 +18,7 @@ export class BugDetailsComponent implements OnInit{
   attachmentChosen:Attachment;
   attachmentToBeAdded: Attachment;
   attachmentsForABug:Attachment[];
+
   commentToBeAdded: Comment = new CommentClass();
 
   constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService){
