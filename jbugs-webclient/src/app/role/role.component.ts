@@ -3,6 +3,7 @@ import {RoleService} from "../services/role.service";
 import {PermissionService} from "../services/permission.service";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
+import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 
 @Component({
@@ -11,14 +12,13 @@ import {Permission} from "../types/permissions";
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-  showAllPermissions: boolean[] = [];
   roles: Role[] = [];
   permissions: Permission[] = [];
-  selectedItems: Permission[][]=[];
-  permissionsToBeUpdated: Permission[] = [];
-  noPermissionsForThisRole: Permission[];
-  isRemovedButtonSelected: boolean = false;
-  dropdownSettings={};
+  selectedItems: Permission[][] = [];
+  dropdownSettings = {};
+  roleComplete: boolean;
+  permissionComplete: boolean;
+  checkSelect:boolean[];
 
   constructor(private roleService: RoleService, private permissionService: PermissionService) {
     this.dropdownSettings = {
@@ -28,140 +28,61 @@ export class RoleComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
-      maxHeight: 130
+      maxHeight: 200
     };
+    this.roleComplete = false;
+    this.permissionComplete = false;
+    this.checkSelect=[];
 
-  }
 
-
-
-
-  findByType(type: string): Permission {
-    console.log(this.permissions.length);
-    let permission: Permission;
-    permission = this.permissions.filter(value => {
-      return value.type.trim() === type.trim();
-
-    })[0];
-    return permission;
-  }
-
-  selectPermissions(role: Role) {
-    return this.selectedItems[role.id] = role.permissions;
-  }
-
-  checkDelete(checked, type: string): Permission[] {
-    var permission: Permission = this.findByType(type.trim());
-    console.log(permission);
-    if (checked) {
-      this.permissionsToBeUpdated.push(permission);
-    } else {
-      let startIndex = this.permissionsToBeUpdated.indexOf(permission);
-      this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
-    }
-    return this.permissionsToBeUpdated;
-  }
-
-  check(checked, permission: Permission): Permission[] {
-    if (checked) {
-      this.permissionsToBeUpdated.push(permission);
-      console.log(permission.id);
-    } else {
-      let startIndex = this.permissionsToBeUpdated.indexOf(permission);
-      this.permissionsToBeUpdated.splice(startIndex, startIndex + 1);
-      console.log("unchecked");
-    }
-    return this.permissionsToBeUpdated;
   }
 
   updatePermissions(role: Role) {
-    this.selectedItems[role.id].forEach((value, index) => {
-      console.log(this.permissionsToBeUpdated[index]);
-      this.roleService.addPermissionForRole(role.id, value.id);
-      console.log(value.type);
-    });
-    location.reload();
+    if(this.verifySelectMenu(role)) {
+      this.selectedItems.forEach((value, index) => {
+        value.forEach(value1 => console.log(value1));
+      });
+      this.checkSelect[role.id]=false;
+    }
+    else{
+      this.checkSelect[role.id]=true;
+    }
   }
 
-
-  updateRemovedPermissions(role: Role) {
-    console.log(this.permissionsToBeUpdated.length);
-    this.permissionsToBeUpdated.forEach((value) => {
-      console.log(value);
-      this.roleService.removePermissionForRole(role.id, value.id);
-    });
-    location.reload();
-  }
-
-
-  addPermissionForRole(role: Role) {
-    this.showAllPermissions.forEach((value, index) => {
-      this.showAllPermissions[index] = false
-    });
-    this.showAllPermissions[role.id] = true;
-    this.permissionsToBeUpdated = [];
-    this.isRemovedButtonSelected = false;
-    this.noPermissionsForThisRole = [];
-    this.permissions.forEach((value) => {
-      if (!this.contains(role.permissions,value)) {
-          this.noPermissionsForThisRole.push(value);
-      }
-    })
-  }
-
-  removePermissionForRole(role: Role) {
-    this.permissionsToBeUpdated = [];
-    this.showAllPermissions.forEach((value, index) => {
-      this.showAllPermissions[index] = false
-    });
-    this.showAllPermissions[role.id] = true;
-
-    this.isRemovedButtonSelected = true;
-    console.log("Removed method submitted");
-  }
-
-  backButton(role: Role) {
-    this.showAllPermissions[role.id] = !this.showAllPermissions[role.id];
-  }
 
   ngOnInit() {
 
-    this.roles = this.roleService.getAllRoles();
+    this.roleService.getRoles().subscribe((response: Role[]) => {
+        response.forEach((value) => {
+          this.roles.push(value);
+          this.selectedItems[value.id] = value.permissions;
+          this.checkSelect[value.id]=false;
+        })
+
+      },
+      () => {
+        console.log('eroare getRoles')
+      },
+      () => {
+        this.roleComplete = true;
+      });
     this.permissionService.getAll().subscribe((response: Permission[]) => {
-      response.forEach((value) => {
-        this.permissions.push(value);
-      })
-    });
-    this.roles.forEach((value) =>{
-      this.selectPermissions(value);
-    })
-  };
-
-  /**
-   * Make list of string with permissions types
-   @param permissions Permissions list
-   */
-  showPermission(permissions: Permission[]): string[] {
-    let permission = [];
-    for (let p of permissions) {
-      permission.push(p.type);
-    }
-    return permission;
+        response.forEach((value) => {
+          this.permissions.push(value);
+        });
+      },
+      () => {
+        console.log('eroare dropdown ')
+      },
+      () => {
+        this.roles.forEach((value) => {
+        });
+        this.permissionComplete = true;
+      });
   }
 
-  /**
-   * Verify if permissions list contains a permission
-   @param permissions Permissions list
-   @param permission  Permission for looking
-   */
-  contains(permissions:Permission[],permission:Permission):boolean{
-    for(let p of permissions){
-      if(p.type===permission.type){
-        return true;
-      }
-    }
-    return false;
+  verifySelectMenu(role:Role): boolean {
+    return this.selectedItems[role.id].length > 0;
   }
-
 
 }
