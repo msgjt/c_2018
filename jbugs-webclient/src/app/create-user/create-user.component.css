@@ -14,7 +14,9 @@
   min-height: 0px;
   border-radius: 0;
 }
-
+.jumbotron{
+  background-color: 	#DCDCDC;
+}
 .err{
   color: red;
   font-size: smaller;

@@ -1,19 +1,20 @@
 <div class="container">
   <div class="jumbotron">
-    <h4>ADD BUG</h4>
+
     <div class="row justify-content-center">
 
       <div class="col-md-6">
         <form #formControl="ngForm">
           <div class="form-group">
+            <h4>ADD BUG</h4>
             <label for="title">Title</label>
-            <input #titleElement name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
-            <div class="err" *ngIf="!titleElement.checkValidity()">Title is required</div>
+            <input #titleElement="ngModel" name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
+            <div class="err" *ngIf="titleElement.invalid && titleElement.touched">Title is required</div>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input #descriptionElement id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control"  minlength="3"/>
-            <div class="err" *ngIf="!descriptionElement.checkValidity()">Description is required</div>
+            <input #descriptionElement="ngModel" id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control"  minlength="3"/>
+            <div class="err" *ngIf="descriptionElement.invalid && descriptionElement.touched">Description is required</div>
           </div>
 
           <div class="form-group">
@@ -26,20 +27,20 @@
           </div>
           <div class="form-group">
             <label for="severity">Severity</label>
-            <select name="severity" id="severity" [(ngModel)]="this.chosenSeverity" class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
+            <select #severityElement="ngModel" name="severity" id="severity" [(ngModel)]="this.chosenSeverity" class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
               <option disabled [ngValue]="undefined">Select severity</option>
               <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
             </select>
-            <div class="err" *ngIf="!checkUndefined(this.chosenSeverity)">Select a severity for bug</div>
+            <div class="err" *ngIf="severityElement.invalid && severityElement.touched">Select a severity for bug</div>
           </div>
 
           <div class="form-group">
             <label for="date">Target Date</label>
             <br/>
-            <input #targetElement type="date" id="date" name="chosenDate"
+            <input #targetElement="ngModel" type="date" id="date" name="chosenDate"
                    [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()" min="{{this.currentDate | date:'yyyy-MM-dd'}}"
                     max="2030-12-31" required/>
-            <div class="err" *ngIf="!targetElement.checkValidity()">Target date is required</div>
+            <div class="err" *ngIf="targetElement.invalid && targetElement.touched">Target date is required</div>
           </div>
           <div class="form-group">
             <label for="createdby">Created by</label>
@@ -47,11 +48,11 @@
           </div>
           <div class="form-group">
             <label for="assignedTo">AssignedTo</label>
-            <select  name="assignedTo" id="assignedTo"  class="form-control"  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
+            <select #assignedElement="ngModel" name="assignedTo" id="assignedTo"  class="form-control"  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
               <option disabled [ngValue]="undefined">Select user</option>
               <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
             </select>
-            <div class="err" *ngIf="!checkUndefined(this.chosenUsername)">Assign an user for this bug</div>
+            <div class="err" *ngIf="assignedElement.invalid && assignedElement.touched">Assign an user for this bug</div>
           </div>
           <div class="form-group">
             <label for="status">Status</label>
