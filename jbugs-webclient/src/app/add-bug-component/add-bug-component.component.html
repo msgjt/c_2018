@@ -9,13 +9,13 @@
             <label for="title">Title</label>
             <input #titleElement name="title" id="title"  type="text" class="form-control" required [(ngModel)]="bug.title" minlength="3"/>
             <div class="err" *ngIf="!titleElement.checkValidity()">Title is required</div>
-
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <input #descriptionElement id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control" required minlength="3"/>
+            <input #descriptionElement id="description" name="this" type="text" [(ngModel)]="bug.description" class="form-control"  minlength="3"/>
             <div class="err" *ngIf="!descriptionElement.checkValidity()">Description is required</div>
           </div>
+
           <div class="form-group">
             <label for="version">Version</label>
             <input disabled id="version" name="version" type="text" [(ngModel)]="bug.version" class="form-control" required minlength="3"/>
