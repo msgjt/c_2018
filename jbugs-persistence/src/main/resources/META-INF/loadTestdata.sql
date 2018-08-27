@@ -21,11 +21,11 @@ INSERT INTO PERMISSIONS (type,description) values ('REPORT_MANAGEMENT','descrier
 
 
 
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','1');
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','2');
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','3');
-INSERT INTO roles_permissions (id_role,id_permission) values ('2','2');
-INSERT INTO roles_permissions (id_role,id_permission) values ('2','3');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','1');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','2');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','3');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','2');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','3');
 
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description', '2.2', 'CRITICAL', 'OPEN', '2018-01-01 00:00:00', 'critical bug', '1.1', 1, 2);
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description', '3.3', 'LOW', 'FIXED', '2018-11-02 00:00:00', 'high bug', '1.1', 2, 3);

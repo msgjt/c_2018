@@ -57,7 +57,6 @@ export class AddBugComponentComponent implements OnInit {
   }
 
   fileChange($event) {
-    var reader: FileReader = new FileReader();
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       for (let i = 0; i < eventTarget.files.length; i++) {
@@ -65,14 +64,12 @@ export class AddBugComponentComponent implements OnInit {
         this.chosenFiles[i] = file.name;
         this.attachment[i] = {
           bugDTO: this.bug,
-          blob: ""
+          blob: file,
+          extension:file.name.substring(file.name.length - 3).toUpperCase()
         }
-        reader.onload = function () {
-          this.attachment[i].blob = reader.result;
-        }.bind(this);
-        reader.readAsText(file);
       }
     }
+
 
   }
 
@@ -84,15 +81,16 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
     })[0];
+    console.log('Se adauga ' + this.attachment.length + ' atasamente')
     this.bugService.addBug(this.bug).subscribe((value) =>{
       for (let i = 0; i < this.attachment.length; i++){
         this.attachment[i].bugDTO = this.bug;
         this.bugService.addAttachment(this.attachment[i]);
       }
-      this.attachment = [];
+      this.attachment =[];
       this.chosenFiles=[];
     });
-    location.reload();
+
   }
 
 

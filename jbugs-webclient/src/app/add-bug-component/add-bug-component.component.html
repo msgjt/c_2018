@@ -74,7 +74,7 @@
           <div class="form-group">
             <label for="blob">Attachment</label>
             <br/>
-            <input #inputElement type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob" required
+            <input #inputElement  type="file" id="blob" name="file" [(ngModel)]="this.attachment.blob" required
                    (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple>
             <div *ngIf="this.chosenFiles.length>1">
               <div *ngFor="let name of this.chosenFiles">

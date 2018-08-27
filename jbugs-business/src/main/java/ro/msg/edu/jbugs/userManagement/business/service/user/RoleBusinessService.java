@@ -3,18 +3,16 @@ package ro.msg.edu.jbugs.userManagement.business.service.user;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import ro.msg.edu.jbugs.userManagement.persistence.service.IPermissionPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
-public class RoleBusinessService implements IRoleBusinessService{
+public class RoleBusinessService implements IRoleBusinessService {
 
     @EJB
     private IRolePersistenceService rolePersistenceService;
@@ -28,10 +26,17 @@ public class RoleBusinessService implements IRoleBusinessService{
     }
 
     @Override
-    public RoleDTO createRole(RoleDTO roleDTO){
+    public RoleDTO createRole(RoleDTO roleDTO) {
         Role role = roleDTOHelper.toEntity(roleDTO);
         rolePersistenceService.createRole(role);
         return roleDTOHelper.fromEntity(role);
+    }
+
+    @Override
+    public RoleDTO updateRole(RoleDTO roleDTO) {
+        Role role = roleDTOHelper.toEntity(roleDTO);
+        return roleDTOHelper.fromEntity(rolePersistenceService.updateRole(role).get());
+
     }
 
     @Override

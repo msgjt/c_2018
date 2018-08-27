@@ -4,6 +4,7 @@ import {Bug, BugClass} from "../types/bugs";
 import {Attachment} from "../types/attachment";
 import {Comment} from "../types/comments";
 import {Observable} from "rxjs/internal/Observable";
+import {Body} from "@angular/http/src/body";
 
 
 @Injectable({
@@ -99,12 +100,10 @@ export class BugService {
   }
 
   addAttachment(attachment: Attachment) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
-    var attachmentModel = JSON.stringify(attachment);
+    var reqHeader = new HttpHeaders({ 'Authorization': this.tokenHeader});
+    const attachmentModel=attachment;
     console.log(attachmentModel);
-    this.http.post(this.attachementURL + '/add', attachmentModel, {
-      headers: reqHeader
-    }).subscribe();
+    this.http.post(this.attachementURL + '/add', attachmentModel).subscribe();
   }
 
 
@@ -130,4 +129,13 @@ export class BugService {
     }).subscribe();
     location.reload();
   }
+
+  sendFile(file:File,type:string){
+    const formData = new FormData();
+    formData.append('file', file,"ham");
+    let body = {formData,type};
+    console.log('Send file:' + body);
+    this.http.post(this.attachementURL + '/file',formData).subscribe();
+  }
+
 }
