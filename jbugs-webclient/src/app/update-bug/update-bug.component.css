@@ -3,6 +3,15 @@ table {
   width: 100%;
 }
 
+.description-hide{
+  text-overflow: ellipsis;
+  max-width: 100px;
+  overflow: hidden;
+}
+
+.header-description{
+  width: 100px;
+}
 tr {
   border-bottom: 1px solid #ccc;
   height: 50px;
@@ -15,11 +24,15 @@ tr:hover {
 input{
   width: 100px;
 }
-th {
+.left{
   text-align: left;
+}
+th {
+  text-align: center;
 }
 td{
   width: 120px;
+  text-align: center;
 }
 .severity {
   width: 120px;

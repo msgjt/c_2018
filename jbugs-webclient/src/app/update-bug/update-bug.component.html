@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       xmlns="http://www.w3.org/1999/html">
 
-<div class="container">
+<div class="container cont">
   <div class="row">
     <div class="col-sm col-md-3">
       <label for="filterTitle">Title</label>
@@ -91,6 +91,9 @@
     </table>
   </th>
   <th><tr>
+    <td class="header-description">DESCRIPTION</td>
+  </tr></th>
+  <th><tr>
     <td>UPDATE</td>
   </tr></th>
   <th><tr>
@@ -100,7 +103,7 @@
 
     <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }"  class="fixedColumns">
     <tr>
-      <td>
+      <td class="left">
         <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.title}}
@@ -152,9 +155,14 @@
       </td>
 
       <td>
-        {{bug.targetDate}}
+        {{bug.targetDate.substr(0,bug.targetDate.length-9)}}
       </td>
-
+      <td>
+        {{bug.createdByUser.username}}
+      </td>
+      <td class="description-hide left" >
+        {{bug.description}}
+      </td>
 
       <td>
         <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
@@ -170,31 +178,6 @@
   <div class="has-text-centered">
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
-  <!--<div id="myModal" class="modal fade" role="dialog">-->
-    <!--<div class="modal-dialog">-->
-  <!--<div class="modal-content">-->
-    <!--<div class="modal-body">-->
-      <!--<div class="form-group">-->
-        <!--<label>Attachment for this bug</label>-->
-        <!--<select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">-->
-          <!--<option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>-->
-        <!--</select>-->
-        <!--<br/>-->
-        <!--<label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>-->
-        <!--<label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>-->
-        <!--<br>-->
-        <!--<label>Add:&nbsp;</label>-->
-          <!--<input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >-->
-        <!--<label>&nbsp;&nbsp;</label>-->
-        <!--<button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-      <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
 </div>
 
 

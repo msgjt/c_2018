@@ -70,7 +70,7 @@ export class UpdateBugComponent implements OnInit {
   }
 
   createHeader(){
-    var headerNames = ["title","version", "fixed version", "severity", "status", "assigned to", "target date"];
+    var headerNames = ["title","version", "fixed version", "severity", "status", "assigned to", "target date", "created by"];
     for(var i =0; i< headerNames.length; i++)
       this.header.push(new BugListHeader(headerNames[i], "asc"));
   }
