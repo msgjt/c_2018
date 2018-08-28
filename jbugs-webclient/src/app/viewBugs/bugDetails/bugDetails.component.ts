@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Bug, BugClass} from "../../types/bugs";
 import {BugDataService} from "../../services/bugData.service";
 import {BugService} from "../../services/bug.service";
-import {Comment} from "../../types/comments";
+import {Comment, CommentClass} from "../../types/comments";
 import {Attachment} from "../../types/attachment";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-bugDetails',
@@ -18,10 +19,13 @@ export class BugDetailsComponent implements OnInit{
   attachmentToBeAdded: Attachment;
   attachmentsForABug:Attachment[];
 
-  constructor(public dataService: BugDataService, private bugService: BugService){
+  commentToBeAdded: Comment = new CommentClass();
+
+  constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService){
     this.attachmentToBeAdded = {
       bugDTO:null,
-      blob: ""
+      blob: null,
+      extension:''
     }
 
 
@@ -29,6 +33,7 @@ export class BugDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+      this.bug = new BugClass();
       this.bugService.getBugById(Number(localStorage.getItem("idBug"))).subscribe((value:Bug)=>{
         if(value === undefined){
           console.log("undefined");
@@ -74,7 +79,6 @@ export class BugDetailsComponent implements OnInit{
 
     element.style.display = 'none';
     document.body.appendChild(element);
-
     element.click();
 
     document.body.removeChild(element);
@@ -89,5 +93,11 @@ export class BugDetailsComponent implements OnInit{
     console.log(attachmentChosen);
     this.bugService.addAttachment(attachmentChosen);
     location.reload();
+  }
+
+  addComment(){
+    this.commentToBeAdded.bugDTO = this.bug;
+    this.commentToBeAdded.user = "doreld";
+    this.bugService.addComment(this.commentToBeAdded);
   }
 }

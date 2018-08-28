@@ -14,9 +14,22 @@
   min-height: 0px;
   border-radius: 0;
 }
-
+.jumbotron{
+  background-color: 	#DCDCDC;
+}
 .err{
   color: red;
   font-size: smaller;
   text-align: left;
 }
+
+.p{
+  height: 20px;
+}
+
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+

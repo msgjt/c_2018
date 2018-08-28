@@ -5,7 +5,12 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 @Stateless
 public class AttachmentDTOHelper {
@@ -17,7 +22,8 @@ public class AttachmentDTOHelper {
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setIdAttachment(attachment.getIdAttachment());
         attachmentDTO.setBugDTO(bugDTOHelper.fromEntity(attachment.getBug()));
-        attachmentDTO.setBlob(new String(attachment.getFile(), StandardCharsets.UTF_8));
+        attachmentDTO.setBlob(attachment.getFile());
+        attachmentDTO.setExtension(attachment.getExtension());
         return attachmentDTO;
     }
 
@@ -25,7 +31,8 @@ public class AttachmentDTOHelper {
         Attachment attachment = new Attachment();
         attachment.setIdAttachment(attachmentDTO.getIdAttachment());
         attachment.setBug(bugDTOHelper.toEntity(attachmentDTO.getBugDTO()));
-        attachment.setFile(attachmentDTO.getBlob().getBytes());
+        attachment.setFile(attachmentDTO.getBlob());
+        attachment.setExtension(attachmentDTO.getExtension());
         return attachment;
     }
 }

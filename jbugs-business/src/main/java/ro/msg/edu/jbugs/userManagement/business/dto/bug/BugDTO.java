@@ -12,7 +12,7 @@ public class BugDTO {
     private String description;
     private String version;
     private String targetDate;
-    private StatusEnum status; //combobox
+    private StatusEnum status;
     private String fixedVersion;
     private SeverityEnum severity; //combobox
     private UserDTO createdByUser;

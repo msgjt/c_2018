@@ -1,7 +1,7 @@
 <div class="container">
 
   <form>
-    <table id="tableId" class="table table-responsive-md">
+    <table id="tableId" class="table table-responsive-md" >
       <thead>
       <tr>
         <th class="fixedColumns" scope="col">{{'role.col-type'| translate}}</th>
@@ -12,52 +12,29 @@
 
       <tbody *ngFor="let r of roles">
       <tr>
-      <td>{{r.type}}</td>
-      <td>
-            <ng-multiselect-dropdown
+        <td>{{r.type}}</td>
+        <td>
+          <div>
+            <ng-multiselect-dropdown *ngIf="roleComplete && permissionComplete"
               #selectElement
-              name="dropdownPermissions"
+              name="dropdownPermissions+{{r.id}}"
               [data]="this.permissions"
               [placeholder]="'Select permissions'"
               [(ngModel)]="selectedItems[r.id]"
               [settings]="dropdownSettings">
             </ng-multiselect-dropdown>
-            <!--<div class="err" *ngIf="!verifySelectMenu()">Select at least one role</div>-->
-          <!--</div>-->
-          <!--<form *ngIf="isRemovedButtonSelected">-->
-            <!--<ul *ngFor="let p of r.permissions">-->
-              <!--<input type="checkbox" #checkbox (change)="checkDelete(checkbox.checked,p.type.trim())">{{p.type.trim()}}<br>-->
-              <!--<form *ngIf="!isRemovedButtonSelected">-->
-                <!--<input type="checkbox" checked disabled>{{p.type.trim()}}<br>-->
-              <!--</form>-->
-            <!--</ul>-->
-          <!--</form>-->
-          <!--<form *ngIf="!isRemovedButtonSelected">-->
-            <!--<ul *ngFor="let p of noPermissionsForThisRole">-->
-              <!--<input type="checkbox" #checkbox (change)="check(checkbox.checked,p)">{{p.type}}<br>-->
-            <!--</ul>-->
-            <!--<button type="submit" (click)="updatePermissions(r)"-->
-                    <!--class="btn btn-primary">{{'role.btn-update' | translate}}-->
-            <!--</button>-->
-            <!--<button type="submit" (click)="backButton(r)"-->
-                    <!--class="btn btn-primary">{{'role.btn-back1' | translate}}-->
-            <!--</button>-->
-          <!--</form>-->
-          <!--<form *ngIf="isRemovedButtonSelected">-->
-            <!--<button type="submit" (click)="updateRemovedPermissions(r)"-->
-                    <!--class="btn btn-primary">{{'role.btn-update-remove'| translate}}-->
-            <!--</button>-->
-            <!--<button type="submit" (click)="backButton(r)"-->
-                    <!--class="btn btn-primary">{{'role.btn-back2'| translate }}-->
-            <!--</button>-->
-          <!--</form>-->
-        <!--</form>-->
-      </td>
-      <td>
-        <button type="submit" (click)="updatePermissions(r)"
-                class="btn btn-success">{{'role.btn-update' | translate}}
-        </button>
-      </td>
+          </div>
+          <p>
+            <small *ngIf="checkSelect[r.id]" class="help-block text-danger">
+              Select at least one role
+            </small>
+          </p>
+        </td>
+        <td>
+          <button type="submit" (click)="updatePermissions(r)"
+                  class="btn btn-success">{{'role.btn-update' | translate}}
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

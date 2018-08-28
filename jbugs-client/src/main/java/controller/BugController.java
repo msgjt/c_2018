@@ -1,5 +1,6 @@
 package controller;
 
+import authentification.Secured;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
@@ -7,6 +8,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -37,11 +39,10 @@ public class BugController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addBugAndAttachment(AttachmentDTO attachmentDTO){
-        BugDTO bugDTO = attachmentDTO.getBugDTO();
-        bugBusinessService.addBug(bugDTO,attachmentDTO);
+    public Response addBugAndAttachment(BugDTO bugDTO){
+        bugBusinessService.addBug(bugDTO);
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(attachmentDTO))
+                .entity(new Gson().toJson(bugDTO))
                 .build();
     }
 
@@ -89,4 +90,14 @@ public class BugController {
                 .build();
     }
 
+    @Path("comments/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addComment(CommentDTO commentDTO){
+        CommentDTO commentAdded = bugBusinessService.addComment(commentDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(commentAdded))
+                .build();
+    }
 }

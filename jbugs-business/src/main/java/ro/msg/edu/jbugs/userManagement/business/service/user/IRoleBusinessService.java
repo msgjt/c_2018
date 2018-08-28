@@ -11,4 +11,6 @@ public interface IRoleBusinessService {
     Set<RoleDTO> getAllRoles();
 
     RoleDTO createRole(RoleDTO roleDTO);
+
+    RoleDTO updateRole(RoleDTO roleDTO);
 }

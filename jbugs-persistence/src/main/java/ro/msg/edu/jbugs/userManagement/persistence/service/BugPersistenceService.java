@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,12 +38,12 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Bug> addBug(Bug bug,Attachment attachment) {
-        bug.getAttachments().add(attachment);
+     //   bug.getAttachments().add(attachment);
         User user = userPersistenceService.getUserByUsername(bug.getAssignedTo().getUsername()).get();
         bug.setAssignedTo(user);
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
         bug.setCreatedByUser(createByUser);
-        em.persist(attachment);
+        em.persist(bug);
         return Optional.of(bug);
     }
 
@@ -67,7 +68,11 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
-        em.merge(attachment);
+        long idBug = attachment.getBug().getIdBug();
+        if(idBug==0){
+            attachment.getBug().setIdBug((long) this.getAllBugs().size());
+        }
+        em.persist(attachment);
         return Optional.of(attachment);
     }
 
@@ -112,6 +117,19 @@ public class BugPersistenceService implements IBugPersistenceService {
        Attachment attachmentToBeDeleted = em.getReference(Attachment.class,attachment.getIdAttachment());
        em.remove(attachmentToBeDeleted);
         return Optional.of(attachment);
+    }
+
+
+    /**
+     * Method for adding a commment
+     * @param comment
+     * @return optional of the added comment
+     */
+    @Override
+    public Optional<Comment> addComment(Comment comment) {
+        comment.setDate(new Date());
+        em.persist(comment);
+        return Optional.of(comment);
     }
 
 

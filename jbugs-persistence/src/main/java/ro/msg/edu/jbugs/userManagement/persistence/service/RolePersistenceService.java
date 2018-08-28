@@ -28,15 +28,11 @@ public class RolePersistenceService implements IRolePersistenceService{
 
     @Override
     public void removeRole(@NotNull Role role) {
-//                Query q = em.createNativeQuery("delete from roles_permissions where (id_role,id_permission)=(?1,?2)");
-//                role.getPermissions().forEach(p -> {q.setParameter(1,role.getIdRole()); q.setParameter(2,p.getIdPermission()); q.executeUpdate();});
                 em.remove(role);
     }
 
     @Override
     public Optional<Role> updateRole(@NotNull Role role) {
-//        Query q = em.createNativeQuery("insert into roles_permissions (id_role,id_permission) values (?1,?2) ON DUPLICATE KEY UPDATE id_role=?3,id_permission=?4;");
-//        role.getPermissions().forEach(p ->{q.setParameter(1,role.getIdRole()); q.setParameter(2,p.getIdPermission()); q.setParameter(3,role.getIdRole()); q.setParameter(4,p.getIdPermission()); q.executeUpdate();});
         return Optional.of(em.merge(role));
     }
 

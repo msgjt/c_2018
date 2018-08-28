@@ -29,18 +29,19 @@ export class UpdateBugComponent implements OnInit {
   chosenStatus: string;
   bug: Bug;
   statusMap = new Map();
-  updatedStatus: string[];
+  updatedStatus : string[];
   attachments: Attachment[];
   attachmentsForABug: Attachment[];
-  attachmentChosen: Attachment;
+  attachmentChosen:Attachment;
   attachmentToBeAdded: Attachment;
   filters: BugFilter[] = [];
   header: BugListHeader[] = [];
 
   constructor(private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService) {
     this.attachmentToBeAdded = {
-      bugDTO: null,
-      blob: ""
+      bugDTO:null,
+      blob: null,
+      extension:''
     }
   }
 
@@ -55,16 +56,16 @@ export class UpdateBugComponent implements OnInit {
         });
       }
     );
-    /*this.bugs.forEach((value) => {
+    this.bugs.forEach((value) => {
       this.isEditable[value.idBug] = false;
-    });*/
+    });
     this.createHeader();
     this.createMap();
     this.attachments = this.bugService.getAllAttachments();
-    this.userService.getUsers().subscribe((response: User[]) => {
-      response.forEach((value => {
-        this.allUsers.push(value);
-      }))
+    this.userService.getUsers().subscribe((response:User[])=>{
+        response.forEach((value => {
+          this.allUsers.push(value);
+        }))
     })
   }
 
@@ -74,20 +75,22 @@ export class UpdateBugComponent implements OnInit {
       this.header.push(new BugListHeader(headerNames[i], "asc"));
   }
   createMap() {
+    this.statusMap.set("new",["fixed"]);
     this.statusMap.set("fixed", ["open", "closed"]);
     this.statusMap.set("open", ["in_progress", "rejected"]);
     this.statusMap.set("rejected", ["closed"]);
-    this.statusMap.set("in_progress", ["fixed", "rejected", "info_needed"]);
+    this.statusMap.set("in_progress", ["fixed", "rejected","info_needed"]);
     this.statusMap.set("info_needed", ["in_progress"]);
-  }
+    this.statusMap.set("closed",[]);
+    }
 
 
   getValuesForEntry(bug: Bug) {
-    const finalList = this.statusMap.get(bug.status.toLocaleLowerCase());
-    return finalList;
+      const finalList = this.statusMap.get(bug.status.toLocaleLowerCase());
+      return finalList;
   }
 
-  setSelectedBug(bug: Bug) {
+  setSelectedBug(bug: Bug){
     this.dataService.bug = bug;
     localStorage.setItem("idBug", bug.idBug.toString());
   }
@@ -132,24 +135,13 @@ export class UpdateBugComponent implements OnInit {
     );
   }
 
-  updateBugUser(bug: Bug): User {
-    return this.allUsers.filter((value) => {
+  updateBugUser(bug:Bug):User{
+    return this.allUsers.filter((value) =>{
       return value.username === bug.assignedTo.username;
     })[0];
   }
 
-  // fileChange() {
-  //   var reader: FileReader = new FileReader();
-  //   let eventTarget = <HTMLInputElement>event.target;
-  //   if (eventTarget.files && eventTarget.files.length > 0) {
-  //     let file = eventTarget.files[0];
-  //     console.log("file name"+ file.name);
-  //     reader.onload = function () {
-  //       this.attachmentToBeAdded.blob = reader.result;
-  //     }.bind(this);
-  //     reader.readAsText(file);
-  //   }
-  // }
+
 
   onSubmit(bug: Bug) {
 
@@ -176,13 +168,6 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  // clickDetails(bug:Bug){
-  //   this.attachmentsForABug = this.attachments.filter((value) =>{
-  //     return value.bugDTO.idBug == bug.idBug;
-  //   });
-  //   console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
-  //   this.attachmentToBeAdded.bugDTO = bug;
-  // }
 
   editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
@@ -190,29 +175,7 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  // download(content) {
-  //   var filename= 'Attachment';
-  //   var element = document.createElement('a');
-  //   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
-  //   element.setAttribute('download', filename);
-  //
-  //   element.style.display = 'none';
-  //   document.body.appendChild(element);
-  //
-  //   element.click();
-  //
-  //   document.body.removeChild(element);
-  // }
-  //
-  // deleteAttachment(attachmentChosen:Attachment){
-  //   this.bugService.deleteAttachment(attachmentChosen);
-  //   location.reload();
-  // }
-  //
-  // addAttachment(attachmentChosen:Attachment){
-  //   console.log(attachmentChosen);
-  //   this.bugService.addAttachment(attachmentChosen);
-  // }
+
 
 
 }

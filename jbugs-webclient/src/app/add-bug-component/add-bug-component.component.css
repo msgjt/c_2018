@@ -2,12 +2,21 @@
   margin-right: 200px;
   width: 200px;
 }
-.jumbotron
-{
-  background-color:whitesmoke;
+.container{
+  width: 600px;
+  margin: 0 auto;
+  padding: 30px 0;
 }
+.jumbotron{
+   background-color: 	#DCDCDC;
+ }
 .err{
   color: red;
   font-size: smaller;
   text-align: left;
+}
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }

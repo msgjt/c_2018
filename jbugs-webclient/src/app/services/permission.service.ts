@@ -8,14 +8,16 @@ import {Observable} from "rxjs/internal/Observable";
 })
 export class PermissionService {
   baseURL = 'http://localhost:8080/jbugs/rest';
-
+  tokenHeader = localStorage.getItem("userToken");
   constructor(private http: HttpClient) {
 
   }
 
   getAll(): Observable<any> {
     let permissions: Permission[] = [];
-    return this.http.get(this.baseURL + '/permissions');
+    return this.http.get(this.baseURL + '/permissions',{
+      headers:{'Authorization': this.tokenHeader}
+    });
   }
 
 

@@ -35,7 +35,6 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private CommentDTOHelper commentDTOHelper;
 
-    //private List<BugDTO> filteredBugs;
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -44,10 +43,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
+    public BugDTO addBug(BugDTO bugDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return bugDTOHelper.fromEntity(bugPersistenceService.addBug(bug,attachment).get());
+        Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
+        return bugDTOHelper.fromEntity(addedBug);
     }
 
     @Override
@@ -77,6 +76,12 @@ public class BugBusinessService implements IBugBusinessService {
         BugDTO bugDTO = findBugById(bugId);
         List<Comment> comments = bugPersistenceService.getCommentsForBug(bugDTOHelper.toEntity(bugDTO));
         return comments.stream().map(c -> commentDTOHelper.fromEntity(c)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CommentDTO addComment(CommentDTO commentDTO) {
+        Comment comment = commentDTOHelper.toEntity(commentDTO);
+        return commentDTOHelper.fromEntity(bugPersistenceService.addComment(comment).get());
     }
 
     @Override
