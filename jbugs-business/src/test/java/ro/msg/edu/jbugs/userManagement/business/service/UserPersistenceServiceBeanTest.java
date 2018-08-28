@@ -1,13 +1,17 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
+import ro.msg.edu.jbugs.userManagement.business.service.utils.ByteToFilesConverter;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
@@ -19,8 +23,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,6 +40,9 @@ public class UserPersistenceServiceBeanTest {
 
     @InjectMocks
     private UserBusinessService userBusinessService;
+
+    @EJB
+    private IBugBusinessService bugBusinessService;
 
     @InjectMocks
     private RoleBusinessService roleBusinessService;
@@ -172,6 +181,11 @@ public class UserPersistenceServiceBeanTest {
 
             RoleDTO createdRole = roleBusinessService.createRole(roleDTO);
             assertEquals(createdRole.getType(),roleDTO.getType());
+    }
+
+    @Test
+    public void testImage(){
+
     }
 
 }

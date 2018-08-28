@@ -1,17 +1,21 @@
 package controller;
 
+import authentification.Secured;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.lang.annotation.Repeatable;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +77,18 @@ public class BugController {
                 .build();
     }
 
+    @Path("filter")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setFilters(List<BugFiltersDTO> filtersDTOs){
+        System.out.println("filtering");
+
+        filtersDTOs.forEach(x -> System.out.println("filter: "+x.getField()+" "+x.getData()));
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(bugBusinessService.filterBugs(filtersDTOs)))
+                .build();
+    }
 
     @Path("comments/add")
     @POST

@@ -23,6 +23,7 @@ export class AddBugComponentComponent implements OnInit {
   bug: Bug;
   chosenDate: string;
   currentDate: Date = new Date();
+  extensions: Array<string> = ["JPG","DOC","PDF","ODF","XLS"];
 
 
 
@@ -31,20 +32,14 @@ export class AddBugComponentComponent implements OnInit {
       idBug: 0,
       title: '',
       description: '',
-      version: '1.0',
+      version: '',
       targetDate: '',
       status: 'NEW',
-      fixedVersion: '1.0',
+      fixedVersion: '',
       severity: '',
       createdByUser: null,
       assignedTo: null
     }
-    // for(let i = 0 ; i<100;i++){
-    //   this.attachment[i] = {
-    //     bugDTO: null,
-    //     blob: ""
-    //   }
-    // }
   }
 
   checkUndefined(value: string) {
@@ -63,23 +58,25 @@ export class AddBugComponentComponent implements OnInit {
   }
 
   fileChange($event) {
-    var reader: FileReader = new FileReader();
+    let reader : FileReader[] = [];
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       for (let i = 0; i < eventTarget.files.length; i++) {
         let file = eventTarget.files[i];
+        reader[i] = new FileReader();
         this.chosenFiles[i] = file.name;
-
         this.attachment[i] = {
           bugDTO: this.bug,
-          blob: ""
+          blob: new Uint8Array(),
+          extension:file.name.substring(file.name.length - 3).toUpperCase()
         }
-        reader.onload = function () {
-          this.attachment[i].blob = reader.result;
-        }.bind(this);
-        reader.readAsText(file);
+        reader[i].onload = (e) =>{
+          this.attachment[i].blob = reader[i].result;
+        }
+        reader[i].readAsArrayBuffer(file);
       }
     }
+
 
   }
 
@@ -91,13 +88,22 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
     })[0];
-    this.bugService.addBug(this.bug);
-    for (let i = 0; i < this.attachment.length; i++){
-      this.attachment[i].bugDTO = this.bug;
-      this.bugService.addAttachment(this.attachment[i]);
-    }
+    console.log('Se adauga ' + this.attachment.length + ' atasamente')
+    this.bugService.addBug(this.bug).subscribe((value) =>{
+      for (let i = 0; i < this.attachment.length; i++){
+        if(this.extensions.includes(this.attachment[i].extension)){
+          this.attachment[i].bugDTO = this.bug;
+          this.bugService.sendFile(this.attachment[i].blob,this.attachment[i]);
+        }
+        else{
+          console.log("Format invalid");
+        }
 
-    // location.reload();
+      }
+      this.attachment =[];
+      this.chosenFiles=[];
+    });
+
   }
 
 

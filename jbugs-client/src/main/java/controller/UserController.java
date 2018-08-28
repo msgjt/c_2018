@@ -29,7 +29,7 @@ public class UserController {
             response = Response
                     .status(Response.Status.OK)
                     .build();
-        } catch (BusinessException e) {
+        } catch (PersistenceException e) {
             response = Response
                     .status(Response.Status.EXPECTATION_FAILED)
                     .entity(e.getExceptionCode())

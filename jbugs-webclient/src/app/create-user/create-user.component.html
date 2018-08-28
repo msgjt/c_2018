@@ -12,8 +12,9 @@
                    [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
             <p>
               <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
-                First name is required
+                First name is invalid
               </small>
+
             </p>
           </div>
           <div class="form-group">
@@ -23,7 +24,7 @@
                    class="form-control" pattern="^[a-zA-Z]*$"/>
             <p>
               <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
-                Last name is required
+                Last name is invalid
               </small>
             </p>
           </div>

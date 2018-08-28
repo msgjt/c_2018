@@ -2,6 +2,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.service;
 
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Permission;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
+import ro.msg.edu.jbugs.userManagement.persistence.exceptions.PersistenceException;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -15,9 +16,9 @@ public interface IRolePersistenceService extends Serializable {
 
     void removeRole(@NotNull Role role);
 
-    Optional<Role> updateRole(@NotNull Role role);
+    Optional<Role> updateRole(@NotNull Role role) throws PersistenceException;
 
-    Optional<Role> getRoleById(long id);
+    Optional<Role> getRoleById(long id) throws PersistenceException;
 
     Optional<Role> getRoleByType(@NotNull String type);
 
