@@ -25,7 +25,10 @@ public class Attachment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAttachment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
+    private ExtensionEnum extension;
+
+    @ManyToOne
     @JoinColumn(name = "idBug")
     private Bug bug;
 
@@ -52,6 +55,15 @@ public class Attachment implements Serializable {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public ExtensionEnum getExtension() {
+
+        return extension;
+    }
+
+    public void setExtension(ExtensionEnum extension) {
+        this.extension = extension;
     }
 
     @Override

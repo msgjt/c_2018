@@ -12,8 +12,9 @@
                    [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
             <p>
               <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
-                First name is required
+                First name is invalid
               </small>
+
             </p>
           </div>
           <div class="form-group">
@@ -23,7 +24,7 @@
                    class="form-control" pattern="^[a-zA-Z]*$"/>
             <p>
               <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
-                Last name is required
+                Last name is invalid
               </small>
             </p>
           </div>
@@ -32,7 +33,7 @@
             <input #mobileNumberElement #mobileNumberControl="ngModel" required="true" [(ngModel)]="user.phoneNumber"
                    id="mobileNumber" name="mobileNumber" type="text"
                    class="form-control" minlength="10"
-                   pattern="^[+0-9]*$"
+                   pattern="((^\+40|^0|^\(\+40\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$)))"
                    maxlength="15"/>
             <p>
               <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched " class="help-block text-danger">
@@ -45,7 +46,7 @@
             <input #emailElement #emailControl="ngModel" required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$"
                    [(ngModel)]="user.email" id="email"
                    name="email" type="text" class="form-control" placeholder="@msggroup.com"
-                   pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
+                   pattern="(((^\+40|^0|^\(\+40\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\+490|^0|^\(\+490\)|^00490)1[0-9]{3,8}$)"/>
             <p>
               <small *ngIf="emailControl.invalid && emailControl.touched " class="help-block text-danger">
                 Email must be a valid email adress

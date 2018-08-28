@@ -53,8 +53,9 @@
     <label>Add:&nbsp;</label>
     <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >
     <label>&nbsp;&nbsp;</label>
-    <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>
+    <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button><br>
   </div>
+
   <button class="btn btn-group" routerLink="/bug/update">Back to List</button>
 </div>
 

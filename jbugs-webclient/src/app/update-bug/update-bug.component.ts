@@ -5,6 +5,10 @@ import {Attachment} from "../types/attachment";
 import {User} from "../types/user";
 import {UserService} from "../services/user.service";
 import {BugDataService} from "../services/bugData.service";
+import {BugFilter} from "../types/bug-filter";
+import {BugFilterChoice} from "../types/bug-filter-options";
+import {BugListHeader} from "../types/bug-list-header";
+import {BugSortService} from "../services/bug-sort.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -12,12 +16,13 @@ import {BugDataService} from "../services/bugData.service";
   styleUrls: ['./update-bug.component.css']
 })
 export class UpdateBugComponent implements OnInit {
-
-  page: number=1;
-  bugs: Bug[];
+  page: number = 1;
+  bugs: Bug[] = [];
   isEditable: boolean[] = [];
-  cachedBugs: Bug[];
   allUsers: User[] = [];
+  chosenFilter: BugFilterChoice = new BugFilterChoice();
+  endDate: string;
+
   severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
   chosenSeverity: string;
   statuses: string[] = ["fixed", "open", "in_progress", "rejected", "info_needed", "closed"];
@@ -29,21 +34,32 @@ export class UpdateBugComponent implements OnInit {
   attachmentsForABug: Attachment[];
   attachmentChosen:Attachment;
   attachmentToBeAdded: Attachment;
+  filters: BugFilter[] = [];
+  header: BugListHeader[] = [];
 
-
-  constructor(private bugService: BugService,private userService: UserService,private dataService:BugDataService) {
+  constructor(private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService) {
     this.attachmentToBeAdded = {
       bugDTO:null,
-      blob: ""
+      blob: null,
+      extension:''
     }
   }
 
   ngOnInit(): void {
-    this.bugs = this.bugService.getAll();
-    this.cachedBugs = this.bugs;
+
+    this.bugService.filterBugs(this.filters).subscribe(
+      (response: Bug[]) => {
+        this.bugs = [];
+        response.forEach((value) => {
+          this.isEditable[value.idBug] = false;
+          this.bugs.push(value);
+        });
+      }
+    );
     this.bugs.forEach((value) => {
       this.isEditable[value.idBug] = false;
-    })
+    });
+    this.createHeader();
     this.createMap();
     this.attachments = this.bugService.getAllAttachments();
     this.userService.getUsers().subscribe((response:User[])=>{
@@ -53,14 +69,19 @@ export class UpdateBugComponent implements OnInit {
     })
   }
 
+  createHeader(){
+    var headerNames = ["title","version", "fixed version", "severity", "status", "assigned to", "target date"];
+    for(var i =0; i< headerNames.length; i++)
+      this.header.push(new BugListHeader(headerNames[i], "asc"));
+  }
   createMap() {
-    this.statusMap.set("new","fixed");
+    this.statusMap.set("new",["fixed"]);
     this.statusMap.set("fixed", ["open", "closed"]);
     this.statusMap.set("open", ["in_progress", "rejected"]);
     this.statusMap.set("rejected", ["closed"]);
     this.statusMap.set("in_progress", ["fixed", "rejected","info_needed"]);
     this.statusMap.set("info_needed", ["in_progress"]);
-    this.statusMap.set("closed","closed");
+    this.statusMap.set("closed",[]);
     }
 
 
@@ -71,26 +92,47 @@ export class UpdateBugComponent implements OnInit {
 
   setSelectedBug(bug: Bug){
     this.dataService.bug = bug;
-    localStorage.setItem("idBug",bug.idBug.toString());
+    localStorage.setItem("idBug", bug.idBug.toString());
   }
 
-  filterBySeverity() {
-    if (this.chosenSeverity == "undefined") {
-      this.bugs = this.cachedBugs;
-    }
-    else {
-      this.bugs = this.bugs.filter((item) => item.severity == this.chosenSeverity.toUpperCase());
+  sortColumn(column: BugListHeader){
+    column.direction= column.direction === 'asc' ? 'desc' : 'asc';
+    this.bugs = this.sortService.sortBugs(this.bugs,column);
+  }
+
+  filter(field: string, choice: string) {
+    if (field !== "targetDate") {
+      this.filters.push(new BugFilter(field, '', choice));
+    } else {
+      this.filters.push(new BugFilter(field, this.endDate, choice));
     }
   }
 
+  validateDates():boolean{
+    if((this.chosenFilter.targetDate && !this.endDate) || (!this.chosenFilter.targetDate && this.endDate) )
+      return false;
+    if(this.chosenFilter.targetDate > this.endDate)
+      return false;
+    return true;
+  }
 
-  filterByStatus() {
-    if (this.chosenStatus == "undefined") {
-      this.bugs = this.cachedBugs;
+  applyFilters() {
+    this.filters = [];
+    for (let [key, value] of Object.entries(this.chosenFilter)) {
+      if (value) {
+        this.filter(key.substr(1), value)
+      }
     }
-    else {
-      this.bugs = this.bugs.filter((item) => item.status == this.chosenStatus.toUpperCase());
-    }
+
+    this.bugService.filterBugs(this.filters).subscribe(
+      (response: Bug[]) => {
+        this.bugs = [];
+        response.forEach((value) => {
+          this.isEditable[value.idBug] = false;
+          this.bugs.push(value);
+        });
+      }
+    );
   }
 
   updateBugUser(bug:Bug):User{
@@ -99,18 +141,7 @@ export class UpdateBugComponent implements OnInit {
     })[0];
   }
 
-  // fileChange() {
-  //   var reader: FileReader = new FileReader();
-  //   let eventTarget = <HTMLInputElement>event.target;
-  //   if (eventTarget.files && eventTarget.files.length > 0) {
-  //     let file = eventTarget.files[0];
-  //     console.log("file name"+ file.name);
-  //     reader.onload = function () {
-  //       this.attachmentToBeAdded.blob = reader.result;
-  //     }.bind(this);
-  //     reader.readAsText(file);
-  //   }
-  // }
+
 
   onSubmit(bug: Bug) {
 
@@ -137,13 +168,6 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  // clickDetails(bug:Bug){
-  //   this.attachmentsForABug = this.attachments.filter((value) =>{
-  //     return value.bugDTO.idBug == bug.idBug;
-  //   });
-  //   console.log('Bugul ' + bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
-  //   this.attachmentToBeAdded.bugDTO = bug;
-  // }
 
   editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
@@ -151,29 +175,7 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  // download(content) {
-  //   var filename= 'Attachment';
-  //   var element = document.createElement('a');
-  //   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
-  //   element.setAttribute('download', filename);
-  //
-  //   element.style.display = 'none';
-  //   document.body.appendChild(element);
-  //
-  //   element.click();
-  //
-  //   document.body.removeChild(element);
-  // }
-  //
-  // deleteAttachment(attachmentChosen:Attachment){
-  //   this.bugService.deleteAttachment(attachmentChosen);
-  //   location.reload();
-  // }
-  //
-  // addAttachment(attachmentChosen:Attachment){
-  //   console.log(attachmentChosen);
-  //   this.bugService.addAttachment(attachmentChosen);
-  // }
+
 
 
 }

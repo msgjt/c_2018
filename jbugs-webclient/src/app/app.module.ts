@@ -23,12 +23,15 @@ import {BugDataService} from "./services/bugData.service";
 import {UpdateBugComponent} from './update-bug/update-bug.component';
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
 import {RecaptchaFormsModule} from "ng-recaptcha/forms";
+import {BugSortService} from "./services/bug-sort.service";
+import {ErrorComponent} from "./error/error.component";
+import {HomeComponent} from "./home/home.component";
 import {AuthenticateGuard} from "./guards/authenticate.guard";
-import { ErrorComponent } from './error/error.component';
+
 import {PermissionManagementGuard} from "./guards/permission-management.guard";
 import {BugManagementGuard} from "./guards/bug-management.guard";
 import {UserManagementGuard} from "./guards/user-management.guard";
-import { HomeComponent } from './home/home.component';
+
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -37,6 +40,7 @@ const appRoutes: Routes = [
   {path: 'bugDTO', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
   {path: 'bug/add', component: AddBugComponentComponent,canActivate: [BugManagementGuard]},
   {path: 'bug/update', component: UpdateBugComponent,canActivate: [BugManagementGuard]},
+  {path: 'bug/details', component: BugDetailsComponent, canActivate: [BugManagementGuard]},
   {path: 'bug', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent,canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent,canActivate: [UserManagementGuard]},
@@ -87,7 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecaptchaFormsModule,
     RecaptchaModule.forRoot()
   ],
-  providers: [AuthGuard, BugDataService, {
+  providers: [AuthGuard, BugDataService, BugSortService, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],

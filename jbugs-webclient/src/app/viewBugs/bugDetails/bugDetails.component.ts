@@ -24,7 +24,8 @@ export class BugDetailsComponent implements OnInit{
   constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService){
     this.attachmentToBeAdded = {
       bugDTO:null,
-      blob: ""
+      blob: null,
+      extension:''
     }
 
 
@@ -78,7 +79,6 @@ export class BugDetailsComponent implements OnInit{
 
     element.style.display = 'none';
     document.body.appendChild(element);
-
     element.click();
 
     document.body.removeChild(element);

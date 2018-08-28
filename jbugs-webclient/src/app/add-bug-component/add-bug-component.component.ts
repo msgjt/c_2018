@@ -31,20 +31,14 @@ export class AddBugComponentComponent implements OnInit {
       idBug: 0,
       title: '',
       description: '',
-      version: '1.0',
+      version: '',
       targetDate: '',
       status: 'NEW',
-      fixedVersion: '1.0',
+      fixedVersion: '',
       severity: '',
       createdByUser: null,
       assignedTo: null
     }
-    // for(let i = 0 ; i<100;i++){
-    //   this.attachment[i] = {
-    //     bugDTO: null,
-    //     blob: ""
-    //   }
-    // }
   }
 
   checkUndefined(value: string) {
@@ -63,23 +57,20 @@ export class AddBugComponentComponent implements OnInit {
   }
 
   fileChange($event) {
-    var reader: FileReader = new FileReader();
+    let reader : FileReader = new FileReader();
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       for (let i = 0; i < eventTarget.files.length; i++) {
         let file = eventTarget.files[i];
         this.chosenFiles[i] = file.name;
-
         this.attachment[i] = {
           bugDTO: this.bug,
-          blob: ""
+          blob: file,
+          extension:file.name.substring(file.name.length - 3).toUpperCase()
         }
-        reader.onload = function () {
-          this.attachment[i].blob = reader.result;
-        }.bind(this);
-        reader.readAsText(file);
       }
     }
+
 
   }
 
@@ -91,13 +82,16 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
     })[0];
-    this.bugService.addBug(this.bug);
-    for (let i = 0; i < this.attachment.length; i++){
-      this.attachment[i].bugDTO = this.bug;
-      this.bugService.addAttachment(this.attachment[i]);
-    }
+    console.log('Se adauga ' + this.attachment.length + ' atasamente')
+    this.bugService.addBug(this.bug).subscribe((value) =>{
+      for (let i = 0; i < this.attachment.length; i++){
+        this.attachment[i].bugDTO = this.bug;
+        this.bugService.sendFile(this.attachment[i].blob,this.attachment[i]);
+      }
+      this.attachment =[];
+      this.chosenFiles=[];
+    });
 
-    // location.reload();
   }
 
 
