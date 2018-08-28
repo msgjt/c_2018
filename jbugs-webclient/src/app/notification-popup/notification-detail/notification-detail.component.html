@@ -1,0 +1,14 @@
+<div class="card fixedColumns"
+     *ngFor="let notification of notificationList| paginate: { itemsPerPage: 4  , currentPage: page }"
+     style="width: 100%"
+    >
+  <h5 class="card-header">{{notification.type}}</h5>
+  <div class="card-body">
+    <p class="card-text">{{notification.date}}</p>
+    <p class="card-text">{{notification.message}}</p>
+    <a href="#" class="btn btn-primary">Go</a>
+  </div>
+</div>
+<div class="has-text-centered">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>

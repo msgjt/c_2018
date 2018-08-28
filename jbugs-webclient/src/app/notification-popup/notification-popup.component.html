@@ -1,0 +1,15 @@
+<div id="wrapper" *ngIf="toggle">
+  <div id="sidebar-wrapper" style="left: 0px !important;" (blur)=loseFocus()>
+    <nav id="spy">
+      <ul class="sidebar-nav nav">
+        <li class="list-group-item" style="width: 100%" *ngFor="let notification of notificationList">
+          <div style="width: inherit">{{notification.type}}</div>
+          <div style="width: inherit">{{notification.message.substr(0, 10).concat('...')}}</div>
+        </li>
+        <button type="button"  class="btn btn-dark" style="margin-left: 29% !important;" routerLink="notification" (click)="toggle">See
+          all
+        </button>
+      </ul>
+    </nav>
+  </div>
+</div>

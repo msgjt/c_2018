@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,8 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class AppComponent {
   title = 'JBuggerAngular';
-  constructor(){
+
+  constructor() {
 
   }
 }
