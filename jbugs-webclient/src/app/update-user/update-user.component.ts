@@ -28,11 +28,14 @@ export class UpdateUserComponent implements OnInit {
 
   showState: boolean;
   dropdownStatesList: string[] ;
-  selectedState: string;
+  selectedState:boolean;
   dropdownSettings3 = {};
 
   checkSelect: boolean;
   permission: Permission[];
+  showRadioActive:boolean;
+  showRadioInActive:boolean;
+
 
   constructor(private userService: UserService, private rolesService: RoleService) {
     this.showRoles = false;
@@ -40,8 +43,8 @@ export class UpdateUserComponent implements OnInit {
     this.showDetails = false;
     this.showState = false;
     this.checkSelect = false;
-
-
+    this.showRadioActive=false;
+    this.showRadioInActive=false;
   }
 
   ngOnInit() {
@@ -51,6 +54,7 @@ export class UpdateUserComponent implements OnInit {
     this.selectedItems = [];
     this.selectedItem = [];
     this.permission = [];
+
 
 
     this.rolesService.getRoles().subscribe((response: Role[]) => {
@@ -118,7 +122,12 @@ export class UpdateUserComponent implements OnInit {
       this.showDetails = true;
       this.showState = true;
       console.log(this.user.isActive);
-      this.dropdownStatesList = this.user.isActive? ['DEACTIVATE']: ['ACTIVATE'];
+      this.dropdownStatesList = this.user.isActive ? ['DEACTIVATE'] : ['ACTIVATE'];
+      if (this.user.isActive == true) {
+        this.showRadioInActive = true;
+      } else {
+        this.showRadioActive = true;
+      }
     });
   }
 
@@ -127,7 +136,6 @@ export class UpdateUserComponent implements OnInit {
     if (this.verifySelectMenu()) {
       this.selectedItem[0] = this.user;
       this.user.roles=this.selectedItems;
-
 
       this.user.roles.map(val=>val.permissions=this.permission);
 
@@ -147,13 +155,13 @@ export class UpdateUserComponent implements OnInit {
   changeStatus(status: string) {
     console.log(status);
 
-    if (status == "ACTIVATE") {
-      this.user.isActive = true;
-      console.log(this.user.isActive);
+    if(status=='ACTIVATE'){
+      console.log("activate");
+      this.user.isActive =true;
+    }else if(status=='DEACTIVATE'){
+      console.log("deactivate");
+      this.user.isActive =false;
     }
-    else {
-      this.user.isActive = false;
-      console.log(this.user.isActive);
-    }
+
   }
 }

@@ -29,6 +29,7 @@
     "bootstrap-select": "^1.13.1",
     "core-js": "^2.5.4",
     "file-list": "^0.3.0",
+    "file-saver": "^1.3.8",
     "jquery": "^2.2.4",
     "ng-file-upload": "^12.2.13",
     "ng-multiselect-dropdown": "^0.2.1",
@@ -40,6 +41,8 @@
     "text-encoder": "0.0.3",
     "text-encoder-lite": "^1.0.1",
     "text-encoding": "^0.6.4",
+    "xlsx": "^0.13.5",
+    "xlsx-style": "^0.8.13",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

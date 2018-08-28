@@ -91,7 +91,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
     })[0];
-    this.bugService.addBug(this.bug);
+    //this.bugService.addBug(this.bug);
     for (let i = 0; i < this.attachment.length; i++){
       this.attachment[i].bugDTO = this.bug;
       this.bugService.addAttachment(this.attachment[i]);

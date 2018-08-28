@@ -98,19 +98,9 @@
           </div>
 
 
-          <label>Status</label>
-          <div class="form-group">
-            <ng-multiselect-dropdown
-              #selectElement
-              required
-              *ngIf="showState"
-              name="status"
-              [data]="dropdownStatesList"
-              [(ngModel)]="selectedState"
-              (ngModelChange)="changeStatus(selectedState)"
-              [settings]="dropdownSettings3">
-            </ng-multiselect-dropdown>
-          </div>
+          <button type="submit" class="btn btn-primary" *ngIf="showRadioActive"  (click)="changeStatus('ACTIVATE')">Activate</button>
+          <button type="submit" class="btn btn-primary" *ngIf="showRadioInActive" (click)="changeStatus('DEACTIVATE')">Deactivate</button>
+
 
 
           <div class=" form-group">

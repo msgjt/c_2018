@@ -73,9 +73,14 @@
     <div class="col-sm-2 col-md-5">
       <button class="btn btn-group  button" [disabled]="!validateDates()" (click)="applyFilters()" >Filter</button>
     </div>
+
+    <div class="err" *ngIf="!validateDates()">Choose a date interval where the first one is smaller than the second one</div>
+
   </div>
 
-  <div class="err" *ngIf="!validateDates()">Choose a date interval where the first one is smaller than the second one</div>
+  <div class="col-sm-2 col-md-5">
+    <button class="btn btn-group  button"  [disabled]="!validateFile()" (click)="exportAsXLSX()" >Export to excel</button>
+  </div>
 
 <table class="top-margin">
   <thead>

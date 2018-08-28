@@ -7,6 +7,7 @@ import {UserService} from "../services/user.service";
 import {BugDataService} from "../services/bugData.service";
 import {BugFilter} from "../types/bug-filter";
 import {BugFilterChoice} from "../types/bug-filter-options";
+import {ExcelService} from "../services/excel.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -35,7 +36,8 @@ export class UpdateBugComponent implements OnInit {
   filters: BugFilter[] = [];
 
 
-  constructor(private bugService: BugService, private userService: UserService, private dataService: BugDataService) {
+
+  constructor(private bugService: BugService, private userService: UserService, private dataService: BugDataService, private excelService: ExcelService) {
     this.attachmentToBeAdded = {
       bugDTO: null,
       blob: ""
@@ -92,13 +94,21 @@ export class UpdateBugComponent implements OnInit {
     }
   }
 
-  validateDates():boolean{
-    if((this.chosenFilter.targetDate && !this.endDate) || (!this.chosenFilter.targetDate && this.endDate) )
+  validateDates(): boolean {
+    if ((this.chosenFilter.targetDate && !this.endDate) || (!this.chosenFilter.targetDate && this.endDate))
       return false;
-    if(this.chosenFilter.targetDate > this.endDate)
+    if (this.chosenFilter.targetDate > this.endDate)
       return false;
     return true;
   }
+
+  validateFile(): boolean {
+    if (this.bugs && this.bugs.length) {
+      return true;
+    }
+    return false;
+  }
+
 
   applyFilters() {
     this.filters = [];
@@ -173,8 +183,6 @@ export class UpdateBugComponent implements OnInit {
 
   editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
-
-
   }
 
   // download(content) {
@@ -201,5 +209,12 @@ export class UpdateBugComponent implements OnInit {
   //   this.bugService.addAttachment(attachmentChosen);
   // }
 
+  exportAsXLSX(): void {
 
+    var duplicateObject = JSON.parse(JSON.stringify( this.bugs ));
+    console.log(duplicateObject);
+    this.excelService.exportAsExcelFile(duplicateObject, 'bugs');
+
+
+  }
 }
