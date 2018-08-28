@@ -22,4 +22,5 @@ public interface IPermissionPersistenceService extends Serializable {
 
     List<Permission> getAllPermissions();
 
+
 }

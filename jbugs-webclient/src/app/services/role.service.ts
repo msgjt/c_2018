@@ -26,20 +26,20 @@ export class RoleService {
     return this.http.get(this.baseURL + '/roles');
   }
 
-  addPermissionForRole(idRole: number, idPermission: number) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
-    var idPermissionModel = JSON.stringify({id: idPermission});
-    this.http.post<any>(this.baseURL + '/roles/add/' + idRole,idPermissionModel , {
-      headers: reqHeader
-    }).subscribe();
-  }
-
-  removePermissionForRole(idRole: number, idPermission: number) {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
-    var idPermissionModel = JSON.stringify({id: idPermission});
-    this.http.post<any>(this.baseURL + '/roles/remove/' + idRole,idPermissionModel , {
-      headers: reqHeader
-    }).subscribe();
-  }
+  // addPermissionForRole(idRole: number, idPermission: number) {
+  //   var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+  //   var idPermissionModel = JSON.stringify({id: idPermission});
+  //   this.http.post<any>(this.baseURL + '/roles/add/' + idRole,idPermissionModel , {
+  //     headers: reqHeader
+  //   }).subscribe();
+  // }
+  //
+  // removePermissionForRole(idRole: number, idPermission: number) {
+  //   var reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+  //   var idPermissionModel = JSON.stringify({id: idPermission});
+  //   this.http.post<any>(this.baseURL + '/roles/remove/' + idRole,idPermissionModel , {
+  //     headers: reqHeader
+  //   }).subscribe();
+  // }
 
 }
