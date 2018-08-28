@@ -9,13 +9,16 @@ import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -32,7 +35,7 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private CommentDTOHelper commentDTOHelper;
 
-    private List<BugDTO> filteredBugs;
+    //private List<BugDTO> filteredBugs;
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -77,11 +80,11 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public void filterBugs(List<BugFiltersDTO> filtersDTOs) {
+    public List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs) {
         Predicate<BugDTO> bugFilter = x -> true;
-        filteredBugs = new ArrayList<>();
 
-        List<BugDTO> bugDTOs = getAllBugs();
+        List<BugDTO> bugDTOs = new ArrayList<>();
+        bugDTOs = getAllBugs();
         for(BugFiltersDTO criteria: filtersDTOs){
             switch (criteria.getField()){
                 case "title":
@@ -102,15 +105,37 @@ public class BugBusinessService implements IBugBusinessService {
                 case "status":
                     bugFilter = bugFilter.and(cl -> cl.getStatus().name().equals(criteria.getData().toUpperCase()));
                     break;
-                    //ToDO add version, fixedVersion, targetDate
+                case "version":
+                    bugFilter = bugFilter.and(cl -> cl.getVersion().equals(criteria.getData()));
+                    break;
+                case "fixedVersion":
+                    bugFilter = bugFilter.and(cl -> cl.getFixedVersion().equals(criteria.getData()));
+                    break;
+                case "targetDate":
+                    bugFilter = bugFilter.and(cl -> isBetweenDates(cl.getTargetDate(),criteria.getData(),criteria.getEndData()));
+                    break;
             }
         }
-        filteredBugs = bugDTOs.stream().filter(bugFilter).collect(Collectors.toList());
+        return bugDTOs.stream().filter(bugFilter).collect(Collectors.toList());
     }
 
-    @Override
-    public List<BugDTO> getFilteredBugs() {
-        return filteredBugs;
+
+    private boolean isBetweenDates(String date, String start, String end){
+        Date filterDate = fromStringToDateYearLast(date);
+        return filterDate.after(bugDTOHelper.fromStringToDate(start)) &&
+                filterDate.before(bugDTOHelper.fromStringToDate(end));
+    }
+
+    private Date fromStringToDateYearLast(String stringToBeParsed){
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date date = null;
+        try {
+            date = formatter.parse(stringToBeParsed);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     @Override

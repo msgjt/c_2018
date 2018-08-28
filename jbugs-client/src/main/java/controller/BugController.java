@@ -78,19 +78,15 @@ public class BugController {
 
     @Path("filter")
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setFilters(List<BugFiltersDTO> filtersDTOs){
-        bugBusinessService.filterBugs(filtersDTOs);
+        System.out.println("filtering");
+
+        filtersDTOs.forEach(x -> System.out.println("filter: "+x.getField()+" "+x.getData()));
         return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(bugBusinessService.filterBugs(filtersDTOs)))
                 .build();
     }
 
-    @Path("filter")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getFilteredBugs(){
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.getFilteredBugs()))
-                .build();
-    }
 }

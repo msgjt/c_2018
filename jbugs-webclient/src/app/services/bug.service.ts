@@ -4,6 +4,7 @@ import {Bug, BugClass} from "../types/bugs";
 import {Attachment} from "../types/attachment";
 import {Comment} from "../types/comments";
 import {Observable} from "rxjs/internal/Observable";
+import {BugFilter, IBugFilter} from "../types/bug-filter";
 
 
 @Injectable({
@@ -104,4 +105,11 @@ export class BugService {
     )
     return this.comments;
   }
+
+  filterBugs(filters: BugFilter[]):Observable<any>{
+    return this.http.post(this.baseURL + '/filter', JSON.stringify(filters),{
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    });
+  }
+
 }

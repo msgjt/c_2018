@@ -2,7 +2,7 @@ package ro.msg.edu.jbugs.userManagement.business.dto.bug;
 
 public class BugFiltersDTO {
     private String field;
-    private String operation;
+    private String endData;
     private String data;
 
     public String getField() {
@@ -13,12 +13,12 @@ public class BugFiltersDTO {
         this.field = field;
     }
 
-    public String getOperation() {
-        return operation;
+    public String getEndData() {
+        return endData;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    public void setEndData(String endData) {
+        this.endData = endData;
     }
 
     public String getData() {
