@@ -23,7 +23,7 @@ export class AddBugComponentComponent implements OnInit {
   bug: Bug;
   chosenDate: string;
   currentDate: Date = new Date();
-  extensions: Array<string> = ["JPG","DOC","PDF","ODF","XLS"];
+  extensions: string[] = ["JPG","DOC","PDF","ODF","XLS"];
 
 
 
