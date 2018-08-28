@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Permission} from "../types/permissions";
 
 export interface User {
   username: string;
@@ -12,6 +13,7 @@ export interface Token {
 }
 
 export const TOKENKEY = 'userToken';
+export const CURRENTUSER = 'currentUser';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +49,10 @@ export class LoginService {
    * Set the authentification token returned from server to local storage
    * @param token returned from server
    */
-  login(token: string) {
+  login(token: string, username: string ) {
     localStorage.setItem(TOKENKEY, token);
+    localStorage.setItem(CURRENTUSER,username);
+
   }
 
   /**
@@ -56,5 +60,15 @@ export class LoginService {
    */
   logout() {
     localStorage.removeItem(TOKENKEY);
+    localStorage.removeItem(CURRENTUSER);
+    localStorage.setItem("permissions",'');
   };
+
+  setPermissions(permissions:Permission[]){
+    let permissionString:string='';
+    permissions.map(value => permissionString=permissionString+' '+value.type);
+    localStorage.setItem('permissions',permissionString);
+    console.log(permissionString);
+  }
+
 }

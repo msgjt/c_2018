@@ -20,7 +20,7 @@
     "username": "Username",
     "password": "Password",
     "message": "Login Failed. Please try again.",
-    "button": "login"
+    "button": "Login"
 },
   "permission": {
     "col-id": "Id",

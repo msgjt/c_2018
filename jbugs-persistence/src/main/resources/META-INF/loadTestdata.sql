@@ -21,11 +21,11 @@ INSERT INTO PERMISSIONS (type,description) values ('REPORT_MANAGEMENT','descrier
 
 
 
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','1');
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','2');
-INSERT INTO roles_permissions (id_role,id_permission) values ('1','3');
-INSERT INTO roles_permissions (id_role,id_permission) values ('2','2');
-INSERT INTO roles_permissions (id_role,id_permission) values ('2','3');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','1');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','2');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1','3');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','2');
+INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','3');
 
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description', '2.2', 'CRITICAL', 'OPEN', '2018-01-01 00:00:00', 'critical bug', '1.1', 1, 2);
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('other description', '3.3', 'LOW', 'FIXED', '2018-11-02 00:00:00', 'high bug', '1.1', 2, 3);
@@ -92,8 +92,8 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some comment', 18,2);
 insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'some other comment', 19,3);
 
-insert into users_roles(id_user,id_role) values (1,1);
-insert into users_roles(id_user,id_role) values (2,2);
+insert into users_roles(User_IDUSER,roles_IDROLE) values (1,1);
+insert into users_roles(User_IDUSER,roles_IDROLE) values (2,2);
 
 /*INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
 INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));

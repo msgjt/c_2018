@@ -10,27 +10,56 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  loggedIn = false;
 
-  constructor(private loginService: LoginService, private filterService: FilterService, private  translate: TranslateService) {
+
+  constructor(private loginService: LoginService, private  translate: TranslateService,private filterService: FilterService) {
     this.translate.setDefaultLang('en');
   }
 
   ngOnInit() {
-    this.loggedIn = this.filterService.isLoggedIn();
 
   }
 
-  verify(): boolean {
-    return this.filterService.isLoggedIn();
+  isUserLoggedIn(): boolean {
+    return localStorage.getItem("currentUser") != null;
+  }
+
+
+  useLanguage(language: string) {
+    this.translate.use(language);
   }
 
   logout() {
     this.loginService.logout();
   }
 
-  useLanguage(language: string) {
-    this.translate.use(language);
+  isPermissionManagement():boolean{
+    return this.filterService.isPermissionManagement();
   }
+
+  isUserManagement():boolean{
+    return this.filterService.isUserManagement()
+  }
+
+  isBugManagement():boolean{
+    return this.filterService.isBugManagement();
+  }
+
+  isBugClose():boolean {
+    return this.filterService.isBugClose();
+  }
+
+  isBugExportPdf():boolean{
+    return this.filterService.isBugExportPdf();
+  }
+
+  isAdressedUser():boolean{
+    return this.filterService.isAdressedUser();
+  }
+
+  isReportManagement():boolean{
+    return this.filterService.isReportManagement();
+  }
+
 
 }
