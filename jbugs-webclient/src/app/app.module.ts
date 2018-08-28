@@ -23,6 +23,7 @@ import {BugDataService} from "./services/bugData.service";
 import {UpdateBugComponent} from './update-bug/update-bug.component';
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
 import {RecaptchaFormsModule} from "ng-recaptcha/forms";
+import {BugSortService} from "./services/bug-sort.service";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -77,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecaptchaFormsModule,
     RecaptchaModule.forRoot()
   ],
-  providers: [AuthGuard, BugDataService, {
+  providers: [AuthGuard, BugDataService, BugSortService {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],

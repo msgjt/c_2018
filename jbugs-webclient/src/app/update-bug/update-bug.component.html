@@ -78,19 +78,23 @@
   <div class="err" *ngIf="!validateDates()">Choose a date interval where the first one is smaller than the second one</div>
 
 <table class="top-margin">
-  <thead>
-  <tr>
-    <th scope="col">TITLE</th>
-    <!--<th class="fixedColumns" scope="col">DESCRIPTION</th>-->
-    <th scope="col">VERSION</th>
-    <th scope="col">FIXED VERSION</th>
-    <th scope="col">SEVERITY</th>
-    <th scope="col">STATUS</th>
-    <th scope="col">ASSIGNED TO</th>
-    <th scope="col">TARGET DATE</th>
-    <th scope="col">UPDATE</th>
-  </tr>
+  <thead >
+  <th *ngFor="let head of header" (click)="sortColumn(head)">
+    <table>
+      <tr>
+        <td>{{head.name.toUpperCase()}}</td>
+        <td>
+          <i class="fa fa-chevron-up" *ngIf="head.direction === 'asc'" ></i>
+          <i class="fa fa-chevron-down" *ngIf="head.direction === 'desc'"></i>
+        </td>
+      </tr>
+    </table>
+  </th>
+  <th><tr>
+    <td>UPDATE</td>
+  </tr></th>
   </thead>
+
 
   <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" routerLink="/bug/details"
          (click)='setSelectedBug(bug)' class="fixedColumns">
