@@ -6,6 +6,7 @@ import {Comment, CommentClass} from "../../types/comments";
 import {Attachment} from "../../types/attachment";
 import {UserService} from "../../services/user.service";
 import {errorHandler} from "@angular/platform-browser/src/browser";
+import {ExportPDFService} from "../../services/export-pdf.service";
 
 @Component({
   selector: 'app-bugDetails',
@@ -22,7 +23,7 @@ export class BugDetailsComponent implements OnInit{
 
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService){
+  constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService,private bugPdfService:ExportPDFService){
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: new Uint8Array(),
@@ -102,5 +103,9 @@ export class BugDetailsComponent implements OnInit{
     this.commentToBeAdded.bugDTO = this.bug;
     this.commentToBeAdded.user = "doreld";
     this.bugService.addComment(this.commentToBeAdded);
+  }
+
+  export(){
+    this.bugPdfService.export(this.bug,this.bugService.getComments(this.bug.idBug));
   }
 }

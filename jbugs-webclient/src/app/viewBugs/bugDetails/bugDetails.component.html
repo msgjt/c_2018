@@ -39,6 +39,8 @@
   <div class="form-group">
   <textarea cols="151" rows="3" [ngModel]="this.commentToBeAdded.text" (ngModelChange)="this.commentToBeAdded.text= $event" name="textarea"></textarea>
     <button type="Submit" (click)="addComment()">Add comment</button>
+    <br>
+    <button type="Submit" (click)="export()">Export PDF</button>
   </div>
   <h4>Attachments</h4>
   <div class="form-group">
