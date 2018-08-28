@@ -4,8 +4,10 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="#">{{'header.nav-item1' | translate}}</a>
       <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" href="#">{{'header.nav-item2' | translate}}</a>
-      <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'| translate}}</a>
-      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'| translate}}</a>
+      <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'|
+        translate}}</a>
+      <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'|
+        translate}}</a>
       <div *ngIf="isUserLoggedIn() && isUserManagement()" class="dropdown">
         <a class="nav-item nav-link">{{'header.nav-item5' | translate}}</a>
         <div class="dropdown-content">
@@ -26,8 +28,10 @@
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a *ngIf="!isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login">{{'header.btn-login' | translate}}</a>
-      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout' | translate}}</a>
+      <a *ngIf="!isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login">{{'header.btn-login' |
+        translate}}</a>
+      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout'
+        | translate}}</a>
       <button (click)="useLanguage('en')">en</button>
       <button (click)="useLanguage('ro')">ro</button>
     </div>

@@ -25,18 +25,22 @@ import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
 import {RecaptchaFormsModule} from "ng-recaptcha/forms";
 import {AuthenticateGuard} from "./guards/authenticate.guard";
 import { ErrorComponent } from './error/error.component';
+import {PermissionManagementGuard} from "./guards/permission-management.guard";
+import {BugManagementGuard} from "./guards/bug-management.guard";
+import {UserManagementGuard} from "./guards/user-management.guard";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
-  {path: 'permission', component: PermissionComponent, canActivate: [AuthenticateGuard]},
-  {path: 'role', component: RoleComponent, canActivate: [AuthenticateGuard]},
-  {path: 'bugDTO', component: ViewBugsComponent,canActivate: [AuthenticateGuard]},
-  {path: 'bug/add', component: AddBugComponentComponent,canActivate: [AuthenticateGuard]},
-  {path: 'bug/update', component: UpdateBugComponent,canActivate: [AuthenticateGuard]},
-  {path: 'bug', component: ViewBugsComponent,canActivate: [AuthenticateGuard]},
-  {path: 'user/add', component: CreateUserComponent,canActivate: [AuthenticateGuard]},
-  {path: 'user/update', component: UpdateUserComponent,canActivate: [AuthenticateGuard]},
-  {path: 'create-user', component: CreateUserComponent,canActivate: [AuthenticateGuard]},
+  {path: 'permission', component: PermissionComponent, canActivate: [PermissionManagementGuard]},
+  {path: 'role', component: RoleComponent, canActivate: [PermissionManagementGuard]},
+  {path: 'bugDTO', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
+  {path: 'bug/add', component: AddBugComponentComponent,canActivate: [BugManagementGuard]},
+  {path: 'bug/update', component: UpdateBugComponent,canActivate: [BugManagementGuard]},
+  {path: 'bug', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
+  {path: 'user/add', component: CreateUserComponent,canActivate: [UserManagementGuard]},
+  {path: 'user/update', component: UpdateUserComponent,canActivate: [UserManagementGuard]},
+  {path: 'create-user', component: CreateUserComponent,canActivate: [UserManagementGuard]},
+  {path: 'error', component: ErrorComponent},
   {path: '**', component: ErrorComponent}
 
 ]
