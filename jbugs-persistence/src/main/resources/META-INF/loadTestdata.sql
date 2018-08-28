@@ -103,6 +103,6 @@ INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Documen
 INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
 INSERT INTO attachments(idBug,file) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
 INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
-INSERT INTO attachments(idBug,file) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'));
+INSERT INTO attachments(idBug,file,extension) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/CV_GIURGI_IACOB.doc'),'DOC');
+INSERT INTO attachments(idBug,file,extension) values (1,LOAD_FILE('C:/Users/giurgi/Desktop/funniest-meme02.jpg'),'JPG');
 -- other tables TODO

@@ -100,16 +100,19 @@ export class BugService {
   }
 
   addAttachment(attachment: Attachment) {
-    var reqHeader = new HttpHeaders({ 'Authorization': this.tokenHeader});
-    const attachmentModel=attachment;
-    console.log(attachmentModel);
-    this.http.post(this.attachementURL + '/add', attachmentModel).subscribe();
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
+    var attachmentModel = JSON.stringify(attachment);
+    console.log('Atasamentul trimis: ' + attachmentModel);
+    this.http.post(this.attachementURL + '/add', attachmentModel,{
+      headers:reqHeader
+    }).subscribe();
   }
 
 
   getComments(bugId: number): Comment[] {
     this.comments = [];
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+
     this.http.get(this.baseURL + '/comments/' + bugId.toString(),{
       headers:reqHeader
     }).subscribe(
@@ -130,12 +133,14 @@ export class BugService {
     location.reload();
   }
 
-  sendFile(file:File,type:string){
+  sendFile(file:File,attachment:Attachment){
     const formData = new FormData();
     formData.append('file', file,"ham");
-    let body = {formData,type};
+    let body = {formData};
     console.log('Send file:' + body);
-    this.http.post(this.attachementURL + '/file',formData).subscribe();
+    this.http.post(this.attachementURL + '/file',formData).subscribe((value)=>{
+      this.addAttachment(attachment);
+    });
   }
 
 }

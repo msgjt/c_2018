@@ -5,7 +5,12 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 @Stateless
 public class AttachmentDTOHelper {

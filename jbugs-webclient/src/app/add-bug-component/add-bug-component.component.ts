@@ -57,6 +57,7 @@ export class AddBugComponentComponent implements OnInit {
   }
 
   fileChange($event) {
+    let reader : FileReader = new FileReader();
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       for (let i = 0; i < eventTarget.files.length; i++) {
@@ -85,7 +86,7 @@ export class AddBugComponentComponent implements OnInit {
     this.bugService.addBug(this.bug).subscribe((value) =>{
       for (let i = 0; i < this.attachment.length; i++){
         this.attachment[i].bugDTO = this.bug;
-        this.bugService.addAttachment(this.attachment[i]);
+        this.bugService.sendFile(this.attachment[i].blob,this.attachment[i]);
       }
       this.attachment =[];
       this.chosenFiles=[];
