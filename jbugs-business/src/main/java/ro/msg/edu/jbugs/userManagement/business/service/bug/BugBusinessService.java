@@ -126,21 +126,9 @@ public class BugBusinessService implements IBugBusinessService {
 
 
     private boolean isBetweenDates(String date, String start, String end){
-        Date filterDate = fromStringToDateYearLast(date);
+        Date filterDate = bugDTOHelper.fromStringToDateYearLast(date);
         return filterDate.after(bugDTOHelper.fromStringToDate(start)) &&
                 filterDate.before(bugDTOHelper.fromStringToDate(end));
-    }
-
-    private Date fromStringToDateYearLast(String stringToBeParsed){
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = null;
-        try {
-            date = formatter.parse(stringToBeParsed);
-            return date;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 
     @Override

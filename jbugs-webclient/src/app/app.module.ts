@@ -78,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecaptchaFormsModule,
     RecaptchaModule.forRoot()
   ],
-  providers: [AuthGuard, BugDataService, BugSortService {
+  providers: [AuthGuard, BugDataService, BugSortService, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],
