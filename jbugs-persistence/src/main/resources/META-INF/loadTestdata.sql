@@ -1,8 +1,8 @@
 -- User test data
-INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dorel1', '1', '07414141', 'dorel1@a.com','doreld', 'ëØ[SŽL›@@í+<nS·', 1);
-INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dore2', '1', '07414141', 'dorel2@a.com','doreld1', 'ëØ[SŽL›@@í+<nS·', 1 );
-INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dore3', '1', '07414141', 'dore3@a.com','ddorel', 'ëØ[SŽL›@@í+<nS·', 1);
-
+INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dorel1', '1', '07414141', 'dorel1@msggroup.com','doreld', 'ëØ[SŽL›@@í+<nS·', 1);
+INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dore2', '1', '07414141', 'dorel2@msggroup.com','doreld1', 'ëØ[SŽL›@@í+<nS·', 1 );
+INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dore3', '1', '07414141', 'dore3@msggroup.com','ddorel', 'ëØ[SŽL›@@í+<nS·', 0);
+INSERT INTO USERS (firstname, lastname, phoneNumber, email, username, password, isActive) VALUES ('Dorel1', '4', '0741423141', 'dored3@msggroup.com','doreld2', 'ëØ[SŽL›@@í+<nS·', 1);
 
 INSERT INTO ROLES (type) VALUES ('ADMINISTRATOR');
 INSERT INTO ROLES (type) VALUES ('PROJECT_MANAGER');
