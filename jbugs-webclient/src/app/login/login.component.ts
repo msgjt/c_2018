@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
           if (response) {
             this.login(response, this.userModel.username);
-            this.router.navigate(["permission"]);
+            this.router.navigate(["home"]);
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;

@@ -28,6 +28,7 @@ import { ErrorComponent } from './error/error.component';
 import {PermissionManagementGuard} from "./guards/permission-management.guard";
 import {BugManagementGuard} from "./guards/bug-management.guard";
 import {UserManagementGuard} from "./guards/user-management.guard";
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   {path: 'user/update', component: UpdateUserComponent,canActivate: [UserManagementGuard]},
   {path: 'create-user', component: CreateUserComponent,canActivate: [UserManagementGuard]},
   {path: 'error', component: ErrorComponent},
+  {path: 'home', component: HomeComponent},
   {path: '**', component: ErrorComponent}
 
 ]
@@ -63,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateUserComponent,
     UpdateUserComponent,
     UpdateBugComponent,
-    ErrorComponent
+    ErrorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
