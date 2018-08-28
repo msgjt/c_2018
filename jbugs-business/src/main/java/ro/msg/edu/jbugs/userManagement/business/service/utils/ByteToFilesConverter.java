@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 public class ByteToFilesConverter {
 
     public BufferedImage getImagefromBytes(byte[] bytes){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa Converter lungime sir: " + bytes.length);
         BufferedImage img = null;
         try {
             img = ImageIO.read(new ByteArrayInputStream(bytes));

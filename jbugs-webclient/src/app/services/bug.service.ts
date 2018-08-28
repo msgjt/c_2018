@@ -133,12 +133,13 @@ export class BugService {
     location.reload();
   }
 
-  sendFile(file:File,attachment:Attachment){
-    const formData = new FormData();
-    formData.append('file', file,"ham");
-    let body = {formData};
-    console.log('Send file:' + body);
-    this.http.post(this.attachementURL + '/file',formData).subscribe((value)=>{
+  sendFile(file:Uint8Array,attachment:Attachment){
+    // const formData = new FormData();
+    // formData.append('file', file,"ham");
+    // let body = {formData};
+    // console.log('Send file:' + body);
+
+    this.http.post(this.attachementURL + '/file',file).subscribe((value)=>{
       this.addAttachment(attachment);
     });
   }

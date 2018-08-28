@@ -65,9 +65,13 @@ export class AddBugComponentComponent implements OnInit {
         this.chosenFiles[i] = file.name;
         this.attachment[i] = {
           bugDTO: this.bug,
-          blob: file,
+          blob: new Uint8Array,
           extension:file.name.substring(file.name.length - 3).toUpperCase()
         }
+        reader.onload = (e) =>{
+          this.attachment[i].blob = reader.result;
+        }
+        reader.readAsArrayBuffer(file);
       }
     }
 

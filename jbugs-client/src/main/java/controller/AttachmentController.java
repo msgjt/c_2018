@@ -24,15 +24,14 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAttachments() {
         List<AttachmentDTO> attachmentDTOS = bugBusinessService.getAllAttachments();
-        ByteToFilesConverter byteToFilesConverter = new ByteToFilesConverter();
-
-        AttachmentDTO attachmentDTO = attachmentDTOS.get(attachmentDTOS.size() - 1);
-        if (attachmentDTO.getExtension().equals(ExtensionEnum.JPG)) {
-            byteToFilesConverter.getImagefromBytes(attachmentDTO.getBlob());
-        }
-        if (attachmentDTO.getExtension().equals(ExtensionEnum.DOC)) {
-            byteToFilesConverter.getDocfromBytes(attachmentDTO.getBlob());
-        }
+//        ByteToFilesConverter byteToFilesConverter = new ByteToFilesConverter();
+//        AttachmentDTO attachmentDTO = attachmentDTOS.get(attachmentDTOS.size() - 1);
+//        if (attachmentDTO.getExtension().equals(ExtensionEnum.JPG)) {
+//            byteToFilesConverter.getImagefromBytes(attachmentDTO.getBlob());
+//        }
+//        if (attachmentDTO.getExtension().equals(ExtensionEnum.DOC)) {
+//            byteToFilesConverter.getDocfromBytes(attachmentDTO.getBlob());
+//        }
 
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTOS))
@@ -55,8 +54,6 @@ public class AttachmentController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response getFile(byte[] file) {
         this.fileBytes = file;
-        ByteToFilesConverter byteToFilesConverter = new ByteToFilesConverter();
-        byteToFilesConverter.getImagefromBytes(this.fileBytes);
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson("received"))
                 .build();
