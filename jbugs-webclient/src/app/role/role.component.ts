@@ -3,7 +3,6 @@ import {RoleService} from "../services/role.service";
 import {PermissionService} from "../services/permission.service";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 
 @Component({
@@ -18,7 +17,7 @@ export class RoleComponent implements OnInit {
   dropdownSettings = {};
   roleComplete: boolean;
   permissionComplete: boolean;
-  checkSelect:boolean[];
+  checkSelect: boolean[];
 
   constructor(private roleService: RoleService, private permissionService: PermissionService) {
     this.dropdownSettings = {
@@ -32,20 +31,26 @@ export class RoleComponent implements OnInit {
     };
     this.roleComplete = false;
     this.permissionComplete = false;
-    this.checkSelect=[];
+    this.checkSelect = [];
 
 
   }
 
   updatePermissions(role: Role) {
-    if(this.verifySelectMenu(role)) {
-      this.selectedItems.forEach((value, index) => {
-        value.forEach(value1 => console.log(value1));
-      });
-      this.checkSelect[role.id]=false;
+    if (this.verifySelectMenu(role)) {
+      role.permissions = this.selectedItems[role.id];
+      this.roleService.updateRole(role).subscribe((response: Role) => {
+          this.checkSelect[response.id] = false;
+        },
+        () => {
+          console.log('eroare update role')
+        },
+        () => {
+          this.roleComplete = true;
+        });
     }
-    else{
-      this.checkSelect[role.id]=true;
+    else {
+      this.checkSelect[role.id] = true;
     }
   }
 
@@ -56,7 +61,7 @@ export class RoleComponent implements OnInit {
         response.forEach((value) => {
           this.roles.push(value);
           this.selectedItems[value.id] = value.permissions;
-          this.checkSelect[value.id]=false;
+          this.checkSelect[value.id] = false;
         })
 
       },
@@ -81,7 +86,7 @@ export class RoleComponent implements OnInit {
       });
   }
 
-  verifySelectMenu(role:Role): boolean {
+  verifySelectMenu(role: Role): boolean {
     return this.selectedItems[role.id].length > 0;
   }
 

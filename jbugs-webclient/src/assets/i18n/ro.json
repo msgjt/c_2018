@@ -20,7 +20,7 @@
     "username": "Nume utilizator",
     "password": "Parola",
     "message": "Autentificare esuata. Vă rugăm să încercați din nou.",
-    "button": "login"
+    "button": "Login"
 },
   "permission": {
   "col-id": "Id",

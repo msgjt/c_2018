@@ -2,13 +2,12 @@ package controller;
 
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IRoleBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.exceptions.PersistenceException;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -30,7 +29,12 @@ public class RoleController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPermissionsForRole(@PathParam("idRole") long id) {
-        RoleDTO roleDTO = roleBusinessService.getRoleById(id);
+        RoleDTO roleDTO = null;
+        try {
+            roleDTO = roleBusinessService.getRoleById(id);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(roleDTO))
                 .build();
@@ -49,31 +53,23 @@ public class RoleController {
     public Response getMethodRemovePermissionForRole(@PathParam("idRole") long id) {
         return this.getPermissionsForRole(id);
     }
-    /*
-    @Path("/remove/{idRole}")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response removePermissionForRole(@PathParam("idRole") long id, IdGenerator idGenerator) {
-        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
-        PermissionDTO permission = IPermissionBusinessService.getPermissionById(idGenerator.getId());
-        IPermissionBusinessService.removePermissionForRole(roleDTO, permission);
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(IPermissionBusinessService.getRoleById(id)))
-                .build();
-    }
 
-    @Path("/add/{idRole}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPermissionForRole(@PathParam("idRole") long id, IdGenerator idGenerator) {
-        RoleDTO roleDTO = IPermissionBusinessService.getRoleById(id);
-        PermissionDTO permission = IPermissionBusinessService.getPermissionById(idGenerator.getId());
-        IPermissionBusinessService.addPermissionForRole(roleDTO, permission);
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(IPermissionBusinessService.getRoleById(id)))
-                .build();
+    public Response updateRole(RoleDTO roleDTO) {
+        Response updateResponse;
+        try {
+            RoleDTO roleUpdated = roleBusinessService.updateRole(roleDTO);
+            updateResponse = Response
+                    .status(Response.Status.OK)
+                    .entity(new Gson().toJson(roleUpdated))
+                    .build();
+            return updateResponse;
+        } catch (BusinessException | PersistenceException e) {
+            updateResponse = Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .build();
+            return updateResponse;
+        }
     }
-    */
 }

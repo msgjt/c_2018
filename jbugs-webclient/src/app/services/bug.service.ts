@@ -4,6 +4,7 @@ import {Bug, BugClass} from "../types/bugs";
 import {Attachment} from "../types/attachment";
 import {Comment} from "../types/comments";
 import {Observable} from "rxjs/internal/Observable";
+import {BugFilter, IBugFilter} from "../types/bug-filter";
 import {Body} from "@angular/http/src/body";
 
 
@@ -141,6 +142,13 @@ export class BugService {
 
     this.http.post(this.attachementURL + '/file',file).subscribe((value)=>{
       this.addAttachment(attachment);
+    });
+  }
+
+
+  filterBugs(filters: BugFilter[]):Observable<any>{
+    return this.http.post(this.baseURL + '/filter', JSON.stringify(filters),{
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     });
   }
 
