@@ -46,7 +46,7 @@ public class BugDTOHelper {
         return bug;
     }
 
-    private Date fromStringToDate(String stringToBeParsed){
+    public Date fromStringToDate(String stringToBeParsed){
         stringToBeParsed = stringToBeParsed + " 20:00:00";
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
