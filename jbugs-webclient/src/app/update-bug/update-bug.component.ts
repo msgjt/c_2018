@@ -41,7 +41,8 @@ export class UpdateBugComponent implements OnInit {
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: null,
-      extension:''
+      extension:'',
+      name:''
     }
   }
 

@@ -23,6 +23,7 @@ public class AttachmentDTOHelper {
         attachmentDTO.setIdAttachment(attachment.getIdAttachment());
         attachmentDTO.setBugDTO(bugDTOHelper.fromEntity(attachment.getBug()));
         attachmentDTO.setBlob(attachment.getFile());
+        attachmentDTO.setName(attachment.getFileName());
         attachmentDTO.setExtension(attachment.getExtension());
         return attachmentDTO;
     }
@@ -32,6 +33,7 @@ public class AttachmentDTOHelper {
         attachment.setIdAttachment(attachmentDTO.getIdAttachment());
         attachment.setBug(bugDTOHelper.toEntity(attachmentDTO.getBugDTO()));
         attachment.setFile(attachmentDTO.getBlob());
+        attachment.setFileName(attachmentDTO.getName());
         attachment.setExtension(attachmentDTO.getExtension());
         return attachment;
     }
