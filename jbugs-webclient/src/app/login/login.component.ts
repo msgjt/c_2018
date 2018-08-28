@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
    * @param token represents Authetification token return from the server
    */
   login(token: string, username: string) {
+    this.userService.tokenHeader=token;
     this.loginService.login(token, username);
     this.loggedIn = true;
     this.filterService.setLoggedIn(true);
@@ -68,6 +69,8 @@ export class LoginComponent implements OnInit {
       if (response) {
         this.loginService.setPermissions(this.getPermissionsForUser(response.roles));
       }
+      else
+        console.log("getUser");
     });
   }
 
