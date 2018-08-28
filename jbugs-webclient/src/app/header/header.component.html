@@ -1,29 +1,35 @@
 <nav class="navbar navbar-dark bg-dark mb-5">
-  <a id="sidebar-toggle-button" class="navbar-brand" [routerLink] = "" (click)="toggleSidebar()">{{'header.nav-title' | translate}}</a>
+  <a id="sidebar-toggle-button" class="navbar-brand" [routerLink]="" (click)="toggleSidebar()">{{'header.nav-title' |
+    translate}}</a>
   <div class="navbar-expand mr-auto">
-    <div class="navbar-nav">
+    <ul class="navbar-nav">
       <a class="nav-item nav-link" href="/home">{{'header.nav-item1' | translate}}</a>
       <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" href="#">{{'header.nav-item2' | translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'|
         translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'|
         translate}}</a>
-      <div *ngIf="isUserLoggedIn() && isUserManagement()" class="dropdown">
-        <a class="nav-item nav-link">{{'header.nav-item5' | translate}}</a>
-        <div class="dropdown-content">
-          <a routerLink="/user/add">{{'header.dropdown1-item1' | translate}}</a>
-          <a routerLink="/user/update">{{'header.dropdown1-item2' | translate}}</a>
+      <li *ngIf="isUserLoggedIn() && isUserManagement()" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLinkUser" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+          {{'header.nav-item5' | translate}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/user/add">{{'header.dropdown1-item1' | translate}}</a>
+          <a class="dropdown-item" routerLink="/user/update">{{'header.dropdown1-item2' | translate}}</a>
         </div>
-      </div>
-      <div *ngIf="isBugManagement()" class="dropdown">
-        <a class="nav-item nav-link">{{'header.nav-item6' | translate}}</a>
-        <div class="dropdown-content">
-          <a routerLink="/bug/add">{{'header.dropdown2-item2' | translate}}</a>
-          <a routerLink="/bug/update">{{'header.dropdown2-item3' | translate}}</a>
+      </li>
+      <li *ngIf="isBugManagement()" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLinkBug" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+          {{'header.nav-item6' | translate}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/bug/add">{{'header.dropdown2-item2' | translate}}</a>
+          <a class="dropdown-item" routerLink="/bug/update">{{'header.dropdown2-item3' | translate}}</a>
         </div>
-      </div>
-
-    </div>
+      </li>
+    </ul>
   </div>
   <div class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
