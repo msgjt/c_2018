@@ -26,25 +26,29 @@ import {RecaptchaFormsModule} from "ng-recaptcha/forms";
 import {BugSortService} from "./services/bug-sort.service";
 import {ErrorComponent} from "./error/error.component";
 import {HomeComponent} from "./home/home.component";
-import {AuthenticateGuard} from "./guards/authenticate.guard";
 
 import {PermissionManagementGuard} from "./guards/permission-management.guard";
 import {BugManagementGuard} from "./guards/bug-management.guard";
 import {UserManagementGuard} from "./guards/user-management.guard";
+import {AdressedUserGuard} from "./guards/adressed-user.guard";
+import {NotificationDetailComponent} from "./notification-popup/notification-detail/notification-detail.component";
+import {NotificationPopupComponent} from "./notification-popup/notification-popup.component";
 
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component: PermissionComponent, canActivate: [PermissionManagementGuard]},
   {path: 'role', component: RoleComponent, canActivate: [PermissionManagementGuard]},
-  {path: 'bugDTO', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
-  {path: 'bug/add', component: AddBugComponentComponent,canActivate: [BugManagementGuard]},
-  {path: 'bug/update', component: UpdateBugComponent,canActivate: [BugManagementGuard]},
+  {path: 'bugDTO', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/add', component: AddBugComponentComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/update', component: UpdateBugComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/details', component: BugDetailsComponent, canActivate: [BugManagementGuard]},
-  {path: 'bug', component: ViewBugsComponent,canActivate: [BugManagementGuard]},
-  {path: 'user/add', component: CreateUserComponent,canActivate: [UserManagementGuard]},
-  {path: 'user/update', component: UpdateUserComponent,canActivate: [UserManagementGuard]},
-  {path: 'create-user', component: CreateUserComponent,canActivate: [UserManagementGuard]},
+  {path: 'bug', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
+  {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
+  {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
+  {path: 'create-user', component: CreateUserComponent, canActivate: [UserManagementGuard]},
+  {path: 'notification', component: NotificationDetailComponent, canActivate: [AdressedUserGuard]},
+  {path: '',component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
   {path: 'error', component: ErrorComponent},
   {path: 'home', component: HomeComponent},
   {path: '**', component: ErrorComponent}
@@ -70,7 +74,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdateUserComponent,
     UpdateBugComponent,
     ErrorComponent,
-    HomeComponent
+    HomeComponent,
+    NotificationDetailComponent,
+    NotificationPopupComponent
   ],
   imports: [
     BrowserModule,

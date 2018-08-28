@@ -1,5 +1,4 @@
 import {User} from "./user";
-import {Attachment} from "./attachment";
 
 export interface Bug {
   idBug: number;

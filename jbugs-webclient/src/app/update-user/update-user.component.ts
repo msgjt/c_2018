@@ -3,7 +3,6 @@ import {User} from "../types/user";
 import {Role} from "../types/roles";
 import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
-import {Permission} from "../types/permissions";
 
 @Component({
   selector: 'app-update-user',
@@ -85,7 +84,7 @@ export class UpdateUserComponent implements OnInit {
 
     this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
       this.user = user;
-      this.selectedItems=this.user.roles;
+      this.selectedItems = this.user.roles;
     }, (e) => {
       console.log('aparent am si o eroare');
     }, () => {
@@ -97,7 +96,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   updateUser() {
-    this.selectedItem[0]= this.user;
+    this.selectedItem[0] = this.user;
     this.userService.updateUser(this.selectedItem[0]);
   }
 

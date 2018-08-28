@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../services/login.service';
-import {LoginComponent} from '../login/login.component';
 import {FilterService} from '../services/filter.service';
 import {TranslateService} from "@ngx-translate/core";
 
@@ -10,9 +9,10 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  toggle: boolean;
 
-
-  constructor(private loginService: LoginService, private  translate: TranslateService,private filterService: FilterService) {
+  constructor(private loginService: LoginService, private  translate: TranslateService, private filterService: FilterService) {
+    this.toggle = false;
     this.translate.setDefaultLang('en');
   }
 
@@ -33,33 +33,35 @@ export class HeaderComponent implements OnInit {
     this.loginService.logout();
   }
 
-  isPermissionManagement():boolean{
+  isPermissionManagement(): boolean {
     return this.filterService.isPermissionManagement();
   }
 
-  isUserManagement():boolean{
+  isUserManagement(): boolean {
     return this.filterService.isUserManagement()
   }
 
-  isBugManagement():boolean{
+  isBugManagement(): boolean {
     return this.filterService.isBugManagement();
   }
 
-  isBugClose():boolean {
+  isBugClose(): boolean {
     return this.filterService.isBugClose();
   }
 
-  isBugExportPdf():boolean{
+  isBugExportPdf(): boolean {
     return this.filterService.isBugExportPdf();
   }
 
-  isAdressedUser():boolean{
+  isAdressedUser(): boolean {
     return this.filterService.isAdressedUser();
   }
 
-  isReportManagement():boolean{
+  isReportManagement(): boolean {
     return this.filterService.isReportManagement();
   }
 
-
+  toggleSidebar() {
+    this.toggle = !this.toggle;
+  }
 }

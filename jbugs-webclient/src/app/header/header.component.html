@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="/">{{'header.nav-title' | translate}}</a>
+  <a id="sidebar-toggle-button" class="navbar-brand" [routerLink] = "" (click)="toggleSidebar()">{{'header.nav-title' | translate}}</a>
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="/home">{{'header.nav-item1' | translate}}</a>
@@ -36,3 +36,4 @@
     </div>
   </div>
 </nav>
+<app-notification [(toggle)]="toggle"></app-notification>
