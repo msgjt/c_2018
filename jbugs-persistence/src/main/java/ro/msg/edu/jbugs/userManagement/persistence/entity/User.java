@@ -34,10 +34,10 @@ public class User {
     @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String phoneNumber;
 
-    @Column(length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false, unique = true)
     private String email;
 
-    @Column(length = MAX_STRING_LENGTH, nullable = false)
+    @Column(length = MAX_STRING_LENGTH, nullable = false, unique = true)
     private String username;
 
     @Column(length = MAX_STRING_LENGTH)
@@ -108,11 +108,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean getActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 

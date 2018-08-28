@@ -21,6 +21,7 @@
           <element id="archive" name="jbugs-persistence-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="jbugs-persistence" />
           </element>
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.7" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.7" />
           <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-jackson:0.10.2" />

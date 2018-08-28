@@ -6,7 +6,6 @@ import {FormsModule} from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
 import {RecaptchaFormsModule} from "ng-recaptcha/forms";
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
-import {AuthGuard} from "../auth/auth.guard";
 import {BugDataService} from "../services/bugData.service";
 
 const loginRoutes: Routes = [

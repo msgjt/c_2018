@@ -3,3 +3,8 @@
   font-size: smaller;
   text-align: left;
 }
+.status{
+  color: gray;
+  width: 25%;
+  text-align: center;
+}
