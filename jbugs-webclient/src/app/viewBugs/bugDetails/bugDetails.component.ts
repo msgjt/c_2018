@@ -106,6 +106,6 @@ export class BugDetailsComponent implements OnInit{
   }
 
   export(){
-    this.bugPdfService.export(this.bug,this.bugService.getComments(this.bug.idBug));
+    this.bugPdfService.export(this.bug,this.comments,this.attachmentsForABug);
   }
 }
