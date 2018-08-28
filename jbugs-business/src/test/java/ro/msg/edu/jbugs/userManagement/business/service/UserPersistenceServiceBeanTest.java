@@ -30,7 +30,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserPersistenceManagerBeanTest {
+public class UserPersistenceServiceBeanTest {
 
     @InjectMocks
     private UserBusinessService userBusinessService;

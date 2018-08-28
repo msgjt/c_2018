@@ -32,8 +32,8 @@
             <input #mobileNumberElement #mobileNumberControl="ngModel" required="true" [(ngModel)]="user.phoneNumber"
                    id="mobileNumber" name="mobileNumber" type="text"
                    class="form-control" minlength="10"
-                   pattern="^[+0-9]*$"
-                   maxlength="15"/>
+                   pattern="(((^\+40|^0|^\(\+40\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\+490|^0|^\(\+490\)|^00490)1[0-9]{3,8}$)"
+                   />
             <p>
               <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched " class="help-block text-danger">
                 Phone number must be a valid phone number

@@ -70,10 +70,19 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(UserDTO userDTO) {
-        return Response
-                .status(Response.Status.OK)
-                .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
-                .build();
+        Response response;
+        try {
+            response = Response
+                        .status(Response.Status.OK)
+                        .entity(userBusinessService.updateUser(userDTO))
+                        .build();
+        } catch (BusinessException e) {
+            response = Response.
+                        status(Response.Status.OK)
+                        .entity(e.getExceptionCode())
+                        .build();
+        }
+        return response;
     }
 
     @Path("/add")

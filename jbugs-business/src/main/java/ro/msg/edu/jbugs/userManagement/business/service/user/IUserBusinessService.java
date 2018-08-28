@@ -13,7 +13,7 @@ public interface IUserBusinessService {
 
     void activateUser(String username);
 
-    UserDTO updateUser(UserDTO userDTO);
+    UserDTO updateUser(UserDTO userDTO) throws BusinessException;
 
     List<UserDTO> getAllUsers();
 
