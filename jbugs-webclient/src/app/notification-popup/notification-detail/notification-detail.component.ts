@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Notification} from "../../types/notification";
+import {NotificationDataService} from "../../services/notification-data.service";
 
 @Component({
   selector: 'app-notification-detail',
@@ -256,7 +257,7 @@ export class NotificationDetailComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(public notificationData: NotificationDataService) { }
 
   ngOnInit() {
   }

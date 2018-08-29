@@ -35,6 +35,7 @@ import {NotificationDetailComponent} from "./notification-popup/notification-det
 import {NotificationPopupComponent} from "./notification-popup/notification-popup.component";
 import { ContactComponent } from './contact/contact.component';
 import {FilterDataService} from "./services/filter-data.service";
+import {NotificationDataService} from "./services/notification-data.service";
 
 
 const appRoutes: Routes = [
@@ -101,7 +102,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecaptchaFormsModule,
     RecaptchaModule.forRoot()
   ],
-  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, {
+  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, NotificationDataService, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],

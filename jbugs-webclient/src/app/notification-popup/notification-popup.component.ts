@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Notification} from "../types/notification";
+import {NotificationService} from "../services/notification.service";
+import {NotificationDataService} from "../services/notification-data.service";
 
 @Component({
   selector: 'app-notification',
@@ -8,7 +10,8 @@ import {Notification} from "../types/notification";
 })
 export class NotificationPopupComponent implements OnInit {
   @Input() toggle: boolean;
-  notificationList: Notification[] = [
+  notificationList: Notification[] = [];
+    /*[
     {
       type:'test',
       message: 'asdfdkhasdfhkgsadfkuffyuadsfkyug',
@@ -255,8 +258,8 @@ export class NotificationPopupComponent implements OnInit {
       date: new Date()
     }
   ];
-
-  constructor() {
+*/
+  constructor(private notificationService: NotificationService, public notificationData: NotificationDataService) {
     this.toggle = false;
    // this.initClickEvent();
   }
@@ -273,6 +276,8 @@ export class NotificationPopupComponent implements OnInit {
 */
 
   ngOnInit() {
+    let username = localStorage.getItem('currentUser');
+    this.notificationData.notifications = Array.from(this.notificationService.getAllNotifications(username));
   }
 
   loseFocus(){
