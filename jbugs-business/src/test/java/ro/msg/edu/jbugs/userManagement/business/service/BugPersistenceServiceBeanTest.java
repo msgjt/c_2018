@@ -13,6 +13,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
@@ -103,7 +104,12 @@ public class BugPersistenceServiceBeanTest {
                 .thenReturn(Optional.of(bug));
         when(bugDTOHelper.fromEntity(bug))
                 .thenReturn(bugDTO);
-        BugDTO updatedBug = bugBusinessService.updateBug(bugDTO);
+        BugDTO updatedBug = null;
+        try {
+            updatedBug = bugBusinessService.updateBug(bugDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         assertEquals(bugDTO.getTitle(),updatedBug.getTitle());
 
     }
@@ -141,7 +147,12 @@ public class BugPersistenceServiceBeanTest {
                 .thenReturn(Optional.of(bug));
         when(bugDTOHelper.fromEntity(bug))
                 .thenReturn(bugDTO);
-        BugDTO addedBug = bugBusinessService.addBug(bugDTO);
+        BugDTO addedBug = null;
+        try {
+            addedBug = bugBusinessService.addBug(bugDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         assertEquals(bugDTO.getTitle(),addedBug.getTitle());
 
     }
@@ -157,7 +168,11 @@ public class BugPersistenceServiceBeanTest {
                 .thenReturn(Optional.of(attachment));
         when(attachmentDTOHelper.fromEntity(attachment))
                 .thenReturn(attachmentDTO);
-        assertEquals(attachmentDTO.getIdAttachment(),bugBusinessService.addAttachment(attachmentDTO).getIdAttachment());
+        try {
+            assertEquals(attachmentDTO.getIdAttachment(),bugBusinessService.addAttachment(attachmentDTO).getIdAttachment());
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -171,7 +186,11 @@ public class BugPersistenceServiceBeanTest {
                 .thenReturn(Optional.of(attachment));
         when(attachmentDTOHelper.fromEntity(attachment))
                 .thenReturn(attachmentDTO);
-        assertEquals(attachmentDTO.getIdAttachment(),bugBusinessService.deleteAttachment(attachmentDTO).getIdAttachment());
+        try {
+            assertEquals(attachmentDTO.getIdAttachment(),bugBusinessService.deleteAttachment(attachmentDTO).getIdAttachment());
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
