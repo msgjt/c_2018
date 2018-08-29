@@ -33,6 +33,7 @@ import {UserManagementGuard} from "./guards/user-management.guard";
 import {AdressedUserGuard} from "./guards/adressed-user.guard";
 import {NotificationDetailComponent} from "./notification-popup/notification-detail/notification-detail.component";
 import {NotificationPopupComponent} from "./notification-popup/notification-popup.component";
+import { ContactComponent } from './contact/contact.component';
 
 
 const appRoutes: Routes = [
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
   {path: '',component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
   {path: 'error', component: ErrorComponent},
   {path: 'home', component: HomeComponent},
+  {path: 'contact', component: ContactComponent},
   {path: '**', component: ErrorComponent}
 
 ]
@@ -76,7 +78,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ErrorComponent,
     HomeComponent,
     NotificationDetailComponent,
-    NotificationPopupComponent
+    NotificationPopupComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
