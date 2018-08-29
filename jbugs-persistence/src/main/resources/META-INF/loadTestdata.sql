@@ -105,5 +105,21 @@ INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/U
 INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- ToDo decomment attachments 
+
+
+
+
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+
 -- other tables TODO

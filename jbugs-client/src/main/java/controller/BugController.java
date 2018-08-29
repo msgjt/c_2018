@@ -2,12 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.*;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
@@ -108,4 +105,26 @@ public class BugController {
                 .entity(new Gson().toJson(commentAdded))
                 .build();
     }
+
+    @Path("/history/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addHistory(HistoryDTO historyDTO){
+        HistoryDTO addedHistory = bugBusinessService.addHistory(historyDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(addedHistory))
+                .build();
+    }
+
+    @Path("/history")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHistory(){
+        List<HistoryDTO> historyDTOS = bugBusinessService.getAllHistory();
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(historyDTOS))
+                .build();
+    }
+
 }
