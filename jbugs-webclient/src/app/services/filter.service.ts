@@ -20,31 +20,45 @@ export class FilterService {
     this.loggedIn = value;
   }
 
-  isPermissionManagement():boolean{
+  isPermissionManagement(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("PERMISSION_MANAGEMENT");
   }
 
-  isUserManagement():boolean{
+  isUserManagement(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("USER_MANAGEMENT");
   }
 
-  isBugManagement():boolean{
+  isBugManagement(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("BUG_MANAGEMENT");
   }
 
-  isBugClose():boolean{
+  isBugClose(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("BUG_CLOSE");
   }
 
-  isBugExportPdf():boolean{
+  isBugExportPdf(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("BUG_EXPORT_PDF");
   }
 
-  isAdressedUser():boolean{
+  isAdressedUser(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("ADRESSED_USER");
   }
 
-  isReportManagement():boolean{
+  isReportManagement(): boolean {
+    this.setPermission();
     return localStorage.getItem("permissions").includes("REPORT_MANAGEMENT");
   }
+
+  setPermission() {
+    if (localStorage.getItem("permissions") === null) {
+      localStorage.setItem("permissions", "");
+    }
+  }
+
 }

@@ -9,7 +9,7 @@ import {Observable} from "rxjs/internal/Observable";
 export class UserService {
 
   baseURL = 'http://localhost:8080/jbugs/rest';
-  tokenHeader = localStorage.getItem("userToken");
+  tokenHeader:string = localStorage.getItem("userToken");
   constructor(private http: HttpClient) {
   }
 

@@ -3,6 +3,7 @@ import {Bug} from "./bugs";
 
 export interface Attachment{
   bugDTO: Bug;
-  blob: File;
+  blob: Uint8Array;
   extension: string;
+  name:string;
 }

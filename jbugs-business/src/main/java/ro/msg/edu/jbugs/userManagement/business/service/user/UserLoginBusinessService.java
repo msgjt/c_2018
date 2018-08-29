@@ -25,6 +25,9 @@ public class UserLoginBusinessService {
 
     public String login(UserLoginDTO loginDTO) throws BusinessException {
         UserDTO userDTO = userBusinessService.getUserByUsername(loginDTO.getUsername());
+        if(!userDTO.getIsActive()){
+            throw new BusinessException(ExceptionCode.USER_INACTIVATED);
+        }
         addUserLoginRequest(loginDTO.getUsername());
         validatePassword(loginDTO, userDTO);
         userOverflow.remove(loginDTO.getUsername());
@@ -50,9 +53,10 @@ public class UserLoginBusinessService {
     public void removeUserFromOverflow(String userName) {
         userOverflow.remove(userName);
     }
-    //ToDo: persist user deactivation
+
     private void validateUserActive(String userName) throws BusinessException {
         if(userOverflow.get(userName) != null && userOverflow.get(userName) > 5) {
+            userBusinessService.deactivateUser(userName);
             throw new BusinessException(ExceptionCode.INVALID_USER_LOGIN);
         }
     }

@@ -57,7 +57,7 @@ export class CreateUserComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
-      maxHeight: 130,
+      maxHeight: 110,
     };
   }
 
