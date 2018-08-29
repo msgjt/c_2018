@@ -41,7 +41,7 @@
 
     <div class="col-sm col-md-3">
       <label for="filterAssignedTo">Assigned to</label>
-      <select name="filterAssignedTo" id="filterAssignedTo" [ngModel]="this.chosenFilter.assignedTo" class="form-control size">
+      <select name="filterAssignedTo" id="filterAssignedTo" [(ngModel)]="this.chosenFilter.assignedTo" class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
       </select>
@@ -49,7 +49,7 @@
 
     <div class="col-sm col-md-3">
       <label for="filterCreatedBy">Created by</label>
-      <select name="filterCreatedBy" id="filtercreatedBy" [ngModel]="this.chosenFilter.createdByUser"
+      <select name="filterCreatedBy" id="filterCreatedBy" [(ngModel)]="this.chosenFilter.createdByUser"
               class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
@@ -103,22 +103,22 @@
 
     <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }"  class="fixedColumns">
     <tr>
-      <td class="left">
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
-        <div *ngIf="!this.editableFunction(bug)">
-          {{bug.title}}
+      <td >
+        <input class="form-control" *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
+        <div class="description-hide left" *ngIf="!this.editableFunction(bug)">
+          {{(bug.title.length>16)? (bug.title | slice:0:16)+'..':(bug.title)}}
         </div>
       </td>
       <td>
         <div class="fixedColumns">
-        <input  *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        <input class="form-control" *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
         </div>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.version}}
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)"  class="fixedColumns" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
+        <input *ngIf="this.editableFunction(bug)"  class="form-control" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.fixedVersion}}
         </div>
@@ -160,12 +160,14 @@
       <td>
         {{bug.createdByUser.username}}
       </td>
-      <td class="description-hide left" >
-        {{bug.description}}
+      <td >
+        <div class="header-description left" >
+          {{(bug.description.length>50)? (bug.description | slice:0:50)+'..':(bug.description)}}
+        </div>
       </td>
 
       <td>
-        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
+        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-refresh"></i></button>
       </td>
       <td>
         <button class="btn" routerLink="/bug/details" (click) = 'setSelectedBug(bug)'><i class="fa fa-info"></i></button>

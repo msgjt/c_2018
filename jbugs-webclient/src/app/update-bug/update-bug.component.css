@@ -3,15 +3,10 @@ table {
   width: 100%;
 }
 
-.description-hide{
-  text-overflow: ellipsis;
-  max-width: 100px;
-  overflow: hidden;
+.header-description{
+  width: 200px;
 }
 
-.header-description{
-  width: 100px;
-}
 tr {
   border-bottom: 1px solid #ccc;
   height: 50px;
@@ -29,6 +24,7 @@ input{
 }
 th {
   text-align: center;
+  height: 20px;
 }
 td{
   width: 120px;
