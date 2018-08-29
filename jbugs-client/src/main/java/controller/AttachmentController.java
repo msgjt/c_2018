@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 
 import javax.ejb.EJB;
@@ -42,8 +43,13 @@ public class AttachmentController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addAttachment(AttachmentDTO attachmentDTO) {
         attachmentDTO.setBlob(this.fileBytes);
+        try {
+            bugBusinessService.addAttachment(attachmentDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.addAttachment(attachmentDTO)))
+                .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
 
@@ -74,8 +80,13 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteAttachment(AttachmentDTO attachmentDTO) {
+        try {
+             bugBusinessService.addAttachment(attachmentDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.deleteAttachment(attachmentDTO)))
+                .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
 }
