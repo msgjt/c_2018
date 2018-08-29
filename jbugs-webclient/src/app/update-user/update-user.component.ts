@@ -56,7 +56,7 @@ export class UpdateUserComponent implements OnInit {
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownRoleList.push(value))
     }, () => {
-      console.log('errors')
+      console.log('role errors')
     }, () => {
       this.showRoles = true;
     });
@@ -64,7 +64,7 @@ export class UpdateUserComponent implements OnInit {
     this.userService.getUsers().subscribe((response: User[]) => {
       response.forEach(value => this.dropdownUserList.push(value))
     }, () => {
-      console.log('errors')
+      console.log('user errors')
     }, () => {
       this.showUsers = true;
     });
@@ -104,10 +104,6 @@ export class UpdateUserComponent implements OnInit {
 
   clickUpdate() {
 
-    console.log("aici1:");
-    console.log(this.selectedItem[0]);
-
-
     this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
       this.user = user;
       if (this.user.isActive == true) {
@@ -143,6 +139,10 @@ export class UpdateUserComponent implements OnInit {
         this.selectedItem[0].isActive=!this.selectedItem[0].isActive;
       }
       this.userService.updateUser(this.selectedItem[0]);
+      this.selectedItems = [];
+      this.selectedItem = [];
+      window.location.reload();
+
     }
     else {
       this.checkSelect = true;
