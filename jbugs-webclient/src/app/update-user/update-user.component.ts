@@ -115,7 +115,6 @@ export class UpdateUserComponent implements OnInit {
       this.user = user;
       this.selectedItems = this.user.roles;
 
-
     }, (e) => {
       console.log('aparent am si o eroare');
     }, () => {

@@ -5,22 +5,22 @@
     "nav-item2": "Contact",
     "nav-item3": "Drepturi",
     "nav-item4": "Roluri",
-    "nav-item5": "User",
+    "nav-item5": "Utilizator",
     "dropdown1-item1": "Adauga",
     "dropdown1-item2": "Modifica",
-    "nav-item6": "Bugs",
+    "nav-item6": "Defecte",
     "dropdown2-item1": "Vizualizare",
     "dropdown2-item2": "Adauga",
     "dropdown2-item3": "Modifica",
     "btn-login": "Conecteaza-te",
-    "btn-logout": "Deconectare"
+    "btn-logout": "Deconecteaza-te"
 },
   "login": {
   "title": "Login",
     "username": "Nume utilizator",
     "password": "Parola",
-    "message": "Autentificare esuata. Vă rugăm să încercați din nou.",
-    "button": "login"
+    "message": "Autentificare esuata. Va rugam sa incercați din nou.",
+    "button": "Login"
 },
   "permission": {
   "col-id": "Id",
@@ -49,21 +49,50 @@
     "table-col4": "Severitate"
   },
   "create-user":{
+    "title":"Adaugare utilizator",
     "first-name":"Prenume",
+    "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
+    "last-name-message":"Numele de familie este obligatoriu",
     "mobile-number": "Numar de telefon",
+    "mobile-number-message":"Numarul de telefon trebuie sa fie un numar de telefon valid",
     "email": "Email",
+    "email-message":"Adresa de email trebuie sa fie o adresa de email valida",
     "roles": "Roluri",
+    "roles-message":"Selectati cel putin un rol",
     "btn-role": "Alege un rol",
     "add": "Adauga"
   },
   "update-user":{
+    "username":"Alege un utilizator",
+    "btn-show":"Modifica",
     "first-name":"Prenume",
+    "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
+    "last-name-message":"Numele de familie este obligatoriu",
     "mobile-number": "Numar de telefon",
+    "mobile-number-message":"Numarul de telefon trebuie sa fie un numar de telefon valid",
     "email": "Email",
+    "email-message":"Adresa de email trebuie sa fie o adresa de email valida",
     "roles": "Roluri",
+    "roles-message":"Selectati cel putin un rol",
     "btn-role": "Alege un rol",
     "save": "Salveaza"
+  },
+  "add-bug": {
+    "title-page":"Adaugare defect",
+    "title":"Titlu",
+    "description":"Descriere",
+    "version":"Versiune",
+    "fixed-version":"Versiune fixa",
+    "severity":"Severitate",
+    "target-date":"Data",
+    "created-by":"Creat de",
+    "assigned-to":"Atribuit",
+    "select-user":"Select user",
+    "status":"Stare",
+    "attachment":"Atasament",
+    "btn-register":"Inregistreaza"
+
   }
 }

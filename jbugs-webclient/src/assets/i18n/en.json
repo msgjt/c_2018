@@ -20,7 +20,7 @@
     "username": "Username",
     "password": "Password",
     "message": "Login Failed. Please try again.",
-    "button": "login"
+    "button": "Login"
 },
   "permission": {
     "col-id": "Id",
@@ -40,32 +40,84 @@
     "btn-add": "Add",
     "btn-remove": "Remove"
 },
-  "bugs":{
-    "option1": "Severity",
-    "option2": "Status",
-    "table-col1": "Issue",
-    "table-col2": "Target date",
-    "table-col3": "Status",
-    "table-col4": "Severity"
-  },
   "create-user":{
-    "title": "Create user",
+    "title": "Add user",
     "first-name":"First Name",
+    "first-name-message":"First name is required",
     "last-name": "Last Name",
+    "last-name-message":"Last name is required",
     "mobile-number": "Mobile number",
+    "mobile-number-message":"Phone number must be a valid phone number",
     "email": "Email",
+    "email-message":"Email must be a valid email adress",
     "roles": "Roles",
+    "roles-message":"Select at least one role",
     "btn-role": "Choose a role",
     "add": "Add"
   },
   "update-user": {
+    "username":"Choose username",
+    "btn-show":"Show",
     "first-name": "First Name",
+    "first-name-message":"First name is required",
     "last-name": "Last Name",
+    "last-name-message":"Last name is required",
     "mobile-number": "Mobile number",
+    "mobile-number-message":"Phone number must be a valid phone number",
     "email": "Email",
+    "email-message":"Email must be a valid email adress",
     "roles": "Roles",
+    "roles-message":"Select at least one role",
     "btn-role": "Choose a role",
     "save": "Save"
+  },
+  "add-bug": {
+    "title-page":"ADD BUG",
+    "title":"Title",
+    "title-message":"Title is required",
+    "description":"Description",
+    "description-message":"Description is required",
+    "version":"Version",
+    "fixed-version":"Fixed Version",
+    "severity":"Severity",
+    "severity-message":"Select a severity for bug",
+    "target-date":"Target Date",
+    "target-date-message":"Target date is required",
+    "created-by":"Created by",
+    "assigned-to":"AssignedTo",
+    "assigned-to-message":"Assign an user for this bug",
+    "select-user":"Select user",
+    "status":"Status",
+    "attachment":"Attachment",
+    "btn-register":"Register"
+  },
+  "update-bug":{
+    "title":"Title",
+    "description":"Description",
+    "version":"Version",
+    "fixed-version":"Fixed Version",
+    "severity":"Severity",
+    "status":"Status",
+    "assigned-to":"AssignedTo",
+    "created-by":"Created by",
+    "start-target-date":"Start target date",
+    "end-target-date":"End target Date",
+    "target-date-message":"Choose a date interval where the first one is smaller than the second one",
+    "select-user":"Select user",
+    "attachment":"Attachment",
+    "btn-register":"Register",
+    "btn-filter":"Filter",
+    "btn-export":"Export to excel"
+  },
+  "bugs":{
+    "table-col1": "Title",
+    "table-col2": "Version",
+    "table-col3": "Fixed version",
+    "table-col4": "Severity",
+    "table-col5": "Status",
+    "table-col6": "Assigned to",
+    "table-col7": "Target date",
+    "table-col8": "Update"
   }
 }
 
