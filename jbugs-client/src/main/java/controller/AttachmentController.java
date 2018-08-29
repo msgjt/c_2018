@@ -3,8 +3,6 @@ package controller;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.utils.ByteToFilesConverter;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.ExtensionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;

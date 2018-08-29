@@ -95,8 +95,7 @@ export class BugDetailsComponent implements OnInit {
 
   addAttachment(attachmentChosen: Attachment) {
     let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
-
-    if (extensions.includes(this.attachmentChosen.extension)) {
+    if (extensions.includes(attachmentChosen.extension.toUpperCase())) {
       this.bugService.sendFile(attachmentChosen.blob, attachmentChosen);
       location.reload();
     }

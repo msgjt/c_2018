@@ -87,9 +87,8 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs) {
         Predicate<BugDTO> bugFilter = x -> true;
-
         List<BugDTO> bugDTOs = new ArrayList<>();
-        bugDTOs = getAllBugs();
+        bugDTOs = this.getAllBugs();
         for(BugFiltersDTO criteria: filtersDTOs){
             switch (criteria.getField()){
                 case "title":
