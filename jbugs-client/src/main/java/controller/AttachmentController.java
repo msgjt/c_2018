@@ -64,8 +64,8 @@ public class AttachmentController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAttachments(@PathParam("idBug") long idBug) {
-
         List<AttachmentDTO> attachmentDTOS = bugBusinessService.getAllAttachments().stream().filter(x -> x.getBugDTO().getIdBug().equals(idBug)).collect(Collectors.toList());
+        System.out.println("aaaaaaaaaaaaaaa + " + attachmentDTOS.get(0).getName());
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTOS))
                 .build();

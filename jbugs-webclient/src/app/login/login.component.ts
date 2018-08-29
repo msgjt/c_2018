@@ -45,12 +45,14 @@ export class LoginComponent implements OnInit {
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;
+
           }
         },
         (err: HttpErrorResponse) => {
           console.log(err);
           this.wrongCredentials = true;
           this.loggedIn = false;
+          //window.location.reload();
         });
 
     });

@@ -34,10 +34,10 @@ public class User {
     @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String phoneNumber;
 
-    @Column(length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String email;
 
-    @Column(length = MAX_STRING_LENGTH, nullable = false, unique = true)
+    @Column(length = MAX_STRING_LENGTH, nullable = false)
     private String username;
 
     @Column(length = MAX_STRING_LENGTH)

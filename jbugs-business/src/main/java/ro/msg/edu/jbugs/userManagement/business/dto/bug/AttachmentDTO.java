@@ -11,6 +11,7 @@ public class AttachmentDTO {
     private BugDTO bugDTO;
     private byte[] blob;
     private ExtensionEnum extension;
+    private String name;
 
 
     public long getIdAttachment() {
@@ -44,5 +45,13 @@ public class AttachmentDTO {
 
     public void setExtension(ExtensionEnum extension) {
         this.extension = extension;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

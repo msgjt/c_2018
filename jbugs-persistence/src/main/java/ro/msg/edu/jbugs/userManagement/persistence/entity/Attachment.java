@@ -1,6 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
+import javax.ws.rs.Consumes;
 
 import java.io.Serializable;
 import java.sql.Blob;
@@ -20,6 +21,9 @@ public class Attachment implements Serializable {
     @Column(name="file")
     private byte[] file;
 
+    @Column(name="fileName")
+    private String fileName;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,7 @@ public class Attachment implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private ExtensionEnum extension;
+
 
     @ManyToOne
     @JoinColumn(name = "idBug")
@@ -64,6 +69,14 @@ public class Attachment implements Serializable {
 
     public void setExtension(ExtensionEnum extension) {
         this.extension = extension;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override

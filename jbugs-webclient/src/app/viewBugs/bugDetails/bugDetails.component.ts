@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Bug, BugClass} from "../../types/bugs";
 import {BugDataService} from "../../services/bugData.service";
 import {BugService} from "../../services/bug.service";
 import {Comment, CommentClass} from "../../types/comments";
 import {Attachment} from "../../types/attachment";
 import {UserService} from "../../services/user.service";
-import {errorHandler} from "@angular/platform-browser/src/browser";
 import {ExportPDFService} from "../../services/export-pdf.service";
 
 @Component({
@@ -14,49 +13,48 @@ import {ExportPDFService} from "../../services/export-pdf.service";
   styleUrls: ['./bugDetails.component.css', './../severity.css']
 })
 
-export class BugDetailsComponent implements OnInit{
-  bug: Bug = new BugClass();
+export class BugDetailsComponent implements OnInit {
+  bug: Bug;
   comments: Comment[];
-  attachmentChosen:Attachment;
+  attachmentChosen: Attachment;
   attachmentToBeAdded: Attachment;
-  attachmentsForABug:Attachment[];
-
+  attachmentsForABug: Attachment[] = [];
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService,private userService:UserService,private bugPdfService:ExportPDFService){
+  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService) {
     this.attachmentToBeAdded = {
-      bugDTO:null,
+      bugDTO: null,
       blob: new Uint8Array(),
-      extension:''
+      extension: '',
+      name: ''
     }
-
-
+    this.attachmentChosen = {
+      bugDTO: null,
+      blob: new Uint8Array(),
+      extension: '',
+      name: ''
+    }
 
   }
 
   ngOnInit(): void {
-      this.bug = new BugClass();
-      this.bugService.getBugById(Number(localStorage.getItem("idBug"))).subscribe((value:Bug)=>{
-        if(value === undefined){
-          console.log("undefined");
-        }
-        else{
-          this.dataService.bug = value;
-          this.setBugDetails();
-        }
-
-      });
-
+    this.bugService.getBugById(Number(localStorage.getItem("idBug"))).subscribe((value: Bug) => {
+      if (value === undefined) {
+        console.log("undefined");
+      }
+      else {
+        this.dataService.bug = value;
+        this.setBugDetails();
+      }
+    });
 
 
   }
 
-  setBugDetails(){
-    console.log(JSON.stringify(this.bug));
+  setBugDetails() {
     this.bug = this.dataService.bug;
     this.comments = this.bugService.getComments(this.bug.idBug);
     this.attachmentsForABug = this.bugService.getAllAttachmentsForABug(this.bug.idBug);
-    console.log('Bugul ' + this.bug.idBug + ' are ' + this.attachmentsForABug.length + ' atasamente');
     this.attachmentToBeAdded.bugDTO = this.bug;
   }
 
@@ -65,7 +63,8 @@ export class BugDetailsComponent implements OnInit{
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       let file = eventTarget.files[0];
-      this.attachmentToBeAdded.extension = file.name.substring(file.name.length-3).toUpperCase();
+      this.attachmentToBeAdded.extension = file.name.substring(file.name.length - 3).toUpperCase();
+      this.attachmentToBeAdded.name = file.name.substring(0, file.name.length - 4);
       reader.onload = function () {
         this.attachmentToBeAdded.blob = reader.result;
       }.bind(this);
@@ -73,11 +72,11 @@ export class BugDetailsComponent implements OnInit{
     }
   }
 
-  download(content,extension) {
-    this.saveByteArray("copieeed." + extension,content,extension);
+  download(content, extension) {
+    this.saveByteArray("copieeed." + extension, content, extension);
   }
 
-  saveByteArray(reportName, byte,extension) {
+  saveByteArray(reportName, byte, extension) {
     var byteArray = new Uint8Array(byte);
     console.log(byte);
     console.log(byteArray);
@@ -89,23 +88,27 @@ export class BugDetailsComponent implements OnInit{
     link.click();
   };
 
-  deleteAttachment(attachmentChosen:Attachment){
+  deleteAttachment(attachmentChosen: Attachment) {
     this.bugService.deleteAttachment(attachmentChosen);
     location.reload();
   }
 
-  addAttachment(attachmentChosen:Attachment){
-    this.bugService.sendFile(attachmentChosen.blob,attachmentChosen);
-    location.reload();
+  addAttachment(attachmentChosen: Attachment) {
+    let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
+
+    if (extensions.includes(this.attachmentChosen.extension)) {
+      this.bugService.sendFile(attachmentChosen.blob, attachmentChosen);
+      location.reload();
+    }
   }
 
-  addComment(){
+  addComment() {
     this.commentToBeAdded.bugDTO = this.bug;
     this.commentToBeAdded.user = "doreld";
     this.bugService.addComment(this.commentToBeAdded);
   }
 
-  export(){
-    this.bugPdfService.export(this.bug,this.comments,this.attachmentsForABug);
+  export() {
+    this.bugPdfService.export(this.bug, this.comments, this.attachmentsForABug);
   }
 }

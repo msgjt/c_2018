@@ -23,7 +23,7 @@ export class AddBugComponentComponent implements OnInit {
   bug: Bug;
   chosenDate: string;
   currentDate: Date = new Date();
-  extensions: string[] = ["JPG","DOC","PDF","ODF","XLS"];
+  extensions: string[] = ["JPG","DOC","PDF","ODF","XLS","TXT"];
 
 
 
@@ -68,7 +68,8 @@ export class AddBugComponentComponent implements OnInit {
         this.attachment[i] = {
           bugDTO: this.bug,
           blob: new Uint8Array(),
-          extension:file.name.substring(file.name.length - 3).toUpperCase()
+          extension:file.name.substring(file.name.length - 3).toUpperCase(),
+          name:file.name.substring(0,file.name.length-4)
         }
         reader[i].onload = (e) =>{
           this.attachment[i].blob = reader[i].result;
@@ -93,6 +94,7 @@ export class AddBugComponentComponent implements OnInit {
       for (let i = 0; i < this.attachment.length; i++){
         if(this.extensions.includes(this.attachment[i].extension)){
           this.attachment[i].bugDTO = this.bug;
+
           this.bugService.sendFile(this.attachment[i].blob,this.attachment[i]);
         }
         else{

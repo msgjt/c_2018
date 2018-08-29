@@ -183,7 +183,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
-        validateUserForCreation(userDTO);
+        //validateUserForCreation(userDTO);
         if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
