@@ -68,6 +68,10 @@ public class BugPersistenceService implements IBugPersistenceService {
      */
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
+        long idBug = attachment.getBug().getIdBug();
+        if(idBug==0){
+            attachment.getBug().setIdBug((long) this.getAllBugs().size());
+        }
         em.persist(attachment);
         return Optional.of(attachment);
     }

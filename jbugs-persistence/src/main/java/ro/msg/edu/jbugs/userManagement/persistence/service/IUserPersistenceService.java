@@ -26,4 +26,6 @@ public interface IUserPersistenceService extends Serializable {
 
     Set<String> getUsernamesLike(@NotNull String username);
 
+    int countUnfinishedTasks(@NotNull User user);
+
 }

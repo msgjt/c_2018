@@ -14,7 +14,7 @@ public enum ExceptionCode {
     EMAIL_FAIL(1008, "Email cod not be sent"),
     TOKEN_EXPIRED(1009, "Token is no longer valid"),
     PERMISSION_VALIDATION_EXCEPTION(1004, "Validation Exception"),
-    UNFINISHED_TASKS_EXCEPTIOM(2000, "User has unfinished tasks");
+    UNFINISHED_TASKS(2000, "Unfinished tasks for user Exception");
     int id;
     String message;
 

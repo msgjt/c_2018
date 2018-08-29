@@ -35,7 +35,6 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private CommentDTOHelper commentDTOHelper;
 
-    //private List<BugDTO> filteredBugs;
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -44,10 +43,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO,AttachmentDTO attachmentDTO) {
+    public BugDTO addBug(BugDTO bugDTO) {
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return bugDTOHelper.fromEntity(bugPersistenceService.addBug(bug,attachment).get());
+        Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
+        return bugDTOHelper.fromEntity(addedBug);
     }
 
     @Override
@@ -127,21 +126,9 @@ public class BugBusinessService implements IBugBusinessService {
 
 
     private boolean isBetweenDates(String date, String start, String end){
-        Date filterDate = fromStringToDateYearLast(date);
+        Date filterDate = bugDTOHelper.fromStringToDateYearLast(date);
         return filterDate.after(bugDTOHelper.fromStringToDate(start)) &&
                 filterDate.before(bugDTOHelper.fromStringToDate(end));
-    }
-
-    private Date fromStringToDateYearLast(String stringToBeParsed){
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date date = null;
-        try {
-            date = formatter.parse(stringToBeParsed);
-            return date;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 
     @Override

@@ -7,7 +7,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -34,17 +34,16 @@ public class BugController {
                 .build();
     }
 
-//    @Path("/add")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-    //adaugat attachmentDTO -> inca se lucreaza
-//    public Response addBugAndAttachment(BugDTO bugDTO, AttachmentDTO a){
-//        bugBusinessService.addBug(bugDTO,a);
-//        return Response.status(Response.Status.OK)
-//                .entity(new Gson().toJson(bugDTO))
-//                .build();
-//    }
+    @Path("/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addBugAndAttachment(BugDTO bugDTO){
+        bugBusinessService.addBug(bugDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(bugDTO))
+                .build();
+    }
 
 
     @Path("/update")

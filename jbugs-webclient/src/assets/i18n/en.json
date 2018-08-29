@@ -41,14 +41,14 @@
     "btn-remove": "Remove"
 },
   "create-user":{
-    "title": "Add user",
+    "title": "Create user",
     "first-name":"First Name",
     "first-name-message":"First name is required",
     "last-name": "Last Name",
     "last-name-message":"Last name is required",
     "mobile-number": "Mobile number",
     "mobile-number-message":"Phone number must be a valid phone number",
-    "email": "Email",
+    "email": "E-mail",
     "email-message":"Email must be a valid email adress",
     "roles": "Roles",
     "roles-message":"Select at least one role",
@@ -57,7 +57,7 @@
   },
   "update-user": {
     "username":"Choose username",
-    "btn-show":"Show",
+    "btn-show":"Find",
     "first-name": "First Name",
     "first-name-message":"First name is required",
     "last-name": "Last Name",
@@ -69,7 +69,9 @@
     "roles": "Roles",
     "roles-message":"Select at least one role",
     "btn-role": "Choose a role",
-    "save": "Save"
+    "status":"Status",
+    "change-status":"Change status",
+    "btn-save": "Update"
   },
   "add-bug": {
     "title-page":"ADD BUG",
@@ -107,17 +109,28 @@
     "attachment":"Attachment",
     "btn-register":"Register",
     "btn-filter":"Filter",
-    "btn-export":"Export to excel"
+    "btn-export":"Export to excel",
+    "col-update":"UPDATE",
+    "col-details":"DETAILS"
+
   },
   "bugs":{
-    "table-col1": "Title",
-    "table-col2": "Version",
-    "table-col3": "Fixed version",
-    "table-col4": "Severity",
-    "table-col5": "Status",
-    "table-col6": "Assigned to",
-    "table-col7": "Target date",
-    "table-col8": "Update"
+    "title": "TITLE",
+    "version": "VERSION",
+    "fixed version": "FIXED VERSION",
+    "severity": "SEVERITY",
+    "status": "STATUS",
+    "assigned to": "ASSIGNED TO",
+    "target date": "TARGET DATE"
+  },
+  "home":{
+    "message":"Welcome"
+  },
+  "contact": {
+    "phone":"Phone",
+    "email":"E-mail",
+    "address":"Address"
   }
+
 }
 

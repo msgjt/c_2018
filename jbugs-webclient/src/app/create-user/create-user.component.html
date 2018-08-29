@@ -1,79 +1,82 @@
 <div class="container">
-  <div class="jumbotron">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <form (ngSubmit)="addUser()" #formControl="ngForm" #formElement>
-          <div class="form-group">
-            <h4>{{'create-user.title' |translate}}</h4>
-            <label for="firstName">{{'create-user.first-name' |translate}}</label>
-            <input #firstNameElement #firstNameControl="ngModel" required="true" [(ngModel)]="user.firstName"
-                   name="firstName" id="firstName" type="text"
-                   class="form-control" pattern="^[a-zA-Z]*$"
-                   [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
-            <p>
-              <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
-                {{'create-user.first-name-message' |translate}}
-              </small>
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="lastName">{{'create-user.last-name' |translate}}</label>
-            <input #lastNameElement #lastNameControl="ngModel" required="true" [(ngModel)]="user.lastName"
-                   name="lastName" id="lastName" type="text"
-                   class="form-control" pattern="^[a-zA-Z]*$"/>
-            <p>
-              <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
-                {{'create-user.last-name-message' |translate}}
-              </small>
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="mobileNumber">{{'create-user.mobile-number' |translate}}</label>
-            <input #mobileNumberElement #mobileNumberControl="ngModel" required="true" [(ngModel)]="user.phoneNumber"
-                   id="mobileNumber" name="mobileNumber" type="text"
-                   class="form-control" minlength="10"
-                   pattern="^[+0-9]*$"
-                   maxlength="15"/>
-            <p>
-              <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched " class="help-block text-danger">
-                {{'create-user.mobile-number-message' |translate}}
-              </small>
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="email">{{'create-user.email' |translate}}</label>
-            <input #emailElement #emailControl="ngModel" required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$"
-                   [(ngModel)]="user.email" id="email"
-                   name="email" type="text" class="form-control" placeholder="@msggroup.com"
-                   pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
-            <p>
-              <small *ngIf="emailControl.invalid && emailControl.touched " class="help-block text-danger">
-                {{'create-user.email-message' |translate}}
-              </small>
-            </p>
-          </div>
-          <label>{{'create-user.roles'|translate}}</label>
-          <div class="form-group">
-            <ng-multiselect-dropdown
-              *ngIf="showRoles"
-              name="roles"
-              [data]="dropdownList"
-              [placeholder]="'Choose a role'"
-              [(ngModel)]="selectedItems"
-              [settings]="dropdownSettings">
-            </ng-multiselect-dropdown>
-            <p>
-              <small *ngIf="checkSelect" class="help-block text-danger">
-                {{'create-user.roles-message' |translate}}
-              </small>
-            </p>
-          </div>
+  <div class="card">
+    <div class="card-header">
+      {{'create-user.title' | translate}}
+    </div>
+    <div class="card-body">
+      <form #formElement #formControl="ngForm" (ngSubmit)="addUser()" name="addUserForm" role="form" class="form-horizontal">
+        <div class="form-group">
+          <label for="firstName">{{'create-user.first-name' |translate}}</label>
+          <input #firstNameElement #firstNameControl="ngModel" required="true" [(ngModel)]="user.firstName"
+                 name="firstName" id="firstName" type="text"
+                 class="form-control" pattern="^[a-zA-Z]*$"
+                 [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
+          <p>
+            <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
+              {{'create-user.first-name-message' |translate}}
+            </small>
 
-          <div class=" form-group">
-            <button [disabled]="!formElement.checkValidity()" type="submit" class="btn btn-primary">{{'create-user.add' |translate}}</button>
-          </div>
-        </form>
-      </div>
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="lastName">{{'create-user.last-name' |translate}}</label>
+          <input #lastNameElement #lastNameControl="ngModel" required="true" [(ngModel)]="user.lastName"
+                 name="lastName" id="lastName" type="text"
+                 class="form-control" pattern="^[a-zA-Z]*$"/>
+          <p>
+            <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
+              {{'create-user.last-name-message' |translate}}
+            </small>
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="mobileNumber">{{'create-user.mobile-number' |translate}}</label>
+          <input #mobileNumberElement #mobileNumberControl="ngModel" required="true" [(ngModel)]="user.phoneNumber"
+                 id="mobileNumber" name="mobileNumber" type="text"
+                 class="form-control" minlength="10"
+                 pattern="(((^\+40|^0|^\(\+40\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\+490|^0|^\(\+490\)|^00490)1[0-9]{3,8}$)"
+          />
+          <p>
+            <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched "
+                   class="help-block text-danger">
+              {{'create-user.mobile-number-message' |translate}}
+            </small>
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="email">{{'create-user.email' |translate}}</label>
+          <input #emailElement #emailControl="ngModel" required="true" pattern="^[A-Z0-9._%+-]+@msggroup.com$"
+                 [(ngModel)]="user.email" id="email"
+                 name="email" type="text" class="form-control" placeholder="@msggroup.com"
+                 pattern="^[A-Za-z0-9._%+-]+@msggroup.com$"/>
+          <p>
+            <small *ngIf="emailControl.invalid && emailControl.touched " class="help-block text-danger">
+              {{'create-user.email-message' |translate}}
+            </small>
+          </p>
+        </div>
+        <label>{{'create-user.roles'|translate}}</label>
+        <div class="form-group">
+          <ng-multiselect-dropdown
+            *ngIf="showRoles"
+            name="roles"
+            [data]="dropdownList"
+            [placeholder]="'Choose a role'"
+            [(ngModel)]="selectedItems"
+            [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+          <p>
+            <small *ngIf="checkSelect" class="help-block text-danger">
+              {{'create-user.roles-message' |translate}}
+            </small>
+          </p>
+        </div>
+
+        <div class=" form-group">
+          <button [disabled]="!formElement.checkValidity()" type="submit" class="btn btn-primary">{{'create-user.add' |translate}}</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+

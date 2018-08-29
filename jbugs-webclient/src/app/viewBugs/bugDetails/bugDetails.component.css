@@ -33,3 +33,11 @@ tr {
   background-color: green;
 }
 
+.select_join select{
+  width: 200px !important;
+}
+
+.select_join option{
+  border-right-width: 50px;
+}
+

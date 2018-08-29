@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -54,7 +53,7 @@ public class UserBusinessService implements IUserBusinessService {
         validateUserForCreation(userDTO);
         User user = userDTOHelper.toEntity(userDTO);
         user.setUsername(generateFullUsername(userDTO.getFirstName(), userDTO.getLastName()));
-        user.setActive(true);
+        user.setIsActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
         return userDTOHelper.fromEntity(user);
@@ -112,7 +111,8 @@ public class UserBusinessService implements IUserBusinessService {
                 && user.getLastName() != null
                 && user.getEmail() != null
                 && user.getPassword() != null
-                && isValidEmail(user.getEmail());
+                && isValidEmail(user.getEmail())
+                && isValidPhoneNumber(user.getPhoneNumber());
     }
 
     private boolean isValidEmail(String email) {
@@ -165,7 +165,7 @@ public class UserBusinessService implements IUserBusinessService {
     @Override
     public void deactivateUser(String username) {
         User user = userPersistenceService.getUserByUsername(username).get();
-        user.setActive(false);
+        user.setIsActive(false);
         userPersistenceService.updateUser(user);
     }
 
@@ -177,14 +177,15 @@ public class UserBusinessService implements IUserBusinessService {
     @Override
     public void activateUser(String username) {
         User user = userPersistenceService.getUserByUsername(username).get();
-        user.setActive(true);
+        user.setIsActive(true);
         userPersistenceService.updateUser(user);
     }
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
-        if(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).equals(userDTOHelper.toEntity(userDTO))){
-            throw new BusinessException(ExceptionCode.UNFINISHED_TASKS_EXCEPTIOM);
+        //validateUserForCreation(userDTO);
+        if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
+            throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
     }
@@ -215,9 +216,8 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     private boolean isValidPhoneNumber(String phonenumber) {
-        //TODO Nu merge
         final Pattern VALID_PHONE_ADDRESS_REGEX =
-                Pattern.compile("(^\\+49)|(^01[5-7][1-9])", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("(((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\\+490|^0|^\\(\\+490\\)|^00490)1[0-9]{3,8}$)", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_PHONE_ADDRESS_REGEX.matcher(phonenumber);
         return matcher.find();

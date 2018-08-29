@@ -30,7 +30,7 @@ public class UserController {
             response = Response
                     .status(Response.Status.OK)
                     .build();
-        } catch (BusinessException e) {
+        } catch (PersistenceException e) {
             response = Response
                     .status(Response.Status.EXPECTATION_FAILED)
                     .entity(e.getExceptionCode())
@@ -74,11 +74,14 @@ public class UserController {
         Response response;
         try {
             response = Response
-                    .status(Response.Status.OK)
-                    .entity(new Gson().toJson(userBusinessService.updateUser(userDTO)))
-                    .build();
+                        .status(Response.Status.OK)
+                        .entity(userBusinessService.updateUser(userDTO))
+                        .build();
         } catch (BusinessException e) {
-            response = Response.status(Response.Status.METHOD_NOT_ALLOWED).entity(e.getExceptionCode()).build();
+            response = Response.
+                        status(Response.Status.OK)
+                        .entity(e.getExceptionCode())
+                        .build();
         }
         return response;
     }

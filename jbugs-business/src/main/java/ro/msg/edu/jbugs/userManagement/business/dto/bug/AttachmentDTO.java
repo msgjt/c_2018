@@ -1,9 +1,17 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.bug;
 
+import ro.msg.edu.jbugs.userManagement.persistence.entity.ExtensionEnum;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class AttachmentDTO {
     private long idAttachment;
     private BugDTO bugDTO;
-    private String blob;
+    private byte[] blob;
+    private ExtensionEnum extension;
+    private String name;
 
 
     public long getIdAttachment() {
@@ -22,11 +30,28 @@ public class AttachmentDTO {
         this.bugDTO = bugDTO;
     }
 
-    public String getBlob() {
+    public byte[] getBlob() {
         return blob;
     }
 
-    public void setBlob(String blob) {
+    public void setBlob(byte[] blob) {
         this.blob = blob;
+    }
+
+
+    public ExtensionEnum getExtension() {
+        return extension;
+    }
+
+    public void setExtension(ExtensionEnum extension) {
+        this.extension = extension;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -17,6 +17,7 @@ export class UpdateUserComponent implements OnInit {
   selectedItems: Role [];
   dropdownSettings2 = {};
   showRoles: boolean;
+  status: string;
 
   dropdownUserList: User[];
   selectedItem: User [];
@@ -28,14 +29,10 @@ export class UpdateUserComponent implements OnInit {
 
   showState: boolean;
   dropdownStatesList: string[] ;
-  selectedState:boolean;
   dropdownSettings3 = {};
 
   checkSelect: boolean;
   permission: Permission[];
-  showRadioActive:boolean;
-  showRadioInActive:boolean;
-
 
   constructor(private userService: UserService, private rolesService: RoleService) {
     this.showRoles = false;
@@ -43,8 +40,8 @@ export class UpdateUserComponent implements OnInit {
     this.showDetails = false;
     this.showState = false;
     this.checkSelect = false;
-    this.showRadioActive=false;
-    this.showRadioInActive=false;
+
+
   }
 
   ngOnInit() {
@@ -56,11 +53,10 @@ export class UpdateUserComponent implements OnInit {
     this.permission = [];
 
 
-
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownRoleList.push(value))
     }, () => {
-      console.log('errors')
+      console.log('role errors')
     }, () => {
       this.showRoles = true;
     });
@@ -68,7 +64,7 @@ export class UpdateUserComponent implements OnInit {
     this.userService.getUsers().subscribe((response: User[]) => {
       response.forEach(value => this.dropdownUserList.push(value))
     }, () => {
-      console.log('errors')
+      console.log('user errors')
     }, () => {
       this.showUsers = true;
     });
@@ -108,12 +104,15 @@ export class UpdateUserComponent implements OnInit {
 
   clickUpdate() {
 
-    console.log("aici1:");
-    console.log(this.selectedItem[0]);
-
     this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
       this.user = user;
+      if (this.user.isActive == true) {
+        this.status = 'ACTIVE';
+      } else {
+        this.status = 'INACTIVE';
+      }
       this.selectedItems = this.user.roles;
+
 
     }, (e) => {
       console.log('aparent am si o eroare');
@@ -121,12 +120,7 @@ export class UpdateUserComponent implements OnInit {
       this.showDetails = true;
       this.showState = true;
       console.log(this.user.isActive);
-      this.dropdownStatesList = this.user.isActive ? ['DEACTIVATE'] : ['ACTIVATE'];
-      if (this.user.isActive == true) {
-        this.showRadioInActive = true;
-      } else {
-        this.showRadioActive = true;
-      }
+
     });
   }
 
@@ -139,7 +133,16 @@ export class UpdateUserComponent implements OnInit {
       this.user.roles.map(val=>val.permissions=this.permission);
 
       console.log(this.selectedItem[0]);
+      var element = <HTMLInputElement> document.getElementById("changeStatus");
+      var isChecked = element.checked;
+      if(isChecked){
+        this.selectedItem[0].isActive=!this.selectedItem[0].isActive;
+      }
       this.userService.updateUser(this.selectedItem[0]);
+      this.selectedItems = [];
+      this.selectedItem = [];
+      window.location.reload();
+
     }
     else {
       this.checkSelect = true;
@@ -151,16 +154,5 @@ export class UpdateUserComponent implements OnInit {
     return this.selectedItems.length > 0;
   }
 
-  changeStatus(status: string) {
-    console.log(status);
 
-    if(status=='ACTIVATE'){
-      console.log("activate");
-      this.user.isActive =true;
-    }else if(status=='DEACTIVATE'){
-      console.log("deactivate");
-      this.user.isActive =false;
-    }
-
-  }
 }

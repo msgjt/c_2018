@@ -8,7 +8,6 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -25,8 +24,9 @@ public class UserDTOHelper {
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setActive(user.getActive());
         userDTO.setUsername(user.getUsername());
+        userDTO.setIsActive(user.getIsActive());
+
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRoles(user.getRoles().stream().map(roleDTOHelper::fromEntity).collect(Collectors.toSet()));
         userDTO.setPassword(user.getPassword());
@@ -39,7 +39,7 @@ public class UserDTOHelper {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
-        user.setActive(userDTO.getActive());
+        user.setIsActive(userDTO.getIsActive());
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
