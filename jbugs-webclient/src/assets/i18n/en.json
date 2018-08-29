@@ -14,33 +14,33 @@
     "dropdown2-item3": "Update",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
-},
-  "login":{
+  },
+  "login": {
     "title": "Login",
     "username": "Username",
     "password": "Password",
     "message": "Login Failed. Please try again.",
     "button": "Login"
-},
+  },
   "permission": {
     "col-id": "Id",
     "col-type": "Type",
     "col-description": "Description",
     "col-roles": "Roles"
-},
-  "role":{
+  },
+  "role": {
     "col-id": "Id",
     "col-type": "Type",
     "col-roles": "Roles",
     "col-update": "Update",
     "btn-update": "Submit",
     "btn-back1": "Back",
-    "btn-update-remove":"Submit",
+    "btn-update-remove": "Submit",
     "btn-back2": "Back",
     "btn-add": "Add",
     "btn-remove": "Remove"
-},
-  "bugs":{
+  },
+  "bugs": {
     "option1": "Severity",
     "option2": "Status",
     "table-col1": "Issue",
@@ -48,9 +48,9 @@
     "table-col3": "Status",
     "table-col4": "Severity"
   },
-  "create-user":{
+  "create-user": {
     "title": "Create user",
-    "first-name":"First Name",
+    "first-name": "First Name",
     "last-name": "Last Name",
     "mobile-number": "Mobile number",
     "email": "Email",
@@ -66,6 +66,25 @@
     "roles": "Roles",
     "btn-role": "Choose a role",
     "save": "Save"
+  },
+  "alerts": {
+    "EMAIL_EXISTS_ALREADY": "Email already exists. Choose another one",
+    "USER_VALIDATION_EXCEPTION": "User credentials are not valid",
+    "PASSWORD_NOT_VALID": "Invalid password",
+    "ROLE_VALIDATION_EXCEPTION": "Role credentials are invalid",
+    "USERNAME_NOT_VALID": "Username is invalid",
+    "USER_INACTIVATED": "User has been inactivated by admin",
+    "INVALID_USER_LOGIN": "User credentials are not valid for login",
+    "EMAIL_FAIL": "Email could not be sent",
+    "TOKEN_EXPIRED": "Your session has expired",
+    "PERMISSION_VALIDATION_EXCEPTION": "Permission is invalid",
+    "UNFINISHED_TASKS": "Unfinished tasks for user",
+    "SUCCES-ADD": "Succesfully added",
+    "SUCCES-UPDATE": "Succesfully update",
+    "SUCCES-LOGIN": "Succesfully login",
+    "SUCCES-REMOVE": "Succesfully remove",
+    "FAILED-LOGIN": "Login failed",
+    "ERROR-SERVER": "Server problem. Please try again"
   }
 }
 

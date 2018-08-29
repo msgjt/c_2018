@@ -6,6 +6,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../services/user.service";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
+import {AlertService} from "../services/alert.service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService) {
+  constructor(private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
     this.userModel = {
       username: '',
       password: ''
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
           if (response) {
             this.login(response, this.userModel.username);
             this.router.navigate(["home"]);
+            this.succes("alerts.SUCCES-LOGIN");
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
           console.log(err);
           this.wrongCredentials = true;
           this.loggedIn = false;
-          //window.location.reload();
+          this.error("alerts.FAILED-LOGIN")
         });
 
     });
@@ -93,5 +95,12 @@ export class LoginComponent implements OnInit {
       }
     }
     return permissionList;
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
+  succes(message: string){
+    this.alertService.success(message);
   }
 }

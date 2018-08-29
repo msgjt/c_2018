@@ -34,6 +34,7 @@ import {AdressedUserGuard} from "./guards/adressed-user.guard";
 import {NotificationDetailComponent} from "./notification-popup/notification-detail/notification-detail.component";
 import {NotificationPopupComponent} from "./notification-popup/notification-popup.component";
 import { ContactComponent } from './contact/contact.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 const appRoutes: Routes = [
@@ -79,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     NotificationDetailComponent,
     NotificationPopupComponent,
-    ContactComponent
+    ContactComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

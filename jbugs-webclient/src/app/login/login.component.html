@@ -30,13 +30,12 @@
                    required
                    [(ngModel)]="userModel.password">
           </div>
-          <div class="form-group">
-            <div *ngIf="wrongCredentials" class="alert alert-danger">
-              <p style="color:red"> {{'login.message' | translate}} </p>
-            </div>
-          </div>
+          <p>
+            <small *ngIf="wrongCredentials" class="help-block text-danger">
+              Login failed. Please try again
+            </small>
 
-          <br>
+          </p>
           <re-captcha [(ngModel)]="recaptchaResponse"
                       name="captcha"
                       (resolved)="resolved($event)" siteKey="6LfaAGwUAAAAAJHvUMwIaUwZrwyAT9nAVYl87EG1"></re-captcha>

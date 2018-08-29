@@ -43,21 +43,20 @@ export class UserService {
    * @param user represents user from component
    * @return added user
    */
-  addUser(user: User): User {
+  addUser(user: User):Observable<User> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
     var userModel = JSON.stringify(user);
-    this.http.post<any>(this.baseURL + '/users/add', userModel, {
+    return this.http.post<any>(this.baseURL + '/users/add', userModel, {
       headers: reqHeader
-    }).subscribe();
-    return user;
+    });
   }
 
-  updateUser(user: User) {
+  updateUser(user: User):Observable<User> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
     var userModelUpdate = JSON.stringify(user);
-    this.http.put<any>(this.baseURL + '/users', userModelUpdate, {
+    return this.http.put<any>(this.baseURL + '/users', userModelUpdate, {
       headers: reqHeader
-    }).subscribe();
+    });
   }
 
 

@@ -1,7 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .bodyStyle {
+      background-color: #f5f8fa;
+      color: #636b6f;
+      padding-top: 56px
+    }
+    #message-box {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      z-index: 25;
+    }
+
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -14,7 +28,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body style="background-color: #f5f8fa; color: #636b6f; padding-top: 56px">
-  <app-root></app-root>
+<body class="bodyStyle">
+<app-root></app-root>
 </body>
 </html>
