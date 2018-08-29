@@ -105,6 +105,7 @@
     "btn-register":"Inregistreaza",
     "btn-filter":"Filtreaza",
     "btn-export":"Export in excel",
+    "col-description":"DESCRIERE",
     "col-update":"ACTUALIZARE",
     "col-details":"DETALII"
   },
@@ -115,7 +116,9 @@
     "severity": "SEVERITATE",
     "status": "STARE",
     "assigned to": "ATRIBUIT LUI",
+    "created by":"CREAT DE",
     "target date": "DATA"
+
   },
   "home":{
     "message":"Bine ati venit"

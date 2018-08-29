@@ -22,7 +22,7 @@ public class Bug {
     @Column(name = "title", length = MAX_STRING_LENGTH, nullable = false)
     private String title;
 
-    @Column(name = "description", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "version", length = MAX_STRING_LENGTH, nullable = false)

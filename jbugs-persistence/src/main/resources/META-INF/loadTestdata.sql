@@ -27,7 +27,7 @@ INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('1'
 INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','2');
 INSERT INTO roles_permissions (Role_IDROLE,permissions_IDPERMISSION) values ('2','3');
 
-insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description', '2.2', 'CRITICAL', 'OPEN', '2018-01-01 00:00:00', 'critical bug', '1.1', 1, 2);
+insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description descriptiondescr ipt ionde scrip tiondes cri ptiondescriptiondescriptiondescriptiondescriptiondescription', '2.2', 'CRITICAL', 'OPEN', '2018-01-01 00:00:00', 'critical bug', '1.1', 1, 2);
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('other description', '3.3', 'LOW', 'FIXED', '2018-11-02 00:00:00', 'high bug', '1.1', 2, 3);
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('description', '1.4', 'MEDIUM', 'REJECTED', '2018-09-01 00:00:00', 'medium bug', '1.1', 1, 3);
 insert into bugs (description, fixedVersion, severity, status, targetDate, title, version, assignedTo,createdByUser) values ('other description', '1.2', 'LOW', 'CLOSED', '2018-03-01 00:00:00' , 'low bug', '1.1', 1, 2);

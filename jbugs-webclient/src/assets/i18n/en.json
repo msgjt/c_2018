@@ -111,6 +111,7 @@
     "btn-filter":"Filter",
     "btn-export":"Export to excel",
     "col-update":"UPDATE",
+    "col-description":"DESCRIPTION",
     "col-details":"DETAILS"
 
   },
@@ -121,7 +122,9 @@
     "severity": "SEVERITY",
     "status": "STATUS",
     "assigned to": "ASSIGNED TO",
-    "target date": "TARGET DATE"
+    "target date": "TARGET DATE",
+    "created by":"CREATED BY"
+
   },
   "home":{
     "message":"Welcome"

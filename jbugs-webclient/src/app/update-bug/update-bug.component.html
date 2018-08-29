@@ -1,33 +1,32 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       xmlns="http://www.w3.org/1999/html">
 
-<div class="container">
+<div class="container cont">
   <div class="row">
     <div class="col-sm col-md-3">
       <label for="filterTitle">{{'update-bug.title' | translate}}</label>
-      <input name="filterTitle" id="filterTitle" type="text" class="form-control size"
-             [(ngModel)]="this.chosenFilter.title">
+      <input   name="filterTitle" id="filterTitle" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.title">
     </div>
     <div class="col-sm col-md-3">
       <label for="filterDescription">{{'update-bug.description' | translate}}</label>
-      <input name="filterDescription" id="filterDescription" type="text" class="form-control size"
-             [(ngModel)]="this.chosenFilter.description">
+      <input  name="filterDescription" id="filterDescription" type="text" class="form-control size"
+             [(ngModel)]="this.filterDataService.chosenFilter.description">
     </div>
     <div class="col-sm col-md-3">
       <label for="filterVersion">{{'update-bug.version' | translate}}</label>
-      <input id="filterVersion" type="text" class="form-control size" [(ngModel)]="this.chosenFilter.version">
+      <input id="filterVersion" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.version">
+
     </div>
     <div class="col-sm col-md-3">
       <label for="filterFixedVersion">{{'update-bug.fixed-version' | translate}}</label>
-      <input id="filterFixedVersion" type="text" class="form-control size" [(ngModel)]="this.chosenFilter.fixedVersion">
+      <input id="filterFixedVersion" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.fixedVersion">
     </div>
 
-  </div>
+</div>
   <div class="row top-margin">
-    <div class="col-sm col-md-3">
+    <div class="col-sm col-md-3" >
       <label for="filterSeverity">{{'update-bug.severity' | translate}}</label>
-      <select name="filterSeverity" id="filterSeverity" [(ngModel)]="this.chosenFilter.severity"
-              class="form-control size">
+      <select name="filterSeverity" id="filterSeverity" [(ngModel)]="this.filterDataService.chosenFilter.severity" class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let sev of severity" [ngValue]="sev">{{sev}}</option>
       </select>
@@ -35,7 +34,8 @@
 
     <div class="col-sm col-md-3">
       <label for="filterStatus">{{'update-bug.status' | translate}}</label>
-      <select name="filterStatus" id="filterStatus" [(ngModel)]="this.chosenFilter.status" class="form-control size">
+      <select name="filterStatus" id="filterStatus" [(ngModel)]="this.filterDataService.chosenFilter.status" class="form-control size">
+      <label for="filterStatus">{{'update-bug.status' | translate}}</label>
         <option [ngValue]="undefined"></option>
         <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
       </select>
@@ -43,8 +43,7 @@
 
     <div class="col-sm col-md-3">
       <label for="filterAssignedTo">{{'update-bug.assigned-to' | translate}}</label>
-      <select name="filterAssignedTo" id="filterAssignedTo" [ngModel]="this.chosenFilter.assignedTo"
-              class="form-control size">
+      <select name="filterAssignedTo" id="filterAssignedTo" [(ngModel)]="this.filterDataService.chosenFilter.assignedTo" class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
       </select>
@@ -52,7 +51,7 @@
 
     <div class="col-sm col-md-3">
       <label for="filterCreatedBy">{{'update-bug.created-by' | translate}}</label>
-      <select name="filterCreatedBy" id="filtercreatedBy" [ngModel]="this.chosenFilter.createdByUser"
+      <select name="filterCreatedBy" id="filterCreatedBy" [(ngModel)]="this.filterDataService.chosenFilter.createdByUser"
               class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
@@ -63,15 +62,15 @@
   <div class="row top-margin">
     <div class="col-sm-2 col-md-3">
       <label for="startDate">{{'update-bug.start-target-date' | translate}}</label>
-      <input class="form-control size" type="date" id="startDate"
-             [(ngModel)]="this.chosenFilter.targetDate"
-             min="2018-01-01" max="2030-12-31"/>
+      <input class="form-control size"  type="date" id="startDate"
+             [(ngModel)]="this.filterDataService.chosenFilter.targetDate"
+             min="2018-01-01" max="2030-12-31" />
     </div>
     <div class="col-sm-2 col-md-3">
       <label for="endDate">{{'update-bug.end-target-date' | translate}}</label>
       <input class="form-control size" type="date" id="endDate"
              [(ngModel)]="this.endDate"
-             min="2018-01-01" max="2030-12-31"/>
+             min="2018-01-01" max="2030-12-31" />
     </div>
     <div class="col-sm-2 col-md-3">
       <br>
@@ -90,58 +89,55 @@
   </div>
 
 
-  <table class="top-margin">
-    <thead>
-    <th *ngFor="let head of header" (click)="sortColumn(head)">
-      <table>
-        <tr>
-          <td>{{ 'bugs.'+head.name | translate}}</td>
-          <td>
-            <i class="fa fa-chevron-up" *ngIf="head.direction === 'asc'"></i>
-            <i class="fa fa-chevron-down" *ngIf="head.direction === 'desc'"></i>
-          </td>
-        </tr>
-      </table>
-    </th>
-    <th>
+<table class="top-margin">
+  <thead >
+  <th *ngFor="let head of header" (click)="sortColumn(head)">
+    <table>
       <tr>
-        <td>{{'update-bug.col-update' | translate}}</td>
+        <td>{{'bugs.'+head.name |translate}}</td>
+        <td>
+          <i class="fa fa-chevron-up" *ngIf="head.direction === 'asc'" ></i>
+          <i class="fa fa-chevron-down" *ngIf="head.direction === 'desc'"></i>
+        </td>
       </tr>
-    </th>
-    <th>
-      <tr>
-        <td>{{'update-bug.col-details' | translate}}</td>
-      </tr>
-    </th>
-    </thead>
+    </table>
+  </th>
+  <th><tr>
+    <td class="header-description">{{'update-bug.col-description' | translate}}</td>
+  </tr></th>
+  <th><tr>
+    <td>{{'update-bug.col-update' | translate}}</td>
+  </tr></th>
+  <th><tr>
+    <td>{{'update-bug.col-details' | translate}}</td>
+  </tr></th>
+  </thead>
 
-    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }" class="fixedColumns">
+    <tbody *ngFor="let bug of bugs| paginate: { itemsPerPage: 20, currentPage: page }"  class="fixedColumns">
     <tr>
-      <td>
-        <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
-        <div *ngIf="!this.editableFunction(bug)">
-          {{bug.title}}
+      <td >
+        <input class="form-control" *ngIf="this.editableFunction(bug)" [ngModel]="bug.title" (ngModelChange)="bug.title = $event"/>
+        <div class="description-hide left" *ngIf="!this.editableFunction(bug)">
+          {{(bug.title.length>16)? (bug.title | slice:0:16)+'..':(bug.title)}}
         </div>
       </td>
       <td>
         <div class="fixedColumns">
-          <input *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
+        <input class="form-control" *ngIf="this.editableFunction(bug)" [ngModel]="bug.version" (ngModelChange)="bug.version = $event"/>
         </div>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.version}}
         </div>
       </td>
       <td>
-        <input *ngIf="this.editableFunction(bug)" class="fixedColumns" [ngModel]="bug.fixedVersion"
-               (ngModelChange)="bug.fixedVersion = $event"/>
+        <input *ngIf="this.editableFunction(bug)"  class="form-control" [ngModel]="bug.fixedVersion" (ngModelChange)="bug.fixedVersion = $event"/>
         <div *ngIf="!this.editableFunction(bug)">
           {{bug.fixedVersion}}
         </div>
       </td>
       <td>
         <div *ngIf="this.editableFunction(bug)">
-          <select name="severity" id="severity" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event"
-                  class="form-control">
+          <select name="severity" id="severity" [ngModel]="bug.severity" (ngModelChange)="bug.severity = $event" class="form-control">
             <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
           </select>
         </div>
@@ -150,9 +146,9 @@
         </div>
       </td>
       <td>
-        <div *ngIf="this.editableFunction(bug)">
-          <select class="form-control" [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
-            <option *ngFor="let status of this.updatedStatus" [ngValue]="status">{{status.toLocaleUpperCase()}}</option>
+        <div *ngIf="this.editableFunction(bug)" >
+          <select class="form-control"  [ngModel]="bug.status" (ngModelChange)="bug.status = $event">
+            <option  *ngFor="let status of this.updatedStatus" [ngValue]="status">{{status.toLocaleUpperCase()}}</option>
           </select>
         </div>
         <div *ngIf="!this.editableFunction(bug)">
@@ -161,26 +157,32 @@
       </td>
       <td>
         <div *ngIf="this.editableFunction(bug)">
-          <select class="form-control" [ngModel]="bug.assignedTo.username"
-                  (ngModelChange)="bug.assignedTo.username = $event">
+          <select  class="form-control"  [ngModel]="bug.assignedTo.username" (ngModelChange)="bug.assignedTo.username = $event">
             <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
           </select>
         </div>
-        <div *ngIf="!this.editableFunction(bug)">
+          <div *ngIf="!this.editableFunction(bug)">
           {{bug.assignedTo.username}}
         </div>
       </td>
 
       <td>
-        {{bug.targetDate}}
-      </td>
-
-
-      <td>
-        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-upload"></i></button>
+        {{bug.targetDate.substr(0,bug.targetDate.length-9)}}
       </td>
       <td>
-        <button class="btn" routerLink="/bug/details" (click)='setSelectedBug(bug)'><i class="fa fa-info"></i></button>
+        {{bug.createdByUser.username}}
+      </td>
+      <td >
+        <div class="header-description left" >
+          {{(bug.description.length>50)? (bug.description | slice:0:50)+'..':(bug.description)}}
+        </div>
+      </td>
+
+      <td>
+        <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-refresh"></i></button>
+      </td>
+      <td>
+        <button class="btn" routerLink="/bug/details" (click) = 'setSelectedBug(bug)'><i class="fa fa-info"></i></button>
       </td>
 
     </tr>
@@ -190,31 +192,6 @@
   <div class="has-text-centered">
     <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
-  <!--<div id="myModal" class="modal fade" role="dialog">-->
-  <!--<div class="modal-dialog">-->
-  <!--<div class="modal-content">-->
-  <!--<div class="modal-body">-->
-  <!--<div class="form-group">-->
-  <!--<label>Attachment for this bug</label>-->
-  <!--<select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">-->
-  <!--<option  *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">Attachment {{i+1}} </option>-->
-  <!--</select>-->
-  <!--<br/>-->
-  <!--<label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob)"><i class="fa fa-upload"></i></button></label><br/>-->
-  <!--<label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-dollar"></i></button></label>-->
-  <!--<br>-->
-  <!--<label>Add:&nbsp;</label>-->
-  <!--<input type="file" id="blob" name="file" required (change)="fileChange($event)" accept="file_extension|audio/*|video/*|image/*|media_type" multiple >-->
-  <!--<label>&nbsp;&nbsp;</label>-->
-  <!--<button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="modal-footer">-->
-  <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
 </div>
 
 

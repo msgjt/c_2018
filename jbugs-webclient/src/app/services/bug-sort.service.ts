@@ -15,8 +15,9 @@ export class BugSortService{
         case 'fixed version': return this.compare(a.fixedVersion, b.fixedVersion, criteria.direction);
         case 'severity': return this.compare(a.severity, b.severity, criteria.direction);
         case 'status': return this.compare(a.status, b.status, criteria.direction);
-        case 'assigned to': return this.compare(a.assignedTo, b.assignedTo, criteria.direction);
+        case 'assigned to': return this.compare(a.assignedTo.username, b.assignedTo.username, criteria.direction);
         case 'target date': return this.compare(new Date(a.targetDate), new Date(b.targetDate), criteria.direction);
+        case 'created by': return this.compare(a.createdByUser.username, b.createdByUser.username, criteria.direction);
       }
     });
   }
