@@ -78,7 +78,6 @@ export class AddBugComponentComponent implements OnInit {
       }
     }
 
-
   }
 
   onSubmit() {

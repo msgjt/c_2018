@@ -20,5 +20,9 @@ export class PermissionService {
     });
   }
 
+  getPermissions(): Observable<any> {
+    return this.http.get(this.baseURL + '/permissions');
+  }
+
 
 }

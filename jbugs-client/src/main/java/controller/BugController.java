@@ -1,11 +1,11 @@
 package controller;
 
-import authentification.Secured;
 import com.google.gson.Gson;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
@@ -27,7 +27,6 @@ public class BugController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    //ToDO add permission BUG_MANAGEMENT restriction
     public Response getBugs(){
         List<BugDTO> bugDTOS = bugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
@@ -40,7 +39,11 @@ public class BugController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(BugDTO bugDTO){
-        bugBusinessService.addBug(bugDTO);
+        try {
+            bugBusinessService.addBug(bugDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(bugDTO))
                 .build();
@@ -52,8 +55,13 @@ public class BugController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateBug(BugDTO bugDTO){
+        try {
+            bugBusinessService.updateBug(bugDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.updateBug(bugDTO)))
+                .entity(new Gson().toJson(bugDTO))
                 .build();
     }
 

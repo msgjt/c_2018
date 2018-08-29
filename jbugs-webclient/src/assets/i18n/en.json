@@ -40,32 +40,39 @@
     "btn-add": "Add",
     "btn-remove": "Remove"
   },
-  "bugs": {
-    "option1": "Severity",
-    "option2": "Status",
-    "table-col1": "Issue",
-    "table-col2": "Target date",
-    "table-col3": "Status",
-    "table-col4": "Severity"
-  },
-  "create-user": {
+  "create-user":{
     "title": "Create user",
-    "first-name": "First Name",
+    "first-name":"First Name",
+    "first-name-message":"First name is required",
     "last-name": "Last Name",
+    "last-name-message":"Last name is required",
     "mobile-number": "Mobile number",
-    "email": "Email",
+    "mobile-number-message":"Phone number must be a valid phone number",
+    "email": "E-mail",
+    "email-message":"Email must be a valid email adress",
     "roles": "Roles",
+    "roles-message":"Select at least one role",
     "btn-role": "Choose a role",
     "add": "Add"
   },
   "update-user": {
+    "username":"Choose username",
+    "btn-show":"Find",
     "first-name": "First Name",
+    "first-name-message":"First name is required",
     "last-name": "Last Name",
+    "last-name-message":"Last name is required",
     "mobile-number": "Mobile number",
+    "mobile-number-message":"Phone number must be a valid phone number",
     "email": "Email",
+    "email-message":"Email must be a valid email adress",
     "roles": "Roles",
+    "roles-message":"Select at least one role",
     "btn-role": "Choose a role",
-    "save": "Save"
+    "save": "Save",
+    "status":"Status",
+    "change-status":"Change status",
+    "btn-save": "Update"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Email already exists. Choose another one",
@@ -85,6 +92,69 @@
     "SUCCES-REMOVE": "Succesfully remove",
     "FAILED-LOGIN": "Login failed",
     "ERROR-SERVER": "Server problem. Please try again"
+
+  },
+  "add-bug": {
+    "title-page":"ADD BUG",
+    "title":"Title",
+    "title-message":"Title is required",
+    "description":"Description",
+    "description-message":"Description is required",
+    "version":"Version",
+    "fixed-version":"Fixed Version",
+    "severity":"Severity",
+    "severity-message":"Select a severity for bug",
+    "target-date":"Target Date",
+    "target-date-message":"Target date is required",
+    "created-by":"Created by",
+    "assigned-to":"AssignedTo",
+    "assigned-to-message":"Assign an user for this bug",
+    "select-user":"Select user",
+    "status":"Status",
+    "attachment":"Attachment",
+    "btn-register":"Register"
+  },
+  "update-bug":{
+    "title":"Title",
+    "description":"Description",
+    "version":"Version",
+    "fixed-version":"Fixed Version",
+    "severity":"Severity",
+    "status":"Status",
+    "assigned-to":"AssignedTo",
+    "created-by":"Created by",
+    "start-target-date":"Start target date",
+    "end-target-date":"End target Date",
+    "target-date-message":"Choose a date interval where the first one is smaller than the second one",
+    "select-user":"Select user",
+    "attachment":"Attachment",
+    "btn-register":"Register",
+    "btn-filter":"Filter",
+    "btn-export":"Export to excel",
+    "col-update":"UPDATE",
+    "col-description":"DESCRIPTION",
+    "col-details":"DETAILS"
+
+  },
+  "bugs":{
+    "title": "TITLE",
+    "version": "VERSION",
+    "fixed version": "FIXED VERSION",
+    "severity": "SEVERITY",
+    "status": "STATUS",
+    "assigned to": "ASSIGNED TO",
+    "target date": "TARGET DATE",
+    "created by":"CREATED BY"
+
+  },
+  "home":{
+    "message":"Welcome"
+  },
+  "contact": {
+    "phone":"Phone",
+    "email":"E-mail",
+    "address":"Address"
   }
+
 }
 

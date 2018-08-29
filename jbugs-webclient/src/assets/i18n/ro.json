@@ -5,21 +5,21 @@
     "nav-item2": "Contact",
     "nav-item3": "Drepturi",
     "nav-item4": "Roluri",
-    "nav-item5": "User",
+    "nav-item5": "Utilizator",
     "dropdown1-item1": "Adauga",
     "dropdown1-item2": "Modifica",
-    "nav-item6": "Bugs",
+    "nav-item6": "Defecte",
     "dropdown2-item1": "Vizualizare",
     "dropdown2-item2": "Adauga",
     "dropdown2-item3": "Modifica",
     "btn-login": "Conecteaza-te",
-    "btn-logout": "Deconectare"
+    "btn-logout": "Deconecteaza-te"
 },
   "login": {
   "title": "Login",
     "username": "Nume utilizator",
     "password": "Parola",
-    "message": "Autentificare esuata. Vă rugăm să încercați din nou.",
+    "message": "Autentificare esuata. Va rugam sa incercați din nou.",
     "button": "Login"
 },
   "permission": {
@@ -32,7 +32,7 @@
   "col-id": "Id",
     "col-type": "Tip",
     "col-roles": "Roluri",
-    "col-update": "Update",
+    "col-update": "Actualizare",
     "btn-update": "Submit",
     "btn-back1": "Inapoi",
     "btn-update-remove":"Submit",
@@ -40,31 +40,39 @@
     "btn-add": "Adauga",
     "btn-remove": "Sterge"
 },
-  "bugs":{
-    "option1": "Severitate",
-    "option2": "Status",
-    "table-col1": "Denumire",
-    "table-col2": "Data",
-    "table-col3": "Status",
-    "table-col4": "Severitate"
-  },
   "create-user":{
+    "title": "Creaza utilizator",
     "first-name":"Prenume",
+    "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
+    "last-name-message":"Numele de familie este obligatoriu",
     "mobile-number": "Numar de telefon",
-    "email": "Email",
+    "mobile-number-message":"Numarul de telefon trebuie sa fie un numar de telefon valid",
+    "email": "E-mail",
+    "email-message":"Adresa de email trebuie sa fie o adresa de email valida",
     "roles": "Roluri",
+    "roles-message":"Selectati cel putin un rol",
     "btn-role": "Alege un rol",
     "add": "Adauga"
   },
   "update-user":{
+    "username":"Alege un utilizator",
+    "btn-show":"Cauta",
     "first-name":"Prenume",
+    "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
+    "last-name-message":"Numele de familie este obligatoriu",
     "mobile-number": "Numar de telefon",
+    "mobile-number-message":"Numarul de telefon trebuie sa fie un numar de telefon valid",
     "email": "Email",
+    "email-message":"Adresa de email trebuie sa fie o adresa de email valida",
     "roles": "Roluri",
+    "roles-message":"Selectati cel putin un rol",
     "btn-role": "Alege un rol",
-    "save": "Salveaza"
+    "save": "Salveaza",
+    "status":"Stare",
+    "change-status":"Schimba starea",
+    "btn-save": "Actualizare"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Adresa email folosita deja",
@@ -84,6 +92,62 @@
     "SUCCES-REMOVE":"Stergere efectuata cu succes",
     "FAILED-LOGIN":"Logare esuata",
     "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou"
+  },
+  "add-bug": {
+    "title-page":"Adaugare defect",
+    "title":"Titlu",
+    "description":"Descriere",
+    "version":"Versiune",
+    "fixed-version":"Versiune fixa",
+    "severity":"Severitate",
+    "target-date":"Data",
+    "created-by":"Creat de",
+    "assigned-to":"Atribuit",
+    "select-user":"Select user",
+    "status":"Stare",
+    "attachment":"Atasament",
+    "btn-register":"Inregistreaza"
+  },
+  "update-bug":{
+    "title":"Titlu",
+    "description":"Descriere",
+    "version":"Versiune",
+    "fixed-version":"Versiune fixa",
+    "severity":"Severitate",
+    "status":"Stare",
+    "assigned-to":"Atribuit lui",
+    "created-by":"Creat de",
+    "start-target-date":"Start target date",
+    "end-target-date":"End target Date",
+    "target-date-message":"Choose a date interval where the first one is smaller than the second one",
+    "select-user":"Select user",
+    "attachment":"Atasament",
+    "btn-register":"Inregistreaza",
+    "btn-filter":"Filtreaza",
+    "btn-export":"Export in excel",
+    "col-description":"DESCRIERE",
+    "col-update":"ACTUALIZARE",
+    "col-details":"DETALII"
+  },
+  "bugs":{
+    "title": "TITLU",
+    "version": "VERSIUNE",
+    "fixed version": "VERSIUNE FIXA",
+    "severity": "SEVERITATE",
+    "status": "STARE",
+    "assigned to": "ATRIBUIT LUI",
+    "created by":"CREAT DE",
+    "target date": "DATA"
+
+  },
+  "home":{
+    "message":"Bine ati venit"
+  },
+  "contact": {
+    "phone":"Numar de telefon",
+    "email":"E-mail",
+    "address":"Adresa",
+    "street":"Strada"
   }
 
 }

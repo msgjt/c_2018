@@ -7,6 +7,8 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
@@ -43,7 +45,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public BugDTO addBug(BugDTO bugDTO) {
+    public BugDTO addBug(BugDTO bugDTO) throws BusinessException {
+        if(bugDTO.getTargetDate() == null || bugDTO.getStatus() == null || bugDTO.getSeverity()==null){
+            throw new BusinessException(ExceptionCode.BUG_VALIDATION_EXCEPTION);
+        }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
         return bugDTOHelper.fromEntity(addedBug);
@@ -55,7 +60,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) {
+    public AttachmentDTO addAttachment(AttachmentDTO attachmentDTO) throws BusinessException {
+        if(attachmentDTO.getBugDTO() == null  || attachmentDTO.getBlob()==null){
+            throw new BusinessException(ExceptionCode.ATTACHMENT_VALIDATION_EXCEPTION);
+        }
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
         return attachmentDTOHelper.fromEntity(bugPersistenceService.addAttachment(attachment).get());
     }
@@ -67,7 +75,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public BugDTO updateBug(BugDTO bugDTO) {
+    public BugDTO updateBug(BugDTO bugDTO) throws BusinessException{
+        if(bugDTO.getIdBug() <= 0){
+            throw new BusinessException(ExceptionCode.BUG_VALIDATION_EXCEPTION);
+        }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         return bugDTOHelper.fromEntity(bugPersistenceService.updateBug(bug).get());
     }
@@ -87,9 +98,8 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs) {
         Predicate<BugDTO> bugFilter = x -> true;
-
         List<BugDTO> bugDTOs = new ArrayList<>();
-        bugDTOs = getAllBugs();
+        bugDTOs = this.getAllBugs();
         for(BugFiltersDTO criteria: filtersDTOs){
             switch (criteria.getField()){
                 case "title":
@@ -132,7 +142,10 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) {
+    public AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) throws BusinessException{
+        if(attachmentDTO.getIdAttachment() <= 0){
+            throw new BusinessException(ExceptionCode.ATTACHMENT_VALIDATION_EXCEPTION);
+        }
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
         return attachmentDTOHelper.fromEntity(bugPersistenceService.deleteAttachment(attachment).get());
     }

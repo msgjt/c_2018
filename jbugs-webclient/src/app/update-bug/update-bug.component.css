@@ -3,6 +3,10 @@ table {
   width: 100%;
 }
 
+.header-description{
+  width: 200px;
+}
+
 tr {
   border-bottom: 1px solid #ccc;
   height: 50px;
@@ -15,11 +19,16 @@ tr:hover {
 input{
   width: 100px;
 }
-th {
+.left{
   text-align: left;
+}
+th {
+  text-align: center;
+  height: 20px;
 }
 td{
   width: 120px;
+  text-align: center;
 }
 .severity {
   width: 120px;
@@ -52,7 +61,9 @@ td{
 }
 
 .button{
-  margin-top: 30px;
+  height:40px;
+  width:150px;
+  text-align: center;
 }
 
 .err{

@@ -64,6 +64,7 @@ export class CreateUserComponent implements OnInit {
       this.user.roles.map(value => value.permissions = this.permission);
       this.userService.addUser(this.user).subscribe((response: User) => {
         location.reload();
+        this.selectedItems=[];
         this.success("alerts.SUCCES-ADD");
       }, (error: HttpErrorResponse) => {
         this.error('alerts.' + error.error.toString());
@@ -71,7 +72,7 @@ export class CreateUserComponent implements OnInit {
         this.showRoles = true;
 
       });
-      this.selectedItems = [];
+
     }
     else {
       this.checkSelect = true;
