@@ -9,9 +9,9 @@
     "dropdown1-item1": "Adauga",
     "dropdown1-item2": "Modifica",
     "nav-item6": "Defecte",
-    "dropdown2-item1": "Vizualizare",
-    "dropdown2-item2": "Adauga",
-    "dropdown2-item3": "Modifica",
+    "dropdown2-item1": "Adauga",
+    "dropdown2-item2": "Modifica",
+    "dropdown2-item3": "Istoric",
     "btn-login": "Conecteaza-te",
     "btn-logout": "Deconecteaza-te"
 },
@@ -91,7 +91,9 @@
     "SUCCES-LOGIN":"Logare efectuata cu succes",
     "SUCCES-REMOVE":"Stergere efectuata cu succes",
     "FAILED-LOGIN":"Logare esuata",
-    "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou"
+    "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou",
+    "ERROR-ADD-FILE":"Error add file. Extension invalid",
+    "FORMAT-FILE-ERROR":"Format fisier invalid"
   },
   "add-bug": {
     "title-page":"Adaugare defect",
@@ -148,6 +150,27 @@
     "email":"E-mail",
     "address":"Adresa",
     "street":"Strada"
+  },
+  "details-bug":{
+    "created-by":"Creat de ",
+    "col1":"ATRIBUIT LUI",
+    "col2":"SEVERITATE",
+    "col3":"STARE",
+    "col4":"DATA",
+    "col5":"VERSIUNE",
+    "col6":"VERSIUNE FIXA",
+    "description":"Descriere",
+    "comments":"Comentarii",
+    "btn-add-comment":"Adauga comentariu",
+    "btn-export":"Export PDF",
+    "attachments":"Atasamente",
+    "description-attachment":"Atasamentele pentru acest bug:",
+    "message-attachment":"Nu sunt atasamente",
+    "select-attachment":"Selecteaza atasament",
+    "download":"Descarca",
+    "delete":"Sterge",
+    "add":"Adauga",
+    "btn-back":"Inapoi"
   }
 
 }

@@ -47,7 +47,9 @@ public class RolePersistenceService implements IRolePersistenceService {
     @Override
     public Optional<Role> getRoleById(long id) throws PersistenceException {
         Query q = em.createQuery("SELECT r FROM Role r WHERE r.idRole=" + id);
-        if (Optional.of((Role) q.getSingleResult()).isPresent())
+        Optional<Role> optionalRole= Optional.of((Role) q.getSingleResult());
+
+        if (optionalRole.isPresent())
             return Optional.of((Role) q.getSingleResult());
         throw new PersistenceException(ExceptionCode.ROLE_NOT_FOUND_EXCEPTION);
     }

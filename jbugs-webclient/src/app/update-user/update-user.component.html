@@ -1,36 +1,44 @@
 <div class="container">
-  <div class="jumbotron">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-
-        <form (ngSubmit)="clickUpdate()" #formControl="ngForm" #formElement>
-          <label>{{'update-user.username' |translate}}</label>
-          <div class="form-group">
-            <ng-multiselect-dropdown
-              #selectElement
-              required
-              *ngIf="showUsers"
-              name="users"
-              [(data)]="dropdownUserList"
-              [(ngModel)]="selectedItem"
-              [settings]="dropdownSettings1">
-            </ng-multiselect-dropdown>
-
-            <button type="submit"
-                    style="float:right;"
-                    [disabled]="formControl.invalid"
-                    class="btn btn-primary">{{'update-user.btn-show' |translate}}</button>
-
-          </div>
-        </form>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><b>Update user</b></div>
+    </div>
+    <div class="card-body">
+      <div class="row justify-content-center ">
+        <div class="col-md-6">
+          <form #formControl="ngForm" #formElement>
+            <label>{{'update-user.username' |translate}}</label>
+            <div class="form-group">
+              <ng-multiselect-dropdown
+                #selectElement
+                required
+                *ngIf="showUsers"
+                name="users"
+                [(data)]="dropdownUserList"
+                [(ngModel)]="selectedItem"
+                [settings]="dropdownSettings1">
+              </ng-multiselect-dropdown>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2" style="padding-top: 30px">
+          <button type="submit"
+                  style="float:right;"
+                  [disabled]="formControl.invalid"
+                  (click)="clickUpdate()"
+                  class="btn btn-primary">{{'update-user.btn-show' |translate}}
+          </button>
+        </div>
         <br>
         <br>
+      </div>
+      <div>
         <div *ngIf="showDetails">
           <div class="form-group">
             <label for="firstName">{{'update-user.first-name' |translate}}</label>
             <input #firstNameElement #firstNameControl="ngModel" required="true" [(ngModel)]="user.firstName"
                    name="firstName" id="firstName" type="text"
-                   class="form-control" pattern="^([a-zA-Z](\s?|\-?)[a-zA-Z]*\s?[a-zA-Z]+)+$"
+                   class="form-control" pattern="^([a-zA-Z]+(\s?|-?)[a-zA-Z]+){1,5}$"
                    [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
             <p>
               <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
@@ -43,7 +51,7 @@
             <label for="lastName">{{'update-user.last-name' |translate}}</label>
             <input #lastNameElement #lastNameControl="ngModel" required="true" [(ngModel)]="user.lastName"
                    name="lastName" id="lastName" type="text"
-                   class="form-control" pattern="^([a-zA-Z](\s?|\-?)[a-zA-Z]*\s?[a-zA-Z]+)+$"/>
+                   class="form-control" pattern="^([a-zA-Z]+(\s?|-?)[a-zA-Z]+){1,5}$"/>
             <p>
               <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
                 {{'update-user.last-name-message' |translate}}
@@ -57,9 +65,10 @@
                    id="mobileNumber" name="mobileNumber" type="text"
                    class="form-control" minlength="10"
                    pattern="(((^\+40|^0|^\(\+40\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\+490|^0|^\(\+490\)|^00490)1[0-9]{3,8}$)"
-                   />
+            />
             <p>
-              <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched " class="help-block text-danger">
+              <small *ngIf="mobileNumberControl.invalid && mobileNumberControl.touched "
+                     class="help-block text-danger">
                 {{'update-user.mobile-number-message' |translate}}
               </small>
             </p>
@@ -101,20 +110,17 @@
           <label>{{'update-user.status' |translate}}</label>
           <div class="form-group">
             <input type="text" placeholder="{{status}}" readonly class="status">
-            <input type="checkbox" id="changeStatus">
-            <label for="changeStatus">{{'update-user.change-status'|translate }}</label>
-          </div>
-
-
-          <div class=" form-group">
-            <button type="submit"
-                    class="btn btn-primary"
-                    (click)="updateUser()"
-            >{{'update-user.btn-save' | translate}}</button>
+              <input type="checkbox" id="changeStatus">
+              <label for="changeStatus">{{'update-user.change-status'|translate }}</label>
+            <div class=" form-group">
+              <button type="submit"
+                      class="btn btn-primary"
+                      (click)="updateUser()"
+              >{{'update-user.btn-save' | translate}}
+              </button>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-</div>

@@ -1,11 +1,12 @@
-.fixedColumns{
+.fixedColumns {
   padding-right: 200px;
 
-
 }
-.buttonStyle{
+
+.buttonStyle {
   margin-right: 30px;
 }
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -23,7 +24,12 @@ tr:hover {
 th {
   text-align: left;
 }
-.mySpacing{
+
+.mySpacing {
   padding-right: 100px;
+}
+
+.container {
+  padding-top: 35px;
 }
 

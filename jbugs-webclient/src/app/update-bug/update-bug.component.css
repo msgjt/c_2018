@@ -71,3 +71,16 @@ td{
   font-size: smaller;
   text-align: left;
 }
+
+.row{
+  padding-left: 13%;
+  width: 90%;
+  padding-top: 30px;
+}
+
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #e8f6ff;
+  color: #666666;
+}
+

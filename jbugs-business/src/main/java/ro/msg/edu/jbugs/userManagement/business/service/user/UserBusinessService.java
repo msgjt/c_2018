@@ -238,7 +238,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     private boolean isValidFirstName(String firstName){
         final Pattern VALID_FIRSTNAME_REGEX =
-                Pattern.compile("^([a-zA-Z](\\s?|\\-?)[a-zA-Z]*\\s?[a-zA-Z]+)+$", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_FIRSTNAME_REGEX.matcher(firstName);
         return matcher.find();
@@ -246,7 +246,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     private boolean isValidLastName(String lastName){
         final Pattern VALID_LASTNAME_REGEX =
-                Pattern.compile("^([a-zA-Z](\\s?|\\-?)[a-zA-Z]*\\s?[a-zA-Z]+)+$", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_LASTNAME_REGEX.matcher(lastName);
         return matcher.find();

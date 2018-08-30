@@ -9,9 +9,9 @@
     "dropdown1-item1": "Add",
     "dropdown1-item2": "Update",
     "nav-item6": "Bugs",
-    "dropdown2-item1": "View",
-    "dropdown2-item2": "Add",
-    "dropdown2-item3": "Update",
+    "dropdown2-item1": "Add",
+    "dropdown2-item2": "Update",
+    "dropdown2-item3": "View History",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
   },
@@ -91,7 +91,9 @@
     "SUCCES-LOGIN": "Succesfully login",
     "SUCCES-REMOVE": "Succesfully remove",
     "FAILED-LOGIN": "Login failed",
-    "ERROR-SERVER": "Server problem. Please try again"
+    "ERROR-SERVER": "Server problem. Please try again",
+    "ERROR-ADD-FILE":"Error add file. Extension invalid",
+    "FORMAT-FILE-ERROR":"Invalid format file"
 
   },
   "add-bug": {
@@ -137,6 +139,7 @@
 
   },
   "bugs":{
+
     "title": "TITLE",
     "version": "VERSION",
     "fixed version": "FIXED VERSION",
@@ -154,6 +157,27 @@
     "phone":"Phone",
     "email":"E-mail",
     "address":"Address"
+  },
+  "details-bug":{
+    "created-by":"Created by ",
+    "col1":"ASSIGNED TO",
+    "col2":"SEVERITY",
+    "col3":"STATUS",
+    "col4":"TARGET DATE",
+    "col5":"VERSION",
+    "col6":"FIXED VERSION",
+    "description":"Description",
+    "comments":"Comments",
+    "btn-add-comment":"Add comment",
+    "btn-export":"Export PDF",
+    "attachments":"Attachments",
+    "description-attachment":"Attachments for this bug:",
+    "message-attachment":"No attachments",
+    "select-attachment":"Select attachment",
+    "download":"Download",
+    "delete":"Delete",
+    "add":"Add",
+    "btn-back":"Back"
   }
 
 }
