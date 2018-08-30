@@ -3,25 +3,24 @@ package ro.msg.edu.jbugs.userManagement.business.dto.notification;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationType;
 
 import java.util.Date;
+import java.util.Set;
 
 public class NotificationDTO {
     private NotificationType type;
     private String message;
     private Date date;
-    private NotificationDetail newNotificationDetail;
-    private NotificationDetail oldNotificationDetail;
-    private String username;
+    private Set<String> usernames;
+    private Long bugId;
 
     public NotificationDTO() {
     }
 
-    public NotificationDTO(NotificationType type, String message, Date date, NotificationDetail newNotificationDetail, NotificationDetail oldNotificationDetail, String username) {
+    public NotificationDTO(NotificationType type, String message, Date date, Set<String> usernames, Long bugId) {
         this.type = type;
         this.message = message;
         this.date = date;
-        this.newNotificationDetail = newNotificationDetail;
-        this.oldNotificationDetail = oldNotificationDetail;
-        this.username = username;
+        this.usernames = usernames;
+        this.bugId = bugId;
     }
 
     public NotificationType getType() {
@@ -48,27 +47,19 @@ public class NotificationDTO {
         this.date = date;
     }
 
-    public NotificationDetail getNewNotificationDetail() {
-        return newNotificationDetail;
+    public Set<String> getUsernames() {
+        return usernames;
     }
 
-    public void setNewNotificationDetail(NotificationDetail newNotificationDetail) {
-        this.newNotificationDetail = newNotificationDetail;
+    public void setUsernames(Set<String> usernames) {
+        this.usernames = usernames;
     }
 
-    public NotificationDetail getOldNotificationDetail() {
-        return oldNotificationDetail;
+    public Long getBugId() {
+        return bugId;
     }
 
-    public void setOldNotificationDetail(NotificationDetail oldNotificationDetail) {
-        this.oldNotificationDetail = oldNotificationDetail;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setBugId(Long bugId) {
+        this.bugId = bugId;
     }
 }

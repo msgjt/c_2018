@@ -2,6 +2,7 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "notifications")
@@ -14,26 +15,25 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotification;
-
+    @OneToMany(cascade = CascadeType.DETACH)
+    private Set<User> users;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private Bug bug;
     @Column(nullable = false)
     private NotificationType type;
-    @Column(length = 1000)
-    private String newNotificationDetailJson;
-    @Column(length = 1000)
-    private String oldNotificationDetailJson;
     private Date date;
-    @OneToOne(cascade = CascadeType.DETACH)
-    private User user;
+    private String message;
 
     public Notification() {
+
     }
 
-    public Notification(NotificationType type, String newNotificationDetailJson, String oldNotificationDetailJson, Date date, User user) {
+    public Notification(Set<User> users, Bug bug, NotificationType type, Date date, String message) {
+        this.users = users;
+        this.bug = bug;
         this.type = type;
-        this.newNotificationDetailJson = newNotificationDetailJson;
-        this.oldNotificationDetailJson = oldNotificationDetailJson;
         this.date = date;
-        this.user = user;
+        this.message = message;
     }
 
     public Long getIdNotification() {
@@ -44,28 +44,28 @@ public class Notification {
         this.idNotification = idNotification;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Bug getBug() {
+        return bug;
+    }
+
+    public void setBug(Bug bug) {
+        this.bug = bug;
+    }
+
     public NotificationType getType() {
         return type;
     }
 
     public void setType(NotificationType type) {
         this.type = type;
-    }
-
-    public String getNewNotificationDetailJson() {
-        return newNotificationDetailJson;
-    }
-
-    public void setNewNotificationDetailJson(String newNotificationDetailJson) {
-        this.newNotificationDetailJson = newNotificationDetailJson;
-    }
-
-    public String getOldNotificationDetailJson() {
-        return oldNotificationDetailJson;
-    }
-
-    public void setOldNotificationDetailJson(String oldNotificationDetailJson) {
-        this.oldNotificationDetailJson = oldNotificationDetailJson;
     }
 
     public Date getDate() {
@@ -76,11 +76,11 @@ public class Notification {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public String getMessage() {
+        return message;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

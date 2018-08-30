@@ -1,11 +1,13 @@
 package controller;
 
+import authentification.Secured;
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -101,24 +103,6 @@ public class UserController {
         } catch (BusinessException e) {
             response = Response.status(Response.Status.PRECONDITION_FAILED)
                     .entity(new Gson().toJson(e.getExceptionCode()))
-                    .build();
-        }
-        return response;
-    }
-
-    //ToDO:delete this
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/email")
-    public Response sendEmail() {
-        Response response;
-        try {
-            emailService.sendEmail(new EmailDto("test", "ioan.grozea@gmail.com", "mere"));
-            response = Response.status(Response.Status.OK)
-                    .build();
-        } catch (BusinessException e) {
-            response = Response.status(Response.Status.PRECONDITION_FAILED)
-                    .entity(e.getExceptionCode())
                     .build();
         }
         return response;

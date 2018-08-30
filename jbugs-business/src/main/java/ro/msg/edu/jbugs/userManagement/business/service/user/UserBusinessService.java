@@ -3,9 +3,7 @@ package ro.msg.edu.jbugs.userManagement.business.service.user;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
-import ro.msg.edu.jbugs.userManagement.business.dto.notification.NotificationDetail;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
@@ -60,9 +58,7 @@ public class UserBusinessService implements IUserBusinessService {
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
         UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
-        NotificationDetail notificationDetail = new NotificationDetail();
-        notificationDetail.setUser(userDTOAfterPersist);
-        notificationBusinessService.generateNotification(NotificationType.WELCOME_NEW_USER, null, notificationDetail, userDTOAfterPersist);
+        notificationBusinessService.generateNotification(NotificationType.WELCOME_NEW_USER, null, userDTOAfterPersist);
         return userDTOAfterPersist;
     }
 
@@ -202,9 +198,9 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
+    public UserDTO updateUser(UserDTO userDTO) throws BusinessException {
         validateUserForUpdate(userDTO);
-        if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
+        if (!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO)) != 0) {
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
@@ -243,7 +239,7 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
-    private boolean isValidFirstName(String firstName){
+    private boolean isValidFirstName(String firstName) {
         final Pattern VALID_FIRSTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
@@ -251,7 +247,7 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
-    private boolean isValidLastName(String lastName){
+    private boolean isValidLastName(String lastName) {
         final Pattern VALID_LASTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
