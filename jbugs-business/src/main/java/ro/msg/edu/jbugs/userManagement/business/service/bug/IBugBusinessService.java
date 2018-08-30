@@ -5,6 +5,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IBugBusinessService {
 
@@ -20,4 +21,7 @@ public interface IBugBusinessService {
     List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs);
     HistoryDTO addHistory(HistoryDTO historyDTO);
     List<HistoryDTO> getAllHistory();
+    Map<String,Long> getStatistics();
+    Map<String, Long> getFixedBugsForUser();
+    Map<String, Long> getStatisticsForNewAndRejectedBugs();
 }
