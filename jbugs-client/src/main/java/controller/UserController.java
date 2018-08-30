@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ResourceBundle;
 
 @Path("/users")
 public class UserController {
@@ -78,8 +79,8 @@ public class UserController {
                         .build();
         } catch (BusinessException e) {
             response = Response.
-                        status(Response.Status.OK)
-                        .entity(e.getExceptionCode())
+                        status(Response.Status.PRECONDITION_FAILED)
+                        .entity(new Gson().toJson(e.getExceptionCode()))
                         .build();
         }
         return response;
@@ -90,15 +91,19 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(UserDTO userDTO) {
+        Response response;
         UserDTO addedUser = null;
         try {
             addedUser = userBusinessService.createUser(userDTO);
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new Gson().toJson(addedUser))
+                    .build();
         } catch (BusinessException e) {
-            e.printStackTrace();
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
+                    .entity(new Gson().toJson(e.getExceptionCode()))
+                    .build();
         }
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(addedUser))
-                .build();
+        return response;
     }
 
     //ToDO:delete this
@@ -112,7 +117,7 @@ public class UserController {
             response = Response.status(Response.Status.OK)
                     .build();
         } catch (BusinessException e) {
-            response = Response.status(Response.Status.OK)
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
                     .entity(e.getExceptionCode())
                     .build();
         }

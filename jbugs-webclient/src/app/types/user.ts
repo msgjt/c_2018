@@ -9,6 +9,7 @@ export interface User {
   phoneNumber:string;
   isActive: boolean;
   roles: Role[];
+  fullname?: string;
 }
 
 

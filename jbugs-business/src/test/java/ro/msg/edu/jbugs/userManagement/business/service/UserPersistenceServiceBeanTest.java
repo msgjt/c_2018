@@ -1,17 +1,13 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.utils.ByteToFilesConverter;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
@@ -23,12 +19,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ejb.EJB;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -41,8 +33,7 @@ public class UserPersistenceServiceBeanTest {
     @InjectMocks
     private UserBusinessService userBusinessService;
 
-    @EJB
-    private IBugBusinessService bugBusinessService;
+
 
     @InjectMocks
     private RoleBusinessService roleBusinessService;
@@ -178,14 +169,17 @@ public class UserPersistenceServiceBeanTest {
     public void testCreateRole_Success(){
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setType(RoleEnum.ADMINISTRATOR);
-
-            RoleDTO createdRole = roleBusinessService.createRole(roleDTO);
-            assertEquals(createdRole.getType(),roleDTO.getType());
+        Role role = new Role();
+        role.setType(RoleEnum.ADMINISTRATOR);
+        when(roleDTOHelper.toEntity(roleDTO))
+                .thenReturn(role);
+        when(rolePersistenceService.createRole(role))
+                .thenReturn(Optional.of(role));
+        when(roleDTOHelper.fromEntity(role))
+                .thenReturn(roleDTO);
+        RoleDTO createdRole = roleBusinessService.createRole(roleDTO);
+        assertEquals(createdRole.getType(),roleDTO.getType());
     }
 
-    @Test
-    public void testImage(){
-
-    }
 
 }

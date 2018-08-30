@@ -2,9 +2,8 @@ package controller;
 
 import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.service.utils.ByteToFilesConverter;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.ExtensionEnum;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -44,8 +43,13 @@ public class AttachmentController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addAttachment(AttachmentDTO attachmentDTO) {
         attachmentDTO.setBlob(this.fileBytes);
+        try {
+            bugBusinessService.addAttachment(attachmentDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.addAttachment(attachmentDTO)))
+                .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
 
@@ -65,7 +69,6 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAttachments(@PathParam("idBug") long idBug) {
         List<AttachmentDTO> attachmentDTOS = bugBusinessService.getAllAttachments().stream().filter(x -> x.getBugDTO().getIdBug().equals(idBug)).collect(Collectors.toList());
-        System.out.println("aaaaaaaaaaaaaaa + " + attachmentDTOS.get(0).getName());
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTOS))
                 .build();
@@ -76,8 +79,13 @@ public class AttachmentController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteAttachment(AttachmentDTO attachmentDTO) {
+        try {
+             bugBusinessService.deleteAttachment(attachmentDTO);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.deleteAttachment(attachmentDTO)))
+                .entity(new Gson().toJson(attachmentDTO))
                 .build();
     }
 }

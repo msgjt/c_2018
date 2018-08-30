@@ -1,13 +1,10 @@
 package controller;
 
-import authentification.Secured;
 import com.google.gson.Gson;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.*;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.IBugBusinessService;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 
 import javax.ejb.EJB;
@@ -27,7 +24,6 @@ public class BugController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    //ToDO add permission BUG_MANAGEMENT restriction
     public Response getBugs(){
         List<BugDTO> bugDTOS = bugBusinessService.getAllBugs();
         return Response.status(Response.Status.OK)
@@ -40,21 +36,39 @@ public class BugController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(BugDTO bugDTO){
-        bugBusinessService.addBug(bugDTO);
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugDTO))
-                .build();
+        Response response;
+        BugDTO addedBug = null;
+        try {
+            addedBug = bugBusinessService.addBug(bugDTO);
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new Gson().toJson(addedBug))
+                    .build();
+        } catch (BusinessException e) {
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
+                    .entity(new Gson().toJson(e.getExceptionCode()))
+                    .build();
+        }
+        return response;
     }
-
 
     @Path("/update")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateBug(BugDTO bugDTO){
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugBusinessService.updateBug(bugDTO)))
-                .build();
+        Response response;
+        BugDTO addedBug = null;
+        try {
+            addedBug = bugBusinessService.updateBug(bugDTO);
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new Gson().toJson(addedBug))
+                    .build();
+        } catch (BusinessException e) {
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
+                    .entity(new Gson().toJson(e.getExceptionCode()))
+                    .build();
+        }
+        return response;
     }
 
     @Path("/{idBug}")
@@ -100,4 +114,26 @@ public class BugController {
                 .entity(new Gson().toJson(commentAdded))
                 .build();
     }
+
+    @Path("/history/add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addHistory(HistoryDTO historyDTO){
+        HistoryDTO addedHistory = bugBusinessService.addHistory(historyDTO);
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(addedHistory))
+                .build();
+    }
+
+    @Path("/history")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHistory(){
+        List<HistoryDTO> historyDTOS = bugBusinessService.getAllHistory();
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(historyDTOS))
+                .build();
+    }
+
 }

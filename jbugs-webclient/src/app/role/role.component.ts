@@ -3,6 +3,8 @@ import {RoleService} from "../services/role.service";
 import {PermissionService} from "../services/permission.service";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
+import {AlertService} from "../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 @Component({
@@ -19,7 +21,7 @@ export class RoleComponent implements OnInit {
   permissionComplete: boolean;
   checkSelect: boolean[];
 
-  constructor(private roleService: RoleService, private permissionService: PermissionService) {
+  constructor(private roleService: RoleService, private permissionService: PermissionService, private alertService:AlertService) {
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -41,8 +43,10 @@ export class RoleComponent implements OnInit {
       role.permissions = this.selectedItems[role.id];
       this.roleService.updateRole(role).subscribe((response: Role) => {
           this.checkSelect[response.id] = false;
+          this.success("alerts.SUCCES-UPDATE");
         },
-        () => {
+        (error:HttpErrorResponse) => {
+          this.error("alerts."+error.error.toString());
           console.log('eroare update role')
         },
         () => {
@@ -77,6 +81,7 @@ export class RoleComponent implements OnInit {
         });
       },
       () => {
+        this.error("alerts.ERROR_SERVER");
         console.log('eroare dropdown ')
       },
       () => {
@@ -90,4 +95,11 @@ export class RoleComponent implements OnInit {
     return this.selectedItems[role.id].length > 0;
   }
 
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
 }

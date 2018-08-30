@@ -1,9 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.persistence.service;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -130,6 +127,17 @@ public class BugPersistenceService implements IBugPersistenceService {
         comment.setDate(new Date());
         em.persist(comment);
         return Optional.of(comment);
+    }
+
+    @Override
+    public Optional<History> addHistory(History history) {
+        em.persist(history);
+        return Optional.of(history);
+    }
+
+    @Override
+    public List<History> getAllHistory() {
+        return em.createNamedQuery(History.GET_ALL_HISTORY, History.class).getResultList();
     }
 
 

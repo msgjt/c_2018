@@ -4,27 +4,28 @@
 <div class="container cont">
   <div class="row">
     <div class="col-sm col-md-3">
-      <label for="filterTitle">Title</label>
+      <label for="filterTitle">{{'update-bug.title' | translate}}</label>
       <input   name="filterTitle" id="filterTitle" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.title">
     </div>
     <div class="col-sm col-md-3">
-      <label for="filterDescription">Description</label>
+      <label for="filterDescription">{{'update-bug.description' | translate}}</label>
       <input  name="filterDescription" id="filterDescription" type="text" class="form-control size"
              [(ngModel)]="this.filterDataService.chosenFilter.description">
     </div>
     <div class="col-sm col-md-3">
-      <label for="filterVersion">Version</label>
+      <label for="filterVersion">{{'update-bug.version' | translate}}</label>
       <input id="filterVersion" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.version">
+
     </div>
     <div class="col-sm col-md-3">
-      <label for="filterFixedVersion">Fixed version</label>
+      <label for="filterFixedVersion">{{'update-bug.fixed-version' | translate}}</label>
       <input id="filterFixedVersion" type="text" class="form-control size" [(ngModel)]="this.filterDataService.chosenFilter.fixedVersion">
     </div>
 
 </div>
   <div class="row top-margin">
     <div class="col-sm col-md-3" >
-      <label for="filterSeverity">Severity</label>
+      <label for="filterSeverity">{{'update-bug.severity' | translate}}</label>
       <select name="filterSeverity" id="filterSeverity" [(ngModel)]="this.filterDataService.chosenFilter.severity" class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let sev of severity" [ngValue]="sev">{{sev}}</option>
@@ -32,15 +33,16 @@
     </div>
 
     <div class="col-sm col-md-3">
-      <label for="filterStatus">Status</label>
+      <label for="filterStatus">{{'update-bug.status' | translate}}</label>
       <select name="filterStatus" id="filterStatus" [(ngModel)]="this.filterDataService.chosenFilter.status" class="form-control size">
+      <label for="filterStatus">{{'update-bug.status' | translate}}</label>
         <option [ngValue]="undefined"></option>
         <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
       </select>
     </div>
 
     <div class="col-sm col-md-3">
-      <label for="filterAssignedTo">Assigned to</label>
+      <label for="filterAssignedTo">{{'update-bug.assigned-to' | translate}}</label>
       <select name="filterAssignedTo" id="filterAssignedTo" [(ngModel)]="this.filterDataService.chosenFilter.assignedTo" class="form-control size">
         <option [ngValue]="undefined"></option>
         <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}</option>
@@ -48,7 +50,7 @@
     </div>
 
     <div class="col-sm col-md-3">
-      <label for="filterCreatedBy">Created by</label>
+      <label for="filterCreatedBy">{{'update-bug.created-by' | translate}}</label>
       <select name="filterCreatedBy" id="filterCreatedBy" [(ngModel)]="this.filterDataService.chosenFilter.createdByUser"
               class="form-control size">
         <option [ngValue]="undefined"></option>
@@ -59,30 +61,40 @@
 
   <div class="row top-margin">
     <div class="col-sm-2 col-md-3">
-      <label for="startDate">Start target date</label>
+      <label for="startDate">{{'update-bug.start-target-date' | translate}}</label>
       <input class="form-control size"  type="date" id="startDate"
              [(ngModel)]="this.filterDataService.chosenFilter.targetDate"
              min="2018-01-01" max="2030-12-31" />
     </div>
     <div class="col-sm-2 col-md-3">
-      <label for="endDate">End target date</label>
-      <input class="form-control size"  type="date" id="endDate"
+      <label for="endDate">{{'update-bug.end-target-date' | translate}}</label>
+      <input class="form-control size" type="date" id="endDate"
              [(ngModel)]="this.endDate"
              min="2018-01-01" max="2030-12-31" />
     </div>
-    <div class="col-sm-2 col-md-5">
-      <button class="btn btn-group  button" [disabled]="!validateDates()" (click)="applyFilters()" >Filter</button>
+    <div class="col-sm-2 col-md-3">
+      <br>
+      <button class="btn btn-primary button" [disabled]="!validateDates()" (click)="applyFilters()">
+        {{'update-bug.btn-filter' | translate}}
+      </button>
     </div>
+    <div class="col-sm-2 col-md-3">
+      <br>
+      <button class="btn btn-primary button" [disabled]="!validateFile()" (click)="exportAsXLSX()">
+        {{'update-bug.btn-export' | translate}}
+      </button>
+    </div>
+    <div class="err" *ngIf="!validateDates()">{{'update-bug.target-date-message' | translate}}</div>
+
   </div>
 
-  <div class="err" *ngIf="!validateDates()">Choose a date interval where the first one is smaller than the second one</div>
 
 <table class="top-margin">
   <thead >
   <th *ngFor="let head of header" (click)="sortColumn(head)">
     <table>
       <tr>
-        <td>{{head.name.toUpperCase()}}</td>
+        <td>{{'bugs.'+head.name |translate}}</td>
         <td>
           <i class="fa fa-chevron-up" *ngIf="head.direction === 'asc'" ></i>
           <i class="fa fa-chevron-down" *ngIf="head.direction === 'desc'"></i>
@@ -91,13 +103,13 @@
     </table>
   </th>
   <th><tr>
-    <td class="header-description">DESCRIPTION</td>
+    <td class="header-description">{{'update-bug.col-description' | translate}}</td>
   </tr></th>
   <th><tr>
-    <td>UPDATE</td>
+    <td>{{'update-bug.col-update' | translate}}</td>
   </tr></th>
   <th><tr>
-    <td>DETAILS</td>
+    <td>{{'update-bug.col-details' | translate}}</td>
   </tr></th>
   </thead>
 

@@ -78,6 +78,16 @@ public class UserBusinessService implements IUserBusinessService {
 
     }
 
+    private void validateUserForUpdate(UserDTO userDTO) throws BusinessException {
+        if (!isValidForCreation(userDTO)) {
+            throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+        }
+        //validate if email already exists
+        if (userPersistenceService.getUserByEmail(userDTO.getEmail()).isPresent() && !userPersistenceService.getUserByUsername(userDTO.getUsername()).get().getEmail().equals(userDTO.getEmail())) {
+            throw new BusinessException(ExceptionCode.EMAIL_EXISTS_ALREADY);
+        }
+    }
+
     /**
      * Trims stuff (first and last name)
      *
@@ -107,10 +117,13 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     private boolean isValidForCreation(UserDTO user) {
-        return user.getEmail() != null
+        return user.getFirstName() != null
                 && user.getLastName() != null
                 && user.getEmail() != null
-                && user.getPassword() != null
+                && user.getPhoneNumber() != null
+                && user.getRoles().size() != 0
+                && isValidFirstName(user.getFirstName())
+                && isValidLastName(user.getLastName())
                 && isValidEmail(user.getEmail())
                 && isValidPhoneNumber(user.getPhoneNumber());
     }
@@ -183,7 +196,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
-        //validateUserForCreation(userDTO);
+        validateUserForUpdate(userDTO);
         if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
@@ -216,10 +229,26 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     private boolean isValidPhoneNumber(String phonenumber) {
-        final Pattern VALID_PHONE_ADDRESS_REGEX =
+        final Pattern VALID_PHONE_REGEX =
                 Pattern.compile("(((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\\+490|^0|^\\(\\+490\\)|^00490)1[0-9]{3,8}$)", Pattern.CASE_INSENSITIVE);
 
-        Matcher matcher = VALID_PHONE_ADDRESS_REGEX.matcher(phonenumber);
+        Matcher matcher = VALID_PHONE_REGEX.matcher(phonenumber);
+        return matcher.find();
+    }
+
+    private boolean isValidFirstName(String firstName){
+        final Pattern VALID_FIRSTNAME_REGEX =
+                Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = VALID_FIRSTNAME_REGEX.matcher(firstName);
+        return matcher.find();
+    }
+
+    private boolean isValidLastName(String lastName){
+        final Pattern VALID_LASTNAME_REGEX =
+                Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = VALID_LASTNAME_REGEX.matcher(lastName);
         return matcher.find();
     }
 
