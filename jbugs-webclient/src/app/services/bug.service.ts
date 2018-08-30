@@ -56,13 +56,13 @@ export class BugService {
     });
   }
 
-  updateBug(bug: Bug) {
+  updateBug(bug: Bug):Observable<any> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(bug);
     console.log(attachmentModel);
-    this.http.post(this.baseURL + '/update', attachmentModel, {
+    return this.http.post(this.baseURL + '/update', attachmentModel, {
       headers: reqHeader
-    }).subscribe();
+    });
   }
 
   getAllAttachmentsForABug(idBug: number): Attachment[] {
@@ -91,22 +91,22 @@ export class BugService {
     return attachmentsForBug;
   }
 
-  deleteAttachment(attachment: Attachment) {
+  deleteAttachment(attachment: Attachment):Observable<any> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
-    this.http.post(this.attachementURL + '/delete', attachmentModel, {
+    return this.http.post(this.attachementURL + '/delete', attachmentModel, {
       headers: reqHeader
-    }).subscribe();
+    });
   }
 
-  addAttachment(attachment: Attachment) {
+  addAttachment(attachment: Attachment):Observable<any> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log('Atasamentul trimis: ' + attachmentModel);
-    this.http.post(this.attachementURL + '/add', attachmentModel,{
+    return this.http.post(this.attachementURL + '/add', attachmentModel,{
       headers:reqHeader
-    }).subscribe();
+    });
   }
 
 

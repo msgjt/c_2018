@@ -39,30 +39,39 @@ public class BugController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addBugAndAttachment(BugDTO bugDTO){
+        Response response;
+        BugDTO addedBug = null;
         try {
-            bugBusinessService.addBug(bugDTO);
+            addedBug = bugBusinessService.addBug(bugDTO);
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new Gson().toJson(addedBug))
+                    .build();
         } catch (BusinessException e) {
-            e.printStackTrace();
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
+                    .entity(new Gson().toJson(e.getExceptionCode()))
+                    .build();
         }
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugDTO))
-                .build();
+        return response;
     }
-
 
     @Path("/update")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateBug(BugDTO bugDTO){
+        Response response;
+        BugDTO addedBug = null;
         try {
-            bugBusinessService.updateBug(bugDTO);
+            addedBug = bugBusinessService.updateBug(bugDTO);
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new Gson().toJson(addedBug))
+                    .build();
         } catch (BusinessException e) {
-            e.printStackTrace();
+            response = Response.status(Response.Status.PRECONDITION_FAILED)
+                    .entity(new Gson().toJson(e.getExceptionCode()))
+                    .build();
         }
-        return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(bugDTO))
-                .build();
+        return response;
     }
 
     @Path("/{idBug}")
