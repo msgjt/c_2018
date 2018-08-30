@@ -19,7 +19,7 @@
       <td>{{bug.assignedTo.username}}</td>
       <td><label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label></td>
       <td>{{bug.status.toLowerCase()}}</td>
-      <td>{{bug.targetDate}}</td>
+      <td>{{bug.targetDate.substr(0,bug.targetDate.length-9)}}</td>
       <td>{{bug.version}}</td>
       <td>{{bug.fixedVersion}}</td>
     </tr>

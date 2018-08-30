@@ -9,9 +9,9 @@
     "dropdown1-item1": "Add",
     "dropdown1-item2": "Update",
     "nav-item6": "Bugs",
-    "dropdown2-item1": "View",
-    "dropdown2-item2": "Add",
-    "dropdown2-item3": "Update",
+    "dropdown2-item1": "Add",
+    "dropdown2-item2": "Update",
+    "dropdown2-item3": "View History",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
   },
