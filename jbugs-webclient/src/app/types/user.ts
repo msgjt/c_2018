@@ -11,5 +11,16 @@ export interface User {
   roles: Role[];
   fullname?: string;
 }
+export class UserClass implements User{
+  email: string;
+  firstName: string;
+  fullname: string;
+  isActive: boolean;
+  lastName: string;
+  password: string;
+  phoneNumber: string;
+  roles: Role[];
+  username: string;
 
+}
 

@@ -1,19 +1,20 @@
 import {Component, OnInit} from "@angular/core";
-import {Bug, BugClass} from "../../types/bugs";
-import {BugDataService} from "../../services/bugData.service";
-import {BugService} from "../../services/bug.service";
-import {Comment, CommentClass} from "../../types/comments";
-import {Attachment} from "../../types/attachment";
-import {UserService} from "../../services/user.service";
-import {ExportPDFService} from "../../services/export-pdf.service";
-import {AlertService} from "../../services/alert.service";
+import {Bug} from "../types/bugs";
+import {Attachment} from "../types/attachment";
+import {BugDataService} from "../services/bugData.service";
+import {Comment,CommentClass} from "../types/comments";
+import {BugService} from "../services/bug.service";
+import {UserService} from "../services/user.service";
+import {ExportPDFService} from "../services/export-pdf.service";
+import {AlertService} from "../services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {FilterService} from "../../services/filter.service";
+import {FilterService} from "../services/filter.service";
+
 
 @Component({
   selector: 'app-bugDetails',
   templateUrl: './bugDetails.component.html',
-  styleUrls: ['./bugDetails.component.css', './../severity.css']
+  styleUrls: ['./bugDetails.component.css', './severity.css']
 })
 
 export class BugDetailsComponent implements OnInit {
@@ -58,7 +59,7 @@ export class BugDetailsComponent implements OnInit {
 
   setBugDetails() {
     this.bug = this.dataService.bug;
-    this.comments = this.bugService.getComments(this.bug.idBug);
+    this.comments = this.bugService.getCommentsForABug(this.bug.idBug);
     this.attachmentsForABug = this.bugService.getAllAttachmentsForABug(this.bug.idBug);
     this.attachmentToBeAdded.bugDTO = this.bug;
   }

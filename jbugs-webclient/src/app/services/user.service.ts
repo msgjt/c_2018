@@ -38,11 +38,7 @@ export class UserService {
 
 
   }
-  /**
-   * Make a request to the server for addUser
-   * @param user represents user from component
-   * @return added user
-   */
+
   addUser(user: User):Observable<User> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
     var userModel = JSON.stringify(user);

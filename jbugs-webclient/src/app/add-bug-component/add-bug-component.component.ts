@@ -43,13 +43,6 @@ export class AddBugComponentComponent implements OnInit {
     }
   }
 
-  checkUndefined(value: string) {
-    let type = typeof value;
-    if (type === "undefined")
-      return false;
-    return true;
-  }
-
   changedSelected(chosenSeverity: string) {
     console.log(chosenSeverity);
   }

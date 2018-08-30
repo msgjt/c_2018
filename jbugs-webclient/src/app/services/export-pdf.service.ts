@@ -13,13 +13,6 @@ export class ExportPDFService {
   constructor() {
   }
 
-  // getSplitText(text: string, doc: jsPDF): string{
-  //   var maxLength = doc.internal.pageSize.width - 10;
-  //   var splitText = doc.splitTextToSize(text, maxLength);
-  //   console.log(splitText);
-  //   doc.text(0.5, 0.5, lines)
-  //   return splitText;
-  // }
 
   export(bug: Bug, comments: Comment[], attachments: Attachment[]) {
     var doc = new jsPDF();
@@ -63,20 +56,6 @@ export class ExportPDFService {
       doc.text(comment.user,30,row+16);
       doc.text(lines2,30,row+32);
       row = row + 40;
-
-      // while (numberComments < 5) {
-      //
-      //   console.log("nr comm: ", numberComments);
-      //   doc.text("#" + comment.id, 30, row)
-      //   doc.text(comment.date, 30, row + 8);
-      //   doc.text(comment.user + ": " + comment.text, 30, row + 16);
-      //   row = row + 32;
-      //   numberComments++;
-      // }
-      // doc.addPage();
-      // numberComments = 0;
-      // row = 60;
-      // console.log("nr comm dupa addpage: ", numberComments);
     }
 
 
