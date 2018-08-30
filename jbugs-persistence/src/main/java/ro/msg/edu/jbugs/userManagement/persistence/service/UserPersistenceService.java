@@ -34,15 +34,6 @@ public class UserPersistenceService implements IUserPersistenceService {
         return Optional.of(em.merge(userToUpdate));
     }
 
-    public void removeUser(@NotNull User user) {
-//            Query q = em.createNativeQuery("delete from users_roles where (id_user,id_role)=(?1,?2)");
-//            user.getRoles().forEach(r -> {
-//                q.setParameter(1, user.getIdUser());
-//                q.setParameter(2, r.getIdRole());
-//                q.executeUpdate();
-//            });
-        em.remove(user);
-    }
 
     public Optional<User> getUserById(long id) {
         Query q = em.createQuery("SELECT u FROM User u WHERE u.idUser=" + id);
