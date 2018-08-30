@@ -1,6 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.PermissionDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
@@ -8,8 +10,7 @@ import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
@@ -21,6 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -34,7 +36,6 @@ public class UserPersistenceServiceBeanTest {
     private UserBusinessService userBusinessService;
 
 
-
     @InjectMocks
     private RoleBusinessService roleBusinessService;
 
@@ -45,6 +46,9 @@ public class UserPersistenceServiceBeanTest {
     private IRolePersistenceService rolePersistenceService;
     @Mock
     private RoleDTOHelper roleDTOHelper;
+
+    @Mock
+    private UserDTOHelper userDTOHelper;
 
     @Mock
     private UserPersistenceService userPersistenceService;
@@ -142,28 +146,6 @@ public class UserPersistenceServiceBeanTest {
         }
     }
 
-    @Test
-    public void testCreateUser_Success(){
-        when(userPersistenceService.getUserByEmail(any(String.class)))
-                .thenReturn(Optional.empty());
-
-
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName("Cristi");
-        userDTO.setLastName("Borcea");
-        userDTO.setEmail("dinamo@msggroup.com");
-        userDTO.setPhoneNumber("1234456667");
-        userDTO.setPassword("IloveSteaua");
-        try{
-        UserDTO createdUser = userBusinessService.createUser(userDTO);
-        assertEquals(userDTO.getFirstName(),createdUser.getFirstName());
-        assertEquals(userDTO.getLastName(),createdUser.getLastName());
-        assertEquals(userDTO.getEmail(),createdUser.getEmail());
-        assertEquals("borcec",createdUser.getUsername());
-        } catch (BusinessException e){
-            fail("Should not reach this point");
-        }
-    }
 
     @Test
     public void testCreateRole_Success(){
