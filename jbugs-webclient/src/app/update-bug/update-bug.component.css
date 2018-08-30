@@ -78,3 +78,9 @@ td{
   padding-top: 30px;
 }
 
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #e8f6ff;
+  color: #666666;
+}
+

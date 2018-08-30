@@ -15,3 +15,8 @@
   background-color: #f5f8fa;
   color:#636b6f;
 }
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #e8f6ff;
+  color: #666666;
+}
