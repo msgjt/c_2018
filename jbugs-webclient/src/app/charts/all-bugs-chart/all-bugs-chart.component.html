@@ -1,0 +1,13 @@
+<app-charts></app-charts>
+<div class="canvas">
+  <canvas
+    baseChart
+    [chartType]="'bar'"
+    [datasets]="chartData"
+    [labels]="finalLabels"
+    [options]="chartOptions"
+    [legend]="true"
+    [colors]="colors"
+    (chartClick)="onChartClick($event)">
+  </canvas>
+</div>

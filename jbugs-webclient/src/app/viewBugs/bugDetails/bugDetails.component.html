@@ -98,7 +98,6 @@
           <button data-placement="bottom" title="Save attachment" class="btn" (click)="addAttachment(this.attachmentToBeAdded)">
             <i class="fa fa-save"></i></button>
         </div>
-
         <div class="col-md-2">
           <input data-placement="bottom" title="Add attachment" type="file" id="blob" name="file" required
                  (change)="fileChange($event)"
@@ -107,7 +106,7 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-          <button class="btn btn-primary" routerLink="/bug/update">Back to List</button>
+          <button class="btn btn-primary" routerLink="/bug/update">{{'details-bug.btn-back' | translate}}</button>
         </div>
       </div>
     </div>

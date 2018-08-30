@@ -8,6 +8,7 @@ import {UserService} from "../../services/user.service";
 import {ExportPDFService} from "../../services/export-pdf.service";
 import {AlertService} from "../../services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
   selector: 'app-bugDetails',
@@ -23,7 +24,7 @@ export class BugDetailsComponent implements OnInit {
   attachmentsForABug: Attachment[] = [];
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private alertService: AlertService) {
+  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private alertService: AlertService,private filterService: FilterService){
     this.attachmentToBeAdded = {
       bugDTO: null,
       blob: new Uint8Array(),
@@ -130,4 +131,7 @@ export class BugDetailsComponent implements OnInit {
   error(message: string) {
     this.alertService.error(message);
   }
+  isBugExportPdf():boolean {
+  return this.filterService.isBugExportPdf();
+}
 }

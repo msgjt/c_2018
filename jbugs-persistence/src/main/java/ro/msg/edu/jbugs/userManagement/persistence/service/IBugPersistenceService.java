@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface IBugPersistenceService extends Serializable {
@@ -23,4 +24,7 @@ public interface IBugPersistenceService extends Serializable {
     Optional<Comment> addComment(Comment comment);
     Optional<History> addHistory(History history);
     List<History> getAllHistory();
+    Map<String,Long> getStatistics();
+    Map<String,Long> getFixedBugsForUser();
+    Map<String, Long> getStatisticsForNewAndRejectedBugs();
 }

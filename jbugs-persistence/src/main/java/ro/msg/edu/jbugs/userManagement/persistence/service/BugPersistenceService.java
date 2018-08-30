@@ -5,10 +5,7 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Stateless
 public class BugPersistenceService implements IBugPersistenceService {
@@ -138,6 +135,42 @@ public class BugPersistenceService implements IBugPersistenceService {
     @Override
     public List<History> getAllHistory() {
         return em.createNamedQuery(History.GET_ALL_HISTORY, History.class).getResultList();
+    }
+
+    @Override
+    public Map<String, Long> getStatistics() {
+        List<Bug> bugs = this.getAllBugs();
+        Map<String,Long> mapOfCountedStatuses = new HashMap<>();
+        mapOfCountedStatuses.put("OPEN", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.OPEN)).count());
+        mapOfCountedStatuses.put("FIXED", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.FIXED)).count());
+        mapOfCountedStatuses.put("NEW", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.NEW)).count());
+        mapOfCountedStatuses.put("IN_PROGRESS", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.IN_PROGRESS)).count());
+        mapOfCountedStatuses.put("REJECTED", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.REJECTED)).count());
+        mapOfCountedStatuses.put("INFO_NEEDED", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.INFO_NEEDED)).count());
+        mapOfCountedStatuses.put("CLOSED", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.CLOSED)).count());
+        return mapOfCountedStatuses;
+    }
+
+    @Override
+    public Map<String, Long> getFixedBugsForUser() {
+        Set<User> users = this.userPersistenceService.getAllUsers();
+        List<Bug> bugs = this.getAllBugs();
+        Map<String,Long> mapOfFixedBugs = new HashMap<>();
+        users.forEach(x -> {
+            long fixedBugs = bugs.stream().filter(y -> y.getStatus().equals(StatusEnum.FIXED)
+                    && y.getAssignedTo().getUsername().equals(x.getUsername())).count();
+            mapOfFixedBugs.put(x.getUsername(),fixedBugs);
+        });
+        return mapOfFixedBugs;
+    }
+
+    @Override
+    public Map<String, Long> getStatisticsForNewAndRejectedBugs() {
+        List<Bug> bugs = this.getAllBugs();
+        Map<String,Long> mapOfCountedStatuses = new HashMap<>();
+        mapOfCountedStatuses.put("NEW", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.NEW)).count());
+        mapOfCountedStatuses.put("REJECTED", bugs.stream().filter(x -> x.getStatus().equals(StatusEnum.REJECTED)).count());
+        return mapOfCountedStatuses;
     }
 
 

@@ -14,6 +14,7 @@ import {ExcelService} from "../services/excel.service";
 import {AlertService} from "../services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {HistoryClass} from "../types/history";
+import {FilterService} from "../services/filter.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -41,7 +42,7 @@ export class UpdateBugComponent implements OnInit {
   header: BugListHeader[] = [];
   history: HistoryClass = new HistoryClass();
 
-  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private alertService: AlertService) {
+  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private alertService: AlertService, private filterService: FilterService) {
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: null,

@@ -38,6 +38,12 @@ import {AlertComponent} from './alert/alert.component';
 import {FilterDataService} from "./services/filter-data.service";
 import {ExcelService} from "./services/excel.service";
 import { ViewHistoryComponent } from './view-history/view-history.component';
+import { ChartsComponent } from './charts/charts.component';
+import { AllBugsChartComponent } from './charts/all-bugs-chart/all-bugs-chart.component';
+import { FixedBugsChartComponent } from './charts/fixed-bugs-chart/fixed-bugs-chart.component';
+import { CreatedBugsChartComponent } from './charts/created-bugs-chart/created-bugs-chart.component';
+import {ChartsModule} from "ng2-charts";
+
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -48,6 +54,10 @@ const appRoutes: Routes = [
   {path: 'bug/update', component: UpdateBugComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/details', component: BugDetailsComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/viewHistory', component: ViewHistoryComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/statistics', component: ChartsComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/statistics/all', component: AllBugsChartComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/statistics/fixed', component: FixedBugsChartComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/statistics/created', component: CreatedBugsChartComponent, canActivate: [BugManagementGuard]},
   {path: 'bug', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
@@ -85,7 +95,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotificationPopupComponent,
     ContactComponent,
     AlertComponent,
-    ViewHistoryComponent
+    ViewHistoryComponent,
+    ChartsComponent,
+    AllBugsChartComponent,
+    FixedBugsChartComponent,
+    CreatedBugsChartComponent,
+    AllBugsChartComponent,
+    FixedBugsChartComponent,
+    CreatedBugsChartComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +121,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgMultiSelectDropDownModule.forRoot(),
     NgxPaginationModule,
     RecaptchaFormsModule,
-    RecaptchaModule.forRoot()
+    RecaptchaModule.forRoot(),
+    ChartsModule
+
   ],
 
   providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService, {
