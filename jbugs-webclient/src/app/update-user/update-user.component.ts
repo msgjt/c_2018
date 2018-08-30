@@ -8,6 +8,7 @@ import {PermissionService} from "../services/permission.service";
 import {AlertService} from "../services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
+
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -30,7 +31,6 @@ export class UpdateUserComponent implements OnInit {
 
 
   showState: boolean;
-  dropdownStatesList: string[];
   dropdownSettings3 = {};
 
   checkSelect: boolean;
@@ -45,7 +45,6 @@ export class UpdateUserComponent implements OnInit {
 
 
   }
-
   ngOnInit() {
 
     this.dropdownRoleList = [];
@@ -53,6 +52,7 @@ export class UpdateUserComponent implements OnInit {
     this.selectedItems = [];
     this.selectedItem = [];
     this.permission = [];
+
 
 
     this.rolesService.getRoles().subscribe((response: Role[]) => {
@@ -65,7 +65,11 @@ export class UpdateUserComponent implements OnInit {
     });
 
     this.userService.getUsers().subscribe((response: User[]) => {
-      response.forEach(value => this.dropdownUserList.push(value))
+      response.forEach(value => { let user: User = value;
+                                          user.fullname = value.username + ' : ' + value.firstName + ' ' + value.lastName;
+                                          this.dropdownUserList.push(user);
+
+                                          } )
     }, () => {
       this.error("alerts.ERROR-SERVER");
       console.log('user errors')
@@ -77,7 +81,7 @@ export class UpdateUserComponent implements OnInit {
     this.dropdownSettings1 = {
       singleSelection: true,
       idField: 'id',
-      textField: 'username',
+      textField: 'fullname',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       allowSearchFilter: true,
@@ -108,7 +112,7 @@ export class UpdateUserComponent implements OnInit {
 
   clickUpdate() {
 
-    this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
+    this.userService.getUser(this.selectedItem[0].fullname.split(':')[0].trim()).subscribe(user => {
       this.user = user;
       if (this.user.isActive == true) {
         this.status = 'ACTIVE';
@@ -132,16 +136,17 @@ export class UpdateUserComponent implements OnInit {
 
   updateUser() {
     if (this.verifySelectMenu()) {
-      this.selectedItem[0] = this.user;
-      this.user.roles = this.selectedItems;
 
-      this.user.roles.map(val => val.permissions = this.permission);
+      this.selectedItem[0] =this.user;
+      this.user.roles=this.selectedItems;
+
+      this.user.roles.map(val=>val.permissions=this.permission);
 
       console.log(this.selectedItem[0]);
       var element = <HTMLInputElement> document.getElementById("changeStatus");
       var isChecked = element.checked;
-      if (isChecked) {
-        this.selectedItem[0].isActive = !this.selectedItem[0].isActive;
+      if(isChecked){
+        this.selectedItem[0].isActive=!this.selectedItem[0].isActive;
       }
       this.userService.updateUser(this.selectedItem[0]).subscribe(user => {
         this.success("alerts.SUCCES-UPDATE");
@@ -149,7 +154,7 @@ export class UpdateUserComponent implements OnInit {
         this.selectedItems = [];
         this.selectedItem = [];
       }, (error: HttpErrorResponse) => {
-        this.error("alerts." + JSON.stringify(error));
+        this.error("alerts." + error.error.toString());
         console.log('aparent am si o eroare');
       });
 

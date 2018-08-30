@@ -80,7 +80,7 @@ public class UserController {
         } catch (BusinessException e) {
             response = Response.
                         status(Response.Status.PRECONDITION_FAILED)
-                        .entity(e.getExceptionCode())
+                        .entity(new Gson().toJson(e.getExceptionCode()))
                         .build();
         }
         return response;

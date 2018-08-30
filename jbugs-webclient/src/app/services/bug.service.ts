@@ -6,6 +6,7 @@ import {Comment} from "../types/comments";
 import {Observable} from "rxjs/internal/Observable";
 import {BugFilter, IBugFilter} from "../types/bug-filter";
 import {Body} from "@angular/http/src/body";
+import {HistoryClass} from "../types/history";
 
 
 @Injectable({
@@ -135,11 +136,6 @@ export class BugService {
   }
 
   sendFile(file:Uint8Array,attachment:Attachment){
-    // const formData = new FormData();
-    // formData.append('file', file,"ham");
-    // let body = {formData};
-    // console.log('Send file:' + body);
-
     this.http.post(this.attachementURL + '/file',file).subscribe((value)=>{
       this.addAttachment(attachment);
     });
@@ -150,6 +146,20 @@ export class BugService {
     return this.http.post(this.baseURL + '/filter', JSON.stringify(filters),{
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     });
+  }
+
+  addHistory(history:HistoryClass){
+    console.log('History sent: ' + JSON.stringify(history));
+    return this.http.post(this.baseURL + '/history/add', JSON.stringify(history),{
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    });
+  }
+
+  getHistory(): Observable<any> {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
+    return this.http.get(this.baseURL + '/history', {
+      headers: reqHeader
+    })
   }
 
 }

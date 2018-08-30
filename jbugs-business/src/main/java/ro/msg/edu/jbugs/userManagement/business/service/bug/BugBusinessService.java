@@ -1,16 +1,15 @@
 package ro.msg.edu.jbugs.userManagement.business.service.bug;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.AttachmentDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugFiltersDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.CommentDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.bug.*;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.HistoryDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.History;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
@@ -36,6 +35,9 @@ public class BugBusinessService implements IBugBusinessService {
     private AttachmentDTOHelper attachmentDTOHelper;
     @EJB
     private CommentDTOHelper commentDTOHelper;
+
+    @EJB
+    private HistoryDTOHelper historyDTOHelper;
 
 
     @Override
@@ -132,6 +134,18 @@ public class BugBusinessService implements IBugBusinessService {
             }
         }
         return bugDTOs.stream().filter(bugFilter).collect(Collectors.toList());
+    }
+
+    @Override
+    public HistoryDTO addHistory(HistoryDTO historyDTO) {
+        History history = historyDTOHelper.toEntity(historyDTO);
+        return historyDTOHelper.fromEntity(bugPersistenceService.addHistory(history).get());
+    }
+
+    @Override
+    public List<HistoryDTO> getAllHistory() {
+        List<History> histories = bugPersistenceService.getAllHistory();
+        return histories.stream().map(x -> historyDTOHelper.fromEntity(x)).collect(Collectors.toList());
     }
 
 
