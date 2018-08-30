@@ -5,6 +5,8 @@ import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
 import {Role} from "../types/roles";
 import {Permission, PermissionRest} from "../types/permissions";
+import {AlertService} from "../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-create-user',
@@ -20,17 +22,8 @@ export class CreateUserComponent implements OnInit {
   permission: Permission[];
   checkSelect: boolean;
 
-  constructor(private userService: UserService, private rolesService: RoleService) {
-    this.user = {
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: '',
-      phoneNumber: '',
-      isActive:true,
-      roles: []
-    };
+  constructor(private userService: UserService, private rolesService: RoleService, private alertService: AlertService) {
+    this.initUser();
     this.showRoles = false;
   }
 
@@ -41,13 +34,14 @@ export class CreateUserComponent implements OnInit {
     this.permission = [];
     this.dropdownList = [];
     this.selectedItems = [];
-    this.checkSelect=false;
+    this.checkSelect = false;
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownList.push(value))
     }, () => {
+      this.error("alerts.ERROR-SERVER");
       console.log('errors')
     }, () => {
-      this.showRoles=true;
+      this.showRoles = true;
     });
 
     this.dropdownSettings = {
@@ -65,20 +59,50 @@ export class CreateUserComponent implements OnInit {
    * Get value of fields completed by user and call addUser from userService
    */
   addUser() {
-    if(this.verifySelectMenu()) {
+    if (this.verifySelectMenu()) {
       this.user.roles = this.selectedItems;
       this.user.roles.map(value => value.permissions = this.permission);
-      this.userService.addUser(this.user);
-      this.selectedItems=[];
-      console.log(this.user);
+      this.userService.addUser(this.user).subscribe((response: User) => {
+        location.reload();
+        this.selectedItems=[];
+        this.success("alerts.SUCCES-ADD");
+      }, (error: HttpErrorResponse) => {
+        this.error('alerts.' + error.error.toString());
+      }, () => {
+        this.showRoles = true;
+
+      });
+
     }
     else {
-      this.checkSelect=true;
+      this.checkSelect = true;
     }
   }
 
-  verifySelectMenu():boolean{
-    return this.selectedItems.length>0;
+  verifySelectMenu(): boolean {
+    return this.selectedItems.length > 0;
+  }
+
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
+
+  initUser() {
+    this.user = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      isActive: true,
+      roles: []
+    };
+
   }
 
 }

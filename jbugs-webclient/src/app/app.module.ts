@@ -33,10 +33,11 @@ import {UserManagementGuard} from "./guards/user-management.guard";
 import {AdressedUserGuard} from "./guards/adressed-user.guard";
 import {NotificationDetailComponent} from "./notification-popup/notification-detail/notification-detail.component";
 import {NotificationPopupComponent} from "./notification-popup/notification-popup.component";
-import { ContactComponent } from './contact/contact.component';
+import {ContactComponent} from './contact/contact.component';
+import {AlertComponent} from './alert/alert.component';
 import {FilterDataService} from "./services/filter-data.service";
-
 import {ExcelService} from "./services/excel.service";
+import { ViewHistoryComponent } from './view-history/view-history.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -46,12 +47,13 @@ const appRoutes: Routes = [
   {path: 'bug/add', component: AddBugComponentComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/update', component: UpdateBugComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/details', component: BugDetailsComponent, canActivate: [BugManagementGuard]},
+  {path: 'bug/viewHistory', component: ViewHistoryComponent, canActivate: [BugManagementGuard]},
   {path: 'bug', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'create-user', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'notification', component: NotificationDetailComponent, canActivate: [AdressedUserGuard]},
-  {path: '',component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
+  {path: '', component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
   {path: 'error', component: ErrorComponent},
   {path: 'home', component: HomeComponent},
   {path: 'contact', component: ContactComponent},
@@ -81,7 +83,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     NotificationDetailComponent,
     NotificationPopupComponent,
-    ContactComponent
+    ContactComponent,
+    AlertComponent,
+    ViewHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecaptchaModule.forRoot()
   ],
 
-  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService,{
+  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],

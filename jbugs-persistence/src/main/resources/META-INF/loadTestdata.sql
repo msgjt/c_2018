@@ -95,16 +95,31 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into users_roles(User_IDUSER,roles_IDROLE) values (1,1);
 insert into users_roles(User_IDUSER,roles_IDROLE) values (2,2);
 
-INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/maneab/Desktop/11.txt'),'TXT','11.txt');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
--- ToDo decomment attachments 
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
+
+
+
+
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+INSERT INTO history(idBug,modifiedDate,afterStatus,beforeStatus,modifiedBy) values ('1','2018-08-30 00:00:00','OPEN','CLOSED','1');
+
 -- other tables TODO

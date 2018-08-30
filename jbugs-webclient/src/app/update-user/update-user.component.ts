@@ -5,6 +5,9 @@ import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
 import {Permission} from "../types/permissions";
 import {PermissionService} from "../services/permission.service";
+import {AlertService} from "../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-update-user',
@@ -28,13 +31,12 @@ export class UpdateUserComponent implements OnInit {
 
 
   showState: boolean;
-  dropdownStatesList: string[] ;
   dropdownSettings3 = {};
 
   checkSelect: boolean;
   permission: Permission[];
 
-  constructor(private userService: UserService, private rolesService: RoleService) {
+  constructor(private userService: UserService, private rolesService: RoleService, private alertService: AlertService) {
     this.showRoles = false;
     this.showUsers = false;
     this.showDetails = false;
@@ -43,7 +45,6 @@ export class UpdateUserComponent implements OnInit {
 
 
   }
-
   ngOnInit() {
 
     this.dropdownRoleList = [];
@@ -53,17 +54,24 @@ export class UpdateUserComponent implements OnInit {
     this.permission = [];
 
 
+
     this.rolesService.getRoles().subscribe((response: Role[]) => {
       response.forEach(value => this.dropdownRoleList.push(value))
     }, () => {
+      this.error("alerts.ERROR-SERVER");
       console.log('role errors')
     }, () => {
       this.showRoles = true;
     });
 
     this.userService.getUsers().subscribe((response: User[]) => {
-      response.forEach(value => this.dropdownUserList.push(value))
+      response.forEach(value => { let user: User = value;
+                                          user.fullname = value.username + ' : ' + value.firstName + ' ' + value.lastName;
+                                          this.dropdownUserList.push(user);
+
+                                          } )
     }, () => {
+      this.error("alerts.ERROR-SERVER");
       console.log('user errors')
     }, () => {
       this.showUsers = true;
@@ -73,7 +81,7 @@ export class UpdateUserComponent implements OnInit {
     this.dropdownSettings1 = {
       singleSelection: true,
       idField: 'id',
-      textField: 'username',
+      textField: 'fullname',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       allowSearchFilter: true,
@@ -104,7 +112,7 @@ export class UpdateUserComponent implements OnInit {
 
   clickUpdate() {
 
-    this.userService.getUser(this.selectedItem[0].username).subscribe(user => {
+    this.userService.getUser(this.selectedItem[0].fullname.split(':')[0].trim()).subscribe(user => {
       this.user = user;
       if (this.user.isActive == true) {
         this.status = 'ACTIVE';
@@ -114,7 +122,8 @@ export class UpdateUserComponent implements OnInit {
       this.selectedItems = this.user.roles;
 
 
-    }, (e) => {
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts." + error.error.toString());
       console.log('aparent am si o eroare');
     }, () => {
       this.showDetails = true;
@@ -127,7 +136,8 @@ export class UpdateUserComponent implements OnInit {
 
   updateUser() {
     if (this.verifySelectMenu()) {
-      this.selectedItem[0] = this.user;
+
+      this.selectedItem[0] =this.user;
       this.user.roles=this.selectedItems;
 
       this.user.roles.map(val=>val.permissions=this.permission);
@@ -138,10 +148,15 @@ export class UpdateUserComponent implements OnInit {
       if(isChecked){
         this.selectedItem[0].isActive=!this.selectedItem[0].isActive;
       }
-      this.userService.updateUser(this.selectedItem[0]);
-      this.selectedItems = [];
-      this.selectedItem = [];
-      window.location.reload();
+      this.userService.updateUser(this.selectedItem[0]).subscribe(user => {
+        this.success("alerts.SUCCES-UPDATE");
+        window.location.reload();
+        this.selectedItems = [];
+        this.selectedItem = [];
+      }, (error: HttpErrorResponse) => {
+        this.error("alerts." + error.error.toString());
+        console.log('aparent am si o eroare');
+      });
 
     }
     else {
@@ -154,5 +169,12 @@ export class UpdateUserComponent implements OnInit {
     return this.selectedItems.length > 0;
   }
 
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
 
 }

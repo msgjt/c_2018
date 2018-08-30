@@ -5,29 +5,32 @@ import java.util.Date;
 
 @Entity
 @Table(name = "history")
+@NamedQueries({
+        @NamedQuery(name = History.GET_ALL_HISTORY, query = "select h from History h")
+})
 public class History {
-    @Transient
-    private final static int MAX_STRING_LENGTH = 40;
-    @Id()
+
+    public final static String GET_ALL_HISTORY = "get_All_History";
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHistory;
 
     @ManyToOne
-    @JoinColumn(name = "idBug", nullable = false)
-    public Bug bug;
+    @JoinColumn(name = "idBug")
+    private Bug bug;
 
-    @Column(name = "modifiedDate", length = MAX_STRING_LENGTH, nullable = false)
     private Date modifiedDate;
 
-    @Column(name = "afterStatus", length = MAX_STRING_LENGTH, nullable = false)
-    private Date afterStatus;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum afterStatus;
 
-    @Column(name = "beforeStatus", length = MAX_STRING_LENGTH, nullable = false)
-    private Date beforeStatus;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum beforeStatus;
 
     @ManyToOne
     @JoinColumn(name = "modifiedBy", nullable = false)
-    public User user;
+    private User modifiedByUser;
 
     public Long getIdHistory() {
         return idHistory;
@@ -53,27 +56,28 @@ public class History {
         this.modifiedDate = modifiedDate;
     }
 
-    public Date getAfterStatus() {
+
+    public StatusEnum getAfterStatus() {
         return afterStatus;
     }
 
-    public void setAfterStatus(Date afterStatus) {
+    public void setAfterStatus(StatusEnum afterStatus) {
         this.afterStatus = afterStatus;
     }
 
-    public Date getBeforeStatus() {
+    public StatusEnum getBeforeStatus() {
         return beforeStatus;
     }
 
-    public void setBeforeStatus(Date beforeStatus) {
+    public void setBeforeStatus(StatusEnum beforeStatus) {
         this.beforeStatus = beforeStatus;
     }
 
     public User getUser() {
-        return user;
+        return modifiedByUser;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.modifiedByUser = user;
     }
 }

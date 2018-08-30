@@ -69,9 +69,29 @@
     "roles": "Roluri",
     "roles-message":"Selectati cel putin un rol",
     "btn-role": "Alege un rol",
+    "save": "Salveaza",
     "status":"Stare",
     "change-status":"Schimba starea",
     "btn-save": "Actualizare"
+  },
+  "alerts": {
+    "EMAIL_EXISTS_ALREADY": "Adresa email folosita deja",
+    "USER_VALIDATION_EXCEPTION": "Credentiale utilizator incorecte",
+    "PASSWORD_NOT_VALID": "Parola incorecta",
+    "ROLE_VALIDATION_EXCEPTION": "Date roluri incorecte",
+    "USERNAME_NOT_VALID": "Username invalid",
+    "USER_INACTIVATED": "Utilizatorul este dezactivat de catre administrator",
+    "INVALID_USER_LOGIN": "Credentiale utilizator invalide pentru login",
+    "EMAIL_FAIL": "Emai-lul nu a putut fi trimis",
+    "TOKEN_EXPIRED": "Sesiune expirata",
+    "PERMISSION_VALIDATION_EXCEPTION": "Permisiune invalida",
+    "UNFINISHED_TASKS": "Bug-uri neterminate",
+    "SUCCES-ADD":"Adaugare efectuata cu succes",
+    "SUCCES-UPDATE":"Modificare efctuata cu succes",
+    "SUCCES-LOGIN":"Logare efectuata cu succes",
+    "SUCCES-REMOVE":"Stergere efectuata cu succes",
+    "FAILED-LOGIN":"Logare esuata",
+    "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou"
   },
   "add-bug": {
     "title-page":"Adaugare defect",
@@ -150,4 +170,5 @@
     "add":"Adauga",
     "btn-back":"Inapoi"
   }
+
 }

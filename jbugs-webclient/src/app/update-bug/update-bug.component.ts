@@ -11,6 +11,7 @@ import {BugListHeader} from "../types/bug-list-header";
 import {BugSortService} from "../services/bug-sort.service";
 import {FilterDataService} from "../services/filter-data.service";
 import {ExcelService} from "../services/excel.service";
+import {HistoryClass} from "../types/history";
 import {FilterService} from "../services/filter.service";
 
 @Component({
@@ -24,7 +25,6 @@ export class UpdateBugComponent implements OnInit {
   isEditable: boolean[] = [];
   allUsers: User[] = [];
   endDate: string;
-
   severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
   chosenSeverity: string;
   statuses: string[] = ["fixed", "open", "in_progress", "rejected", "info_needed", "closed"];
@@ -38,6 +38,7 @@ export class UpdateBugComponent implements OnInit {
   attachmentToBeAdded: Attachment;
   filters: BugFilter[] = [];
   header: BugListHeader[] = [];
+  history: HistoryClass = new HistoryClass();
 
   constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private filterService: FilterService) {
     this.attachmentToBeAdded = {
@@ -153,6 +154,12 @@ console.log(this.filterDataService.chosenFilter)
     );
   }
 
+  loggedUser():User{
+    return this.allUsers.filter((value) =>{
+      return value.username === localStorage.getItem("currentUser");
+    })[0];
+  }
+
   updateBugUser(bug:Bug):User{
     return this.allUsers.filter((value) =>{
       return value.username === bug.assignedTo.username;
@@ -161,19 +168,30 @@ console.log(this.filterDataService.chosenFilter)
 
 
 
-  onSubmit(bug: Bug) {
 
+  onSubmit(bug: Bug) {
+    this.history.userDTO = this.loggedUser();
+    this.history.bugDTO = bug;
     if (this.isEditable[bug.idBug]) {
       console.log('Bug updated');
       bug.status = bug.status.toUpperCase();
       bug.assignedTo = this.updateBugUser(bug);
+      this.history.afterStatus = bug.status.toUpperCase();
       this.bugService.updateBug(bug);
+      this.history.modifiedDate = new Date();
+      if(this.history.beforeStatus !== this.history.afterStatus){
+        this.bugService.addHistory(this.history).subscribe();
+        this.history = new HistoryClass();
+      }
+
       location.reload();
     }
     else {
       console.log('Bug ready to be updated');
       this.updatedStatus = this.getValuesForEntry(bug);
       this.updatedStatus.push(bug.status);
+      this.history.beforeStatus = bug.status.toUpperCase();
+
 
     }
     this.isEditable[bug.idBug] = !this.isEditable[bug.idBug];
