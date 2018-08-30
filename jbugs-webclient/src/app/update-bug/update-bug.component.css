@@ -71,3 +71,10 @@ td{
   font-size: smaller;
   text-align: left;
 }
+
+.row{
+  padding-left: 13%;
+  width: 90%;
+  padding-top: 30px;
+}
+

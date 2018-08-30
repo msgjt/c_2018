@@ -105,6 +105,7 @@ export class AddBugComponentComponent implements OnInit {
       this.success("alerts.SUCCES-ADD");
       this.attachment = [];
       this.chosenFiles = [];
+      location.reload();
     }, (error: HttpErrorResponse) => {
       this.error('alerts.' + error.error.toString());
     });
