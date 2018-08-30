@@ -9,17 +9,16 @@ import java.util.Set;
         @NamedQuery(name = Role.GET_ALL_ROLES, query = "SELECT r FROM Role r")
 })
 public class Role {
+    public static final String GET_ALL_ROLES = "get_all_roles";
     @Transient
     private final static int MAX_STRING_LENGTH = 20;
-    public static final String GET_ALL_ROLES = "get_all_roles";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;
 
     @Column(length = MAX_STRING_LENGTH)
     @Enumerated(EnumType.STRING)
-    private RoleEnum type;
+    private RoleType type;
 
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Permission> permissions;
@@ -32,11 +31,11 @@ public class Role {
         this.idRole = idRole;
     }
 
-    public RoleEnum getType() {
+    public RoleType getType() {
         return type;
     }
 
-    public void setType(RoleEnum type) {
+    public void setType(RoleType type) {
         this.type = type;
     }
 

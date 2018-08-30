@@ -1,8 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.bug;
 
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
-
+import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusType;
 
 import java.util.Date;
 
@@ -11,8 +10,8 @@ public class HistoryDTO {
     private long idHistory;
     private BugDTO bugDTO;
     private Date modifiedDate;
-    private StatusEnum afterStatus;
-    private StatusEnum beforeStatus;
+    private StatusType afterStatus;
+    private StatusType beforeStatus;
     private UserDTO userDTO;
 
     public long getIdHistory() {
@@ -39,19 +38,19 @@ public class HistoryDTO {
         this.modifiedDate = modifiedDate;
     }
 
-    public StatusEnum getAfterStatus() {
+    public StatusType getAfterStatus() {
         return afterStatus;
     }
 
-    public void setAfterStatus(StatusEnum afterStatus) {
+    public void setAfterStatus(StatusType afterStatus) {
         this.afterStatus = afterStatus;
     }
 
-    public StatusEnum getBeforeStatus() {
+    public StatusType getBeforeStatus() {
         return beforeStatus;
     }
 
-    public void setBeforeStatus(StatusEnum beforeStatus) {
+    public void setBeforeStatus(StatusType beforeStatus) {
         this.beforeStatus = beforeStatus;
     }
 

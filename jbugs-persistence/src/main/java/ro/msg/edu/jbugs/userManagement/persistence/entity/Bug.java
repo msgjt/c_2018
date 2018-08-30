@@ -11,10 +11,9 @@ import java.util.List;
         @NamedQuery(name = Bug.GET_ALL_BUGS, query = "select b from Bug b order by b.targetDate desc")
 })
 public class Bug {
+    public static final String GET_ALL_BUGS = "get_All_Bugs";
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
-    public static final String GET_ALL_BUGS = "get_All_Bugs";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBug;
@@ -28,12 +27,12 @@ public class Bug {
     @Column(name = "version", length = MAX_STRING_LENGTH, nullable = false)
     private String version;
 
-    @Column(name = "targetDate", length = MAX_STRING_LENGTH, nullable = false,updatable = false)
+    @Column(name = "targetDate", length = MAX_STRING_LENGTH, nullable = false, updatable = false)
     private Date targetDate;
 
     @Column(name = "status", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private StatusType status;
 
     @Column(name = "fixedVersion", length = MAX_STRING_LENGTH, nullable = false)
 
@@ -41,7 +40,7 @@ public class Bug {
 
     @Column(name = "severity", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
-    private SeverityEnum severity;
+    private SeverityType severity;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
     private List<Comment> comments;
@@ -54,7 +53,7 @@ public class Bug {
     @JoinColumn(name = "assignedTo")
     private User assignedTo;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bug")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
     private List<Attachment> attachments = new ArrayList<>();
 
 
@@ -98,11 +97,11 @@ public class Bug {
         this.targetDate = targetdate;
     }
 
-    public StatusEnum getStatus() {
+    public StatusType getStatus() {
         return status;
     }
 
-    public void setStatus(StatusEnum status) {
+    public void setStatus(StatusType status) {
         this.status = status;
     }
 
@@ -114,11 +113,11 @@ public class Bug {
         this.fixedVersion = fixedVersion;
     }
 
-    public SeverityEnum getSeverity() {
+    public SeverityType getSeverity() {
         return severity;
     }
 
-    public void setSeverity(SeverityEnum severity) {
+    public void setSeverity(SeverityType severity) {
         this.severity = severity;
     }
 

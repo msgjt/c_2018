@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
-public enum SeverityEnum {
+public enum SeverityType {
     CRITICAL,
     HIGH,
     MEDIUM,

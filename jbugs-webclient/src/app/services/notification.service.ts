@@ -7,7 +7,7 @@ import {Notification} from "../types/notification";
 })
 export class NotificationService {
 
-  baseURL = 'http://localhost:8080/jbugs/rest/notifications/';
+  baseURL = 'http://localhost:8080/jbugs/rest/notification/';
   tokenHeader:string = localStorage.getItem("userToken");
   constructor(private http:HttpClient){}
 

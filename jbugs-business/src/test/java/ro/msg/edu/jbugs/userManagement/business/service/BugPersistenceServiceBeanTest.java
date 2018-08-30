@@ -140,9 +140,9 @@ public class BugPersistenceServiceBeanTest {
         Bug bug = new Bug();
         BugDTO bugDTO = new BugDTO();
         bugDTO.setTitle("Test title");
-        bugDTO.setSeverity(SeverityEnum.CRITICAL);
+        bugDTO.setSeverity(SeverityType.CRITICAL);
         bugDTO.setTargetDate("2018-01-01 00:00:00");
-        bugDTO.setStatus(StatusEnum.CLOSED);
+        bugDTO.setStatus(StatusType.CLOSED);
         when(bugDTOHelper.toEntity(bugDTO))
                 .thenReturn(bug);
         when(bugPersistenceService.addBug(bug,new Attachment()))

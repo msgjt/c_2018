@@ -1,26 +1,40 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "notifications")
+@NamedQueries({
+        @NamedQuery(name = Notification.GET_ALL_NOTIFICATIONS, query = "SELECT n FROM Notification n"),
+})
 public class Notification {
-    @Transient
-    private final static int MAX_STRING_LENGTH = 40;
+    public static final String GET_ALL_NOTIFICATIONS = "get_all_notifications";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotification;
 
-    @Column(name = "type", length = MAX_STRING_LENGTH, nullable = false)
-    private String type;
+    @Column(nullable = false)
+    private NotificationType type;
+    @Column(length = 1000)
+    private String newNotificationDetailJson;
+    @Column(length = 1000)
+    private String oldNotificationDetailJson;
+    private Date date;
+    @OneToOne(cascade = CascadeType.DETACH)
+    private User user;
 
-    @Column(name = "message", length = MAX_STRING_LENGTH, nullable = false)
-    private String message;
+    public Notification() {
+    }
 
-    @OneToMany(mappedBy = "notification")
-    private List<UserNotification> userNotifications;
+    public Notification(NotificationType type, String newNotificationDetailJson, String oldNotificationDetailJson, Date date, User user) {
+        this.type = type;
+        this.newNotificationDetailJson = newNotificationDetailJson;
+        this.oldNotificationDetailJson = oldNotificationDetailJson;
+        this.date = date;
+        this.user = user;
+    }
 
     public Long getIdNotification() {
         return idNotification;
@@ -30,27 +44,43 @@ public class Notification {
         this.idNotification = idNotification;
     }
 
-    public String getType() {
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(NotificationType type) {
         this.type = type;
     }
 
-    public String getMessage() {
-        return message;
+    public String getNewNotificationDetailJson() {
+        return newNotificationDetailJson;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setNewNotificationDetailJson(String newNotificationDetailJson) {
+        this.newNotificationDetailJson = newNotificationDetailJson;
     }
 
-    public List<UserNotification> getUserNotifications() {
-        return userNotifications;
+    public String getOldNotificationDetailJson() {
+        return oldNotificationDetailJson;
     }
 
-    public void setUserNotifications(List<UserNotification> userNotifications) {
-        this.userNotifications = userNotifications;
+    public void setOldNotificationDetailJson(String oldNotificationDetailJson) {
+        this.oldNotificationDetailJson = oldNotificationDetailJson;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

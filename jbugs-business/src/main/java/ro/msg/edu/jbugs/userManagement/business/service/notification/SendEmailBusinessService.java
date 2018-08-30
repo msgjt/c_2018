@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Stateless
-public class SendEmailService {
+public class SendEmailBusinessService {
     private final String username = "c.forthewinn@gmail.com";
     private final String password = "valoare1";
 

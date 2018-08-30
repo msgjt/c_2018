@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
-public enum StatusEnum {
+public enum StatusType {
     NEW,
     FIXED,
     OPEN,

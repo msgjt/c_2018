@@ -1,19 +1,19 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.user;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleType;
 
 import java.util.Set;
 
 public class RoleDTO {
 
     private long id;
-    private RoleEnum type;
+    private RoleType type;
     private Set<PermissionDTO> permissions;
 
     public RoleDTO() {
     }
 
-    public RoleDTO(long id, RoleEnum type, Set<PermissionDTO> permissions) {
+    public RoleDTO(long id, RoleType type, Set<PermissionDTO> permissions) {
         this.id = id;
         this.type = type;
         this.permissions = permissions;
@@ -27,11 +27,11 @@ public class RoleDTO {
         this.id = id;
     }
 
-    public RoleEnum getType() {
+    public RoleType getType() {
         return type;
     }
 
-    public void setType(RoleEnum type) {
+    public void setType(RoleType type) {
         this.type = type;
     }
 

@@ -20,6 +20,6 @@ export class AppComponent implements OnInit{
   updateNotifications(){
     let username = localStorage.getItem('currentUser');
     this.notificationService.getAllNotifications(username);
-    setTimeout(this.updateNotifications(),10000);
+    //setTimeout(this.updateNotifications(),10000);
   }
 }

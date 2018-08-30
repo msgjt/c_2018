@@ -5,10 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.notification.NotificationDetail;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationType;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
@@ -26,16 +29,16 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
+    private final static int MAX_LAST_NAME_LENGTH = 5;
+    private final static int MIN_USERNAME_LENGTH = 6;
+    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
+
     @EJB
     private IUserPersistenceService userPersistenceService;
     @EJB
     private UserDTOHelper userDTOHelper;
     @EJB
-    private RoleDTOHelper roleDTOHelper;
-
-    private final static int MAX_LAST_NAME_LENGTH = 5;
-    private final static int MIN_USERNAME_LENGTH = 6;
-    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
+    private NotificationBusinessService notificationBusinessService;
 
     /**
      * Creates a user entity using a user DTO.
@@ -56,7 +59,11 @@ public class UserBusinessService implements IUserBusinessService {
         user.setIsActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
-        return userDTOHelper.fromEntity(user);
+        UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
+        NotificationDetail notificationDetail = new NotificationDetail();
+        notificationDetail.setUser(userDTOAfterPersist);
+        notificationBusinessService.generateNotification(NotificationType.WELCOME_NEW_USER, null, notificationDetail, userDTOAfterPersist);
+        return userDTOAfterPersist;
     }
 
 

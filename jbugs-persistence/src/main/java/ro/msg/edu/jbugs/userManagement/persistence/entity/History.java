@@ -23,10 +23,10 @@ public class History {
     private Date modifiedDate;
 
     @Enumerated(EnumType.STRING)
-    private StatusEnum afterStatus;
+    private StatusType afterStatus;
 
     @Enumerated(EnumType.STRING)
-    private StatusEnum beforeStatus;
+    private StatusType beforeStatus;
 
     @ManyToOne
     @JoinColumn(name = "modifiedBy", nullable = false)
@@ -57,27 +57,27 @@ public class History {
     }
 
 
-    public StatusEnum getAfterStatus() {
+    public StatusType getAfterStatus() {
         return afterStatus;
     }
 
-    public void setAfterStatus(StatusEnum afterStatus) {
+    public void setAfterStatus(StatusType afterStatus) {
         this.afterStatus = afterStatus;
     }
 
-    public StatusEnum getBeforeStatus() {
+    public StatusType getBeforeStatus() {
         return beforeStatus;
     }
 
-    public void setBeforeStatus(StatusEnum beforeStatus) {
+    public void setBeforeStatus(StatusType beforeStatus) {
         this.beforeStatus = beforeStatus;
     }
 
-    public User getUser() {
+    public User getModifiedByUser() {
         return modifiedByUser;
     }
 
-    public void setUser(User user) {
-        this.modifiedByUser = user;
+    public void setModifiedByUser(User modifiedByUser) {
+        this.modifiedByUser = modifiedByUser;
     }
 }

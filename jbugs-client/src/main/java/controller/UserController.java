@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
 
 import javax.ejb.EJB;
@@ -18,7 +18,7 @@ public class UserController {
     @EJB
     private IUserBusinessService userBusinessService;
     @EJB
-    private SendEmailService emailService;
+    private SendEmailBusinessService emailService;
 
     //ToDo please implement the shit from userBusinessService(you will see another toDo)
     /*@DELETE
