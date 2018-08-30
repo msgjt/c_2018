@@ -19,8 +19,6 @@ export class ViewHistoryComponent implements OnInit {
       response.forEach((value)=>{
         this.histories.push(value);
       })
-
-      console.log(this.histories.length);
     })
   }
 

@@ -12,13 +12,12 @@ import {HeaderComponent} from './header/header.component';
 import {PermissionComponent} from './permission/permission.component';
 import {RoleComponent} from './role/role.component';
 import {AddBugComponentComponent} from './add-bug-component/add-bug-component.component';
-import {ViewBugsComponent} from "./viewBugs/viewBugs.component";
 import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
 import {UpdateUserComponent} from "./update-user/update-user.component";
-import {BugDetailsComponent} from "./viewBugs/bugDetails/bugDetails.component";
+import {BugDetailsComponent} from "./bugDetails/bugDetails.component";
 import {BugDataService} from "./services/bugData.service";
 import {UpdateBugComponent} from './update-bug/update-bug.component';
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
@@ -26,7 +25,6 @@ import {RecaptchaFormsModule} from "ng-recaptcha/forms";
 import {BugSortService} from "./services/bug-sort.service";
 import {ErrorComponent} from "./error/error.component";
 import {HomeComponent} from "./home/home.component";
-
 import {PermissionManagementGuard} from "./guards/permission-management.guard";
 import {BugManagementGuard} from "./guards/bug-management.guard";
 import {UserManagementGuard} from "./guards/user-management.guard";
@@ -49,7 +47,6 @@ const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'permission', component: PermissionComponent, canActivate: [PermissionManagementGuard]},
   {path: 'role', component: RoleComponent, canActivate: [PermissionManagementGuard]},
-  {path: 'bugDTO', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/add', component: AddBugComponentComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/update', component: UpdateBugComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/details', component: BugDetailsComponent, canActivate: [BugManagementGuard]},
@@ -58,7 +55,6 @@ const appRoutes: Routes = [
   {path: 'bug/statistics/all', component: AllBugsChartComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/statistics/fixed', component: FixedBugsChartComponent, canActivate: [BugManagementGuard]},
   {path: 'bug/statistics/created', component: CreatedBugsChartComponent, canActivate: [BugManagementGuard]},
-  {path: 'bug', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'create-user', component: CreateUserComponent, canActivate: [UserManagementGuard]},
@@ -84,7 +80,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleComponent,
     AddBugComponentComponent,
     RoleComponent,
-    ViewBugsComponent,
     BugDetailsComponent,
     CreateUserComponent,
     UpdateUserComponent,

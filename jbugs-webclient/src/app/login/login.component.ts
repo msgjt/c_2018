@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit {
     this.loggedIn = this.loginService.isLoggedIn();
   }
 
-  /**
-   * This method is use for submit login form
-   */
+
   onSubmit() {
     this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
       console.log(response);
@@ -60,10 +58,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /**
-   * This method set the loggedIn flag for the navigation bar
-   * @param token represents Authetification token return from the server
-   */
+
   login(token: string, username: string) {
     this.userService.tokenHeader=token;
     this.loginService.login(token, username);

@@ -27,9 +27,7 @@ export class CreateUserComponent implements OnInit {
     this.showRoles = false;
   }
 
-  /**
-   * Init dropdown list with existing roles and set dropdown options
-   */
+
   ngOnInit() {
     this.permission = [];
     this.dropdownList = [];
@@ -55,9 +53,7 @@ export class CreateUserComponent implements OnInit {
     };
   }
 
-  /**
-   * Get value of fields completed by user and call addUser from userService
-   */
+
   addUser() {
     if (this.verifySelectMenu()) {
       this.user.roles = this.selectedItems;

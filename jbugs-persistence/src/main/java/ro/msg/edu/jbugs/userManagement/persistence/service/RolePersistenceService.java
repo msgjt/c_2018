@@ -29,13 +29,6 @@ public class RolePersistenceService implements IRolePersistenceService {
     }
 
     @Override
-    public void removeRole(@NotNull Role role) {
-//                Query q = em.createNativeQuery("delete from roles_permissions where (id_role,id_permission)=(?1,?2)");
-//                role.getPermissions().forEach(p -> {q.setParameter(1,role.getIdRole()); q.setParameter(2,p.getIdPermission()); q.executeUpdate();});
-        em.remove(role);
-    }
-
-    @Override
     public Optional<Role> updateRole(@NotNull Role role) throws PersistenceException {
         Role roleToUpdate = this.getRoleById(role.getIdRole()).get();
         roleToUpdate.setIdRole(role.getIdRole());
@@ -52,12 +45,6 @@ public class RolePersistenceService implements IRolePersistenceService {
         if (optionalRole.isPresent())
             return Optional.of((Role) q.getSingleResult());
         throw new PersistenceException(ExceptionCode.ROLE_NOT_FOUND_EXCEPTION);
-    }
-
-    @Override
-    public Optional<Role> getRoleByType(@NotNull String type) {
-        Query q = em.createQuery("SELECT r from Role r WHERE r.type='" + type + "'");
-        return Optional.of((Role) q.getSingleResult());
     }
 
     @Override

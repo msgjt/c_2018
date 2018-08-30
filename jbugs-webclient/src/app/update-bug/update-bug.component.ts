@@ -6,7 +6,6 @@ import {User} from "../types/user";
 import {UserService} from "../services/user.service";
 import {BugDataService} from "../services/bugData.service";
 import {BugFilter} from "../types/bug-filter";
-import {BugFilterChoice} from "../types/bug-filter-options";
 import {BugListHeader} from "../types/bug-list-header";
 import {BugSortService} from "../services/bug-sort.service";
 import {FilterDataService} from "../services/filter-data.service";
@@ -140,11 +139,11 @@ export class UpdateBugComponent implements OnInit {
     this.filters = [];
     for (let [key, value] of Object.entries(this.filterDataService.chosenFilter)) {
       if (value) {
-        this.filter(key.substr(1), value)
+        this.filter(key.substr(1), value);
       }
     }
-console.log(this.filterDataService.chosenFilter)
-    console.log(this.filters)
+    console.log(this.filterDataService.chosenFilter);
+    console.log(this.filters);
     this.bugService.filterBugs(this.filters).subscribe(
       (response: Bug[]) => {
         this.bugs = [];
@@ -169,8 +168,6 @@ console.log(this.filterDataService.chosenFilter)
   }
 
 
-
-
   onSubmit(bug: Bug) {
     this.history.userDTO = this.loggedUser();
     this.history.bugDTO = bug;
@@ -181,13 +178,13 @@ console.log(this.filterDataService.chosenFilter)
       this.history.afterStatus = bug.status.toUpperCase();
       this.bugService.updateBug(bug).subscribe((response: Bug) => {
         this.success("alerts.SUCCES-UPDATE");
-      }, (error:HttpErrorResponse) => {
-        this.error("alerts."+error.error.toString());
+      }, (error: HttpErrorResponse) => {
+        this.error("alerts." + error.error.toString());
         console.log('user errors');
       });
 
       this.history.modifiedDate = new Date();
-      if(this.history.beforeStatus !== this.history.afterStatus){
+      if (this.history.beforeStatus !== this.history.afterStatus) {
         this.bugService.addHistory(this.history).subscribe();
         this.history = new HistoryClass();
       }
@@ -214,17 +211,13 @@ console.log(this.filterDataService.chosenFilter)
 
   editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
-
-
   }
 
 
   exportAsXLSX(): void {
-
     var duplicateObject = JSON.parse(JSON.stringify( this.bugs ));
     console.log(duplicateObject);
     this.excelService.exportAsExcelFile(duplicateObject, 'bugs');
-
   }
 
   success(message: string) {

@@ -16,20 +16,13 @@ public class BugPersistenceService implements IBugPersistenceService {
     @EJB
     private IUserPersistenceService userPersistenceService;
 
-    /***
-     * @return a list of bugs which is in descending order by target date.
-     */
+
     @Override
     public List<Bug> getAllBugs() {
         return em.createNamedQuery(Bug.GET_ALL_BUGS, Bug.class).getResultList();
     }
 
-    /**
-     * Method for adding a bug
-     *
-     * @param bug
-     * @return optional of the added bug
-     */
+
     @Override
     public Optional<Bug> addBug(Bug bug,Attachment attachment) {
      //   bug.getAttachments().add(attachment);
@@ -42,24 +35,14 @@ public class BugPersistenceService implements IBugPersistenceService {
     }
 
 
-    /**
-     * Method for finding a bug
-     *
-     * @param id
-     * @return optional of the bug or empty if doesn't exist
-     */
+
     @Override
     public Optional<Bug> findBugById(long id) {
         Query q = em.createQuery("SELECT b FROM Bug b WHERE b.idBug=" + id);
         return Optional.of((Bug) q.getSingleResult());
     }
 
-    /**
-     * Method for adding an attachment
-     *
-     * @param attachment
-     * @return optional of the attachment
-     */
+
     @Override
     public Optional<Attachment> addAttachment(Attachment attachment) {
         long idBug = attachment.getBug().getIdBug();
@@ -70,24 +53,14 @@ public class BugPersistenceService implements IBugPersistenceService {
         return Optional.of(attachment);
     }
 
-    /**
-     * Method for getting all the attachments from db
-     *
-     * @param
-     * @return list of founded attachments
-     */
+
     @Override
     public List<Attachment> getAllAttachments() {
         return em.createNamedQuery(Attachment.GET_ALL_ATTACHMENTS, Attachment.class).getResultList();
     }
 
 
-    /**
-     * Method for updating a bug
-     *
-     * @param bug
-     * @return optional of the updated bug
-     */
+
     @Override
     public Optional<Bug> updateBug(Bug bug) {
         em.merge(bug);
@@ -114,11 +87,7 @@ public class BugPersistenceService implements IBugPersistenceService {
     }
 
 
-    /**
-     * Method for adding a commment
-     * @param comment
-     * @return optional of the added comment
-     */
+
     @Override
     public Optional<Comment> addComment(Comment comment) {
         comment.setDate(new Date());

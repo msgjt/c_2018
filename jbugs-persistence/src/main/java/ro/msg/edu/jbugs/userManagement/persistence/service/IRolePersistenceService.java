@@ -12,16 +12,31 @@ import java.util.Set;
 
 public interface IRolePersistenceService extends Serializable {
 
+    /**
+     * Method used for creating a role
+     * @param role
+     * @return optional of the added role
+     */
     Optional<Role> createRole(@NotNull Role role);
 
-    void removeRole(@NotNull Role role);
-
+    /**
+     * Method used for updating a role
+     * @param role
+     * @return optional of the updated role
+     */
     Optional<Role> updateRole(@NotNull Role role) throws PersistenceException;
 
+    /**
+     * Method used for getting a role with a specified id
+     * @param id
+     * @return optional of a role with the id send as parameter
+     */
     Optional<Role> getRoleById(long id) throws PersistenceException;
 
-    Optional<Role> getRoleByType(@NotNull String type);
-
+    /**
+     * Method for getting all roles from DB
+     * @return set of all roles
+     */
     Set<Role> getAllRoles();
 
 }
