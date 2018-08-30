@@ -6,6 +6,8 @@ import {Comment, CommentClass} from "../../types/comments";
 import {Attachment} from "../../types/attachment";
 import {UserService} from "../../services/user.service";
 import {ExportPDFService} from "../../services/export-pdf.service";
+import {AlertService} from "../../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 import {FilterService} from "../../services/filter.service";
 
 @Component({
@@ -22,7 +24,7 @@ export class BugDetailsComponent implements OnInit {
   attachmentsForABug: Attachment[] = [];
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private filterService: FilterService) {
+  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private alertService: AlertService,private filterService: FilterService){
     this.attachmentToBeAdded = {
       bugDTO: null,
       blob: new Uint8Array(),
@@ -47,6 +49,8 @@ export class BugDetailsComponent implements OnInit {
         this.dataService.bug = value;
         this.setBugDetails();
       }
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts." + error.error.toString());
     });
 
 
@@ -90,7 +94,11 @@ export class BugDetailsComponent implements OnInit {
   };
 
   deleteAttachment(attachmentChosen: Attachment) {
-    this.bugService.deleteAttachment(attachmentChosen);
+    this.bugService.deleteAttachment(attachmentChosen).subscribe((response: Attachment) => {
+      this.success("alerts.SUCCES-REMOVE");
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts." + error.error.toString());
+    });
     location.reload();
   }
 
@@ -98,7 +106,11 @@ export class BugDetailsComponent implements OnInit {
     let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
     if (extensions.includes(attachmentChosen.extension.toUpperCase())) {
       this.bugService.sendFile(attachmentChosen.blob, attachmentChosen);
+      this.success("alerts.SUCCES-ADD");
       location.reload();
+    }
+    else {
+      this.error("alerts.FORMAT-FILE-ERROR");
     }
   }
 
@@ -110,6 +122,14 @@ export class BugDetailsComponent implements OnInit {
 
   export() {
     this.bugPdfService.export(this.bug, this.comments, this.attachmentsForABug);
+  }
+
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
   }
   isBugExportPdf():boolean {
   return this.filterService.isBugExportPdf();

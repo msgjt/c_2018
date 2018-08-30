@@ -91,7 +91,9 @@
     "SUCCES-LOGIN": "Succesfully login",
     "SUCCES-REMOVE": "Succesfully remove",
     "FAILED-LOGIN": "Login failed",
-    "ERROR-SERVER": "Server problem. Please try again"
+    "ERROR-SERVER": "Server problem. Please try again",
+    "ERROR-ADD-FILE":"Error add file. Extension invalid",
+    "FORMAT-FILE-ERROR":"Invalid format file"
 
   },
   "add-bug": {

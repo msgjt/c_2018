@@ -11,6 +11,8 @@ import {BugListHeader} from "../types/bug-list-header";
 import {BugSortService} from "../services/bug-sort.service";
 import {FilterDataService} from "../services/filter-data.service";
 import {ExcelService} from "../services/excel.service";
+import {AlertService} from "../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
 import {HistoryClass} from "../types/history";
 import {FilterService} from "../services/filter.service";
 
@@ -40,7 +42,7 @@ export class UpdateBugComponent implements OnInit {
   header: BugListHeader[] = [];
   history: HistoryClass = new HistoryClass();
 
-  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private filterService: FilterService) {
+  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private alertService: AlertService, private filterService: FilterService) {
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: null,
@@ -177,13 +179,18 @@ console.log(this.filterDataService.chosenFilter)
       bug.status = bug.status.toUpperCase();
       bug.assignedTo = this.updateBugUser(bug);
       this.history.afterStatus = bug.status.toUpperCase();
-      this.bugService.updateBug(bug);
+      this.bugService.updateBug(bug).subscribe((response: Bug) => {
+        this.success("alerts.SUCCES-UPDATE");
+      }, (error:HttpErrorResponse) => {
+        this.error("alerts."+error.error.toString());
+        console.log('user errors');
+      });
+
       this.history.modifiedDate = new Date();
       if(this.history.beforeStatus !== this.history.afterStatus){
         this.bugService.addHistory(this.history).subscribe();
         this.history = new HistoryClass();
       }
-
       location.reload();
     }
     else {
@@ -211,10 +218,20 @@ console.log(this.filterDataService.chosenFilter)
 
   }
 
+
   exportAsXLSX(): void {
+
     var duplicateObject = JSON.parse(JSON.stringify( this.bugs ));
     console.log(duplicateObject);
     this.excelService.exportAsExcelFile(duplicateObject, 'bugs');
+
   }
 
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
 }
