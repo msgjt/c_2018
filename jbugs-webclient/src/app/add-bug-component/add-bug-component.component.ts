@@ -94,8 +94,8 @@ export class AddBugComponentComponent implements OnInit {
       for (let i = 0; i < this.attachment.length; i++) {
         if (this.extensions.includes(this.attachment[i].extension)) {
           this.attachment[i].bugDTO = this.bug;
-
           this.bugService.sendFile(this.attachment[i].blob, this.attachment[i]);
+
         }
         else {
           this.error("alerts.FORMAT-FILE-ERROR");

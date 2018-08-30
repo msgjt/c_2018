@@ -137,7 +137,7 @@ export class BugService {
 
   sendFile(file:Uint8Array,attachment:Attachment){
     this.http.post(this.attachementURL + '/file',file).subscribe((value)=>{
-      this.addAttachment(attachment);
+      this.addAttachment(attachment).subscribe();
     });
   }
 
