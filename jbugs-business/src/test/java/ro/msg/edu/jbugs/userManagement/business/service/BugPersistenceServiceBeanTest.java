@@ -1,5 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
+import com.sun.mail.iap.ByteArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +16,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.BugPersistenceService;
 
 import javax.swing.text.html.Option;
@@ -97,6 +96,7 @@ public class BugPersistenceServiceBeanTest {
     public void updateBug_ExpectedOK(){
         Bug bug = new Bug();
         BugDTO bugDTO = new BugDTO();
+        bugDTO.setIdBug(2L);
         bugDTO.setTitle("Test title");
         when(bugDTOHelper.toEntity(bugDTO))
                 .thenReturn(bug);
@@ -140,7 +140,9 @@ public class BugPersistenceServiceBeanTest {
         Bug bug = new Bug();
         BugDTO bugDTO = new BugDTO();
         bugDTO.setTitle("Test title");
-
+        bugDTO.setSeverity(SeverityEnum.CRITICAL);
+        bugDTO.setTargetDate("2018-01-01 00:00:00");
+        bugDTO.setStatus(StatusEnum.CLOSED);
         when(bugDTOHelper.toEntity(bugDTO))
                 .thenReturn(bug);
         when(bugPersistenceService.addBug(bug,new Attachment()))
@@ -161,6 +163,8 @@ public class BugPersistenceServiceBeanTest {
     public void addAttachment_ExpectedOK(){
         AttachmentDTO attachmentDTO = new AttachmentDTO();
         attachmentDTO.setIdAttachment(15);
+        attachmentDTO.setBugDTO(new BugDTO());
+        attachmentDTO.setBlob(new byte[100]);
         Attachment attachment = new Attachment();
         when(attachmentDTOHelper.toEntity(attachmentDTO))
                 .thenReturn(attachment);
