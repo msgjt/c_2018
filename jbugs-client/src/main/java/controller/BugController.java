@@ -13,9 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.lang.annotation.Repeatable;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Path("/bugs")
 public class BugController {
@@ -132,9 +130,9 @@ public class BugController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStatistics(){
-        Map<String,Long> statisticsMap = bugBusinessService.getStatistics();
+        Map<String,Long> allBugsMap = bugBusinessService.getStatistics();
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(statisticsMap))
+                .entity(new Gson().toJson(allBugsMap))
                 .build();
     }
 
