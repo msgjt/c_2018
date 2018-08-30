@@ -8,7 +8,7 @@ import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.business.utils.Encryptor;
+import ro.msg.edu.jbugs.userManagement.business.service.utils.Encryptor;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
@@ -44,7 +44,6 @@ public class UserBusinessService implements IUserBusinessService {
      * @return : the user DTO of the created entity
      * @throws BusinessException
      */
-
     @Override
     public UserDTO createUser(UserDTO userDTO) throws BusinessException {
 
