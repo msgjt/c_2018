@@ -22,6 +22,7 @@ public class NotificationPersistenceService {
 
     public void createNotification(@NotNull Notification notification) {
         em.persist(notification);
+        em.flush();
     }
 
     public void deleteNotification(@NotNull Notification notification) {

@@ -15,7 +15,7 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotification;
-    @OneToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.DETACH)
     private Set<User> users;
     @ManyToOne(cascade = CascadeType.DETACH)
     private Bug bug;

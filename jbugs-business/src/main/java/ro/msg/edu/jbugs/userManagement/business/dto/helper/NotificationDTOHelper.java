@@ -38,9 +38,9 @@ public class NotificationDTOHelper {
         Notification notification = new Notification();
         notification.setDate(notificationDTO.getDate());
         notification.setType(notificationDTO.getType());
-        if (notification.getBug() != null)
+        if (notificationDTO.getBugId() != null)
             notification.setBug(bugDTOHelper.toEntity(bugBusinessService.findBugById(notificationDTO.getBugId())));
-        if (notification.getUsers() != null)
+        if (notificationDTO.getUsernames() != null)
             notification.setUsers(notificationDTO.getUsernames()
                     .stream()
                     .map(this::getUserByUsername)
