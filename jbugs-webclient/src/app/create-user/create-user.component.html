@@ -9,7 +9,7 @@
           <label for="firstName">{{'create-user.first-name' |translate}}</label>
           <input #firstNameElement #firstNameControl="ngModel" required="true" [(ngModel)]="user.firstName"
                  name="firstName" id="firstName" type="text"
-                 class="form-control" pattern="^([a-zA-Z](\s{0,1}|\-{0,1})[a-zA-Z]*\s?[a-zA-Z]+)+$"
+                 class="form-control" pattern="^([a-zA-Z]+(\s?|-?)[a-zA-Z]+){1,5}$"
                  [class.isInvalid]="firstNameControl.invalid && firstNameControl.touched">
           <p>
             <small *ngIf="firstNameControl.invalid && firstNameControl.touched" class="help-block text-danger">
@@ -22,7 +22,7 @@
           <label for="lastName">{{'create-user.last-name' |translate}}</label>
           <input #lastNameElement #lastNameControl="ngModel" required="true" [(ngModel)]="user.lastName"
                  name="lastName" id="lastName" type="text"
-                 class="form-control" pattern="^([a-zA-Z](\s{0,1}|\-{0,1})[a-zA-Z]*\s?[a-zA-Z]+)+$"/>
+                 class="form-control" pattern="^([a-zA-Z]+(\s?|-?)[a-zA-Z]+){1,5}$"/>
           <p>
             <small *ngIf="lastNameControl.invalid && lastNameControl.touched " class="help-block text-danger">
               {{'create-user.last-name-message' |translate}}
