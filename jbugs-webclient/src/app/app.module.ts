@@ -38,6 +38,7 @@ import {AlertComponent} from './alert/alert.component';
 import {FilterDataService} from "./services/filter-data.service";
 import {ExcelService} from "./services/excel.service";
 import { ViewHistoryComponent } from './view-history/view-history.component';
+import { ChartsModule } from 'ng2-charts';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -104,7 +105,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgMultiSelectDropDownModule.forRoot(),
     NgxPaginationModule,
     RecaptchaFormsModule,
-    RecaptchaModule.forRoot()
+    RecaptchaModule.forRoot(),
+    ChartsModule
   ],
 
   providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService, {
