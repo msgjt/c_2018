@@ -259,7 +259,7 @@ export class NotificationPopupComponent implements OnInit {
     }
   ];
 */
-  constructor(private notificationService: NotificationService, public notificationData: NotificationDataService) {
+  constructor(public notificationData: NotificationDataService) {
     this.toggle = false;
    // this.initClickEvent();
   }
@@ -276,8 +276,6 @@ export class NotificationPopupComponent implements OnInit {
 */
 
   ngOnInit() {
-    let username = localStorage.getItem('currentUser');
-    this.notificationData.notifications = Array.from(this.notificationService.getAllNotifications(username));
   }
 
   loseFocus(){
