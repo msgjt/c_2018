@@ -6,6 +6,7 @@ import {Comment, CommentClass} from "../../types/comments";
 import {Attachment} from "../../types/attachment";
 import {UserService} from "../../services/user.service";
 import {ExportPDFService} from "../../services/export-pdf.service";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
   selector: 'app-bugDetails',
@@ -21,7 +22,7 @@ export class BugDetailsComponent implements OnInit {
   attachmentsForABug: Attachment[] = [];
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService) {
+  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private filterService: FilterService) {
     this.attachmentToBeAdded = {
       bugDTO: null,
       blob: new Uint8Array(),
@@ -110,4 +111,7 @@ export class BugDetailsComponent implements OnInit {
   export() {
     this.bugPdfService.export(this.bug, this.comments, this.attachmentsForABug);
   }
+  isBugExportPdf():boolean {
+  return this.filterService.isBugExportPdf();
+}
 }

@@ -128,5 +128,26 @@
     "email":"E-mail",
     "address":"Adresa",
     "street":"Strada"
+  },
+  "details-bug":{
+    "created-by":"Creat de ",
+    "col1":"ATRIBUIT LUI",
+    "col2":"SEVERITATE",
+    "col3":"STARE",
+    "col4":"DATA",
+    "col5":"VERSIUNE",
+    "col6":"VERSIUNE FIXA",
+    "description":"Descriere",
+    "comments":"Comentarii",
+    "btn-add-comment":"Adauga comentariu",
+    "btn-export":"Export PDF",
+    "attachments":"Atasamente",
+    "description-attachment":"Atasamentele pentru acest bug:",
+    "message-attachment":"Nu sunt atasamente",
+    "select-attachment":"Selecteaza atasament",
+    "download":"Descarca",
+    "delete":"Sterge",
+    "add":"Adauga",
+    "btn-back":"Inapoi"
   }
 }

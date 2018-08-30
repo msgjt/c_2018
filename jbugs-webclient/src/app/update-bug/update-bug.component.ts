@@ -11,6 +11,7 @@ import {BugListHeader} from "../types/bug-list-header";
 import {BugSortService} from "../services/bug-sort.service";
 import {FilterDataService} from "../services/filter-data.service";
 import {ExcelService} from "../services/excel.service";
+import {FilterService} from "../services/filter.service";
 
 @Component({
   selector: 'app-update-bug',
@@ -38,7 +39,7 @@ export class UpdateBugComponent implements OnInit {
   filters: BugFilter[] = [];
   header: BugListHeader[] = [];
 
-  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService) {
+  constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private filterService: FilterService) {
     this.attachmentToBeAdded = {
       bugDTO:null,
       blob: null,
@@ -192,14 +193,10 @@ console.log(this.filterDataService.chosenFilter)
 
   }
 
-
-
   exportAsXLSX(): void {
-
     var duplicateObject = JSON.parse(JSON.stringify( this.bugs ));
     console.log(duplicateObject);
     this.excelService.exportAsExcelFile(duplicateObject, 'bugs');
-
-
   }
+
 }

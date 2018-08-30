@@ -116,6 +116,7 @@
 
   },
   "bugs":{
+
     "title": "TITLE",
     "version": "VERSION",
     "fixed version": "FIXED VERSION",
@@ -133,6 +134,27 @@
     "phone":"Phone",
     "email":"E-mail",
     "address":"Address"
+  },
+  "details-bug":{
+    "created-by":"Created by ",
+    "col1":"ASSIGNED TO",
+    "col2":"SEVERITY",
+    "col3":"STATUS",
+    "col4":"TARGET DATE",
+    "col5":"VERSION",
+    "col6":"FIXED VERSION",
+    "description":"Description",
+    "comments":"Comments",
+    "btn-add-comment":"Add comment",
+    "btn-export":"Export PDF",
+    "attachments":"Attachments",
+    "description-attachment":"Attachments for this bug:",
+    "message-attachment":"No attachments",
+    "select-attachment":"Select attachment",
+    "download":"Download",
+    "delete":"Delete",
+    "add":"Add",
+    "btn-back":"Back"
   }
 
 }
