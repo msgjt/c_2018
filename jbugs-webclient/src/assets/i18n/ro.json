@@ -93,7 +93,10 @@
     "FAILED-LOGIN":"Logare esuata",
     "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou",
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
-    "FORMAT-FILE-ERROR":"Format fisier invalid"
+    "FORMAT-FILE-ERROR":"Format fisier invalid",
+    "DESCRIPTION_VALIDATION_EXCEPTION": "Lungimea descrierii este prea mare",
+    "COMMENT_VALIDATION_EXCEPTION":"Comentariul este prea lung"
+
   },
   "add-bug": {
     "title-page":"Adaugare defect",

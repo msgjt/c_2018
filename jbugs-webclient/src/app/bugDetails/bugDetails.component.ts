@@ -117,8 +117,15 @@ export class BugDetailsComponent implements OnInit {
 
   addComment() {
     this.commentToBeAdded.bugDTO = this.bug;
-    this.commentToBeAdded.user = "doreld";
-    this.bugService.addComment(this.commentToBeAdded);
+    this.commentToBeAdded.user = localStorage.getItem("currentUser");
+
+    this.bugService.addComment(this.commentToBeAdded).subscribe((response:Comment) => {
+      this.success("alerts.SUCCES-ADD");
+      location.reload();
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts.COMMENT_VALIDATION_EXCEPTION");
+    });
+
   }
 
   export() {

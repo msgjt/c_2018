@@ -25,7 +25,7 @@ public class Comment {
     @JoinColumn(name = "idUser", nullable = false)
     public User user;
 
-    @Column(name = "text", length = MAX_STRING_LENGTH, nullable = false)
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "date", length = MAX_STRING_LENGTH, nullable = false)

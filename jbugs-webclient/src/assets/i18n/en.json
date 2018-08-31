@@ -93,7 +93,9 @@
     "FAILED-LOGIN": "Login failed",
     "ERROR-SERVER": "Server problem. Please try again",
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
-    "FORMAT-FILE-ERROR":"Invalid format file"
+    "FORMAT-FILE-ERROR":"Invalid format file",
+    "DESCRIPTION_VALIDATION_EXCEPTION": "Description length is too large",
+    "COMMENT_VALIDATION_EXCEPTION": "Comment text too long"
 
   },
   "add-bug": {

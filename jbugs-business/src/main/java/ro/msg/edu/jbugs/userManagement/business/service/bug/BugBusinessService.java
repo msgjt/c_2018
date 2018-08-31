@@ -52,6 +52,9 @@ public class BugBusinessService implements IBugBusinessService {
         if(bugDTO.getTargetDate() == null || bugDTO.getStatus() == null || bugDTO.getSeverity()==null){
             throw new BusinessException(ExceptionCode.BUG_VALIDATION_EXCEPTION);
         }
+        if(bugDTO.getDescription().length()>250){
+            throw new BusinessException(ExceptionCode.DESCRIPTION_VALIDATION_EXCEPTION);
+        }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
         return bugDTOHelper.fromEntity(addedBug);
@@ -93,8 +96,11 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public CommentDTO addComment(CommentDTO commentDTO) {
+    public CommentDTO addComment(CommentDTO commentDTO) throws BusinessException {
         Comment comment = commentDTOHelper.toEntity(commentDTO);
+        if(commentDTO.getText().length()>100){
+            throw new BusinessException(ExceptionCode.COMMENT_VALIDATION_EXCEPTION);
+        }
         return commentDTOHelper.fromEntity(bugPersistenceService.addComment(comment).get());
     }
 

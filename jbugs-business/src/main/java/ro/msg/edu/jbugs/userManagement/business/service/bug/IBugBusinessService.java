@@ -17,7 +17,7 @@ public interface IBugBusinessService {
     BugDTO updateBug(BugDTO bugDTO) throws BusinessException;
     AttachmentDTO deleteAttachment(AttachmentDTO attachmentDTO) throws  BusinessException;
     List<CommentDTO> getCommentsForBug(Long bugId);
-    CommentDTO addComment(CommentDTO commentDTO);
+    CommentDTO addComment(CommentDTO commentDTO) throws BusinessException;
     List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs);
     HistoryDTO addHistory(HistoryDTO historyDTO);
     List<HistoryDTO> getAllHistory();
