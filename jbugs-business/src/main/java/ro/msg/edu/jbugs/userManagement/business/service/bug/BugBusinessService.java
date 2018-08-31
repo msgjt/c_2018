@@ -7,11 +7,9 @@ import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.HistoryDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.History;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -38,6 +36,9 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private HistoryDTOHelper historyDTOHelper;
 
+    @EJB
+    private NotificationBusinessService notificationBusinessService;
+
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -52,6 +53,8 @@ public class BugBusinessService implements IBugBusinessService {
         }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
+
+        notificationBusinessService.generateNotification(NotificationType.BUG_UPDATED, null, bugDTO);
         return bugDTOHelper.fromEntity(addedBug);
     }
 

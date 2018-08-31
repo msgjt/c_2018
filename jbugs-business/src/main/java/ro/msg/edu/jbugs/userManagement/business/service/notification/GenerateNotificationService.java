@@ -8,6 +8,8 @@ import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationType;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,8 +20,19 @@ public class GenerateNotificationService {
     private GenerateNotificationMessageService messageGenerator;
 
     public NotificationDTO generateNotification(NotificationType type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
-        //ToDo: implement for bug
-        return null;
+        NotificationDTO notificationDTO = new NotificationDTO();
+        notificationDTO.setType(type);
+        notificationDTO.setMessage(messageGenerator.generateMessage(type, oldBugDTO, newBugDTO));
+        notificationDTO.setDate(new Date());
+        if(oldBugDTO != null){
+            notificationDTO.setUsernames(new HashSet<>(Arrays.asList(oldBugDTO.getCreatedByUser().getUsername(),
+                    oldBugDTO.getAssignedTo().getUsername(), newBugDTO.getAssignedTo().getUsername())));
+        }else{
+            notificationDTO.setUsernames(new HashSet<>(Arrays.asList(newBugDTO.getCreatedByUser().getUsername(),
+                    newBugDTO.getAssignedTo().getUsername())));
+        }
+
+        return notificationDTO;
     }
 
     public NotificationDTO generateNotification(NotificationType type, UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
@@ -30,4 +43,5 @@ public class GenerateNotificationService {
         notificationDTO.setUsernames(new HashSet<>(Collections.singletonList(newUserDTO.getUsername())));
         return notificationDTO;
     }
+
 }
