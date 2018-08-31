@@ -3,8 +3,9 @@
     translate}}</a>
   <div class="navbar-expand mr-auto">
     <ul class="navbar-nav">
-      <a class="nav-item nav-link" href="/home">{{'header.nav-item1' | translate}}</a>
-      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" href="/contact">{{'header.nav-item2' | translate}}</a>
+      <a class="nav-item nav-link" routerLink="/home">{{'header.nav-item1' | translate}}</a>
+
+      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" routerLink="/contact">{{'header.nav-item2' | translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'|
         translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'|
@@ -37,10 +38,12 @@
     <div class="navbar-nav">
       <a *ngIf="!isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login">{{'header.btn-login' |
         translate}}</a>
+
       <a *ngIf="isUserLoggedIn()" class="nav-item nav-link active" routerLink="/login" (click)="logout()">{{'header.btn-logout'
         | translate}}</a>
     </div>
     <ul class="navbar-nav" style="padding-top: 8px">
+      <img *ngIf="isUserLoggedIn()" class="nav-item" src="../../assets/img/user-icon.png" height="30" align="left" routerLink="/myprofile">
       <img class="nav-item" src="../../assets/img/en.png" width="30" height="20" align="center" alt="en" (click)="useLanguage('en')">
       <img class="nav-item" src="../../assets/img/ro.jpg" width="30" height="20" align="center" alt="ro" (click)="useLanguage('ro')">
     </ul>

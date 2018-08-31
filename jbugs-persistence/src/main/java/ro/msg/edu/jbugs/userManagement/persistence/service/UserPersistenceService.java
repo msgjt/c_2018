@@ -34,6 +34,11 @@ public class UserPersistenceService implements IUserPersistenceService {
         return Optional.of(em.merge(userToUpdate));
     }
 
+    public void changePassword(@NotNull String username, @NotNull String password){
+        User user = this.getUserByUsername(username).get();
+        user.setPassword(password);
+        em.merge(user);
+    }
 
     public Optional<User> getUserById(long id) {
         Query q = em.createQuery("SELECT u FROM User u WHERE u.idUser=" + id);

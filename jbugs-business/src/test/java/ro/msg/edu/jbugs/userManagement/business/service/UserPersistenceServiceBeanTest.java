@@ -152,6 +152,7 @@ public class UserPersistenceServiceBeanTest {
         userDTO.setEmail("dinamo@msggroup.com");
         userDTO.setPhoneNumber("1234456667");
         userDTO.setPassword("IloveSteaua");
+        userDTO.setRoles(roleBusinessService.getAllRoles());
         try{
         UserDTO createdUser = userBusinessService.createUser(userDTO);
         assertEquals(userDTO.getFirstName(),createdUser.getFirstName());
