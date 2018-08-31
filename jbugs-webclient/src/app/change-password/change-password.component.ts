@@ -23,7 +23,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   updatePassword(){
-    if(!this.newPassword.match("[A-Z]+[a-z]{5,}[0-9]+[a-z]*[!@#$%]+([a-z]|[0-9]|[!@#$%])*")){
+    if(!this.newPassword.match("[A-Z]+[a-z]{5,}[0-9]+")){
       this.alertService.error("alerts.PASSWORD-NOT-STRONG")
     } else {
       if (!(this.newPassword == this.newPasswordAgain)) {

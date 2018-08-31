@@ -212,7 +212,7 @@ public class UserBusinessService implements IUserBusinessService {
     @Override
     public void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException {
         validateUserName(userChangePasswordDTO.getUsername());
-        if(userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(Encryptor.encrypt(userChangePasswordDTO.getOldPassword())))){
+        if(!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))){
             throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
         }
         else {
