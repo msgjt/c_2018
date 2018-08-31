@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddBugComponentComponent } from './add-bug-component.component';
+import { AddBugComponentComponent } from './add-bug.component';
 
 describe('AddBugComponentComponent', () => {
   let component: AddBugComponentComponent;

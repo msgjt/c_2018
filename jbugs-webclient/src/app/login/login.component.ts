@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  /**
+   * Method used for checking the credentials for login
+   */
+  public onSubmit():void {
     this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
       console.log(response);
       if (response['success'] == true) {
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login(token: string, username: string) {
+  public login(token: string, username: string):void {
     this.userService.tokenHeader=token;
     this.loginService.login(token, username);
     this.loggedIn = true;
@@ -76,11 +79,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  resolved(captchaResponse: string) {
+  public resolved(captchaResponse: string) {
     this.recaptchaResponse = captchaResponse;
   }
 
-  getPermissionsForUser(roles: Role[]): Permission[] {
+  public getPermissionsForUser(roles: Role[]): Permission[] {
     let permissionList: Permission[] = [];
     for (let role of roles) {
       for (let permission of role.permissions) {
@@ -92,10 +95,10 @@ export class LoginComponent implements OnInit {
     return permissionList;
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
-  succes(message: string){
+  public succes(message: string):void{
     this.alertService.success(message);
   }
 }

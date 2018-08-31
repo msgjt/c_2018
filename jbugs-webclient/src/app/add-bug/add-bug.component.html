@@ -4,7 +4,7 @@
       <b>{{"add-bug.title-page" | translate}}</b>
     </div>
     <div class="card-body">
-      <form #formControl="ngForm">
+      <form #formControl="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="title">{{"add-bug.title" | translate}}</label>
           <input #titleElement="ngModel" name="title" id="title" type="text" class="form-control" required
@@ -51,7 +51,7 @@
           <label for="date">{{"add-bug.target-date" | translate}}</label>
           <br/>
           <input #targetElement="ngModel" type="date" id="date" name="chosenDate"
-                 [(ngModel)]="this.chosenDate" (ngModelChange)="changedSelectedUsername()"
+                 [(ngModel)]="this.chosenDate"
                  min="{{this.currentDate | date:'yyyy-MM-dd'}}"
                  max="2030-12-31" required>
           <div class="err" *ngIf="targetElement.invalid && targetElement.touched">{{"add-bug.target-date-message" |
@@ -66,7 +66,7 @@
         <div class="form-group">
           <label for="assignedTo">{{"add-bug.assigned-to" | translate}}</label>
           <select #assignedElement="ngModel" name="assignedTo" id="assignedTo" class="form-control"
-                  [(ngModel)]="this.chosenUsername" (ngModelChange)="changedSelectedUsername()" required>
+                  [(ngModel)]="this.chosenUsername"  required>
             <option disabled [ngValue]="undefined">{{"add-bug.select-user" | translate}}</option>
             <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}
             </option>
@@ -83,8 +83,8 @@
           <label for="blob">{{"add-bug.attachment" | translate}}</label>
           <br/>
           <input #inputElement class="form-control-file" type="file" id="blob" name="file"
-                 [(ngModel)]="this.attachment.blob"
-                 (change)="fileChange($event)" accept=".jpg,.pdf,.doc,.odf,.xls,.txt" maxlength="1024" multiple>
+                 [(ngModel)]="this.attachment.blob" required
+                 (change)="fileChange()" accept=".jpg,.pdf,.doc,.odf,.xls,.txt" multiple>
           <div *ngIf="this.chosenFiles.length>1">
             <div *ngFor="let name of this.chosenFiles">
               {{name}}
@@ -92,7 +92,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary" type="submit" [disabled]="formControl.invalid" (click)="onSubmit()">
+          <button class="btn btn-primary" type="submit" [disabled]="formControl.invalid" >
             {{"add-bug.btn-register" | translate}}
           </button>
         </div>
