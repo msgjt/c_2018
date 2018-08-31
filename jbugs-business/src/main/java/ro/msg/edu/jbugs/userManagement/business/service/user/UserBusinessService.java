@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserChangePasswordDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
@@ -206,6 +207,17 @@ public class UserBusinessService implements IUserBusinessService {
     public UserDTO getUserByUsername(String username) throws BusinessException {
         validateUserName(username);
         return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
+    }
+
+    @Override
+    public void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException {
+        validateUserName(userChangePasswordDTO.getUsername());
+        if(!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))){
+            throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
+        }
+        else {
+            userPersistenceService.changePassword(userChangePasswordDTO.getUsername(),Encryptor.encrypt(userChangePasswordDTO.getNewPassword()));
+        }
     }
 
     /**

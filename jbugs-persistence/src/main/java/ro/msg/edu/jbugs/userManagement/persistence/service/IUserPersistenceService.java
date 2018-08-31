@@ -1,11 +1,9 @@
 package ro.msg.edu.jbugs.userManagement.persistence.service;
 
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,6 +39,12 @@ public interface IUserPersistenceService extends Serializable {
      */
     Set<User> getAllUsers();
 
+    /**
+     * Method used to changed an user's password
+     * @param username
+     * @param password
+     */
+    void changePassword(@NotNull String username, @NotNull String password);
     /**
      * Method used for getting an user after his username
      * @param username
