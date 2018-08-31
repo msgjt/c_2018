@@ -31,6 +31,7 @@ public class NotificationDTOHelper {
             notificationDTO.setUsernames(notification.getUsers().stream().map(User::getUsername).collect(Collectors.toSet()));
         if (notification.getBug() != null)
             notificationDTO.setBugId(notification.getBug().getIdBug());
+        notificationDTO.setMessage(notification.getMessage());
         return notificationDTO;
     }
 
