@@ -18,6 +18,8 @@ public interface IUserPersistenceService extends Serializable {
 
     void removeUser(@NotNull User user);
 
+    void changePassword(@NotNull String username, @NotNull String password);
+
     Set<User> getAllUsers();
 
     Optional<User> getUserByUsername(@NotNull String username);

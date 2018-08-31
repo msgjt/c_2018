@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="jumbotron">
+    <div class="row justify-content-center">
+      <div *ngIf="okToShow" class="col-md-6">
+
+<div class="form-group">
+  <label>
+    <b>{{'my-profile.first-name' |translate}}
+    </b>
+  </label>
+  <span>: {{user.firstName}}</span>
+</div>
+
+<div class="form-group">
+  <label>
+    <b>{{'my-profile.last-name' |translate}}
+    </b></label>
+  <span>: {{user.lastName}}</span>
+</div>
+
+<div class="form-group">
+  <label>
+    <b>{{'my-profile.mobile-number' |translate}}
+    </b></label>
+  <span>: {{user.phoneNumber}}</span>
+</div>
+
+<div class="form-group">
+  <label>
+    <b>{{'my-profile.email' |translate}}
+    </b></label>
+  <span>: {{user.email}}</span>
+</div>
+
+        <label><b>{{'my-profile.roles' |translate}}</b></label>
+<div  class="form-group">
+  <div *ngIf="gotRoles">
+  <div *ngFor="let role of user.roles">
+  <span>{{role.type}}</span>
+  </div>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label>
+    <b>{{'my-profile.status' |translate}}</b></label>
+  <span>: {{status}}</span>
+</div>
+        <div class="form-group">
+          <button type="submit"
+                  class="btn btn-primary"
+                  routerLink="../changePassword"
+          >{{'my-profile.btn-change-password' |translate}}</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

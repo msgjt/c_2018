@@ -38,6 +38,9 @@ import {AlertComponent} from './alert/alert.component';
 import {FilterDataService} from "./services/filter-data.service";
 import {ExcelService} from "./services/excel.service";
 import { ViewHistoryComponent } from './view-history/view-history.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import {AuthenticateGuard} from "./guards/authenticate.guard";
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -51,6 +54,8 @@ const appRoutes: Routes = [
   {path: 'bug', component: ViewBugsComponent, canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
+  {path: 'myprofile', component:MyProfileComponent, canActivate: [AuthenticateGuard]},
+  {path: 'changePassword', component:ChangePasswordComponent, canActivate: [AuthenticateGuard]},
   {path: 'create-user', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'notification', component: NotificationDetailComponent, canActivate: [AdressedUserGuard]},
   {path: '', component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
@@ -85,7 +90,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotificationPopupComponent,
     ContactComponent,
     AlertComponent,
-    ViewHistoryComponent
+    ViewHistoryComponent,
+    MyProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

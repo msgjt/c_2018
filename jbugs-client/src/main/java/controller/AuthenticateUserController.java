@@ -1,8 +1,10 @@
 package controller;
 
 import com.google.gson.Gson;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserChangePasswordDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
 
 import javax.ejb.EJB;
@@ -18,6 +20,8 @@ public class AuthenticateUserController {
     @EJB
     private UserLoginBusinessService loginBusinessService;
 
+    @EJB
+    private IUserBusinessService userBusinessService;
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
@@ -36,5 +40,20 @@ public class AuthenticateUserController {
                     .build();
         }
         return loginResponse;
+    }
+
+    @POST
+    @Path("/changePassword")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response userChangePassword(UserChangePasswordDTO userChangePasswordDTO){
+        Response response;
+        try{
+            userBusinessService.changePassword(userChangePasswordDTO);
+            response = Response.status(Response.Status.OK).build();
+        } catch (BusinessException e){
+            response = Response.status(Response.Status.PRECONDITION_FAILED).entity(new Gson().toJson(e.getExceptionCode())).build();
+        }
+        return response;
+
     }
 }
