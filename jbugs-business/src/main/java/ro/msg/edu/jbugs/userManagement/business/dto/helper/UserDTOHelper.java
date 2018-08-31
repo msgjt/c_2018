@@ -1,8 +1,8 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserSessionDTO;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.*;
+import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
+import ro.msg.edu.jbugs.userManagement.business.service.user.IUserBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 
@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 public class UserDTOHelper {
     @EJB
     private RoleDTOHelper roleDTOHelper;
+
+    @EJB
+    private IUserBusinessService userBusinessService;
 
     public UserDTO fromEntity(User user) {
         UserDTO userDTO = new UserDTO();
@@ -43,19 +46,25 @@ public class UserDTOHelper {
         user.setPassword(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        if(Optional.ofNullable(userDTO.getRoles()).isPresent())
+        if (Optional.ofNullable(userDTO.getRoles()).isPresent())
             user.setRoles(userDTO.getRoles().stream().map(roleDTOHelper::toEntity).collect(Collectors.toSet()));
-        else{
+        else {
             user.setRoles(null);
         }
         return user;
     }
 
     //ToDo: make not static and make fictional;
-    public UserSessionDTO toEntity(UserLoginDTO userLoginDTO) {
+    public UserSessionDTO toEntity(UserLoginDTO userLoginDTO) throws BusinessException {
+        UserDTO userDTO = userBusinessService.getUserByUsername(userLoginDTO.getUsername());
         Set<PermissionEnum> permissions = new HashSet<>();
-        permissions.add(PermissionEnum.PERMISSION_MANAGEMENT);
-        return new UserSessionDTO("doreld", permissions);
+        userDTO.getRoles()
+                .forEach(r -> permissions.addAll(r.getPermissions()
+                        .stream()
+                        .map(PermissionDTO::getType)
+                        .collect(Collectors.toList())
+                ));
+        return new UserSessionDTO(userLoginDTO.getUsername(), permissions);
     }
 }
 

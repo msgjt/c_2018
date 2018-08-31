@@ -241,7 +241,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     private boolean isValidPhoneNumber(String phonenumber) {
         final Pattern VALID_PHONE_REGEX =
-                Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{9,10}$)", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{8,10}$)", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_PHONE_REGEX.matcher(phonenumber);
         return matcher.find();
