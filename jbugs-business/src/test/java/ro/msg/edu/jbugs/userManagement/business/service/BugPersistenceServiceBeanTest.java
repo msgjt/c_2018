@@ -1,6 +1,5 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import com.sun.mail.iap.ByteArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,6 @@ import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.BugPersistenceService;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -140,9 +138,9 @@ public class BugPersistenceServiceBeanTest {
         Bug bug = new Bug();
         BugDTO bugDTO = new BugDTO();
         bugDTO.setTitle("Test title");
-        bugDTO.setSeverity(SeverityType.CRITICAL);
+        bugDTO.setSeverity(SeverityEnum.CRITICAL);
         bugDTO.setTargetDate("2018-01-01 00:00:00");
-        bugDTO.setStatus(StatusType.CLOSED);
+        bugDTO.setStatus(StatusEnum.CLOSED);
         when(bugDTOHelper.toEntity(bugDTO))
                 .thenReturn(bug);
         when(bugPersistenceService.addBug(bug,new Attachment()))

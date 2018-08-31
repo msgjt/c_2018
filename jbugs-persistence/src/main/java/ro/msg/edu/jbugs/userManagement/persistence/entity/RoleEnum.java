@@ -1,6 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
-public enum RoleType {
+public enum RoleEnum {
     ADMINISTRATOR,
     PROJECT_MANAGER,
     TEST_MANAGER,

@@ -18,7 +18,7 @@ public class Role {
 
     @Column(length = MAX_STRING_LENGTH)
     @Enumerated(EnumType.STRING)
-    private RoleType type;
+    private RoleEnum type;
 
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Permission> permissions;
@@ -31,11 +31,11 @@ public class Role {
         this.idRole = idRole;
     }
 
-    public RoleType getType() {
+    public RoleEnum getType() {
         return type;
     }
 
-    public void setType(RoleType type) {
+    public void setType(RoleEnum type) {
         this.type = type;
     }
 

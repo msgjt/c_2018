@@ -32,7 +32,7 @@ public class Bug {
 
     @Column(name = "status", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusType status;
+    private StatusEnum status;
 
     @Column(name = "fixedVersion", length = MAX_STRING_LENGTH, nullable = false)
 
@@ -40,7 +40,7 @@ public class Bug {
 
     @Column(name = "severity", length = MAX_STRING_LENGTH, nullable = false)
     @Enumerated(EnumType.STRING)
-    private SeverityType severity;
+    private SeverityEnum severity;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bug")
     private List<Comment> comments;
@@ -97,11 +97,11 @@ public class Bug {
         this.targetDate = targetdate;
     }
 
-    public StatusType getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(StatusType status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
@@ -113,11 +113,11 @@ public class Bug {
         this.fixedVersion = fixedVersion;
     }
 
-    public SeverityType getSeverity() {
+    public SeverityEnum getSeverity() {
         return severity;
     }
 
-    public void setSeverity(SeverityType severity) {
+    public void setSeverity(SeverityEnum severity) {
         this.severity = severity;
     }
 
