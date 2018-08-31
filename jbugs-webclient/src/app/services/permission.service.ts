@@ -14,15 +14,11 @@ export class PermissionService {
   }
 
   getAll(): Observable<any> {
-    let permissions: Permission[] = [];
     return this.http.get(this.baseURL + '/permissions',{
       headers:{'Authorization': this.tokenHeader}
     });
   }
 
-  getPermissions(): Observable<any> {
-    return this.http.get(this.baseURL + '/permissions');
-  }
 
 
 }

@@ -23,23 +23,6 @@ public class PermissionPersistenceService implements IPermissionPersistenceServi
     @PersistenceContext(unitName = "jbugs-persistence")
     private EntityManager em;
 
-    @Override
-    public Optional<Permission> addPermission(@NotNull Permission permission) {
-        em.persist(permission);
-        memoryCache.addValue(Permission.class.getSimpleName(), (Object) permission);
-        return Optional.of(permission);
-    }
-
-    @Override
-    public Optional<Permission> updatePermission(@NotNull Permission permission) {
-        em.merge(permission);
-        return Optional.of(permission);
-    }
-
-    @Override
-    public void removePermission(@NotNull Permission permission) {
-        em.remove(permission);
-    }
 
     @Override
     public Optional<Permission> getPermissionForId(long id) {

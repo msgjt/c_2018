@@ -7,3 +7,10 @@ export interface Attachment{
   extension: string;
   name:string;
 }
+export class AttachmentClass implements Attachment{
+  blob: Uint8Array;
+  bugDTO: Bug;
+  extension: string;
+  name: string;
+
+}
