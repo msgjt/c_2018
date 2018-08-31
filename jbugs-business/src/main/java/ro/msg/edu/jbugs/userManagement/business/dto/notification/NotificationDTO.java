@@ -1,15 +1,21 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.notification;
 
+import com.google.gson.annotations.Expose;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationType;
 
 import java.util.Date;
 import java.util.Set;
 
 public class NotificationDTO {
+    @Expose
     private NotificationType type;
+    @Expose
     private String message;
+    @Expose
     private Date date;
+    @Expose(serialize = false)
     private Set<String> usernames;
+    @Expose
     private Long bugId;
 
     public NotificationDTO() {
