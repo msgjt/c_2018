@@ -38,7 +38,7 @@ export class AddBugComponentComponent implements OnInit {
       status: 'NEW',
       fixedVersion: '',
       severity: '',
-      createdByUser: null,
+      createdByUser: this.getLoggedUser(),
       assignedTo: null
     }
   }
@@ -60,7 +60,10 @@ export class AddBugComponentComponent implements OnInit {
           blob: new Uint8Array(),
           extension: file.name.substring(file.name.length - 3).toUpperCase(),
           name: file.name.substring(0, file.name.length - 4)
-        };
+        }
+        if(!this.extensions.includes(this.attachment[i].extension)){
+          console.log("Invalid file");
+        }
         reader[i].onload = (e) => {
           this.attachment[i].blob = reader[i].result;
         };
@@ -70,13 +73,19 @@ export class AddBugComponentComponent implements OnInit {
 
   }
 
+  getLoggedUser():User{
+    return this.allUsers.filter(value=>{
+      return value.username===localStorage.getItem("currentUser");
+    })[0];
+  }
+
   /**
    * Method used for creating the bug and its attachments
    */
-  public onSubmit():void {
+  onSubmit():void {
     this.bug.severity = this.chosenSeverity;
     this.bug.targetDate = this.chosenDate;
-    this.bug.createdByUser = this.allUsers[0];
+    this.bug.createdByUser = this.getLoggedUser();
     this.bug.status = 'NEW';
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;

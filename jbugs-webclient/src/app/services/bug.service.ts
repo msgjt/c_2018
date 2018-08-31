@@ -57,7 +57,7 @@ export class BugService {
     });
   }
 
-  updateBug(bug: Bug):Observable<any> {
+  updateBug(bug: Bug): Observable<any> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(bug);
     console.log(attachmentModel);
@@ -69,8 +69,8 @@ export class BugService {
   getAllAttachmentsForABug(idBug: number): Attachment[] {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentsForBug: Attachment[] = [];
-    this.http.get(this.attachementURL + '/' + idBug,{
-      headers:reqHeader
+    this.http.get(this.attachementURL + '/' + idBug, {
+      headers: reqHeader
     }).subscribe((response: Attachment[]) => {
       response.forEach((value) => {
         attachmentsForBug.push(value);
@@ -82,8 +82,8 @@ export class BugService {
   getAllAttachments(): Attachment[] {
     var attachmentsForBug: Attachment[] = [];
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
-    this.http.get(this.attachementURL,{
-      headers:reqHeader
+    this.http.get(this.attachementURL, {
+      headers: reqHeader
     }).subscribe((response: Attachment[]) => {
       response.forEach((value) => {
         attachmentsForBug.push(value);
@@ -92,7 +92,7 @@ export class BugService {
     return attachmentsForBug;
   }
 
-  deleteAttachment(attachment: Attachment):Observable<any> {
+  deleteAttachment(attachment: Attachment): Observable<any> {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log(attachmentModel);
@@ -101,12 +101,12 @@ export class BugService {
     });
   }
 
-  addAttachment(attachment: Attachment):Observable<any> {
-    var reqHeader = new HttpHeaders({'Content-Type': 'application/json','Authorization': this.tokenHeader});
+  addAttachment(attachment: Attachment): Observable<any> {
+    var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(attachment);
     console.log('Atasamentul trimis: ' + attachmentModel);
-    return this.http.post(this.attachementURL + '/add', attachmentModel,{
-      headers:reqHeader
+    return this.http.post(this.attachementURL + '/add', attachmentModel, {
+      headers: reqHeader
     });
   }
 
@@ -115,8 +115,8 @@ export class BugService {
     this.comments = [];
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
 
-    this.http.get(this.baseURL + '/comments/' + bugId.toString(),{
-      headers:reqHeader
+    this.http.get(this.baseURL + '/comments/' + bugId.toString(), {
+      headers: reqHeader
     }).subscribe(
       (response: Comment[]) => {
         response.forEach((value) => this.comments.push(value));
@@ -129,28 +129,27 @@ export class BugService {
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
     var attachmentModel = JSON.stringify(comment);
     console.log('From sevice ' + attachmentModel);
-    this.http.post(this.baseURL + '/comments/add', attachmentModel, {
+    return this.http.post(this.baseURL + '/comments/add', attachmentModel, {
       headers: reqHeader
-    }).subscribe();
-    location.reload();
+    });
   }
 
-  sendFile(file:Uint8Array,attachment:Attachment){
-    this.http.post(this.attachementURL + '/file',file).subscribe((value)=>{
+  sendFile(file: Uint8Array, attachment: Attachment) {
+    this.http.post(this.attachementURL + '/file', file).subscribe((value) => {
       this.addAttachment(attachment).subscribe();
     });
   }
 
 
-  filterBugs(filters: BugFilter[]):Observable<any>{
-    return this.http.post(this.baseURL + '/filter', JSON.stringify(filters),{
+  filterBugs(filters: BugFilter[]): Observable<any> {
+    return this.http.post(this.baseURL + '/filter', JSON.stringify(filters), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     });
   }
 
-  addHistory(history:HistoryClass){
+  addHistory(history: HistoryClass) {
     console.log('History sent: ' + JSON.stringify(history));
-    return this.http.post(this.baseURL + '/history/add', JSON.stringify(history),{
+    return this.http.post(this.baseURL + '/history/add', JSON.stringify(history), {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     });
   }
