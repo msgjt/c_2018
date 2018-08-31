@@ -16,8 +16,8 @@
         <div class="form-group">
           <label for="description">{{"add-bug.description" | translate}}</label>
           <input #descriptionElement="ngModel" id="description" name="this" type="text" [(ngModel)]="bug.description"
-                 class="form-control" minlength="3"/>
-          <div class="err" *ngIf="descriptionElement.invalid && descriptionElement.touched">{{'add-bug.title-message' |
+                 class="form-control" minlength="3" required/>
+          <div class="err" *ngIf="descriptionElement.invalid && descriptionElement.touched">{{'add-bug.description-message' |
             translate}}
           </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="form-group">
           <label for="fversion">{{"add-bug.fixed-version" | translate}}</label>
           <input #fixedElement="ngModel" id="fversion" name="fversion" type="text" [(ngModel)]="bug.fixedVersion"
-                 class="form-control" required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
+                 class="form-control"  pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
           <div class="err" *ngIf="fixedElement.invalid && fixedElement.touched">Fixed version is invalid</div>
 
         </div>

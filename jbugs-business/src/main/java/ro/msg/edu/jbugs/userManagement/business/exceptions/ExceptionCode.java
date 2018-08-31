@@ -16,7 +16,9 @@ public enum ExceptionCode {
     PERMISSION_VALIDATION_EXCEPTION(1004, "Validation Exception"),
     BUG_VALIDATION_EXCEPTION(1010, "Validation Exception"),
     ATTACHMENT_VALIDATION_EXCEPTION(1011, "Validation Exception"),
-    UNFINISHED_TASKS(2000, "Unfinished tasks for user Exception");
+    UNFINISHED_TASKS(2000, "Unfinished tasks for user Exception"),
+    DESCRIPTION_VALIDATION_EXCEPTION(2001,"Description length is too large"),
+    COMMENT_VALIDATION_EXCEPTION(2002,"Comment text too long");
     int id;
     String message;
 
