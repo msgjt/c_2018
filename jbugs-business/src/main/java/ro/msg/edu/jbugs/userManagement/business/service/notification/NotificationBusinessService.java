@@ -10,7 +10,9 @@ import ro.msg.edu.jbugs.userManagement.persistence.service.NotificationPersisten
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.time.Instant;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,18 +27,27 @@ public class NotificationBusinessService {
 
     public void generateNotification(NotificationType type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
         notificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldBugDTO, newBugDTO)));
+        deleteOutdatedNotifications();
     }
 
     public void generateNotification(NotificationType type, UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
         notificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldUserDTO, newUserDTO)));
+        deleteOutdatedNotifications();
     }
 
     public List<NotificationDTO> getNotificationsForUser(String username) {
         return notificationPersistenceService.getNotifications()
                 .stream()
                 .map(notificationDTOHelper::fromEntity)
-                .filter(u -> u.getUsernames().contains(username))
+                .filter(n -> n.getUsernames().contains(username))
                 .sorted(Comparator.comparing(NotificationDTO::getDate))
                 .collect(Collectors.toList());
+    }
+
+    private void deleteOutdatedNotifications() {
+        notificationPersistenceService.getNotifications()
+                .stream()
+                .filter(u -> u.getDate().compareTo(Date.from(Instant.now().minusSeconds(2592000L))) < 0)
+                .forEach(notificationPersistenceService::deleteNotification);
     }
 }
