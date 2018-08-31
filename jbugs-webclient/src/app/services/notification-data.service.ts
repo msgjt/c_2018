@@ -3,7 +3,7 @@ import {Notification} from "../types/notification";
 
 @Injectable()
 export class NotificationDataService {
-  private _notifications: Notification[];
+  private _notifications: Notification[] = [];
 
 
   get notifications(): Notification[] {
