@@ -1,16 +1,20 @@
 import {Component, OnInit} from "@angular/core";
-import {Bug, BugClass} from "../../types/bugs";
-import {BugDataService} from "../../services/bugData.service";
-import {BugService} from "../../services/bug.service";
-import {Comment, CommentClass} from "../../types/comments";
-import {Attachment} from "../../types/attachment";
-import {UserService} from "../../services/user.service";
-import {ExportPDFService} from "../../services/export-pdf.service";
+import {Bug} from "../types/bugs";
+import {Attachment} from "../types/attachment";
+import {BugDataService} from "../services/bugData.service";
+import {Comment,CommentClass} from "../types/comments";
+import {BugService} from "../services/bug.service";
+import {UserService} from "../services/user.service";
+import {ExportPDFService} from "../services/export-pdf.service";
+import {AlertService} from "../services/alert.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {FilterService} from "../services/filter.service";
+
 
 @Component({
   selector: 'app-bugDetails',
   templateUrl: './bugDetails.component.html',
-  styleUrls: ['./bugDetails.component.css', './../severity.css']
+  styleUrls: ['./bugDetails.component.css', './severity.css']
 })
 
 export class BugDetailsComponent implements OnInit {
@@ -21,7 +25,7 @@ export class BugDetailsComponent implements OnInit {
   attachmentsForABug: Attachment[] = [];
   commentToBeAdded: Comment = new CommentClass();
 
-  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService) {
+  constructor(public dataService: BugDataService, private bugService: BugService, private userService: UserService, private bugPdfService: ExportPDFService, private alertService: AlertService,private filterService: FilterService){
     this.attachmentToBeAdded = {
       bugDTO: null,
       blob: new Uint8Array(),
@@ -46,6 +50,8 @@ export class BugDetailsComponent implements OnInit {
         this.dataService.bug = value;
         this.setBugDetails();
       }
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts." + error.error.toString());
     });
 
 
@@ -53,7 +59,7 @@ export class BugDetailsComponent implements OnInit {
 
   setBugDetails() {
     this.bug = this.dataService.bug;
-    this.comments = this.bugService.getComments(this.bug.idBug);
+    this.comments = this.bugService.getCommentsForABug(this.bug.idBug);
     this.attachmentsForABug = this.bugService.getAllAttachmentsForABug(this.bug.idBug);
     this.attachmentToBeAdded.bugDTO = this.bug;
   }
@@ -89,7 +95,11 @@ export class BugDetailsComponent implements OnInit {
   };
 
   deleteAttachment(attachmentChosen: Attachment) {
-    this.bugService.deleteAttachment(attachmentChosen);
+    this.bugService.deleteAttachment(attachmentChosen).subscribe((response: Attachment) => {
+      this.success("alerts.SUCCES-REMOVE");
+    }, (error: HttpErrorResponse) => {
+      this.error("alerts." + error.error.toString());
+    });
     location.reload();
   }
 
@@ -97,7 +107,11 @@ export class BugDetailsComponent implements OnInit {
     let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
     if (extensions.includes(attachmentChosen.extension.toUpperCase())) {
       this.bugService.sendFile(attachmentChosen.blob, attachmentChosen);
+      this.success("alerts.SUCCES-ADD");
       location.reload();
+    }
+    else {
+      this.error("alerts.FORMAT-FILE-ERROR");
     }
   }
 
@@ -110,4 +124,15 @@ export class BugDetailsComponent implements OnInit {
   export() {
     this.bugPdfService.export(this.bug, this.comments, this.attachmentsForABug);
   }
+
+  success(message: string) {
+    this.alertService.success(message);
+  }
+
+  error(message: string) {
+    this.alertService.error(message);
+  }
+  isBugExportPdf():boolean {
+  return this.filterService.isBugExportPdf();
+}
 }

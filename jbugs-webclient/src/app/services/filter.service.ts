@@ -11,10 +11,6 @@ export class FilterService {
   constructor() {
   }
 
-  isLoggedIn() {
-    let username = localStorage.getItem(TOKENKEY);
-    return username ? true : false;
-  }
 
   setLoggedIn(value: boolean) {
     this.loggedIn = value;

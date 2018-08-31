@@ -33,8 +33,6 @@ public class UserPersistenceServiceBeanTest {
     @InjectMocks
     private UserBusinessService userBusinessService;
 
-
-
     @InjectMocks
     private RoleBusinessService roleBusinessService;
 

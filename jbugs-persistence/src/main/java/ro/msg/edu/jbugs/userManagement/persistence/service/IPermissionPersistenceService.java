@@ -12,14 +12,18 @@ import java.util.function.Function;
 
 public interface IPermissionPersistenceService extends Serializable {
 
-    Optional<Permission> addPermission(@NotNull Permission permission);
 
-    Optional<Permission> updatePermission(@NotNull Permission permission);
-
-    void removePermission(@NotNull Permission permission);
-
+    /**
+     * Method used for getting a permission with a specified id
+     * @param id
+     * @return optional of a permission with the id send as parameter
+     */
     Optional<Permission> getPermissionForId(@NotNull long id);
 
+    /**
+     * Method used for getting the permissions from DB
+     * @return list of all permissions
+     */
     List<Permission> getAllPermissions();
 
 

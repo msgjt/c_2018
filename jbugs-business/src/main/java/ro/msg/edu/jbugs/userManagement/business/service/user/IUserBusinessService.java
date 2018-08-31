@@ -21,7 +21,4 @@ public interface IUserBusinessService {
     UserDTO getUserByUsername(String username) throws BusinessException;
 
     void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException;
-
-    //@ToDo implement this shit
-    //void deleteUser(String userName) throws PersistenceException;
 }

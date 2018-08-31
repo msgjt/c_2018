@@ -22,7 +22,7 @@ export class ExcelService {
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
     FileSaver.saveAs(data, fileName + '_export_'+ new  Date().getTime()+ EXCEL_EXTENSION);
   }
-  public setHeader(json: any []): any{
+  private setHeader(json: any []): any{
 
       for(var key in json){
         if(json.hasOwnProperty(key)) {
