@@ -3,8 +3,8 @@
     translate}}</a>
   <div class="navbar-expand mr-auto">
     <ul class="navbar-nav">
-      <a class="nav-item nav-link" href="/home">{{'header.nav-item1' | translate}}</a>
-      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" href="/contact">{{'header.nav-item2' | translate}}</a>
+      <a class="nav-item nav-link" routerLink="/home">{{'header.nav-item1' | translate}}</a>
+      <a *ngIf="isUserLoggedIn()" class="nav-item nav-link" routerLink="/contact">{{'header.nav-item2' | translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/permission">{{'header.nav-item3'|
         translate}}</a>
       <a *ngIf="isUserLoggedIn() && isPermissionManagement()" class="nav-item nav-link" routerLink="/role">{{'header.nav-item4'|
@@ -28,7 +28,7 @@
           <a class="dropdown-item" routerLink="/bug/add">{{'header.dropdown2-item1' | translate}}</a>
           <a class="dropdown-item" routerLink="/bug/update">{{'header.dropdown2-item2' | translate}}</a>
           <a class="dropdown-item" routerLink="/bug/viewHistory">{{'header.dropdown2-item3' | translate}}</a>
-          <a class="dropdown-item" routerLink="/bug/statistics">View Statistics</a>
+          <a class="dropdown-item" routerLink="/bug/statistics/all">View Statistics</a>
         </div>
       </li>
     </ul>
