@@ -73,7 +73,7 @@
                 <option disabled *ngIf="this.attachmentsForABug.length==0" [ngValue]="undefined">No attachments</option>
                 <option disabled *ngIf="this.attachmentsForABug.length > 0" [ngValue]="undefined">Select attachment
                 </option>
-                <option *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">
+                <option *ngFor="let attachment of this.attachmentsForABug" [ngValue]="attachment">
                   {{attachment.name+'.' +attachment.extension.toLocaleLowerCase()}}
                 </option>
               </select>
@@ -100,7 +100,7 @@
         </div>
         <div class="col-md-2">
           <input data-placement="bottom" title="Add attachment" type="file" id="blob" name="file" required
-                 (change)="fileChange($event)"
+                 (change)="fileChange()"
                  accept=".jpg,.pdf,.doc,.odf,.xls,.txt" multiple>
         </div>
       </div>
