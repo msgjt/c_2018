@@ -1,5 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.service.user;
 
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserChangePasswordDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 
@@ -19,6 +20,5 @@ public interface IUserBusinessService {
 
     UserDTO getUserByUsername(String username) throws BusinessException;
 
-    //@ToDo implement this shit
-    //void deleteUser(String userName) throws PersistenceException;
+    void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException;
 }

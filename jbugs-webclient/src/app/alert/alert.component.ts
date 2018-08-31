@@ -10,7 +10,7 @@ import {AlertService} from "../services/alert.service";
 export class AlertComponent implements OnInit {
   @Input() id: string;
 
-  alerts: Alert[] = [];
+  public alerts: Alert[] = [];
 
   constructor(private alertService: AlertService) { }
 
@@ -26,16 +26,15 @@ export class AlertComponent implements OnInit {
       this.alerts.push(alert);
     });
   }
-  removeAlert(alert: Alert) {
+  public removeAlert(alert: Alert):void {
     this.alerts = this.alerts.filter(x => x !== alert);
   }
 
-  cssClass(alert: Alert) {
+  public cssClass(alert: Alert):string {
     if (!alert) {
       return;
     }
 
-    // return css class based on alert type
     switch (alert.type) {
       case AlertType.Success:
         return 'alert alert-success';

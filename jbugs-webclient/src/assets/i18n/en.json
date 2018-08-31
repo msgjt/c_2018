@@ -9,9 +9,9 @@
     "dropdown1-item1": "Add",
     "dropdown1-item2": "Update",
     "nav-item6": "Bugs",
-    "dropdown2-item1": "View",
-    "dropdown2-item2": "Add",
-    "dropdown2-item3": "Update",
+    "dropdown2-item1": "Add",
+    "dropdown2-item2": "Update",
+    "dropdown2-item3": "View History",
     "btn-login": "Log In",
     "btn-logout": "Log Out"
   },
@@ -57,7 +57,7 @@
   },
   "update-user": {
     "username":"Choose username",
-    "btn-show":"Find",
+    "btn-show":"Show details",
     "first-name": "First Name",
     "first-name-message":"First name is required",
     "last-name": "Last Name",
@@ -73,6 +73,23 @@
     "status":"Status",
     "change-status":"Change status",
     "btn-save": "Update"
+  },
+  "my-profile": {
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "mobile-number": "Mobile number",
+    "email": "Email",
+    "roles": "Roles",
+    "status":"Status",
+    "btn-change-password": "Change password"
+  },
+  "change-password": {
+    "change-password": "Change password",
+    "current-password": "Current password",
+    "new-password": "New password",
+    "confirm-password": "Confirm password",
+    "update-password": "Update password",
+    "back": "Back"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Email already exists. Choose another one",
@@ -93,7 +110,9 @@
     "FAILED-LOGIN": "Login failed",
     "ERROR-SERVER": "Server problem. Please try again",
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
-    "FORMAT-FILE-ERROR":"Invalid format file"
+    "FORMAT-FILE-ERROR":"Invalid format file",
+    "PASSWORD-NOT-STRONG": "Your password isn't strong enough!",
+    "PASSWORD-CONFIRMATION-MISSMATCH": "You haven't confirmed correctly your new password!"
 
   },
   "add-bug": {
@@ -139,6 +158,7 @@
 
   },
   "bugs":{
+
     "title": "TITLE",
     "version": "VERSION",
     "fixed version": "FIXED VERSION",
@@ -156,6 +176,27 @@
     "phone":"Phone",
     "email":"E-mail",
     "address":"Address"
+  },
+  "details-bug":{
+    "created-by":"Created by ",
+    "col1":"ASSIGNED TO",
+    "col2":"SEVERITY",
+    "col3":"STATUS",
+    "col4":"TARGET DATE",
+    "col5":"VERSION",
+    "col6":"FIXED VERSION",
+    "description":"Description",
+    "comments":"Comments",
+    "btn-add-comment":"Add comment",
+    "btn-export":"Export PDF",
+    "attachments":"Attachments",
+    "description-attachment":"Attachments for this bug:",
+    "message-attachment":"No attachments",
+    "select-attachment":"Select attachment",
+    "download":"Download",
+    "delete":"Delete",
+    "add":"Add",
+    "btn-back":"Back"
   }
 
 }

@@ -9,9 +9,9 @@
     "dropdown1-item1": "Adauga",
     "dropdown1-item2": "Modifica",
     "nav-item6": "Defecte",
-    "dropdown2-item1": "Vizualizare",
-    "dropdown2-item2": "Adauga",
-    "dropdown2-item3": "Modifica",
+    "dropdown2-item1": "Adauga",
+    "dropdown2-item2": "Modifica",
+    "dropdown2-item3": "Istoric",
     "btn-login": "Conecteaza-te",
     "btn-logout": "Deconecteaza-te"
 },
@@ -57,7 +57,7 @@
   },
   "update-user":{
     "username":"Alege un utilizator",
-    "btn-show":"Cauta",
+    "btn-show":"Vezi detalii",
     "first-name":"Prenume",
     "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
@@ -73,6 +73,23 @@
     "status":"Stare",
     "change-status":"Schimba starea",
     "btn-save": "Actualizare"
+  },
+  "my-profile": {
+    "first-name": "Prenume",
+    "last-name": "Nume de familie",
+    "mobile-number": "Numar de telefon",
+    "email": "Email",
+    "roles": "Roluri",
+    "status":"Status",
+    "btn-change-password": "Schimba parola"
+  },
+  "change-password": {
+    "change-password": "Schimba parola",
+    "current-password": "Parola curenta",
+    "new-password": "Parola noua",
+    "confirm-password": "Confirma parola",
+    "update-password": "Actualizeaza parola",
+    "back": "Inapoi"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Adresa email folosita deja",
@@ -150,6 +167,27 @@
     "email":"E-mail",
     "address":"Adresa",
     "street":"Strada"
+  },
+  "details-bug":{
+    "created-by":"Creat de ",
+    "col1":"ATRIBUIT LUI",
+    "col2":"SEVERITATE",
+    "col3":"STARE",
+    "col4":"DATA",
+    "col5":"VERSIUNE",
+    "col6":"VERSIUNE FIXA",
+    "description":"Descriere",
+    "comments":"Comentarii",
+    "btn-add-comment":"Adauga comentariu",
+    "btn-export":"Export PDF",
+    "attachments":"Atasamente",
+    "description-attachment":"Atasamentele pentru acest bug:",
+    "message-attachment":"Nu sunt atasamente",
+    "select-attachment":"Selecteaza atasament",
+    "download":"Descarca",
+    "delete":"Sterge",
+    "add":"Adauga",
+    "btn-back":"Inapoi"
   }
 
 }

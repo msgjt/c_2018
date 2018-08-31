@@ -32,11 +32,12 @@ export class LoginComponent implements OnInit {
     this.loggedIn = this.loginService.isLoggedIn();
   }
 
+
   /**
-   * This method is use for submit login form
+   * Method used for checking the credentials for login
    */
-  onSubmit() {
-    this.http.post( this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
+  public onSubmit():void {
+    this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
       console.log(response);
       if (response['success'] == true) {
         console.log('Form was submitted with the following data:' +
@@ -69,11 +70,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /**
-   * This method set the loggedIn flag for the navigation bar
-   * @param token represents Authetification token return from the server
-   */
-  login(token: string, username: string) {
+
+  public login(token: string, username: string):void {
     this.userService.tokenHeader=token;
     this.loginService.login(token, username);
     this.loggedIn = true;
@@ -90,11 +88,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  resolved(captchaResponse: string) {
+  public resolved(captchaResponse: string) {
     this.recaptchaResponse = captchaResponse;
   }
 
-  getPermissionsForUser(roles: Role[]): Permission[] {
+  public getPermissionsForUser(roles: Role[]): Permission[] {
     let permissionList: Permission[] = [];
     for (let role of roles) {
       for (let permission of role.permissions) {
@@ -106,10 +104,10 @@ export class LoginComponent implements OnInit {
     return permissionList;
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
-  succes(message: string){
+  public succes(message: string):void{
     this.alertService.success(message);
   }
 }

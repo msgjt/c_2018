@@ -1,42 +1,48 @@
 <div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><b>Roles</b></div>
+    </div>
+    <div class="card-body">
+      <form>
+        <table id="tableId" class="table table-responsive-md">
+          <thead>
+          <tr>
+            <th class="fixedColumns" scope="col">{{'role.col-type'| translate}}</th>
+            <th class="fixed-side" scope="col">{{'role.col-roles' | translate}}</th>
+            <th class="fixedColumns" scope="col">{{'role.col-update' | translate}}</th>
+          </tr>
+          </thead>
 
-  <form>
-    <table id="tableId" class="table table-responsive-md" >
-      <thead>
-      <tr>
-        <th class="fixedColumns" scope="col">{{'role.col-type'| translate}}</th>
-        <th class="fixed-side" scope="col">{{'role.col-roles' | translate}}</th>
-        <th class="fixedColumns" scope="col">{{'role.col-update' | translate}}</th>
-      </tr>
-      </thead>
-
-      <tbody *ngFor="let r of roles">
-      <tr>
-        <td>{{r.type}}</td>
-        <td>
-          <div>
-            <ng-multiselect-dropdown *ngIf="roleComplete && permissionComplete"
-              #selectElement
-              name="dropdownPermissions+{{r.id}}"
-              [data]="this.permissions"
-              [placeholder]="'Select permissions'"
-              [(ngModel)]="selectedItems[r.id]"
-              [settings]="dropdownSettings">
-            </ng-multiselect-dropdown>
-          </div>
-          <p>
-            <small *ngIf="checkSelect[r.id]" class="help-block text-danger">
-              Select at least one role
-            </small>
-          </p>
-        </td>
-        <td>
-          <button type="submit" (click)="updatePermissions(r)"
-                  class="btn btn-success">{{'role.btn-update' | translate}}
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </form>
+          <tbody *ngFor="let r of roles">
+          <tr>
+            <td>{{r.type}}</td>
+            <td>
+              <div>
+                <ng-multiselect-dropdown *ngIf="roleComplete && permissionComplete"
+                                         #selectElement
+                                         name="dropdownPermissions+{{r.id}}"
+                                         [data]="this.permissions"
+                                         [placeholder]="'Select permissions'"
+                                         [(ngModel)]="selectedItems[r.id]"
+                                         [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+              </div>
+              <p>
+                <small *ngIf="checkSelect[r.id]" class="help-block text-danger">
+                  Select at least one role
+                </small>
+              </p>
+            </td>
+            <td>
+              <button type="submit" (click)="updatePermissions(r)"
+                      class="btn btn-primary">{{'role.btn-update' | translate}}
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
 </div>

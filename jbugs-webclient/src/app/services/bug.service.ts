@@ -111,7 +111,7 @@ export class BugService {
   }
 
 
-  getComments(bugId: number): Comment[] {
+  getCommentsForABug(bugId: number): Comment[] {
     this.comments = [];
     var reqHeader = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': this.tokenHeader});
 

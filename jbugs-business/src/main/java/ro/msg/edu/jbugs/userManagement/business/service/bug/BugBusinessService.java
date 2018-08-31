@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -148,6 +149,21 @@ public class BugBusinessService implements IBugBusinessService {
     public List<HistoryDTO> getAllHistory() {
         List<History> histories = bugPersistenceService.getAllHistory();
         return histories.stream().map(x -> historyDTOHelper.fromEntity(x)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, Long> getStatistics() {
+        return bugPersistenceService.getStatistics();
+    }
+
+    @Override
+    public Map<String, Long> getFixedBugsForUser() {
+        return bugPersistenceService.getFixedBugsForUser();
+    }
+
+    @Override
+    public Map<String, Long> getStatisticsForNewAndRejectedBugs() {
+        return bugPersistenceService.getStatisticsForNewAndRejectedBugs();
     }
 
 

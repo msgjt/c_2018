@@ -13,8 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.lang.annotation.Repeatable;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Path("/bugs")
 public class BugController {
@@ -135,5 +134,37 @@ public class BugController {
                 .entity(new Gson().toJson(historyDTOS))
                 .build();
     }
+
+    @Path("/statistics/all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStatistics(){
+        Map<String,Long> allBugsMap = bugBusinessService.getStatistics();
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(allBugsMap))
+                .build();
+    }
+
+    @Path("/statistics/users")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStatisticsForUser(){
+        Map<String,Long> statisticsMap = bugBusinessService.getFixedBugsForUser();
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(statisticsMap))
+                .build();
+    }
+
+    @Path("/statistics/created")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStatisticsForCreatedAndRejectedBugs(){
+        Map<String,Long> statisticsMap = bugBusinessService.getStatisticsForNewAndRejectedBugs();
+        return Response.status(Response.Status.OK)
+                .entity(new Gson().toJson(statisticsMap))
+                .build();
+    }
+
+
 
 }

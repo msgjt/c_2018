@@ -1,13 +1,7 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.RoleDTO;
-import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
@@ -15,16 +9,22 @@ import ro.msg.edu.jbugs.userManagement.business.service.user.RoleBusinessService
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserBusinessService;
 import ro.msg.edu.jbugs.userManagement.business.service.user.UserLoginBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.Role;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleType;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.RoleEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IRolePersistenceService;
 import ro.msg.edu.jbugs.userManagement.persistence.service.UserPersistenceService;
+import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,7 +32,6 @@ public class UserPersistenceServiceBeanTest {
 
     @InjectMocks
     private UserBusinessService userBusinessService;
-
 
     @InjectMocks
     private RoleBusinessService roleBusinessService;
@@ -60,7 +59,6 @@ public class UserPersistenceServiceBeanTest {
         String username = userBusinessService.generateUsername("Ion", "Ion");
         assertEquals("ionion", username);
     }
-
     @Test
     public void generateUsername_expectedPetric() {
         String username = userBusinessService.generateUsername("Calin", "Petrindean");
@@ -74,21 +72,21 @@ public class UserPersistenceServiceBeanTest {
     }
 
     @Test
-    public void createSuffix_expectedEmpty() {
+    public void createSuffix_expectedEmpty(){
 
         when(userPersistenceService.getUsernamesLike(any(String.class))).thenReturn(new HashSet<>());
         String suffix = userBusinessService.createSuffix("dorel0");
-        assertEquals("", suffix);
+        assertEquals( "",suffix);
 
     }
 
     @Test
-    public void createSuffix_expected4() {
+    public void createSuffix_expected4(){
 
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new HashSet<String>() {{
+                        new HashSet<String>(){{
                             add("dorel0");
                             add("dorel01");
                             add("dorel02");
@@ -96,38 +94,38 @@ public class UserPersistenceServiceBeanTest {
                         }}
                 );
         String suffix = userBusinessService.createSuffix("dorel0");
-        assertEquals("4", suffix);
+        assertEquals( "4",suffix);
 
     }
 
     @Test
-    public void createSuffix_expected7() {
+    public void createSuffix_expected7(){
 
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new HashSet<String>() {{
+                        new HashSet<String>(){{
                             add("dorel0");
                             add("dorel06");
                         }}
                 );
         String suffix = userBusinessService.createSuffix("dorel0");
-        assertEquals("7", suffix);
+        assertEquals("7",suffix);
 
     }
 
     @Test
-    public void createSuffix_expected1() {
+    public void createSuffix_expected1(){
 
 
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
-                        new HashSet<String>() {{
+                        new HashSet<String>(){{
                             add("marini");
                         }}
                 );
         String suffix = userBusinessService.createSuffix("marini");
-        assertEquals("1", suffix);
+        assertEquals( "1",suffix);
     }
 
     @Test
@@ -135,15 +133,15 @@ public class UserPersistenceServiceBeanTest {
         when(userPersistenceService.getUserByUsername(any(String.class)))
                 .thenReturn(Optional.empty());
         try {
-            loginBusinessService.login(new UserLoginDTO("a", "s"));
+            loginBusinessService.login(new UserLoginDTO("a","s") );
             fail("Shouldn't reach this point");
-        } catch (BusinessException e) {
-            assertEquals(ExceptionCode.USERNAME_NOT_VALID, e.getExceptionCode());
+        } catch (BusinessException e){
+            assertEquals(ExceptionCode.USERNAME_NOT_VALID,e.getExceptionCode());
         }
     }
 
     @Test
-    public void testCreateUser_Success() {
+    public void testCreateUser_Success(){
         when(userPersistenceService.getUserByEmail(any(String.class)))
                 .thenReturn(Optional.empty());
 
@@ -154,23 +152,24 @@ public class UserPersistenceServiceBeanTest {
         userDTO.setEmail("dinamo@msggroup.com");
         userDTO.setPhoneNumber("1234456667");
         userDTO.setPassword("IloveSteaua");
-        try {
-            UserDTO createdUser = userBusinessService.createUser(userDTO);
-            assertEquals(userDTO.getFirstName(), createdUser.getFirstName());
-            assertEquals(userDTO.getLastName(), createdUser.getLastName());
-            assertEquals(userDTO.getEmail(), createdUser.getEmail());
-            assertEquals("borcec", createdUser.getUsername());
-        } catch (BusinessException e) {
+        userDTO.setRoles(roleBusinessService.getAllRoles());
+        try{
+        UserDTO createdUser = userBusinessService.createUser(userDTO);
+        assertEquals(userDTO.getFirstName(),createdUser.getFirstName());
+        assertEquals(userDTO.getLastName(),createdUser.getLastName());
+        assertEquals(userDTO.getEmail(),createdUser.getEmail());
+        assertEquals("borcec",createdUser.getUsername());
+        } catch (BusinessException e){
             fail("Should not reach this point");
         }
     }
 
     @Test
-    public void testCreateRole_Success() {
+    public void testCreateRole_Success(){
         RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setType(RoleType.ADMINISTRATOR);
+        roleDTO.setType(RoleEnum.ADMINISTRATOR);
         Role role = new Role();
-        role.setType(RoleType.ADMINISTRATOR);
+        role.setType(RoleEnum.ADMINISTRATOR);
         when(roleDTOHelper.toEntity(roleDTO))
                 .thenReturn(role);
         when(rolePersistenceService.createRole(role))
@@ -178,7 +177,7 @@ public class UserPersistenceServiceBeanTest {
         when(roleDTOHelper.fromEntity(role))
                 .thenReturn(roleDTO);
         RoleDTO createdRole = roleBusinessService.createRole(roleDTO);
-        assertEquals(createdRole.getType(), roleDTO.getType());
+        assertEquals(createdRole.getType(),roleDTO.getType());
     }
 
 
