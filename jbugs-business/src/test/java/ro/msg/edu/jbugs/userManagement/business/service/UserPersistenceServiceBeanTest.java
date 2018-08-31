@@ -30,6 +30,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserPersistenceServiceBeanTest {
 
+    public static final String MARINI = "marini";
+    public static final String DOREL0 = "dorel0";
     @InjectMocks
     private UserBusinessService userBusinessService;
 
@@ -51,7 +53,7 @@ public class UserPersistenceServiceBeanTest {
     @Test
     public void generateUsername_expectedMarini() {
         String username = userBusinessService.generateUsername("Ion", "Marin");
-        assertEquals("marini", username);
+        assertEquals(MARINI, username);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class UserPersistenceServiceBeanTest {
     public void createSuffix_expectedEmpty(){
 
         when(userPersistenceService.getUsernamesLike(any(String.class))).thenReturn(new HashSet<>());
-        String suffix = userBusinessService.createSuffix("dorel0");
+        String suffix = userBusinessService.createSuffix(DOREL0);
         assertEquals( "",suffix);
 
     }
@@ -87,13 +89,13 @@ public class UserPersistenceServiceBeanTest {
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
                         new HashSet<String>(){{
-                            add("dorel0");
+                            add(DOREL0);
                             add("dorel01");
                             add("dorel02");
                             add("dorel03");
                         }}
                 );
-        String suffix = userBusinessService.createSuffix("dorel0");
+        String suffix = userBusinessService.createSuffix(DOREL0);
         assertEquals( "4",suffix);
 
     }
@@ -105,11 +107,11 @@ public class UserPersistenceServiceBeanTest {
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
                         new HashSet<String>(){{
-                            add("dorel0");
+                            add(DOREL0);
                             add("dorel06");
                         }}
                 );
-        String suffix = userBusinessService.createSuffix("dorel0");
+        String suffix = userBusinessService.createSuffix(DOREL0);
         assertEquals("7",suffix);
 
     }
@@ -121,10 +123,10 @@ public class UserPersistenceServiceBeanTest {
         when(userPersistenceService.getUsernamesLike(any(String.class)))
                 .thenReturn(
                         new HashSet<String>(){{
-                            add("marini");
+                            add(MARINI);
                         }}
                 );
-        String suffix = userBusinessService.createSuffix("marini");
+        String suffix = userBusinessService.createSuffix(MARINI);
         assertEquals( "1",suffix);
     }
 
