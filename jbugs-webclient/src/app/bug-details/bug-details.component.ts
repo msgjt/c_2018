@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+  import {Component, OnInit} from "@angular/core";
 import {Bug} from "../types/bugs";
 import {Attachment} from "../types/attachment";
 import {BugDataService} from "../services/bugData.service";
