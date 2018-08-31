@@ -23,6 +23,7 @@ export class AddBugComponentComponent implements OnInit {
   public allUsers: User[] = [];
   public attachment: Attachment[] = [];
   public bug: Bug;
+  public loggedUser : string = localStorage.getItem("currentUser");
   public chosenDate: string;
   public currentDate: Date = new Date();
   public extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
@@ -111,7 +112,6 @@ export class AddBugComponentComponent implements OnInit {
       this.error('alerts.' + error.error.toString());
     });
   }
-
 
   ngOnInit() {
     this.allUsers = this.userService.getAllUsers();

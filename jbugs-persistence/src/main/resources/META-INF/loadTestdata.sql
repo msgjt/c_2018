@@ -95,9 +95,12 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into users_roles(User_IDUSER,roles_IDROLE) values (1,1);
 insert into users_roles(User_IDUSER,roles_IDROLE) values (2,2);
 
-insert into notifications(date, message, type) values (CURRENT_TIMESTAMP , 'bun venitusernenewuser', 0)
+insert into notifications(date, message, type) values (CURRENT_TIMESTAMP , 'bun venit dorel', 0)
+insert into notifications(date, message, type) values (CURRENT_TIMESTAMP , 'A new bug was created: title: testBug, description: svscssv, version: 1.1, targetDate: 2018-08-31, fixedVersion: 1.2, severity: CRITICAL, createdByUser: doreld, assignedTo: doreld1, status: NEW', 1)
 
 insert into notifications_users(Notification_IDNOTIFICATION, users_IDUSER) values(1,1)
+insert into notifications_users(Notification_IDNOTIFICATION, users_IDUSER) values(2,1)
+insert into notifications_users(Notification_IDNOTIFICATION, users_IDUSER) values(2,2)
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
