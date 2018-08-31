@@ -38,7 +38,7 @@ public class BugDTOHelper {
         bug.setDescription(bugDTO.getDescription());
         bug.setFixedVersion(bugDTO.getFixedVersion());
         bug.setSeverity(bugDTO.getSeverity());
-        bug.setTargetDate(fromStringToDateYearLast(bugDTO.getTargetDate()+ " 00:00:00"));
+        bug.setTargetDate(fromStringToDate(bugDTO.getTargetDate()+ " 00:00:00"));
         bug.setStatus(bugDTO.getStatus());
         bug.setTitle(bugDTO.getTitle());
         bug.setVersion(bugDTO.getVersion());
@@ -71,7 +71,7 @@ public class BugDTOHelper {
         return date;
     }
     public String fromDateToString(Date date){
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String stringDate;
         stringDate = formatter.format(date);
         return stringDate;

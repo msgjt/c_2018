@@ -43,7 +43,7 @@ export class FilterService {
 
   isAdressedUser(): boolean {
     this.setPermission();
-    return localStorage.getItem("permissions").includes("ADDRESED_USER");
+    return localStorage.getItem("permissions").includes("ADDRESSED_USER");
   }
 
   isReportManagement(): boolean {

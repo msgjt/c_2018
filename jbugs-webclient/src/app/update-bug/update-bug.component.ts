@@ -39,6 +39,7 @@ export class UpdateBugComponent implements OnInit {
   public filters: BugFilter[] = [];
   public header: BugListHeader[] = [];
   public history: HistoryClass = new HistoryClass();
+  public validationModel:boolean = true;
 
   constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private alertService: AlertService, private filterService: FilterService) {
     this.attachmentToBeAdded = {
@@ -170,7 +171,11 @@ export class UpdateBugComponent implements OnInit {
   public onSubmit(bug: Bug):void {
     this.history.userDTO = this.loggedUser();
     this.history.bugDTO = bug;
-    if (this.isEditable[bug.idBug]) {
+    // if(!this.validationModel){
+    //   this.error("Invalid format");
+    //   location.reload();
+    // }
+    if (this.isEditable[bug.idBug] && this.validationModel) {
       console.log('Bug updated');
       bug.status = bug.status.toUpperCase();
       bug.assignedTo = this.updateBugUser(bug);
@@ -207,6 +212,9 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
+  public validation(bool:boolean){
+    this.validationModel = bool;
+  }
 
   public editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];

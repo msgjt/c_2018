@@ -64,7 +64,7 @@ public class UserDTOHelper {
                 .forEach(r -> permissions.addAll(r.getPermissions()
                         .stream()
                         .map(PermissionDTO::getType)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toSet())
                 ));
         return new UserSessionDTO(userLoginDTO.getUsername(), permissions);
     }

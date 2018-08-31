@@ -3,6 +3,7 @@ package ro.msg.edu.jbugs.userManagement.business.service.user;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserChangePasswordDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
@@ -212,6 +213,16 @@ public class UserBusinessService implements IUserBusinessService {
         return userDTOHelper.fromEntity(userPersistenceService.getUserByUsername(username).get());
     }
 
+    @Override
+    public void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException {
+        validateUserName(userChangePasswordDTO.getUsername());
+        if (!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))) {
+            throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
+        } else {
+            userPersistenceService.changePassword(userChangePasswordDTO.getUsername(), Encryptor.encrypt(userChangePasswordDTO.getNewPassword()));
+        }
+    }
+
     /**
      * Get a list of all Users that are registered.
      *
@@ -225,17 +236,6 @@ public class UserBusinessService implements IUserBusinessService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException {
-        validateUserName(userChangePasswordDTO.getUsername());
-        if (!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))) {
-            throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
-        } else {
-            userPersistenceService.changePassword(userChangePasswordDTO.getUsername(), Encryptor.encrypt(userChangePasswordDTO.getNewPassword()));
-        }
-    }
-
-
     private String generateFullUsername(String firstName, String lastName) {
         String prefix = generateUsername(firstName, lastName);
         String suffix = createSuffix(prefix);
@@ -244,7 +244,7 @@ public class UserBusinessService implements IUserBusinessService {
 
     private boolean isValidPhoneNumber(String phonenumber) {
         final Pattern VALID_PHONE_REGEX =
-                Pattern.compile("(((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)|((2|3)[1-6][0-9]{7}$))))|(^(^\\+490|^0|^\\(\\+490\\)|^00490)1[0-9]{3,8}$)", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{8,10}$)", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_PHONE_REGEX.matcher(phonenumber);
         return matcher.find();
