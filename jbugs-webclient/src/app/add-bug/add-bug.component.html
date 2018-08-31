@@ -38,7 +38,7 @@
         <div class="form-group">
           <label for="severity">{{"add-bug.severity" | translate}}</label>
           <select #severityElement="ngModel" name="severity" id="severity" [(ngModel)]="this.chosenSeverity"
-                  class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
+                  class="form-control"  required>
             <option disabled [ngValue]="undefined">Select severity</option>
             <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
           </select>
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group">
           <label for="createdby">{{"add-bug.created-by" | translate}}</label>
-          <input disabled id="createdBy" name="createdBy" type="text" value="doreld" class="form-control" required
+          <input disabled id="createdBy" name="createdBy" type="text" value="{{loggedUser}}" class="form-control" required
                  minlength="3"/>
         </div>
         <div class="form-group">

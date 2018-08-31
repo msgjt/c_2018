@@ -23,6 +23,7 @@ export class AddBugComponentComponent implements OnInit {
   public allUsers: User[] = [];
   public attachment: Attachment[] = [];
   public bug: Bug;
+  public loggedUser : string = localStorage.getItem("currentUser");
   public chosenDate: string;
   public currentDate: Date = new Date();
   public extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
@@ -76,7 +77,7 @@ export class AddBugComponentComponent implements OnInit {
   public onSubmit():void {
     this.bug.severity = this.chosenSeverity;
     this.bug.targetDate = this.chosenDate;
-    this.bug.createdByUser = this.allUsers[0];
+    this.bug.createdByUser = this.getLoggedUser();
     this.bug.status = 'NEW';
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
@@ -103,6 +104,11 @@ export class AddBugComponentComponent implements OnInit {
     });
   }
 
+  public getLoggedUser():User{
+    return this.allUsers.filter((value) =>{
+      return value.username === this.loggedUser;
+    })[0];
+  }
 
   ngOnInit() {
     this.allUsers = this.userService.getAllUsers();
