@@ -99,7 +99,7 @@
     "USERNAME_NOT_VALID": "Username invalid",
     "USER_INACTIVATED": "Utilizatorul este dezactivat de catre administrator",
     "INVALID_USER_LOGIN": "Credentiale utilizator invalide pentru login",
-    "EMAIL_FAIL": "Emai-lul nu a putut fi trimis",
+    "EMAIL_FAIL": "Email-lul nu a putut fi trimis",
     "TOKEN_EXPIRED": "Sesiune expirata",
     "PERMISSION_VALIDATION_EXCEPTION": "Permisiune invalida",
     "UNFINISHED_TASKS": "Bug-uri neterminate",

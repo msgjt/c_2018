@@ -22,6 +22,7 @@ public class ManagementApplication extends Application {
         classes.add(CORSFilter.class);
         classes.add(AttachmentController.class);
         classes.add(CaptchaController.class);
+        classes.add(NotificationController.class);
         return classes;
     }
 }

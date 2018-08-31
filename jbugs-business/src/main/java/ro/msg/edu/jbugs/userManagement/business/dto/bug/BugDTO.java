@@ -4,8 +4,6 @@ import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.SeverityEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
 
-import java.util.Date;
-
 public class BugDTO {
     private Long idBug;
     private String title;
@@ -97,5 +95,17 @@ public class BugDTO {
 
     public void setAssignedTo(UserDTO assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    @Override
+    public String toString() {
+        return  "title: " + title +
+                ", description: " + description +
+                ", version: " + version +
+                ", targetDate: " + targetDate +
+                ", fixedVersion: " + fixedVersion +
+                ", severity: " + severity +
+                ", createdByUser: " + createdByUser.getUsername() +
+                ", assignedTo: " + assignedTo.getUsername();
     }
 }

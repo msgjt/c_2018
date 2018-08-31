@@ -2,7 +2,6 @@ package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,12 +14,11 @@ import java.util.Set;
         }
 )
 public class User {
-    @Transient
-    private final static int MAX_STRING_LENGTH = 40;
     public static final String GET_ALL_USERS = "get_All_Users";
     public static final String GET_USER_BY_USERNAME = "get_User_By_Username";
     public static final String GET_USER_BY_EMAIL = "get_User_By_Email";
-
+    @Transient
+    private final static int MAX_STRING_LENGTH = 40;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
@@ -48,9 +46,6 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Role> roles;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserNotification> userNotifications;
 
     public Long getIdUser() {
         return idUser;
@@ -122,13 +117,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<UserNotification> getUserNotifications() {
-        return userNotifications;
-    }
-
-    public void setUserNotifications(List<UserNotification> userNotifications) {
-        this.userNotifications = userNotifications;
     }
 }

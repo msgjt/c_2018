@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import ro.msg.edu.jbugs.userManagement.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailService;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.SendEmailBusinessService;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class SendEmailPersistenceServiceBeanTest {
 
     @InjectMocks
-    private SendEmailService sendEmailService;
+    private SendEmailBusinessService sendEmailService;
 
 //    @Mock
 //    private EmailDto emailDto;
@@ -32,7 +32,7 @@ public class SendEmailPersistenceServiceBeanTest {
 
         try {
 
-            Mockito.mock(SendEmailService.class).sendEmail(emailDto);
+            Mockito.mock(SendEmailBusinessService.class).sendEmail(emailDto);
             //sendEmailService.sendEmail(emailDto);
         }catch (BusinessException e){
             e.printStackTrace();

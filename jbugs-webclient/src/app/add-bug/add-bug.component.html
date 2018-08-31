@@ -38,7 +38,7 @@
         <div class="form-group">
           <label for="severity">{{"add-bug.severity" | translate}}</label>
           <select #severityElement="ngModel" name="severity" id="severity" [(ngModel)]="this.chosenSeverity"
-                  class="form-control" (ngModelChange)="changedSelected(this.chosenSeverity)" required>
+                  class="form-control"  required>
             <option disabled [ngValue]="undefined">Select severity</option>
             <option *ngFor="let severity of this.severity" [ngValue]="severity">{{severity}}</option>
           </select>

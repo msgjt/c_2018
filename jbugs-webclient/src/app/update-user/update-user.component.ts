@@ -4,7 +4,6 @@ import {Role} from "../types/roles";
 import {UserService} from "../services/user.service";
 import {RoleService} from "../services/role.service";
 import {Permission} from "../types/permissions";
-import {PermissionService} from "../services/permission.service";
 import {AlertService} from "../services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
@@ -59,7 +58,6 @@ export class UpdateUserComponent implements OnInit {
       response.forEach(value => this.dropdownRoleList.push(value))
     }, () => {
       this.error("alerts.ERROR-SERVER");
-      console.log('role errors')
     }, () => {
       this.showRoles = true;
     });
@@ -72,7 +70,6 @@ export class UpdateUserComponent implements OnInit {
                                           } )
     }, () => {
       this.error("alerts.ERROR-SERVER");
-      console.log('user errors')
     }, () => {
       this.showUsers = true;
     });
@@ -124,11 +121,9 @@ export class UpdateUserComponent implements OnInit {
 
     }, (error: HttpErrorResponse) => {
       this.error("alerts." + error.error.toString());
-      console.log('aparent am si o eroare');
     }, () => {
       this.showDetails = true;
       this.showState = true;
-      console.log(this.user.isActive);
 
     });
   }
@@ -142,7 +137,6 @@ export class UpdateUserComponent implements OnInit {
 
       this.user.roles.map(val=>val.permissions=this.permission);
 
-      console.log(this.selectedItem[0]);
       var element = <HTMLInputElement> document.getElementById("changeStatus");
       var isChecked = element.checked;
       if(isChecked){
@@ -155,7 +149,6 @@ export class UpdateUserComponent implements OnInit {
         this.selectedItem = [];
       }, (error: HttpErrorResponse) => {
         this.error("alerts." + error.error.toString());
-        console.log('aparent am si o eroare');
       });
 
     }

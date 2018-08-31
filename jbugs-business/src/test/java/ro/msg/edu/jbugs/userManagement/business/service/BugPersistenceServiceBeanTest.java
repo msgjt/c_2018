@@ -1,6 +1,5 @@
 package ro.msg.edu.jbugs.userManagement.business.service;
 
-import com.sun.mail.iap.ByteArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,6 @@ import ro.msg.edu.jbugs.userManagement.business.service.bug.BugBusinessService;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.BugPersistenceService;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;

@@ -73,11 +73,11 @@ public class History {
         this.beforeStatus = beforeStatus;
     }
 
-    public User getUser() {
+    public User getModifiedByUser() {
         return modifiedByUser;
     }
 
-    public void setUser(User user) {
-        this.modifiedByUser = user;
+    public void setModifiedByUser(User modifiedByUser) {
+        this.modifiedByUser = modifiedByUser;
     }
 }

@@ -1,26 +1,40 @@
 package ro.msg.edu.jbugs.userManagement.persistence.entity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "notifications")
+@NamedQueries({
+        @NamedQuery(name = Notification.GET_ALL_NOTIFICATIONS, query = "SELECT n FROM Notification n"),
+})
 public class Notification {
-    @Transient
-    private final static int MAX_STRING_LENGTH = 40;
+    public static final String GET_ALL_NOTIFICATIONS = "get_all_notifications";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNotification;
-
-    @Column(name = "type", length = MAX_STRING_LENGTH, nullable = false)
-    private String type;
-
-    @Column(name = "message", length = MAX_STRING_LENGTH, nullable = false)
+    @OneToMany(cascade = CascadeType.DETACH)
+    private Set<User> users;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private Bug bug;
+    @Column(nullable = false)
+    private NotificationType type;
+    private Date date;
     private String message;
 
-    @OneToMany(mappedBy = "notification")
-    private List<UserNotification> userNotifications;
+    public Notification() {
+
+    }
+
+    public Notification(Set<User> users, Bug bug, NotificationType type, Date date, String message) {
+        this.users = users;
+        this.bug = bug;
+        this.type = type;
+        this.date = date;
+        this.message = message;
+    }
 
     public Long getIdNotification() {
         return idNotification;
@@ -30,12 +44,36 @@ public class Notification {
         this.idNotification = idNotification;
     }
 
-    public String getType() {
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Bug getBug() {
+        return bug;
+    }
+
+    public void setBug(Bug bug) {
+        this.bug = bug;
+    }
+
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(NotificationType type) {
         this.type = type;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getMessage() {
@@ -44,13 +82,5 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public List<UserNotification> getUserNotifications() {
-        return userNotifications;
-    }
-
-    public void setUserNotifications(List<UserNotification> userNotifications) {
-        this.userNotifications = userNotifications;
     }
 }

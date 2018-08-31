@@ -34,6 +34,8 @@ import {NotificationPopupComponent} from "./notification-popup/notification-popu
 import {ContactComponent} from './contact/contact.component';
 import {AlertComponent} from './alert/alert.component';
 import {FilterDataService} from "./services/filter-data.service";
+import {NotificationDataService} from "./services/notification-data.service";
+
 import {ExcelService} from "./services/excel.service";
 import { ViewHistoryComponent } from './view-history/view-history.component';
 import { ChartsComponent } from './charts/charts.component';
@@ -129,7 +131,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
 
-  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService, {
+  providers: [AuthGuard, BugDataService, BugSortService, FilterDataService, ExcelService, NotificationDataService, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'ro'
   }],

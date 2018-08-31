@@ -9,6 +9,8 @@ import ro.msg.edu.jbugs.userManagement.business.dto.user.UserChangePasswordDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationType;
 import ro.msg.edu.jbugs.userManagement.business.service.utils.Encryptor;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
@@ -27,16 +29,19 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
+    private final static int MAX_LAST_NAME_LENGTH = 5;
+    private final static int MIN_USERNAME_LENGTH = 6;
+    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
+
     @EJB
     private IUserPersistenceService userPersistenceService;
     @EJB
     private UserDTOHelper userDTOHelper;
     @EJB
     private RoleDTOHelper roleDTOHelper;
+    @EJB
+    private NotificationBusinessService notificationBusinessService;
 
-    private final static int MAX_LAST_NAME_LENGTH = 5;
-    private final static int MIN_USERNAME_LENGTH = 6;
-    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
 
     /**
      * Creates a user entity using a user DTO.
@@ -45,6 +50,7 @@ public class UserBusinessService implements IUserBusinessService {
      * @return : the user DTO of the created entity
      * @throws BusinessException
      */
+
     @Override
     public UserDTO createUser(UserDTO userDTO) throws BusinessException {
 
@@ -56,7 +62,9 @@ public class UserBusinessService implements IUserBusinessService {
         user.setIsActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
-        return userDTOHelper.fromEntity(user);
+        UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
+        notificationBusinessService.generateNotification(NotificationType.WELCOME_NEW_USER, null, userDTOAfterPersist);
+        return userDTOAfterPersist;
     }
 
 
@@ -195,9 +203,9 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
+    public UserDTO updateUser(UserDTO userDTO) throws BusinessException {
         validateUserForUpdate(userDTO);
-        if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
+        if (!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO)) != 0) {
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
@@ -212,11 +220,10 @@ public class UserBusinessService implements IUserBusinessService {
     @Override
     public void changePassword(UserChangePasswordDTO userChangePasswordDTO) throws BusinessException {
         validateUserName(userChangePasswordDTO.getUsername());
-        if(!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))){
+        if (!userPersistenceService.getUserByUsername(userChangePasswordDTO.getUsername()).get().getPassword().equals(Encryptor.encrypt(userChangePasswordDTO.getOldPassword()))) {
             throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
-        }
-        else {
-            userPersistenceService.changePassword(userChangePasswordDTO.getUsername(),Encryptor.encrypt(userChangePasswordDTO.getNewPassword()));
+        } else {
+            userPersistenceService.changePassword(userChangePasswordDTO.getUsername(), Encryptor.encrypt(userChangePasswordDTO.getNewPassword()));
         }
     }
 
@@ -241,13 +248,13 @@ public class UserBusinessService implements IUserBusinessService {
 
     private boolean isValidPhoneNumber(String phonenumber) {
         final Pattern VALID_PHONE_REGEX =
-                Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{9,10}$)", Pattern.CASE_INSENSITIVE);
+                Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{8,10}$)", Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = VALID_PHONE_REGEX.matcher(phonenumber);
         return matcher.find();
     }
 
-    private boolean isValidFirstName(String firstName){
+    private boolean isValidFirstName(String firstName) {
         final Pattern VALID_FIRSTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
@@ -255,7 +262,7 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
-    private boolean isValidLastName(String lastName){
+    private boolean isValidLastName(String lastName) {
         final Pattern VALID_LASTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 

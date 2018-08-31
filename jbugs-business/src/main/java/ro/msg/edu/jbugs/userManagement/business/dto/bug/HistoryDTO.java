@@ -3,7 +3,6 @@ package ro.msg.edu.jbugs.userManagement.business.dto.bug;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
 
-
 import java.util.Date;
 
 
