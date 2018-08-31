@@ -9,10 +9,9 @@ import java.util.Set;
         @NamedQuery(name = Role.GET_ALL_ROLES, query = "SELECT r FROM Role r")
 })
 public class Role {
+    public static final String GET_ALL_ROLES = "get_all_roles";
     @Transient
     private final static int MAX_STRING_LENGTH = 20;
-    public static final String GET_ALL_ROLES = "get_all_roles";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;

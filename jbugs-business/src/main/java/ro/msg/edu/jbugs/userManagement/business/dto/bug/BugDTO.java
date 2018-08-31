@@ -4,8 +4,6 @@ import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.SeverityEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.StatusEnum;
 
-import java.util.Date;
-
 public class BugDTO {
     private Long idBug;
     private String title;

@@ -95,6 +95,9 @@ insert into comments(date, text, idBug, idUser) values (CURRENT_TIMESTAMP , 'som
 insert into users_roles(User_IDUSER,roles_IDROLE) values (1,1);
 insert into users_roles(User_IDUSER,roles_IDROLE) values (2,2);
 
+insert into notifications(date, message, type) values (CURRENT_TIMESTAMP , 'bun venitusernenewuser', 0)
+
+insert into notifications_users(Notification_IDNOTIFICATION, users_IDUSER) values(1,1)
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (1,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');
 -- INSERT INTO attachments(idBug,file,extension,fileName) values (2,LOAD_FILE('C:/Users/giurgi/Documents/JBugs/jbugs-persistence/src/main/resources/attachments/blabla.txt'),'TXT','blabla');

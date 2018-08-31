@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class BugBusinessService implements IBugBusinessService {
-
     @EJB
     private IBugPersistenceService bugPersistenceService;
     @EJB

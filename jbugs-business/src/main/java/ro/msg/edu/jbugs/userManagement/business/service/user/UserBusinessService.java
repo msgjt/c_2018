@@ -3,12 +3,13 @@ package ro.msg.edu.jbugs.userManagement.business.service.user;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ro.msg.edu.jbugs.userManagement.business.dto.helper.RoleDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.UserDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.userManagement.business.service.utils.Encryptor;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.NotificationEnum;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.User;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IUserPersistenceService;
 
@@ -26,16 +27,16 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
+    private final static int MAX_LAST_NAME_LENGTH = 5;
+    private final static int MIN_USERNAME_LENGTH = 6;
+    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
+
     @EJB
     private IUserPersistenceService userPersistenceService;
     @EJB
     private UserDTOHelper userDTOHelper;
     @EJB
-    private RoleDTOHelper roleDTOHelper;
-
-    private final static int MAX_LAST_NAME_LENGTH = 5;
-    private final static int MIN_USERNAME_LENGTH = 6;
-    private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
+    private NotificationBusinessService notificationBusinessService;
 
     /**
      * Creates a user entity using a user DTO.
@@ -55,7 +56,9 @@ public class UserBusinessService implements IUserBusinessService {
         user.setIsActive(true);
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
-        return userDTOHelper.fromEntity(user);
+        UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
+        notificationBusinessService.generateNotification(NotificationEnum.WELCOME_NEW_USER, null, userDTOAfterPersist);
+        return userDTOAfterPersist;
     }
 
 
@@ -194,9 +197,9 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO) throws BusinessException{
+    public UserDTO updateUser(UserDTO userDTO) throws BusinessException {
         validateUserForUpdate(userDTO);
-        if(!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO))!=0){
+        if (!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO)) != 0) {
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
         return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
@@ -235,7 +238,7 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
-    private boolean isValidFirstName(String firstName){
+    private boolean isValidFirstName(String firstName) {
         final Pattern VALID_FIRSTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
@@ -243,7 +246,7 @@ public class UserBusinessService implements IUserBusinessService {
         return matcher.find();
     }
 
-    private boolean isValidLastName(String lastName){
+    private boolean isValidLastName(String lastName) {
         final Pattern VALID_LASTNAME_REGEX =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 

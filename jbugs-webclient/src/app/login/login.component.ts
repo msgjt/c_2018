@@ -7,6 +7,9 @@ import {UserService} from "../services/user.service";
 import {Role} from "../types/roles";
 import {Permission} from "../types/permissions";
 import {AlertService} from "../services/alert.service";
+import {NotificationService} from "../services/notification.service";
+import {NotificationDataService} from "../services/notification-data.service";
+import {Notification} from "../types/notification";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +24,7 @@ export class LoginComponent implements OnInit {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
+  constructor(private notificationService: NotificationService, private notificationData: NotificationDataService, private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
     this.userModel = {
       username: '',
       password: ''
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-    this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
+    this.http.post( this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
       console.log(response);
       if (response['success'] == true) {
         console.log('Form was submitted with the following data:' +
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
             this.login(response, this.userModel.username);
             this.router.navigate(["home"]);
             this.succes("alerts.SUCCES-LOGIN");
+            this.getAllNotifications(localStorage.getItem("currentUser"));
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;
@@ -90,6 +94,18 @@ export class LoginComponent implements OnInit {
       }
     }
     return permissionList;
+  }
+
+  getAllNotifications(username:string){
+    this.notificationData.notifications=[];
+    this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) =>{
+      response.forEach((value => {
+        this.notificationData.notifications.push(value);
+      }))
+    });
+    setTimeout(()=>{
+      this.getAllNotifications(username);
+    }, 30000);
   }
 
   error(message: string) {

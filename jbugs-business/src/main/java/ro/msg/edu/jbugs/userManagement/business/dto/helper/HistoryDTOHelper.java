@@ -1,8 +1,6 @@
 package ro.msg.edu.jbugs.userManagement.business.dto.helper;
 
-import ro.msg.edu.jbugs.userManagement.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.userManagement.business.dto.bug.HistoryDTO;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 import ro.msg.edu.jbugs.userManagement.persistence.entity.History;
 
 import javax.ejb.EJB;
@@ -21,7 +19,7 @@ public class HistoryDTOHelper {
         historyDTO.setBeforeStatus(history.getBeforeStatus());
         historyDTO.setBugDTO(bugDTOHelper.fromEntity(history.getBug()));
         historyDTO.setIdHistory(history.getIdHistory());
-        historyDTO.setUserDTO(userDTOHelper.fromEntity(history.getUser()));
+        historyDTO.setUserDTO(userDTOHelper.fromEntity(history.getModifiedByUser()));
         historyDTO.setModifiedDate(history.getModifiedDate());
         return historyDTO;
     }
@@ -32,7 +30,7 @@ public class HistoryDTOHelper {
         history.setBeforeStatus(historyDTO.getBeforeStatus());
         history.setBug(bugDTOHelper.toEntity(historyDTO.getBugDTO()));
         history.setIdHistory(historyDTO.getIdHistory());
-        history.setUser(userDTOHelper.toEntity(historyDTO.getUserDTO()));
+        history.setModifiedByUser(userDTOHelper.toEntity(historyDTO.getUserDTO()));
         history.setModifiedDate(historyDTO.getModifiedDate());
         return history;
     }

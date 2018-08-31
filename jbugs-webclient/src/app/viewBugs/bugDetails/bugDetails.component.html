@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      xmlns="http://www.w3.org/1999/html">
+<div class="container">
+  <h1 class="title">{{bug.title}}</h1>
+  <p class="gray">Created by {{bug.createdByUser.username}}</p>
+  <table class="table-borderless">
+    <thead class="gray">
+    <tr>
+      <th class="fixedColumns" scope="col">ASSIGNED TO</th>
+      <th class="fixedColumns" scope="col">SEVERITY</th>
+      <th class="fixedColumns" scope="col">STATUS</th>
+      <th class="fixedColumns" scope="col">TARGET DATE</th>
+      <th class="fixedColumns" scope="col">VERSION</th>
+      <th class="fixedColumns" scope="col">FIXED VERSION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{bug.assignedTo.username}}</td>
+      <td><label class="severity {{bug.severity.toLocaleLowerCase()}}">{{bug.severity.toLocaleLowerCase()}}</label></td>
+      <td>{{bug.status.toLowerCase()}}</td>
+      <td>{{bug.targetDate}}</td>
+      <td>{{bug.version}}</td>
+      <td>{{bug.fixedVersion}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <h4>Description</h4>
+  <p>{{bug.description}}</p>
+  <h4>Comments</h4>
+  <table>
+    <tbody *ngFor="let c of comments">
+    <tr>
+      <td class="gray">{{c.date}} <br />By {{c.username}}</td>
+      <td>{{c.text}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+  <textarea cols="151" rows="3" [ngModel]="this.commentToBeAdded.text" (ngModelChange)="this.commentToBeAdded.text= $event" name="textarea"></textarea>
+    <button type="Submit" (click)="addComment()">Add comment</button>
+    <br>
+    <button type="Submit" (click)="export()">Export PDF</button>
+  </div>
+  <h4>Attachments</h4>
+  <div class="form-group">
+    <label>Attachments for this bug</label>
+    <div class="select_join">
+    <select name="assignedTo" id=""  class="form-control"  [ngModel]="this.attachmentChosen" (ngModelChange)="this.attachmentChosen= $event">
+      <option disabled *ngIf="this.attachmentsForABug.length==0" [ngValue]="undefined">No attachments</option>
+      <option disabled *ngIf="this.attachmentsForABug.length > 0" [ngValue]="undefined">Select attachment</option>
+      <option *ngFor="let attachment of this.attachmentsForABug;index as i" [ngValue]="attachment">{{attachment.name+'.' +attachment.extension.toLocaleLowerCase()}} </option>px
+    </select>
+    </div>
+    <br/>
+    <label>Download:&nbsp;<button class="btn" (click)="download(this.attachmentChosen.blob,this.attachmentChosen.extension)"><i class="fa fa-upload"></i></button></label><br/>
+    <label>Delete:&nbsp;<button class="btn" (click)="deleteAttachment(this.attachmentChosen)"><i class="fa fa-trash-o"></i></button></label>
+    <br>
+    <label>Add:&nbsp;</label>
+    <input type="file" id="blob" name="file" required (change)="fileChange($event)" accept=".jpg,.pdf,.doc,.odf,.xls,.txt" multiple >
+    <label>&nbsp;&nbsp;</label>
+    <button class="btn" (click)="addAttachment(this.attachmentToBeAdded)"><i class="fa fa-save"></i></button><br>
+  </div>
+
+  <button class="btn btn-group" routerLink="/bug/update">Back to List</button>
+</div>
+
