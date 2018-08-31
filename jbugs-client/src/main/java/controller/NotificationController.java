@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
 
 import javax.ejb.EJB;
@@ -21,7 +22,7 @@ public class NotificationController {
     @Path("/{username}")
     public Response getNotificationsForUser(@PathParam("username") String username) {
         return Response.status(Response.Status.OK)
-                .entity(new Gson().toJson(notificationBusinessService.getNotificationsForUser(username)))
+                .entity(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(notificationBusinessService.getNotificationsForUser(username)))
                 .build();
     }
 }

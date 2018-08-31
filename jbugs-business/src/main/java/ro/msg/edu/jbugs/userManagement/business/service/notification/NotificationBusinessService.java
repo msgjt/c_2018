@@ -10,9 +10,7 @@ import ro.msg.edu.jbugs.userManagement.persistence.service.NotificationPersisten
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +36,7 @@ public class NotificationBusinessService {
                 .stream()
                 .map(notificationDTOHelper::fromEntity)
                 .filter(u -> u.getUsernames().contains(username))
+                .sorted(Comparator.comparing(NotificationDTO::getDate))
                 .collect(Collectors.toList());
     }
 }
