@@ -113,12 +113,6 @@ export class AddBugComponentComponent implements OnInit {
     });
   }
 
-  public getLoggedUser():User{
-    return this.allUsers.filter((value) =>{
-      return value.username === this.loggedUser;
-    })[0];
-  }
-
   ngOnInit() {
     this.allUsers = this.userService.getAllUsers();
 
