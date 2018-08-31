@@ -12,7 +12,10 @@ import javax.ejb.Stateless;
 public class GenerateNotificationMessageService {
 
     public String generateMessage(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
-        //ToDo: implement for bug
+        switch (type){
+            case BUG_UPDATED:
+                return newBugNotification(newBugDTO);
+        }
         return null;
     }
 
@@ -25,6 +28,11 @@ public class GenerateNotificationMessageService {
     }
 
     public String welcomeNewUserNotification(UserDTO newUserDTO) {
-        return "bun venit" + newUserDTO.getUsername() + newUserDTO.getFirstName() + newUserDTO.getLastName();
+        return "bun venit " + newUserDTO.getUsername() + newUserDTO.getFirstName() + newUserDTO.getLastName();
     }
+
+    private String newBugNotification(BugDTO bugDTO){
+        return "A new bug was created: " + bugDTO.toString() + ", status: " + bugDTO.getStatus();
+    }
+
 }

@@ -41,6 +41,7 @@
         | translate}}</a>
     </div>
     <ul class="navbar-nav" style="padding-top: 8px">
+      <img *ngIf="isUserLoggedIn()" class="nav-item" src="../../assets/img/user-icon.png" height="30" align="left" routerLink="/myprofile">
       <img class="nav-item" src="../../assets/img/en.png" width="30" height="20" align="center" alt="en" (click)="useLanguage('en')">
       <img class="nav-item" src="../../assets/img/ro.jpg" width="30" height="20" align="center" alt="ro" (click)="useLanguage('ro')">
     </ul>

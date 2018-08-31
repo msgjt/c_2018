@@ -206,7 +206,12 @@ public class BugPersistenceServiceBeanTest {
                 .thenReturn(Optional.of(comment));
         when(commentDTOHelper.fromEntity(comment))
                 .thenReturn(commentDTO);
-        assertEquals(commentDTO.getDate(),bugBusinessService.addComment(commentDTO).getDate());
+        try {
+            assertEquals(commentDTO.getDate(), bugBusinessService.addComment(commentDTO).getDate());
+        }catch(BusinessException e){
+            e.printStackTrace();
+
+        }
     }
 
     @Test

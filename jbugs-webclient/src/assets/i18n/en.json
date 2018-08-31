@@ -57,7 +57,7 @@
   },
   "update-user": {
     "username":"Choose username",
-    "btn-show":"Find",
+    "btn-show":"Show details",
     "first-name": "First Name",
     "first-name-message":"First name is required",
     "last-name": "Last Name",
@@ -73,6 +73,23 @@
     "status":"Status",
     "change-status":"Change status",
     "btn-save": "Update"
+  },
+  "my-profile": {
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "mobile-number": "Mobile number",
+    "email": "Email",
+    "roles": "Roles",
+    "status":"Status",
+    "btn-change-password": "Change password"
+  },
+  "change-password": {
+    "change-password": "Change password",
+    "current-password": "Current password",
+    "new-password": "New password",
+    "confirm-password": "Confirm password",
+    "update-password": "Update password",
+    "back": "Back"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Email already exists. Choose another one",
@@ -93,7 +110,11 @@
     "FAILED-LOGIN": "Login failed",
     "ERROR-SERVER": "Server problem. Please try again",
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
-    "FORMAT-FILE-ERROR":"Invalid format file"
+    "PASSWORD-NOT-STRONG": "Your password isn't strong enough!",
+    "PASSWORD-CONFIRMATION-MISSMATCH": "You haven't confirmed correctly your new password!",
+    "FORMAT-FILE-ERROR":"Invalid format file",
+    "DESCRIPTION_VALIDATION_EXCEPTION": "Description length is too large",
+    "COMMENT_VALIDATION_EXCEPTION": "Comment text too long"
 
   },
   "add-bug": {

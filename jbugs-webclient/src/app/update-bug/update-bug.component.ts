@@ -21,25 +21,24 @@ import {FilterService} from "../services/filter.service";
   styleUrls: ['./update-bug.component.css']
 })
 export class UpdateBugComponent implements OnInit {
-  page: number = 1;
-  bugs: Bug[] = [];
-  isEditable: boolean[] = [];
-  allUsers: User[] = [];
-  endDate: string;
-  severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
-  chosenSeverity: string;
-  statuses: string[] = ["fixed", "open", "in_progress", "rejected", "info_needed", "closed"];
-  chosenStatus: string;
-  bug: Bug;
-  statusMap = new Map();
-  updatedStatus : string[];
-  attachments: Attachment[];
-  attachmentsForABug: Attachment[];
-  attachmentChosen:Attachment;
-  attachmentToBeAdded: Attachment;
-  filters: BugFilter[] = [];
-  header: BugListHeader[] = [];
-  history: HistoryClass = new HistoryClass();
+  public page: number = 1;
+  public bugs: Bug[] = [];
+  public isEditable: boolean[] = [];
+  public allUsers: User[] = [];
+  public endDate: string;
+  public severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
+  public chosenSeverity: string;
+  public statuses: string[] = ["fixed", "open", "in_progress", "rejected", "info_needed", "closed"];
+  public bug: Bug;
+  public statusMap = new Map();
+  public updatedStatus : string[];
+  public attachments: Attachment[];
+  public attachmentsForABug: Attachment[];
+  public attachmentChosen:Attachment;
+  public attachmentToBeAdded: Attachment;
+  public filters: BugFilter[] = [];
+  public header: BugListHeader[] = [];
+  public history: HistoryClass = new HistoryClass();
 
   constructor(public filterDataService: FilterDataService, private bugService: BugService, private userService: UserService, private dataService: BugDataService, private sortService: BugSortService, private excelService: ExcelService,private alertService: AlertService, private filterService: FilterService) {
     this.attachmentToBeAdded = {
@@ -50,7 +49,7 @@ export class UpdateBugComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     if(typeof this.filterDataService.filterList !== 'undefined' && this.filterDataService.filterList.length > 0){
       this.filters = Array.from(this.filterDataService.filterList);
     }
@@ -78,12 +77,12 @@ export class UpdateBugComponent implements OnInit {
     })
   }
 
-  createHeader(){
+  public createHeader():void{
     var headerNames = ["title","version", "fixed version", "severity", "status", "assigned to", "target date", "created by"];
     for(var i =0; i< headerNames.length; i++)
       this.header.push(new BugListHeader(headerNames[i], "asc"));
   }
-  createMap() {
+  public createMap():void {
     this.statusMap.set("new",["fixed"]);
     this.statusMap.set("fixed", ["open", "closed"]);
     this.statusMap.set("open", ["in_progress", "rejected"]);
@@ -94,24 +93,24 @@ export class UpdateBugComponent implements OnInit {
     }
 
 
-  getValuesForEntry(bug: Bug) {
+  public getValuesForEntry(bug: Bug):string[] {
       const finalList = this.statusMap.get(bug.status.toLocaleLowerCase());
       return finalList;
   }
 
-  setSelectedBug(bug: Bug){
+  public setSelectedBug(bug: Bug):void{
     this.filterDataService.filterList = [];
     this.filterDataService.filterList = Array.from(this.filters);
     this.dataService.bug = bug;
     localStorage.setItem("idBug", bug.idBug.toString());
   }
 
-  sortColumn(column: BugListHeader){
+  public sortColumn(column: BugListHeader):void{
     column.direction= column.direction === 'asc' ? 'desc' : 'asc';
     this.bugs = this.sortService.sortBugs(this.bugs,column);
   }
 
-  filter(field: string, choice: string) {
+  public filter(field: string, choice: string):void {
     if (field !== "targetDate") {
       this.filters.push(new BugFilter(field, '', choice));
     } else {
@@ -119,7 +118,7 @@ export class UpdateBugComponent implements OnInit {
     }
   }
 
-  validateDates():boolean{
+  public validateDates():boolean{
     if((this.filterDataService.chosenFilter.targetDate && !this.endDate) || (!this.filterDataService.chosenFilter.targetDate && this.endDate) )
       return false;
     if(this.filterDataService.chosenFilter.targetDate > this.endDate)
@@ -127,7 +126,7 @@ export class UpdateBugComponent implements OnInit {
     return true;
   }
 
-  validateFile(): boolean {
+  public validateFile(): boolean {
     if (this.bugs && this.bugs.length) {
       return true;
     }
@@ -135,7 +134,7 @@ export class UpdateBugComponent implements OnInit {
   }
 
 
-  applyFilters() {
+  public applyFilters():void {
     this.filters = [];
     for (let [key, value] of Object.entries(this.filterDataService.chosenFilter)) {
       if (value) {
@@ -155,20 +154,20 @@ export class UpdateBugComponent implements OnInit {
     );
   }
 
-  loggedUser():User{
+  public loggedUser():User{
     return this.allUsers.filter((value) =>{
       return value.username === localStorage.getItem("currentUser");
     })[0];
   }
 
-  updateBugUser(bug:Bug):User{
+  public updateBugUser(bug:Bug):User{
     return this.allUsers.filter((value) =>{
       return value.username === bug.assignedTo.username;
     })[0];
   }
 
 
-  onSubmit(bug: Bug) {
+  public onSubmit(bug: Bug):void {
     this.history.userDTO = this.loggedUser();
     this.history.bugDTO = bug;
     if (this.isEditable[bug.idBug]) {
@@ -209,22 +208,22 @@ export class UpdateBugComponent implements OnInit {
   }
 
 
-  editableFunction(bug: Bug): boolean {
+  public editableFunction(bug: Bug): boolean {
     return this.isEditable[bug.idBug];
   }
 
 
-  exportAsXLSX(): void {
+  public exportAsXLSX(): void {
     var duplicateObject = JSON.parse(JSON.stringify( this.bugs ));
     console.log(duplicateObject);
     this.excelService.exportAsExcelFile(duplicateObject, 'bugs');
   }
 
-  success(message: string) {
+  public success(message: string):void {
     this.alertService.success(message);
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
 }

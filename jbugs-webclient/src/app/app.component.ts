@@ -8,32 +8,31 @@ import {Notification} from "./types/notification";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit{
+export class AppComponent implements OnInit {
   title = 'JBuggerAngular';
   newNotifications: Notification[];
+
   constructor(private notificationData: NotificationDataService, private notificationService: NotificationService) {
+    this.getAllNotifications();
   }
 
   ngOnInit(): void {
   }
 
-
-  updateNotifications(){
-    let username = localStorage.getItem('currentUser');
-    if(username){
-      this.newNotifications = [];
-      this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) =>{
+  getAllNotifications() {
+    let username='';
+    if (localStorage.getItem("currentUser")!== null) {
+      let username = localStorage.getItem("currentUser");
+      this.notificationData.notifications = [];
+      this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) => {
         response.forEach((value => {
-          this.newNotifications.push(value);
+          this.notificationData.notifications.push(value);
         }))
+
       });
-      this.notificationData.notifications = this.newNotifications;
     }
-
-    setTimeout(this.updateNotifications(),60000);
-  }
-
-  ngAfterViewInit(): void {
-    //setTimeout(this.updateNotifications(),500000);
+    setTimeout(() => {
+      this.getAllNotifications();
+    }, 30000);
   }
 }

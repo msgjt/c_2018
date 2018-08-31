@@ -11,21 +11,22 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-bug-component',
-  templateUrl: './add-bug-component.component.html',
-  styleUrls: ['./add-bug-component.component.css']
+  templateUrl: './add-bug.component.html',
+  styleUrls: ['./add-bug.component.css']
 })
 export class AddBugComponentComponent implements OnInit {
 
-  severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
-  chosenSeverity: string;
-  chosenUsername: string;
-  chosenFiles: string[] = [];
-  allUsers: User[] = [];
-  attachment: Attachment[] = [];
-  bug: Bug;
-  chosenDate: string;
-  currentDate: Date = new Date();
-  extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
+  public severity: string[] = ["CRITICAL", "HIGH", "MEDIUM", "LOW"];
+  public chosenSeverity: string;
+  public chosenUsername: string;
+  public chosenFiles: string[] = [];
+  public allUsers: User[] = [];
+  public attachment: Attachment[] = [];
+  public bug: Bug;
+  public loggedUser : string = localStorage.getItem("currentUser");
+  public chosenDate: string;
+  public currentDate: Date = new Date();
+  public extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
 
 
   constructor(private userService: UserService, private bugService: BugService, private alertService: AlertService) {
@@ -38,20 +39,16 @@ export class AddBugComponentComponent implements OnInit {
       status: 'NEW',
       fixedVersion: '',
       severity: '',
-      createdByUser: null,
+      createdByUser: this.getLoggedUser(),
       assignedTo: null
     }
   }
 
-  changedSelected(chosenSeverity: string) {
-    console.log(chosenSeverity);
-  }
 
-  changedSelectedUsername() {
-    console.log(this.chosenUsername);
-  }
-
-  fileChange($event) {
+  /**
+   * Method used for uploading and reading the selected files
+   */
+  public fileChange():void {
     let reader: FileReader[] = [];
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
@@ -65,19 +62,31 @@ export class AddBugComponentComponent implements OnInit {
           extension: file.name.substring(file.name.length - 3).toUpperCase(),
           name: file.name.substring(0, file.name.length - 4)
         }
+        if(!this.extensions.includes(this.attachment[i].extension)){
+          console.log("Invalid file");
+        }
         reader[i].onload = (e) => {
           this.attachment[i].blob = reader[i].result;
-        }
+        };
         reader[i].readAsArrayBuffer(file);
       }
     }
 
   }
 
-  onSubmit() {
+  getLoggedUser():User{
+    return this.allUsers.filter(value=>{
+      return value.username===localStorage.getItem("currentUser");
+    })[0];
+  }
+
+  /**
+   * Method used for creating the bug and its attachments
+   */
+  onSubmit():void {
     this.bug.severity = this.chosenSeverity;
     this.bug.targetDate = this.chosenDate;
-    this.bug.createdByUser = this.allUsers[0];
+    this.bug.createdByUser = this.getLoggedUser();
     this.bug.status = 'NEW';
     this.bug.assignedTo = this.allUsers.filter(value => {
       return value.username === this.chosenUsername;
@@ -104,17 +113,16 @@ export class AddBugComponentComponent implements OnInit {
     });
   }
 
-
   ngOnInit() {
     this.allUsers = this.userService.getAllUsers();
 
   }
 
-  success(message: string) {
+  public success(message: string):void {
     this.alertService.success(message);
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
 

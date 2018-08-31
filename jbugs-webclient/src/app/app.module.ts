@@ -11,13 +11,13 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HeaderComponent} from './header/header.component';
 import {PermissionComponent} from './permission/permission.component';
 import {RoleComponent} from './role/role.component';
-import {AddBugComponentComponent} from './add-bug-component/add-bug-component.component';
+import {AddBugComponentComponent} from './add-bug/add-bug.component';
 import {CreateUserComponent} from './create-user/create-user.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgxPaginationModule} from "ngx-pagination";
 import {UpdateUserComponent} from "./update-user/update-user.component";
-import {BugDetailsComponent} from "./bugDetails/bugDetails.component";
+import {BugDetailsComponent} from "./bug-details/bug-details.component";
 import {BugDataService} from "./services/bugData.service";
 import {UpdateBugComponent} from './update-bug/update-bug.component';
 import {RECAPTCHA_LANGUAGE, RecaptchaModule} from "ng-recaptcha";
@@ -44,6 +44,9 @@ import { FixedBugsChartComponent } from './charts/fixed-bugs-chart/fixed-bugs-ch
 import { CreatedBugsChartComponent } from './charts/created-bugs-chart/created-bugs-chart.component';
 import {ChartsModule} from "ng2-charts";
 
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import {AuthenticateGuard} from "./guards/authenticate.guard";
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -59,6 +62,8 @@ const appRoutes: Routes = [
   {path: 'bug/statistics/created', component: CreatedBugsChartComponent, canActivate: [BugManagementGuard]},
   {path: 'user/add', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'user/update', component: UpdateUserComponent, canActivate: [UserManagementGuard]},
+  {path: 'myprofile', component:MyProfileComponent, canActivate: [AuthenticateGuard]},
+  {path: 'changePassword', component:ChangePasswordComponent, canActivate: [AuthenticateGuard]},
   {path: 'create-user', component: CreateUserComponent, canActivate: [UserManagementGuard]},
   {path: 'notification', component: NotificationDetailComponent, canActivate: [AdressedUserGuard]},
   {path: '', component: NotificationPopupComponent, canActivate: [AdressedUserGuard]},
@@ -99,7 +104,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreatedBugsChartComponent,
     AllBugsChartComponent,
     FixedBugsChartComponent,
-    CreatedBugsChartComponent
+    CreatedBugsChartComponent,
+    ViewHistoryComponent,
+    MyProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

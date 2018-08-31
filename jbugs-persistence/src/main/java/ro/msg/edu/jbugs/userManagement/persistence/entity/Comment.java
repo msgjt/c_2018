@@ -10,19 +10,22 @@ import java.util.Date;
 })
 public class Comment {
 
-    public final static String GET_COMMENTS_FOR_BUG = "get all comments for a bug";
     @Transient
     private final static int MAX_STRING_LENGTH = 40;
-    @ManyToOne
-    @JoinColumn(name = "idBug", nullable = false)
-    public Bug bug;
-    @ManyToOne
-    @JoinColumn(name = "idUser", nullable = false)
-    public User user;
+    public final static String GET_COMMENTS_FOR_BUG = "get all comments for a bug";
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComment;
-    @Column(name = "text", length = MAX_STRING_LENGTH, nullable = false)
+
+    @ManyToOne
+    @JoinColumn(name = "idBug", nullable = false)
+    public Bug bug;
+
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    public User user;
+
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "date", length = MAX_STRING_LENGTH, nullable = false)

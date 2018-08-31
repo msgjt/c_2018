@@ -96,4 +96,16 @@ public class BugDTO {
     public void setAssignedTo(UserDTO assignedTo) {
         this.assignedTo = assignedTo;
     }
+
+    @Override
+    public String toString() {
+        return  "title: " + title +
+                ", description: " + description +
+                ", version: " + version +
+                ", targetDate: " + targetDate +
+                ", fixedVersion: " + fixedVersion +
+                ", severity: " + severity +
+                ", createdByUser: " + createdByUser.getUsername() +
+                ", assignedTo: " + assignedTo.getUsername();
+    }
 }

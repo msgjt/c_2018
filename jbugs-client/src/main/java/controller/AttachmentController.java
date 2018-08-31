@@ -17,7 +17,7 @@ public class AttachmentController {
     @EJB
     private IBugBusinessService bugBusinessService;
 
-    static byte[] fileBytes = new byte[1000000];
+    static byte[] fileBytes = new byte[10000000];
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,7 +31,6 @@ public class AttachmentController {
 //        if (attachmentDTO.getExtension().equals(ExtensionEnum.DOC)) {
 //            byteToFilesConverter.getDocfromBytes(attachmentDTO.getBlob());
 //        }
-
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTOS))
                 .build();

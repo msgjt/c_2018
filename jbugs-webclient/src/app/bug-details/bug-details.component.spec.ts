@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {BugDetailsComponent} from "./bugDetails.component";
+import {BugDetailsComponent} from "./bug-details.component";
 
 
 

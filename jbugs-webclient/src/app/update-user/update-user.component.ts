@@ -16,25 +16,25 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class UpdateUserComponent implements OnInit {
 
-  dropdownRoleList: Role[];
-  selectedItems: Role [];
-  dropdownSettings2 = {};
-  showRoles: boolean;
-  status: string;
+  public dropdownRoleList: Role[];
+  public selectedItems: Role [];
+  public dropdownSettings2 = {};
+  public showRoles: boolean;
+  public status: string;
 
-  dropdownUserList: User[];
-  selectedItem: User [];
-  dropdownSettings1 = {};
-  showUsers: boolean;
-  showDetails: boolean;
-  user: User;
+  public dropdownUserList: User[];
+  public selectedItem: User [];
+  public dropdownSettings1 = {};
+  public showUsers: boolean;
+  public showDetails: boolean;
+  public user: User;
 
 
-  showState: boolean;
-  dropdownSettings3 = {};
+  public showState: boolean;
+  public dropdownSettings3 = {};
 
-  checkSelect: boolean;
-  permission: Permission[];
+  public checkSelect: boolean;
+  public permission: Permission[];
 
   constructor(private userService: UserService, private rolesService: RoleService, private alertService: AlertService) {
     this.showRoles = false;
@@ -110,7 +110,7 @@ export class UpdateUserComponent implements OnInit {
 
   }
 
-  clickUpdate() {
+  public clickUpdate():void {
 
     this.userService.getUser(this.selectedItem[0].fullname.split(':')[0].trim()).subscribe(user => {
       this.user = user;
@@ -134,7 +134,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
 
-  updateUser() {
+  public updateUser():void {
     if (this.verifySelectMenu()) {
 
       this.selectedItem[0] =this.user;
@@ -165,15 +165,15 @@ export class UpdateUserComponent implements OnInit {
 
   }
 
-  verifySelectMenu(): boolean {
+  public verifySelectMenu(): boolean {
     return this.selectedItems.length > 0;
   }
 
-  success(message: string) {
+  public success(message: string):void {
     this.alertService.success(message);
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
 

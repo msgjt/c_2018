@@ -13,13 +13,13 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-  roles: Role[] = [];
-  permissions: Permission[] = [];
-  selectedItems: Permission[][] = [];
-  dropdownSettings = {};
-  roleComplete: boolean;
-  permissionComplete: boolean;
-  checkSelect: boolean[];
+  public roles: Role[] = [];
+  public permissions: Permission[] = [];
+  public selectedItems: Permission[][] = [];
+  public dropdownSettings = {};
+  public roleComplete: boolean;
+  public permissionComplete: boolean;
+  public checkSelect: boolean[];
 
   constructor(private roleService: RoleService, private permissionService: PermissionService, private alertService:AlertService) {
     this.dropdownSettings = {
@@ -38,7 +38,7 @@ export class RoleComponent implements OnInit {
 
   }
 
-  updatePermissions(role: Role) {
+  public updatePermissions(role: Role):void {
     if (this.verifySelectMenu(role)) {
       role.permissions = this.selectedItems[role.id];
       this.roleService.updateRole(role).subscribe((response: Role) => {
@@ -85,21 +85,19 @@ export class RoleComponent implements OnInit {
         console.log('eroare dropdown ')
       },
       () => {
-        this.roles.forEach((value) => {
-        });
         this.permissionComplete = true;
       });
   }
 
-  verifySelectMenu(role: Role): boolean {
+  public verifySelectMenu(role: Role): boolean {
     return this.selectedItems[role.id].length > 0;
   }
 
-  success(message: string) {
+  public success(message: string):void {
     this.alertService.success(message);
   }
 
-  error(message: string) {
+  public error(message: string):void {
     this.alertService.error(message);
   }
 }

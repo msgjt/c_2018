@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private notificationService: NotificationService, private notificationData: NotificationDataService, private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
+  constructor(private notificationService: NotificationService, private notificationData: NotificationDataService, private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService, private alertService: AlertService) {
     this.userModel = {
       username: '',
       password: ''
@@ -33,8 +33,11 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit() {
-    this.http.post( this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
+  /**
+   * Method used for checking the credentials for login
+   */
+  public onSubmit(): void {
+    this.http.post(this.baseURL + '/captcha', this.recaptchaResponse).subscribe((response) => {
       console.log(response);
       if (response['success'] == true) {
         console.log('Form was submitted with the following data:' +
@@ -45,7 +48,6 @@ export class LoginComponent implements OnInit {
             this.login(response, this.userModel.username);
             this.router.navigate(["home"]);
             this.succes("alerts.SUCCES-LOGIN");
-            this.getAllNotifications(localStorage.getItem("currentUser"));
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;
@@ -63,8 +65,8 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login(token: string, username: string) {
-    this.userService.tokenHeader=token;
+  public login(token: string, username: string): void {
+    this.userService.tokenHeader = token;
     this.loginService.login(token, username);
     this.loggedIn = true;
     this.filterService.setLoggedIn(true);
@@ -80,11 +82,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  resolved(captchaResponse: string) {
+  public resolved(captchaResponse: string) {
     this.recaptchaResponse = captchaResponse;
   }
 
-  getPermissionsForUser(roles: Role[]): Permission[] {
+  public getPermissionsForUser(roles: Role[]): Permission[] {
     let permissionList: Permission[] = [];
     for (let role of roles) {
       for (let permission of role.permissions) {
@@ -96,22 +98,12 @@ export class LoginComponent implements OnInit {
     return permissionList;
   }
 
-  getAllNotifications(username:string){
-    this.notificationData.notifications=[];
-    this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) =>{
-      response.forEach((value => {
-        this.notificationData.notifications.push(value);
-      }))
-    });
-    setTimeout(()=>{
-      this.getAllNotifications(username);
-    }, 30000);
-  }
 
-  error(message: string) {
+  public error(message: string): void {
     this.alertService.error(message);
   }
-  succes(message: string){
+
+  public succes(message: string): void {
     this.alertService.success(message);
   }
 }

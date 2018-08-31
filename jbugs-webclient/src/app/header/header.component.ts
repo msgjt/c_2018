@@ -9,7 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  toggle: boolean;
+  public toggle: boolean;
 
   constructor(private loginService: LoginService, private  translate: TranslateService, private filterService: FilterService) {
     this.toggle = false;
@@ -20,48 +20,48 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  isUserLoggedIn(): boolean {
+  public isUserLoggedIn(): boolean {
     return localStorage.getItem("currentUser") != null;
   }
 
 
-  useLanguage(language: string) {
+  public useLanguage(language: string) {
     this.translate.use(language);
   }
 
-  logout() {
+  public logout():void {
     this.loginService.logout();
   }
 
-  isPermissionManagement(): boolean {
+  public isPermissionManagement(): boolean {
     return this.filterService.isPermissionManagement();
   }
 
-  isUserManagement(): boolean {
+  public isUserManagement(): boolean {
     return this.filterService.isUserManagement()
   }
 
-  isBugManagement(): boolean {
+  public isBugManagement(): boolean {
     return this.filterService.isBugManagement();
   }
 
-  isBugClose(): boolean {
+  public isBugClose(): boolean {
     return this.filterService.isBugClose();
   }
 
-  isBugExportPdf(): boolean {
+  public isBugExportPdf(): boolean {
     return this.filterService.isBugExportPdf();
   }
 
-  isAdressedUser(): boolean {
+  public isAdressedUser(): boolean {
     return this.filterService.isAdressedUser();
   }
 
-  isReportManagement(): boolean {
+  public isReportManagement(): boolean {
     return this.filterService.isReportManagement();
   }
 
-  toggleSidebar() {
+  public toggleSidebar():void {
     this.toggle = !this.toggle;
   }
 }

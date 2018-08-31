@@ -57,7 +57,7 @@
   },
   "update-user":{
     "username":"Alege un utilizator",
-    "btn-show":"Cauta",
+    "btn-show":"Vezi detalii",
     "first-name":"Prenume",
     "first-name-message":"Prenumele este obligatoriu",
     "last-name": "Nume de familie",
@@ -73,6 +73,23 @@
     "status":"Stare",
     "change-status":"Schimba starea",
     "btn-save": "Actualizare"
+  },
+  "my-profile": {
+    "first-name": "Prenume",
+    "last-name": "Nume de familie",
+    "mobile-number": "Numar de telefon",
+    "email": "Email",
+    "roles": "Roluri",
+    "status":"Status",
+    "btn-change-password": "Schimba parola"
+  },
+  "change-password": {
+    "change-password": "Schimba parola",
+    "current-password": "Parola curenta",
+    "new-password": "Parola noua",
+    "confirm-password": "Confirma parola",
+    "update-password": "Actualizeaza parola",
+    "back": "Inapoi"
   },
   "alerts": {
     "EMAIL_EXISTS_ALREADY": "Adresa email folosita deja",
@@ -93,7 +110,10 @@
     "FAILED-LOGIN":"Logare esuata",
     "ERROR-SERVER": "Probleme la server. Va rugam incercati din nou",
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
-    "FORMAT-FILE-ERROR":"Format fisier invalid"
+    "FORMAT-FILE-ERROR":"Format fisier invalid",
+    "DESCRIPTION_VALIDATION_EXCEPTION": "Lungimea descrierii este prea mare",
+    "COMMENT_VALIDATION_EXCEPTION":"Comentariul este prea lung"
+
   },
   "add-bug": {
     "title-page":"Adaugare defect",

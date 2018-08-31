@@ -6,6 +6,6 @@ public enum PermissionEnum {
     BUG_MANAGEMENT,
     BUG_CLOSE,
     BUG_EXPORT_PDF,
-    ADDRESED_USER,
+    ADDRESSED_USER,
     REPORT_MANAGEMENT
 }

@@ -7,17 +7,12 @@ import ro.msg.edu.jbugs.userManagement.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.dto.helper.HistoryDTOHelper;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.userManagement.business.exceptions.ExceptionCode;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Comment;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.History;
+import ro.msg.edu.jbugs.userManagement.business.service.notification.NotificationBusinessService;
+import ro.msg.edu.jbugs.userManagement.persistence.entity.*;
 import ro.msg.edu.jbugs.userManagement.persistence.service.IBugPersistenceService;
-import ro.msg.edu.jbugs.userManagement.persistence.entity.Bug;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +34,9 @@ public class BugBusinessService implements IBugBusinessService {
     @EJB
     private HistoryDTOHelper historyDTOHelper;
 
+    @EJB
+    private NotificationBusinessService notificationBusinessService;
+
 
     @Override
     public List<BugDTO> getAllBugs() {
@@ -51,8 +49,13 @@ public class BugBusinessService implements IBugBusinessService {
         if(bugDTO.getTargetDate() == null || bugDTO.getStatus() == null || bugDTO.getSeverity()==null){
             throw new BusinessException(ExceptionCode.BUG_VALIDATION_EXCEPTION);
         }
+        if(bugDTO.getDescription().length()>250){
+            throw new BusinessException(ExceptionCode.DESCRIPTION_VALIDATION_EXCEPTION);
+        }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
+
+        notificationBusinessService.generateNotification(NotificationEnum.BUG_UPDATED, null, bugDTO);
         return bugDTOHelper.fromEntity(addedBug);
     }
 
@@ -92,8 +95,11 @@ public class BugBusinessService implements IBugBusinessService {
     }
 
     @Override
-    public CommentDTO addComment(CommentDTO commentDTO) {
+    public CommentDTO addComment(CommentDTO commentDTO) throws BusinessException {
         Comment comment = commentDTOHelper.toEntity(commentDTO);
+        if(commentDTO.getText().length()>100){
+            throw new BusinessException(ExceptionCode.COMMENT_VALIDATION_EXCEPTION);
+        }
         return commentDTOHelper.fromEntity(bugPersistenceService.addComment(comment).get());
     }
 
