@@ -83,8 +83,8 @@
           <label for="blob">{{"add-bug.attachment" | translate}}</label>
           <br/>
           <input #inputElement class="form-control-file" type="file" id="blob" name="file"
-                 [(ngModel)]="this.attachment.blob" required
-                 (change)="fileChange()" accept=".jpg,.pdf,.doc,.odf,.xls,.txt" multiple>
+                 [(ngModel)]="this.attachment.blob" required size="25"
+                 (change)="fileChange()" accept=".jpg,.pdf,.doc,.odf,.xls,.txt,.xlsx" multiple>
           <div *ngIf="this.chosenFiles.length>1">
             <div *ngFor="let name of this.chosenFiles">
               {{name}}

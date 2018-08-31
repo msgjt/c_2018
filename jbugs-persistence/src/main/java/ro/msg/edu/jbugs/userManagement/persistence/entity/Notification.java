@@ -21,7 +21,7 @@ public class Notification {
     private Bug bug;
     @Column(nullable = false)
     private NotificationType type;
-    private Date date;
+    private Date date = new Date();
     private String message;
 
     public Notification() {

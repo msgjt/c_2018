@@ -26,7 +26,7 @@ export class AddBugComponentComponent implements OnInit {
   public loggedUser : string = localStorage.getItem("currentUser");
   public chosenDate: string;
   public currentDate: Date = new Date();
-  public extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
+  public extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT","XLSX"];
 
 
   constructor(private userService: UserService, private bugService: BugService, private alertService: AlertService) {
@@ -55,13 +55,14 @@ export class AddBugComponentComponent implements OnInit {
       for (let i = 0; i < eventTarget.files.length; i++) {
         let file = eventTarget.files[i];
         reader[i] = new FileReader();
+        let fileNameSplitter = file.name.split(".",2);
         this.chosenFiles[i] = file.name;
         this.attachment[i] = {
           bugDTO: this.bug,
           blob: new Uint8Array(),
-          extension: file.name.substring(file.name.length - 3).toUpperCase(),
-          name: file.name.substring(0, file.name.length - 4)
-        }
+          extension: fileNameSplitter[1].toUpperCase(),
+          name: fileNameSplitter[0]
+        };
         if(!this.extensions.includes(this.attachment[i].extension)){
           console.log("Invalid file");
         }

@@ -70,8 +70,9 @@ export class BugDetailsComponent implements OnInit {
     let eventTarget = <HTMLInputElement>event.target;
     if (eventTarget.files && eventTarget.files.length > 0) {
       let file = eventTarget.files[0];
-      this.attachmentToBeAdded.extension = file.name.substring(file.name.length - 3).toUpperCase();
-      this.attachmentToBeAdded.name = file.name.substring(0, file.name.length - 4);
+      let fileNameSplitter = file.name.split(".",2);
+      this.attachmentToBeAdded.extension = fileNameSplitter[1].toUpperCase();
+      this.attachmentToBeAdded.name = fileNameSplitter[0]
       reader.onload = function () {
         this.attachmentToBeAdded.blob = reader.result;
       }.bind(this);
@@ -103,7 +104,8 @@ export class BugDetailsComponent implements OnInit {
   }
 
   public addAttachment(attachmentChosen: Attachment):void  {
-    let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT"];
+    let extensions: string[] = ["JPG", "DOC", "PDF", "ODF", "XLS", "TXT","XLSX"];
+    console.log(attachmentChosen.extension.toUpperCase());
     if (extensions.includes(attachmentChosen.extension.toUpperCase())) {
       this.bugService.sendFile(attachmentChosen.blob, attachmentChosen);
       this.success("alerts.SUCCES-ADD");
