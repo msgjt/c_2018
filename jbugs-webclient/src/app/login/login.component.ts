@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         console.log('Form was submitted with the following data:' +
           JSON.stringify(this.userModel));
       }
+
       this.loginService.userAuthentication(this.userModel.username, this.userModel.password).subscribe((response) => {
           if (response) {
             this.login(response, this.userModel.username);
@@ -61,6 +62,8 @@ export class LoginComponent implements OnInit {
           this.error("alerts.FAILED-LOGIN")
         });
 
+    },(error:HttpErrorResponse)=>{
+        this.error("alerts.ERROR-SERVER");
     });
   }
 

@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BugPersistenceServiceBeanTest {
+    private static final String HIGH_BUG = "high bug";
     @InjectMocks
     private BugBusinessService bugBusinessService;
 
@@ -58,7 +59,7 @@ public class BugPersistenceServiceBeanTest {
     public void filterBugs_expectedTrue(){
         Bug bug = new Bug();
         bug.setIdBug(1L);
-        bug.setTitle("high bug");
+        bug.setTitle(HIGH_BUG);
         bugs.add(bug);
 
         Bug secondBug = new Bug();
@@ -67,7 +68,7 @@ public class BugPersistenceServiceBeanTest {
         bugs.add(secondBug);
         BugDTO bugDTO = new BugDTO();
         bugDTO.setIdBug(1L);
-        bugDTO.setTitle("high bug");
+        bugDTO.setTitle(HIGH_BUG);
 
         BugDTO secondBugDto = new BugDTO();
         secondBugDto.setIdBug(2L);
@@ -75,7 +76,7 @@ public class BugPersistenceServiceBeanTest {
 
         BugFiltersDTO bugFiltersDTO = new BugFiltersDTO();
         bugFiltersDTO.setField("title");
-        bugFiltersDTO.setData("high bug");
+        bugFiltersDTO.setData(HIGH_BUG);
         bugFiltersDTOList.add(bugFiltersDTO);
 
         when(bugPersistenceService.getAllBugs()).thenReturn(bugs);
@@ -157,6 +158,7 @@ public class BugPersistenceServiceBeanTest {
 
     }
 
+
     @Test
     public void addAttachment_ExpectedOK(){
         AttachmentDTO attachmentDTO = new AttachmentDTO();
@@ -195,6 +197,7 @@ public class BugPersistenceServiceBeanTest {
         }
     }
 
+
     @Test
     public void addComment_ExpectedOK(){
         CommentDTO commentDTO = new CommentDTO();
@@ -213,6 +216,7 @@ public class BugPersistenceServiceBeanTest {
 
         }
     }
+
 
     @Test
     public void getAllAttachments_ExpectedOK(){

@@ -13,6 +13,8 @@ import ro.msg.edu.jbugs.persistence.entity.RoleEnum;
 import ro.msg.edu.jbugs.persistence.exceptions.PersistenceException;
 import ro.msg.edu.jbugs.persistence.service.user.RolePersistenceService;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 
 
@@ -73,6 +75,14 @@ public class RolePersistenceServiceBeanTest {
         }catch(PersistenceException e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void getAllRoles_ExpectedOk(){
+        Role role = new Role();
+        when(rolePersistenceService.getAllRoles())
+                .thenReturn(new HashSet<Role>(){{add(role);}});
+        assertEquals(1,roleBusinessService.getAllRoles().size());
     }
 
 

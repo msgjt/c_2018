@@ -19,24 +19,24 @@ import java.util.stream.Collectors;
 @Stateless
 public class NotificationBusinessService {
     @EJB
-    private INotificationPersistenceService notificationPersistenceService;
+    private INotificationPersistenceService INotificationPersistenceService;
     @EJB
     private GenerateNotificationService generateNotificationService;
     @EJB
     private NotificationDTOHelper notificationDTOHelper;
 
     public void generateNotification(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
-        notificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldBugDTO, newBugDTO)));
+        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldBugDTO, newBugDTO)));
         deleteOutdatedNotifications();
     }
 
-    public void generateNotification(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
-        notificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, newUserDTO)));
+    public void generateNotification(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO, String creator) throws BusinessException {
+        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldUserDTO, newUserDTO, creator)));
         deleteOutdatedNotifications();
     }
 
     public List<NotificationDTO> getNotificationsForUser(String username) {
-        return notificationPersistenceService.getNotifications()
+        return INotificationPersistenceService.getNotifications()
                 .stream()
                 .map(notificationDTOHelper::fromEntity)
                 .filter(n -> n.getUsernames().contains(username))
@@ -45,9 +45,9 @@ public class NotificationBusinessService {
     }
 
     private void deleteOutdatedNotifications() {
-        notificationPersistenceService.getNotifications()
+        INotificationPersistenceService.getNotifications()
                 .stream()
                 .filter(u -> u.getDate().compareTo(Date.from(Instant.now().minusSeconds(2592000L))) < 0)
-                .forEach(notificationPersistenceService::deleteNotification);
+                .forEach(INotificationPersistenceService::deleteNotification);
     }
 }
