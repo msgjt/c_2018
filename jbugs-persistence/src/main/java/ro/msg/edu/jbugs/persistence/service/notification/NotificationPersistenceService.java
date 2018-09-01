@@ -32,6 +32,6 @@ public class NotificationPersistenceService implements INotificationPersistenceS
 
     @Override
     public Set<Notification> getNotifications() {
-        return new HashSet<>();
+        return new HashSet<>(em.createNamedQuery(Notification.GET_ALL_NOTIFICATIONS, Notification.class).getResultList());
     }
 }

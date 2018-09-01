@@ -3,10 +3,7 @@ package ro.msg.edu.jbugs.business.service.bug;
 import ro.msg.edu.jbugs.business.dto.bug.*;
 import ro.msg.edu.jbugs.business.dto.helper.CommentDTOHelper;
 import ro.msg.edu.jbugs.business.service.notification.NotificationBusinessService;
-import ro.msg.edu.jbugs.persistence.entity.Attachment;
-import ro.msg.edu.jbugs.persistence.entity.Bug;
-import ro.msg.edu.jbugs.persistence.entity.Comment;
-import ro.msg.edu.jbugs.persistence.entity.History;
+import ro.msg.edu.jbugs.persistence.entity.*;
 import ro.msg.edu.jbugs.business.dto.helper.AttachmentDTOHelper;
 import ro.msg.edu.jbugs.business.dto.helper.BugDTOHelper;
 import ro.msg.edu.jbugs.business.dto.helper.HistoryDTOHelper;
@@ -57,6 +54,7 @@ public class BugBusinessService implements IBugBusinessService {
         Bug addedBug = null;
         if(bugOptional.isPresent()) {
             addedBug = (Bug) bugOptional.get();
+            notificationBusinessService.generateNotification(NotificationEnum.BUG_UPDATED, null, bugDTO);
             return bugDTOHelper.fromEntity(addedBug);
         }
         return null;

@@ -26,7 +26,6 @@ public class Notification {
     private String message;
 
     public Notification() {
-
     }
 
     public Notification(Set<User> users, Bug bug, NotificationEnum type, Date date, String message) {

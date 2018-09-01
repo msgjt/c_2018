@@ -1,5 +1,6 @@
 package ro.msg.edu.jbugs.business.dto.user;
 
+import ro.msg.edu.jbugs.persistence.entity.PermissionEnum;
 import ro.msg.edu.jbugs.persistence.entity.RoleEnum;
 
 import java.util.Set;

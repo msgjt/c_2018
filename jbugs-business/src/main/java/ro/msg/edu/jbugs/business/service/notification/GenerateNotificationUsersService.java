@@ -6,6 +6,7 @@ import ro.msg.edu.jbugs.business.dto.notification.EmailDto;
 import ro.msg.edu.jbugs.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.business.exceptions.ExceptionCode;
+import ro.msg.edu.jbugs.business.service.user.IUserBusinessService;
 import ro.msg.edu.jbugs.persistence.entity.NotificationEnum;
 
 import javax.ejb.EJB;
@@ -19,17 +20,17 @@ import java.util.Set;
 public class GenerateNotificationUsersService {
     @EJB
     private SendEmailBusinessService emailBusinessService;
-
+    @EJB
+    private IUserBusinessService userBusinessService;
 
     public Set<String> generateUsers(BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
         if (oldBugDTO != null) {
             return new HashSet<>(Arrays.asList(oldBugDTO.getCreatedByUser().getUsername(),
                     oldBugDTO.getAssignedTo().getUsername(), newBugDTO.getAssignedTo().getUsername()));
         } else {
-            new HashSet<>(Arrays.asList(newBugDTO.getCreatedByUser().getUsername(),
+            return new HashSet<>(Arrays.asList(newBugDTO.getCreatedByUser().getUsername(),
                     newBugDTO.getAssignedTo().getUsername()));
         }
-        throw new BusinessException(ExceptionCode.USER__GENRATITON_FAIL);
     }
 
     public Set<String> generateUsers(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO, String creator) throws BusinessException {
@@ -39,6 +40,9 @@ public class GenerateNotificationUsersService {
                 return new HashSet<>(Collections.singletonList(newUserDTO.getUsername()));
             case USER_UPDATED:
                 return new HashSet<>(Arrays.asList(newUserDTO.getUsername(), creator));
+            case USER_DEACTIVATED:
+                return null;
+
         }
         throw new BusinessException(ExceptionCode.USER__GENRATITON_FAIL);
     }
