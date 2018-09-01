@@ -3,7 +3,7 @@
 
 <div class="card">
   <div class="card-header">
-    <div class="card-title"><b>Filter bugs</b></div>
+    <div class="card-title"><b>{{'update-bug.title-page' | translate}}</b></div>
     <div class="row">
       <div class="col-sm col-md-3">
         <label for="filterTitle">{{'update-bug.title' | translate}}</label>
@@ -140,7 +140,7 @@
                 <input #versionElement="ngModel" class="form-control" [ngModel]="bug.version"
                        pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" required minlength="3"
                        (ngModelChange)="bug.version = $event" />
-                <div class="err" *ngIf="versionElement.invalid">invalid format</div>
+                <div class="err" *ngIf="versionElement.invalid">{{'update-bug.version-message' | translate}}</div>
               </div>
               <div *ngIf="!this.editableFunction(bug)">
                 {{bug.version}}
@@ -151,7 +151,7 @@
                 <input #fversionElement="ngModel" class="form-control" [ngModel]="bug.fixedVersion"
                        required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"
                        (ngModelChange)="bug.fixedVersion = $event"/>
-                <div class="err" *ngIf="fversionElement.invalid">invalid format</div>
+                <div class="err" *ngIf="fversionElement.invalid">{{'update-bug.fixed-version-message' | translate}}</div>
               </div>
               <div *ngIf="!this.editableFunction(bug)">
                 {{bug.fixedVersion}}

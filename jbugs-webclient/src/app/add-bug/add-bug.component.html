@@ -26,13 +26,13 @@
           <label for="version">{{"add-bug.version" | translate}}</label>
           <input #versionElement="ngModel" id="version" name="version" type="text" [(ngModel)]="bug.version"
                  class="form-control" required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
-          <div class="err" *ngIf="versionElement.invalid && versionElement.touched">Version is invalid</div>
+          <div class="err" *ngIf="versionElement.invalid && versionElement.touched">{{"add-bug.version-message" | translate}}</div>
         </div>
         <div class="form-group">
           <label for="fversion">{{"add-bug.fixed-version" | translate}}</label>
           <input #fixedElement="ngModel" id="fversion" name="fversion" type="text" [(ngModel)]="bug.fixedVersion"
                  class="form-control"  pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"/>
-          <div class="err" *ngIf="fixedElement.invalid && fixedElement.touched">Fixed version is invalid</div>
+          <div class="err" *ngIf="fixedElement.invalid && fixedElement.touched">{{"add-bug.fixed-version-message" | translate}}</div>
 
         </div>
         <div class="form-group">
@@ -67,7 +67,7 @@
           <label for="assignedTo">{{"add-bug.assigned-to" | translate}}</label>
           <select #assignedElement="ngModel" name="assignedTo" id="assignedTo" class="form-control"
                   [(ngModel)]="this.chosenUsername"  required>
-            <option disabled [ngValue]="undefined">{{"add-bug.select-user" | translate}}</option>
+            <option disabled [ngValue]="undefined">Select user</option>
             <option *ngFor="let username of allUsers" [ngValue]="username.username">{{username.username}}
             </option>
           </select>
@@ -93,7 +93,7 @@
         </div>
         <div class="form-group">
           <button class="btn btn-primary" type="submit" [disabled]="formControl.invalid" >
-            {{"add-bug.btn-register" | translate}}
+            {{"add-bug.btn-add" | translate}}
           </button>
         </div>
       </form>

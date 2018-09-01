@@ -3,20 +3,20 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><b>Bug details</b></div>
+      <div class="card-title"><b>{{"details-bug.title" | translate}}</b></div>
     </div>
     <div class="card-body">
       <h1 class="title">{{bug.title}}</h1>
-      <p class="gray">Created by {{bug.createdByUser.username}}</p>
+      <p class="gray">{{"details-bug.created-by" | translate}}{{bug.createdByUser.username}}</p>
       <table class="table-borderless">
         <thead class="gray">
         <tr>
-          <th class="fixedColumns" scope="col">ASSIGNED TO</th>
-          <th class="fixedColumns" scope="col">SEVERITY</th>
-          <th class="fixedColumns" scope="col">STATUS</th>
-          <th class="fixedColumns" scope="col">TARGET DATE</th>
-          <th class="fixedColumns" scope="col">VERSION</th>
-          <th class="fixedColumns" scope="col">FIXED VERSION</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col1" | translate}}</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col2" | translate}}</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col3" | translate}}</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col4" | translate}}</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col5" | translate}}</th>
+          <th class="fixedColumns" scope="col">{{"details-bug.col6" | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -31,9 +31,9 @@
         </tr>
         </tbody>
       </table>
-      <h3>Description</h3>
+      <h3>{{"details-bug.description" | translate}}</h3>
       <p>{{bug.description}}</p>
-      <h4>Comments</h4>
+      <h4>{{"details-bug.comments" | translate}}</h4>
       <table>
         <tbody *ngFor="let c of comments">
         <tr>
@@ -50,28 +50,28 @@
       </form>
       <div class="row">
         <div class="col-md-2">
-          <button type="Submit" class="btn btn-primary" (click)="addComment()">Add comment</button>
+          <button type="Submit" class="btn btn-primary" (click)="addComment()">{{"details-bug.btn-add-comment" | translate}}</button>
         </div>
         <div class="col-md-1">
-          <button type="Submit" class="btn btn-primary" (click)="export()">Export PDF</button>
+          <button type="Submit" class="btn btn-primary" (click)="export()">{{"details-bug.btn-export" | translate}}</button>
         </div>
       </div>
     </div>
   </div>
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><b>Attachments</b></div>
+      <div class="card-title"><b>{{"details-bug.attachments" | translate}}</b></div>
     </div>
     <div class="card-body">
       <form>
         <div class="row col-md-1">
           <div class="form-group">
-            <label>Select an attachment</label>
+            <label>{{"details-bug.select-attachment" | translate}}</label>
             <div class="select_join">
               <select name="assignedTo" id="" class="form-control" [ngModel]="this.attachmentChosen"
                       (ngModelChange)="this.attachmentChosen= $event">
-                <option disabled *ngIf="this.attachmentsForABug.length==0" [ngValue]="undefined">No attachments</option>
-                <option disabled *ngIf="this.attachmentsForABug.length > 0" [ngValue]="undefined">Select attachment
+                <option disabled *ngIf="this.attachmentsForABug.length==0" [ngValue]="undefined">{{"details-bug.message-attachment" | translate}}</option>
+                <option disabled *ngIf="this.attachmentsForABug.length > 0" [ngValue]="undefined">{{"details-bug.select-attachment" | translate}}
                 </option>
                 <option *ngFor="let attachment of this.attachmentsForABug" [ngValue]="attachment">
                   {{attachment.name+'.' +attachment.extension.toLocaleLowerCase()}}

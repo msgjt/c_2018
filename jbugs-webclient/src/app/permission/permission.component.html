@@ -1,16 +1,16 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <div class="card-title"><b>Permissions</b></div>
+      <div class="card-title"><b>{{'permission.title' | translate}}</b></div>
     </div>
     <div class="card-body">
       <form (ngSubmit)="OnSubmit()">
         <table>
           <thead>
           <tr>
-            <th class="uppercase" scope="col">{{'permission.col-id' | translate}}</th>
-            <th class="uppercase" scope="col">{{'permission.col-type'| translate}}</th>
-            <th class="uppercase" scope="col">{{'permission.col-description' | translate}}</th>
+            <th scope="col">{{'permission.col-id' | translate}}</th>
+            <th scope="col">{{'permission.col-type'| translate}}</th>
+            <th scope="col">{{'permission.col-description' | translate}}</th>
           </tr>
           </thead>
           <tbody *ngFor="let p of permissions">
