@@ -112,7 +112,8 @@
     "ERROR-ADD-FILE":"Error add file. Extension invalid",
     "FORMAT-FILE-ERROR":"Format fisier invalid",
     "DESCRIPTION_VALIDATION_EXCEPTION": "Lungimea descrierii este prea mare",
-    "COMMENT_VALIDATION_EXCEPTION":"Comentariul este prea lung"
+    "COMMENT_VALIDATION_EXCEPTION":"Comentariul este prea lung",
+    "ERROR-UPDATE": "Sunt afisate detaliile unui alt utilizator. Apasati butonul Vezi detalii!"
 
   },
   "add-bug": {
