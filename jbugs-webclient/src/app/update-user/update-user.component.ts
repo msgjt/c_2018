@@ -157,6 +157,9 @@ export class UpdateUserComponent implements OnInit {
         }, (error: HttpErrorResponse) => {
           this.error("alerts." + error.error.toString());
           this.selectedItem[0] = this.user;
+          if (isChecked) {
+            this.selectedItem[0].isActive = !this.selectedItem[0].isActive;
+          }
           this.selectedItem[0].fullname = this.user.username + ' : ' + this.user.firstName + ' ' + this.user.lastName;
         });
 
