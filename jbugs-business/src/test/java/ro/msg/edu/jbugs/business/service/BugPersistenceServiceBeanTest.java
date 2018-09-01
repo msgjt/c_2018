@@ -59,7 +59,7 @@ public class BugPersistenceServiceBeanTest {
     public void filterBugs_expectedTrue(){
         Bug bug = new Bug();
         bug.setIdBug(1L);
-        bug.setTitle("high bug");
+        bug.setTitle(HIGH_BUG);
         bugs.add(bug);
 
         Bug secondBug = new Bug();
@@ -76,7 +76,7 @@ public class BugPersistenceServiceBeanTest {
 
         BugFiltersDTO bugFiltersDTO = new BugFiltersDTO();
         bugFiltersDTO.setField("title");
-        bugFiltersDTO.setData("high bug");
+        bugFiltersDTO.setData(HIGH_BUG);
         bugFiltersDTOList.add(bugFiltersDTO);
 
         when(bugPersistenceService.getAllBugs()).thenReturn(bugs);

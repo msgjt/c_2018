@@ -251,7 +251,7 @@ public class UserPersistenceServiceBeanTest {
         user.setIsActive(true);
         when(userPersistenceService.getUserByUsername(any(String.class)))
                 .thenReturn(Optional.of(user));
-        userBusinessService.deactivateUser("florib");
+        userBusinessService.deactivateUser(FLORIB);
         assertFalse(user.getIsActive());
     }
 
@@ -263,11 +263,11 @@ public class UserPersistenceServiceBeanTest {
         UserDTO userDTO = new UserDTO();
         when(userDTOHelper.toEntity(userDTO)).thenReturn(user);
         when(userDTOHelper.fromEntity(user)).thenReturn(userDTO);
-        user.setUsername("florib");
+        user.setUsername(FLORIB);
         user.setIsActive(false);
         when(userPersistenceService.getUserByUsername(any(String.class)))
                 .thenReturn(Optional.of(user));
-        userBusinessService.activateUser("florib");
+        userBusinessService.activateUser(FLORIB);
         assertTrue(user.getIsActive());
     }
 
