@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BugPersistenceServiceBeanTest {
+    private static final String HIGH_BUG = "high bug";
     @InjectMocks
     private BugBusinessService bugBusinessService;
 
@@ -67,7 +68,7 @@ public class BugPersistenceServiceBeanTest {
         bugs.add(secondBug);
         BugDTO bugDTO = new BugDTO();
         bugDTO.setIdBug(1L);
-        bugDTO.setTitle("high bug");
+        bugDTO.setTitle(HIGH_BUG);
 
         BugDTO secondBugDto = new BugDTO();
         secondBugDto.setIdBug(2L);

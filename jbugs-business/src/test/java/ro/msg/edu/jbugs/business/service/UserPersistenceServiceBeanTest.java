@@ -37,6 +37,7 @@ public class UserPersistenceServiceBeanTest {
 
     private static final String MARINI = "marini";
     private static final String DOREL0 = "dorel0";
+    private static final String FLORIB = "florib";
     @InjectMocks
     private UserBusinessService userBusinessService;
 
@@ -246,7 +247,7 @@ public class UserPersistenceServiceBeanTest {
         UserDTO userDTO = new UserDTO();
         when(userDTOHelper.toEntity(userDTO)).thenReturn(user);
         when(userDTOHelper.fromEntity(user)).thenReturn(userDTO);
-        user.setUsername("florib");
+        user.setUsername(FLORIB);
         user.setIsActive(true);
         when(userPersistenceService.getUserByUsername(any(String.class)))
                 .thenReturn(Optional.of(user));
