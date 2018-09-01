@@ -62,6 +62,8 @@ export class UpdateBugComponent implements OnInit {
           this.isEditable[value.idBug] = false;
           this.bugs.push(value);
         });
+      }, (error: HttpErrorResponse) => {
+        this.error("alerts.ERROR-SERVER");
       }
     );
     this.bugs.forEach((value) => {
@@ -91,11 +93,11 @@ export class UpdateBugComponent implements OnInit {
     this.statusMap.set("info_needed", ["in_progress"]);
     this.statusMap.set("closed", []);
     this.statusMap.set("rejected", []);
-    if (userPermissions.includes("BUG_CLOSE")){
+    if (userPermissions.includes("BUG_CLOSE")) {
       this.statusMap.set("fixed", ["open", "closed"]);
     }
-    else{
-      if (userPermissions.includes("BUG_MANAGEMENT")){
+    else {
+      if (userPermissions.includes("BUG_MANAGEMENT")) {
         this.statusMap.set("fixed", ["open"]);
       }
     }
@@ -216,11 +218,11 @@ export class UpdateBugComponent implements OnInit {
 
   }
 
-  public checkUpdatedVersions(version:string,fixedVersion:string):boolean{
-    if(version.match("(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)") && fixedVersion.match("(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)")){
+  public checkUpdatedVersions(version: string, fixedVersion: string): boolean {
+    if (version.match("(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)") && fixedVersion.match("(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)")) {
       return true;
     }
-    else{
+    else {
       return false;
     }
   }

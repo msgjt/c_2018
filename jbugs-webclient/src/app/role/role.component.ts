@@ -70,7 +70,7 @@ export class RoleComponent implements OnInit {
 
       },
       () => {
-        console.log('eroare getRoles')
+        this.error("alerts.ERROR-SERVER");
       },
       () => {
         this.roleComplete = true;
@@ -81,7 +81,6 @@ export class RoleComponent implements OnInit {
         });
       },
       () => {
-        this.error("alerts.ERROR_SERVER");
         console.log('eroare dropdown ')
       },
       () => {
