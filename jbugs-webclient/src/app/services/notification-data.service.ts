@@ -1,16 +1,39 @@
 import {Injectable} from "@angular/core";
 import {Notification} from "../types/notification";
+import {Subject} from "rxjs/internal/Subject";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable()
 export class NotificationDataService {
-  private _notifications: Notification[] = [];
+  private notificationsSubject: BehaviorSubject<Notification[]>;
+  private changed: BehaviorSubject<boolean>;
+  private dataStore: {
+    notifications: Notification[];
+}
+  notifications$: Observable<any>;
+  changed$: Observable<any>;
 
-
-  get notifications(): Notification[] {
-    return this._notifications;
+  constructor(){
+    this.dataStore = {notifications: []};
+    this.notificationsSubject = <BehaviorSubject<Notification[]>>new BehaviorSubject([]);
+    this.notifications$ = this.notificationsSubject.asObservable();
+    this.changed = new BehaviorSubject<boolean>(false);
+    this.changed$ = this.changed.asObservable();
   }
 
-  set notifications(value: Notification[]) {
-    this._notifications = value;
+  updateNotifications(newNotifications: Notification[]){
+    console.log("in update notification");
+    console.log(this.dataStore.notifications);
+    console.log(newNotifications);
+    let oldLength = parseInt(localStorage.getItem('notificationsLength'),10);
+    this.changedContent( oldLength!== 0 && oldLength !== newNotifications.length);
+    this.dataStore.notifications = newNotifications;
+    this.notificationsSubject.next(Object.assign({}, this.dataStore).notifications);
+  }
+
+  private changedContent(gotNewNotification: boolean){
+    console.log("in change content: "+ gotNewNotification);
+    this.changed.next(gotNewNotification);
   }
 }

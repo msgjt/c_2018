@@ -16,7 +16,7 @@ import {Notification} from "../types/notification";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
   userModel: User;
   wrongCredentials = false;
   loggedIn = false;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private notificationService: NotificationService, private notificationData: NotificationDataService, private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService, private alertService: AlertService) {
+  constructor( private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
     this.userModel = {
       username: '',
       password: ''

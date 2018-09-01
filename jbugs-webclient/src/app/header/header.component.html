@@ -1,6 +1,9 @@
 <nav class="navbar fixed-top navbar-dark bg-dark mb-5">
-  <a *ngIf="isUserLoggedIn()" id="sidebar-toggle-button" class="navbar-brand" [routerLink]="" (click)="toggleSidebar()">{{'header.nav-title' |
-    translate}}</a>
+  <a *ngIf="isUserLoggedIn()"  id="sidebar-toggle-button" class="navbar-brand" [routerLink]="" (click)="toggleSidebar()">
+    <div class="circle" *ngIf="gotNewNotification"></div>
+    <div> {{'header.nav-title' |
+      translate}}</div>
+   </a>
   <div class="navbar-expand mr-auto">
     <ul class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/home">{{'header.nav-item1' | translate}}</a>
