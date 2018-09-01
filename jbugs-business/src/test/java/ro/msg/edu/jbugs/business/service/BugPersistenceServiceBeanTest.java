@@ -157,6 +157,7 @@ public class BugPersistenceServiceBeanTest {
 
     }
 
+
     @Test
     public void addAttachment_ExpectedOK(){
         AttachmentDTO attachmentDTO = new AttachmentDTO();
@@ -195,6 +196,7 @@ public class BugPersistenceServiceBeanTest {
         }
     }
 
+
     @Test
     public void addComment_ExpectedOK(){
         CommentDTO commentDTO = new CommentDTO();
@@ -213,6 +215,7 @@ public class BugPersistenceServiceBeanTest {
 
         }
     }
+
 
     @Test
     public void getAllAttachments_ExpectedOK(){

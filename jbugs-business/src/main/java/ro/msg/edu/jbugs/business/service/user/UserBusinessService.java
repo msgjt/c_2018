@@ -124,7 +124,7 @@ public class UserBusinessService implements IUserBusinessService {
                 && user.getLastName() != null
                 && user.getEmail() != null
                 && user.getPhoneNumber() != null
-                && user.getRoles().isEmpty()
+                && !user.getRoles().isEmpty()
                 && isValidFirstName(user.getFirstName())
                 && isValidLastName(user.getLastName())
                 && isValidEmail(user.getEmail())

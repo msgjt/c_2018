@@ -21,6 +21,7 @@ public class ManagementApplication extends Application {
         classes.add(RoleController.class);
         classes.add(BugController.class);
         classes.add(CORSFilter.class);
+        classes.add(LogoutUserController.class);
         classes.add(AttachmentController.class);
         classes.add(CaptchaController.class);
         classes.add(NotificationController.class);
