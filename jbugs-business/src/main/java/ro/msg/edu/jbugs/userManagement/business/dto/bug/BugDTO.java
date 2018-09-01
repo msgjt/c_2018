@@ -99,13 +99,13 @@ public class BugDTO {
 
     @Override
     public String toString() {
-        return  "title: " + title +
-                ", description: " + description +
-                ", version: " + version +
-                ", targetDate: " + targetDate +
-                ", fixedVersion: " + fixedVersion +
-                ", severity: " + severity +
-                ", createdByUser: " + createdByUser.getUsername() +
-                ", assignedTo: " + assignedTo.getUsername();
+        return  "title: " + title +  "\n" +
+                ", description: " + description + "\n" +
+                ", version: " + version +  "\n" +
+                ", targetDate: " + targetDate +  "\n" +
+                ", fixedVersion: " + fixedVersion +  "\n" +
+                ", severity: " + severity +  "\n" +
+                ", createdByUser: " + createdByUser.getUsername() +  "\n" +
+                ", assignedTo: " + assignedTo.getUsername() +  "\n";
     }
 }

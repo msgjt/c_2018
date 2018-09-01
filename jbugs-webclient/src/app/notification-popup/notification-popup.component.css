@@ -5,7 +5,7 @@
 
 #sidebar-wrapper {
   border: 5px #6c757d;
-  width: 13%;
+  width: 25%;
   background: #6c757d;
   position: fixed;
   height: 50%;
@@ -96,6 +96,10 @@
   display: inline-block;
 }
 
+.left{
+  margin-left: 0;
+  padding-left: 0;
+}
 #menu-toggle {
   text-decoration: none;
 }
@@ -116,7 +120,6 @@
 
   #sidebar-wrapper {
     left: 0;
-
   }
 
   #wrapper.active {

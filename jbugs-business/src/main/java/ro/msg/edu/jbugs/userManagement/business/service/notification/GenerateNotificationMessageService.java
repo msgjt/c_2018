@@ -32,7 +32,7 @@ public class GenerateNotificationMessageService {
     }
 
     private String newBugNotification(BugDTO bugDTO){
-        return "A new bug was created: " + bugDTO.toString() + ", status: " + bugDTO.getStatus();
+        return "A new bug was created: \n" + bugDTO.toString() + ", status: " + bugDTO.getStatus();
     }
 
 }
