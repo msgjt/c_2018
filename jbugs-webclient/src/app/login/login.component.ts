@@ -86,12 +86,12 @@ export class LoginComponent implements OnInit {
     this.recaptchaResponse = captchaResponse;
   }
 
-  public getPermissionsForUser(roles: Role[]): Permission[] {
-    let permissionList: Permission[] = [];
+  public getPermissionsForUser(roles: Role[]): string[] {
+    let permissionList: string[] = [];
     for (let role of roles) {
       for (let permission of role.permissions) {
-        if (!permissionList.includes(permission)) {
-          permissionList.push(permission);
+        if (!permissionList.includes(permission.type)) {
+          permissionList.push(permission.type);
         }
       }
     }

@@ -44,6 +44,7 @@ export class UpdateUserComponent implements OnInit {
 
 
   }
+
   ngOnInit() {
 
     this.dropdownRoleList = [];
@@ -51,7 +52,6 @@ export class UpdateUserComponent implements OnInit {
     this.selectedItems = [];
     this.selectedItem = [];
     this.permission = [];
-
 
 
     this.rolesService.getRoles().subscribe((response: Role[]) => {
@@ -63,11 +63,12 @@ export class UpdateUserComponent implements OnInit {
     });
 
     this.userService.getUsers().subscribe((response: User[]) => {
-      response.forEach(value => { let user: User = value;
-                                          user.fullname = value.username + ' : ' + value.firstName + ' ' + value.lastName;
-                                          this.dropdownUserList.push(user);
+      response.forEach(value => {
+        let user: User = value;
+        user.fullname = value.username + ' : ' + value.firstName + ' ' + value.lastName;
+        this.dropdownUserList.push(user);
 
-                                          } )
+      })
     }, () => {
       this.error("alerts.ERROR-SERVER");
     }, () => {
@@ -107,7 +108,7 @@ export class UpdateUserComponent implements OnInit {
 
   }
 
-  public clickUpdate():void {
+  public clickUpdate(): void {
 
     this.userService.getUser(this.selectedItem[0].fullname.split(':')[0].trim()).subscribe(user => {
       this.user = user;
@@ -124,34 +125,39 @@ export class UpdateUserComponent implements OnInit {
     }, () => {
       this.showDetails = true;
       this.showState = true;
-
     });
   }
 
 
-  public updateUser():void {
+  public updateUser(): void {
     if (this.verifySelectMenu()) {
-
-      this.selectedItem[0] =this.user;
-      this.user.roles=this.selectedItems;
-
-      this.user.roles.map(val=>val.permissions=this.permission);
-
-      var element = <HTMLInputElement> document.getElementById("changeStatus");
-      var isChecked = element.checked;
-      if(isChecked){
-        this.selectedItem[0].isActive=!this.selectedItem[0].isActive;
+      if (!(this.selectedItem[0].fullname.split(':')[0].trim() == this.user.username)) {
+        this.error("alerts.ERROR-UPDATE");
       }
-      this.userService.updateUser(this.selectedItem[0]).subscribe(user => {
-        this.success("alerts.SUCCES-UPDATE");
-        window.location.reload();
-        this.selectedItems = [];
-        this.selectedItem = [];
-      }, (error: HttpErrorResponse) => {
-        this.error("alerts." + error.error.toString());
-      });
+      else {
 
+        this.selectedItem[0] = this.user;
+        this.user.roles = this.selectedItems;
+
+        this.user.roles.map(val => val.permissions = this.permission);
+
+        var element = <HTMLInputElement> document.getElementById("changeStatus");
+        var isChecked = element.checked;
+        if (isChecked) {
+          this.selectedItem[0].isActive = !this.selectedItem[0].isActive;
+        }
+        this.userService.updateUser(this.selectedItem[0]).subscribe(user => {
+          this.success("alerts.SUCCES-UPDATE");
+          window.location.reload();
+          this.selectedItems = [];
+          this.selectedItem = [];
+        }, (error: HttpErrorResponse) => {
+          this.error("alerts." + error.error.toString());
+        });
+
+      }
     }
+
     else {
       this.checkSelect = true;
     }
@@ -162,11 +168,11 @@ export class UpdateUserComponent implements OnInit {
     return this.selectedItems.length > 0;
   }
 
-  public success(message: string):void {
+  public success(message: string): void {
     this.alertService.success(message);
   }
 
-  public error(message: string):void {
+  public error(message: string): void {
     this.alertService.error(message);
   }
 

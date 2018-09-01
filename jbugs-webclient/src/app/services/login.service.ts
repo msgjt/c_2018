@@ -51,9 +51,9 @@ export class LoginService {
     localStorage.setItem("permissions",'');
   };
 
-  setPermissions(permissions:Permission[]){
+  setPermissions(permissions:string[]){
     let permissionString:string='';
-    permissions.map(value => permissionString=permissionString+' '+value.type);
+    permissions.map(value => permissionString=permissionString+' '+value);
     localStorage.setItem('permissions',permissionString);
     console.log(permissionString);
   }
