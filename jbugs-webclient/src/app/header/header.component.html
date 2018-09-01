@@ -1,8 +1,5 @@
 <nav class="navbar fixed-top navbar-dark bg-dark mb-5">
   <a id="sidebar-toggle-button" class="navbar-brand" [routerLink]="" (click)="toggleSidebar()">
-    <!--<svg height="40" width="40">
-      <circle cx="50" cy="20" r="20" fill="red" />
-    </svg>-->
     <div class="circle" *ngIf="gotNewNotification"></div>
     <div> {{'header.nav-title' |
       translate}}</div>

@@ -26,7 +26,8 @@ export class NotificationDataService {
     console.log("in update notification");
     console.log(this.dataStore.notifications);
     console.log(newNotifications);
-    this.changedContent(this.dataStore.notifications.length !== newNotifications.length);
+    let oldLength = parseInt(localStorage.getItem('notificationsLength'),10);
+    this.changedContent( oldLength!== 0 && oldLength !== newNotifications.length);
     this.dataStore.notifications = newNotifications;
     this.notificationsSubject.next(Object.assign({}, this.dataStore).notifications);
   }

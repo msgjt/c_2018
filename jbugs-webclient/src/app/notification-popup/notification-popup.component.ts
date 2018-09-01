@@ -35,6 +35,8 @@ export class NotificationPopupComponent implements OnInit {
   */
 
   ngOnInit() {
+    if(localStorage.getItem('notificationsLength') === null)
+      localStorage.setItem('notificationsLength','0');
     this.subscription = this.notificationData.notifications$
       .subscribe((state) => {
           this.notifications = state;
@@ -54,16 +56,15 @@ export class NotificationPopupComponent implements OnInit {
   updateNotifications() {
     if (localStorage.getItem('currentUser') != null) {
       let username = localStorage.getItem('currentUser');
-      this.newNotifications = [];
       this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) => {
+        this.newNotifications = [];
         response.forEach((value => {
           this.newNotifications.push(value);
         }))
+        this.notificationData.updateNotifications(this.newNotifications);
+        localStorage.setItem('notificationsLength', this.newNotifications.length.toString());
       });
-
-      this.notificationData.updateNotifications(this.newNotifications);
     }
-
     setTimeout(() => this.updateNotifications(), 10000);
   }
 }
