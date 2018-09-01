@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ChartService} from "../../services/chart.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-created-bugs-chart',
@@ -10,7 +12,7 @@ export class CreatedBugsChartComponent implements OnInit {
 
   values: number[] = [];
   finalLabels: string[] = [];
-  dataMap:Map<string,number>;
+  dataMap: Map<string, number>;
   chartOptions = {responsive: true};
   colors = [
     {
@@ -18,21 +20,23 @@ export class CreatedBugsChartComponent implements OnInit {
     }
   ];
   chartData = [
-    {
-
-    }
+    {}
   ];
-  constructor(private charService:ChartService) {
-    this.charService.getCreatedBugsStatistics().subscribe((value) =>{
-      if(value!==undefined){
-        this.dataMap = value;
-        this.getItems();
-        this.chartData = [{
-          label: 'Bug',
-          data:this.values
-        }]
-      }
-    })
+
+  constructor(private charService: ChartService, private alertService: AlertService) {
+    this.charService.getCreatedBugsStatistics().subscribe((value) => {
+        if (value !== undefined) {
+          this.dataMap = value;
+          this.getItems();
+          this.chartData = [{
+            label: 'Bug',
+            data: this.values
+          }]
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.error("alerts.ERROR-SERVER");
+      })
   }
 
   ngOnInit() {
@@ -48,6 +52,10 @@ export class CreatedBugsChartComponent implements OnInit {
 
   onChartClick(event) {
     console.log(event);
+  }
+
+  public error(message: string): void {
+    this.alertService.error(message);
   }
 
 }

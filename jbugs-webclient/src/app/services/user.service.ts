@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {User} from "../types/user";
 import {Observable} from "rxjs/internal/Observable";
+import {AlertService} from "./alert.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class UserService {
 
   baseURL = 'http://localhost:8080/jbugs/rest';
   tokenHeader:string = localStorage.getItem("userToken");
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private alertService:AlertService) {
   }
 
   getAllUsers(): User[] {
@@ -21,6 +22,8 @@ export class UserService {
       response.forEach((value) => {
         users.push(value);
       })
+    },(error:HttpErrorResponse)=>{
+      this.alertService.error("alerts.ERROR-SERVER");
     });
     return users;
   }
