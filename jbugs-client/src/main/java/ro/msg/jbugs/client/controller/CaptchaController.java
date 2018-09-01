@@ -28,7 +28,7 @@ public class CaptchaController {
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        System.out.println();
+
         String urlParameters = "secret=6LfaAGwUAAAAAMyfLc5KygjhozPtryd2JqSeZUKX&response=" + captchaResponse;
 
         con.setDoOutput(true);
@@ -37,10 +37,6 @@ public class CaptchaController {
         wr.flush();
         wr.close();
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + urlParameters);
-        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));

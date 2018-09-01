@@ -16,10 +16,7 @@ import ro.msg.edu.jbugs.persistence.service.bug.IBugPersistenceService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -56,14 +53,24 @@ public class BugBusinessService implements IBugBusinessService {
             throw new BusinessException(ExceptionCode.DESCRIPTION_VALIDATION_EXCEPTION);
         }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
-        //notificationBusinessService.generateNotification(NotificationType.BUG_UPDATED, null, bugDTO);
-        return bugDTOHelper.fromEntity(addedBug);
+        Optional bugOptional = bugPersistenceService.addBug(bug,new Attachment());
+        Bug addedBug = null;
+        if(bugOptional.isPresent()) {
+            addedBug = (Bug) bugOptional.get();
+            return bugDTOHelper.fromEntity(addedBug);
+        }
+        return null;
     }
 
     @Override
     public BugDTO findBugById(long id) {
-        return bugDTOHelper.fromEntity(bugPersistenceService.findBugById(id).get());
+        Optional bugOptional = bugPersistenceService.findBugById(id);
+        Bug foundBug = null;
+        if(bugOptional.isPresent()){
+            foundBug = (Bug) bugOptional.get();
+            return bugDTOHelper.fromEntity(foundBug);
+        }
+        return null;
     }
 
     @Override
@@ -72,7 +79,13 @@ public class BugBusinessService implements IBugBusinessService {
             throw new BusinessException(ExceptionCode.ATTACHMENT_VALIDATION_EXCEPTION);
         }
         Attachment attachment = attachmentDTOHelper.toEntity(attachmentDTO);
-        return attachmentDTOHelper.fromEntity(bugPersistenceService.addAttachment(attachment).get());
+        Optional attachmentOptional = bugPersistenceService.addAttachment(attachment);
+        Attachment addedAttachment = null;
+        if(attachmentOptional.isPresent()){
+            addedAttachment = (Attachment) attachmentOptional.get();
+            return attachmentDTOHelper.fromEntity(addedAttachment);
+        }
+        return null;
     }
 
     @Override
@@ -87,7 +100,13 @@ public class BugBusinessService implements IBugBusinessService {
             throw new BusinessException(ExceptionCode.BUG_VALIDATION_EXCEPTION);
         }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
-        return bugDTOHelper.fromEntity(bugPersistenceService.updateBug(bug).get());
+        Optional bugOptional = bugPersistenceService.updateBug(bug);
+        Bug updatedBugBug = null;
+        if(bugOptional.isPresent()){
+            updatedBugBug = (Bug) bugOptional.get();
+            return bugDTOHelper.fromEntity(updatedBugBug);
+        }
+        return null;
     }
 
     public List<CommentDTO> getCommentsForBug(Long bugId){
@@ -102,13 +121,19 @@ public class BugBusinessService implements IBugBusinessService {
         if(commentDTO.getText().length()>100){
             throw new BusinessException(ExceptionCode.COMMENT_VALIDATION_EXCEPTION);
         }
-        return commentDTOHelper.fromEntity(bugPersistenceService.addComment(comment).get());
+        Optional commentOptional = bugPersistenceService.addComment(comment);
+        Comment addedComment = null;
+        if(commentOptional.isPresent()){
+            addedComment = (Comment) commentOptional.get();
+            return commentDTOHelper.fromEntity(addedComment);
+        }
+        return null;
     }
 
     @Override
     public List<BugDTO> filterBugs(List<BugFiltersDTO> filtersDTOs) {
         Predicate<BugDTO> bugFilter = x -> true;
-        List<BugDTO> bugDTOs = new ArrayList<>();
+        List<BugDTO> bugDTOs;
         bugDTOs = this.getAllBugs();
         for(BugFiltersDTO criteria: filtersDTOs){
             switch (criteria.getField()){
@@ -125,10 +150,10 @@ public class BugBusinessService implements IBugBusinessService {
                     bugFilter = bugFilter.and(cl -> cl.getCreatedByUser().getUsername().equals(criteria.getData()));
                     break;
                 case "severity":
-                    bugFilter = bugFilter.and(cl -> cl.getSeverity().name().equals(criteria.getData().toUpperCase()));
+                    bugFilter = bugFilter.and(cl -> cl.getSeverity().name().equalsIgnoreCase(criteria.getData()));
                     break;
                 case "status":
-                    bugFilter = bugFilter.and(cl -> cl.getStatus().name().equals(criteria.getData().toUpperCase()));
+                    bugFilter = bugFilter.and(cl -> cl.getStatus().name().equalsIgnoreCase(criteria.getData()));
                     break;
                 case "version":
                     bugFilter = bugFilter.and(cl -> cl.getVersion().equals(criteria.getData()));
@@ -139,6 +164,8 @@ public class BugBusinessService implements IBugBusinessService {
                 case "targetDate":
                     bugFilter = bugFilter.and(cl -> isBetweenDates(cl.getTargetDate(),criteria.getData(),criteria.getEndData()));
                     break;
+                default:
+                    break;
             }
         }
         return bugDTOs.stream().filter(bugFilter).collect(Collectors.toList());
@@ -147,7 +174,13 @@ public class BugBusinessService implements IBugBusinessService {
     @Override
     public HistoryDTO addHistory(HistoryDTO historyDTO) {
         History history = historyDTOHelper.toEntity(historyDTO);
-        return historyDTOHelper.fromEntity(bugPersistenceService.addHistory(history).get());
+        Optional historyOptional = bugPersistenceService.addHistory(history);
+        History addedHistory = null;
+        if(historyOptional.isPresent()){
+            addedHistory = (History) historyOptional.get();
+            return historyDTOHelper.fromEntity(addedHistory);
+        }
+        return null;
     }
 
     @Override

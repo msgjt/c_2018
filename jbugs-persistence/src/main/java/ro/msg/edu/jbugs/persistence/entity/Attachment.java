@@ -2,7 +2,6 @@ package ro.msg.edu.jbugs.persistence.entity;
 
 import javax.persistence.*;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -10,10 +9,10 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = Attachment.GET_ALL_ATTACHMENTS, query = "select a from Attachment a")
 })
-public class Attachment implements Serializable {
+public class Attachment {
     @Transient
-    private final static int MAX_STRING_LENGTH = 40;
-    public final static String GET_ALL_ATTACHMENTS = "get_All_Attachments";
+    private static final int MAX_STRING_LENGTH = 40;
+    public static final String GET_ALL_ATTACHMENTS = "get_All_Attachments";
 
     @Lob
     @Column(name="file")

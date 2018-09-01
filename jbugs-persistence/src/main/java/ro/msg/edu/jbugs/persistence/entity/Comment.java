@@ -11,8 +11,8 @@ import java.util.Date;
 public class Comment {
 
     @Transient
-    private final static int MAX_STRING_LENGTH = 40;
-    public final static String GET_COMMENTS_FOR_BUG = "get all comments for a bug";
+    private static final int MAX_STRING_LENGTH = 40;
+    public static final String GET_COMMENTS_FOR_BUG = "get all comments for a bug";
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComment;

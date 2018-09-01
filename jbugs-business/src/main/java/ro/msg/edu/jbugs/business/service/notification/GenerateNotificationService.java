@@ -21,7 +21,7 @@ public class GenerateNotificationService {
     public NotificationDTO generateNotification(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
         NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setType(type);
-        notificationDTO.setMessage(messageGenerator.generateMessage(type, oldBugDTO, newBugDTO));
+        notificationDTO.setMessage(messageGenerator.generateMessage(type, newBugDTO));
         notificationDTO.setDate(new Date());
         if(oldBugDTO != null){
             notificationDTO.setUsernames(new HashSet<>(Arrays.asList(oldBugDTO.getCreatedByUser().getUsername(),
@@ -34,9 +34,9 @@ public class GenerateNotificationService {
         return notificationDTO;
     }
 
-    public NotificationDTO generateNotification(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
+    public NotificationDTO generateNotification(NotificationEnum type, UserDTO newUserDTO) throws BusinessException {
         NotificationDTO notificationDTO = new NotificationDTO();
-        notificationDTO.setMessage(messageGenerator.generateMessage(type, oldUserDTO, newUserDTO));
+        notificationDTO.setMessage(messageGenerator.generateMessage(type, newUserDTO));
         notificationDTO.setType(type);
         notificationDTO.setDate(new Date());
         notificationDTO.setUsernames(new HashSet<>(Collections.singletonList(newUserDTO.getUsername())));

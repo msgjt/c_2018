@@ -4,11 +4,10 @@ import ro.msg.edu.jbugs.persistence.entity.Role;
 import ro.msg.edu.jbugs.persistence.exceptions.PersistenceException;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Optional;
 import java.util.Set;
 
-public interface IRolePersistenceService extends Serializable {
+public interface IRolePersistenceService{
 
     /**
      * Method used for creating a role

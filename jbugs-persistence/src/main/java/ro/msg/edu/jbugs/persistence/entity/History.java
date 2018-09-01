@@ -10,7 +10,7 @@ import java.util.Date;
 })
 public class History {
 
-    public final static String GET_ALL_HISTORY = "get_All_History";
+    public static final String GET_ALL_HISTORY = "get_All_History";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

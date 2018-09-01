@@ -1,5 +1,7 @@
 package ro.msg.edu.jbugs.business.dto.helper;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import ro.msg.edu.jbugs.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.persistence.entity.Bug;
 
@@ -10,11 +12,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 @Stateless
 public class BugDTOHelper {
 
     @EJB
     private UserDTOHelper userDTOHelper;
+
+    private Logger logger = LogManager.getLogger(BugDTOHelper.class);
 
     public BugDTO fromEntity(Bug bug) {
         BugDTO bugDTO = new BugDTO();
@@ -54,7 +59,7 @@ public class BugDTOHelper {
             date = formatter.parse(stringToBeParsed);
             return date;
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return date;
     }
@@ -66,7 +71,7 @@ public class BugDTOHelper {
             date = formatter.parse(stringToBeParsed);
             return date;
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return date;
     }

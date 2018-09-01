@@ -14,20 +14,7 @@ public class UserDTO {
     private Set<RoleDTO> roles;
 
 
-    public UserDTO() {
-    }
 
-    public UserDTO(long id, String firstName, String lastName, String username, String password, String email, boolean isActive, String phoneNumber, Set<RoleDTO> roles) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.isActive = isActive;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-    }
 
     public long getId() {
         return id;

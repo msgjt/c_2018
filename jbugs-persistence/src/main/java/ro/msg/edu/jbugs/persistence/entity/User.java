@@ -18,7 +18,7 @@ public class User {
     public static final String GET_USER_BY_USERNAME = "get_User_By_Username";
     public static final String GET_USER_BY_EMAIL = "get_User_By_Email";
     @Transient
-    private final static int MAX_STRING_LENGTH = 40;
+    private static final int MAX_STRING_LENGTH = 40;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;

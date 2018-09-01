@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
-    private final static int MAX_LAST_NAME_LENGTH = 5;
-    private final static int MIN_USERNAME_LENGTH = 6;
+    private static final int MAX_LAST_NAME_LENGTH = 5;
+    private static final  int MIN_USERNAME_LENGTH = 6;
     private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
 
     @EJB
@@ -124,7 +124,7 @@ public class UserBusinessService implements IUserBusinessService {
                 && user.getLastName() != null
                 && user.getEmail() != null
                 && user.getPhoneNumber() != null
-                && user.getRoles().size() != 0
+                && user.getRoles().isEmpty()
                 && isValidFirstName(user.getFirstName())
                 && isValidLastName(user.getLastName())
                 && isValidEmail(user.getEmail())
@@ -132,10 +132,10 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     private boolean isValidEmail(String email) {
-        final Pattern VALID_EMAIL_ADDRESS_REGEX =
+        final Pattern validEmailAddressRegex =
                 Pattern.compile("^[A-Z0-9._%+-]+@msggroup.com$", Pattern.CASE_INSENSITIVE);
 
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        Matcher matcher = validEmailAddressRegex.matcher(email);
         return matcher.find();
     }
 
@@ -242,26 +242,26 @@ public class UserBusinessService implements IUserBusinessService {
     }
 
     private boolean isValidPhoneNumber(String phonenumber) {
-        final Pattern VALID_PHONE_REGEX =
+        final Pattern validPhoneRegex =
                 Pattern.compile("((^\\+40|^0|^\\(\\+40\\)|^0040)((7[2-8][0-9]{7}$)))|(^(^\\+49|^\\(\\+49\\)|^0049)1(5|6|7)[0-9]{8,10}$)", Pattern.CASE_INSENSITIVE);
 
-        Matcher matcher = VALID_PHONE_REGEX.matcher(phonenumber);
+        Matcher matcher = validPhoneRegex.matcher(phonenumber);
         return matcher.find();
     }
 
     private boolean isValidFirstName(String firstName) {
-        final Pattern VALID_FIRSTNAME_REGEX =
+        final Pattern validFirstnameRegex =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
-        Matcher matcher = VALID_FIRSTNAME_REGEX.matcher(firstName);
+        Matcher matcher = validFirstnameRegex.matcher(firstName);
         return matcher.find();
     }
 
     private boolean isValidLastName(String lastName) {
-        final Pattern VALID_LASTNAME_REGEX =
+        final Pattern validLastnameRegex =
                 Pattern.compile("^([a-zA-Z]+(\\s?|-?)[a-zA-Z]+){1,5}$", Pattern.CASE_INSENSITIVE);
 
-        Matcher matcher = VALID_LASTNAME_REGEX.matcher(lastName);
+        Matcher matcher = validLastnameRegex.matcher(lastName);
         return matcher.find();
     }
 

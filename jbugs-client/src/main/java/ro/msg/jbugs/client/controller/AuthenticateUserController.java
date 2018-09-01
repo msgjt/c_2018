@@ -6,7 +6,7 @@ import ro.msg.edu.jbugs.business.dto.user.UserLoginDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.business.service.user.ILoginBusinessService;
 import ro.msg.edu.jbugs.business.service.user.IUserBusinessService;
-import ro.msg.edu.jbugs.business.service.user.LoginBusinessService;
+
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;

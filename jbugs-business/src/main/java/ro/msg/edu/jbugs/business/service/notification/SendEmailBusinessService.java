@@ -12,8 +12,8 @@ import java.util.Properties;
 
 @Stateless
 public class SendEmailBusinessService {
-    private final String username = "c.forthewinn@gmail.com";
-    private final String password = "valoare1";
+    private static final String USERNAME = "c.forthewinn@gmail.com";
+    private static final String PASS = "valoare1";
 
     public void sendEmail(EmailDto emailDto) throws BusinessException {
         Properties props = setEmailProps();
@@ -39,8 +39,9 @@ public class SendEmailBusinessService {
     private Session getEmailSession(Properties props) {
         return Session.getInstance(props,
                 new Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(USERNAME, PASS);
                     }
                 });
     }

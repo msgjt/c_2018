@@ -2,7 +2,7 @@ package ro.msg.jbugs.client.controller;
 
 import ro.msg.jbugs.client.authentification.AuthenticationFilter;
 import ro.msg.jbugs.client.authentification.CORSFilter;
-import ro.msg.jbugs.client.controller.*;
+
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

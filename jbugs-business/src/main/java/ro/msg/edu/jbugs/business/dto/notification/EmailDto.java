@@ -2,7 +2,7 @@ package ro.msg.edu.jbugs.business.dto.notification;
 
 public class EmailDto {
     private String message;
-    private final String from = "c.forthewinn@gmail.com";
+    public static final String FROM = "c.forthewinn@gmail.com";
     private String to;
     private String subject;
 
@@ -25,7 +25,7 @@ public class EmailDto {
     }
 
     public String getFrom() {
-        return from;
+        return FROM;
     }
 
     public String getTo() {

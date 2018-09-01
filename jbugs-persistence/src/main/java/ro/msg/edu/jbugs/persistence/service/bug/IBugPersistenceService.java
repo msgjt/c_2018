@@ -5,12 +5,11 @@ import ro.msg.edu.jbugs.persistence.entity.Bug;
 import ro.msg.edu.jbugs.persistence.entity.Comment;
 import ro.msg.edu.jbugs.persistence.entity.History;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface IBugPersistenceService extends Serializable {
+public interface IBugPersistenceService{
     /**
      * @return a list of bugs which is in descending order by target date.
      */

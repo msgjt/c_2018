@@ -3,12 +3,11 @@ package ro.msg.edu.jbugs.persistence.service.user;
 import ro.msg.edu.jbugs.persistence.entity.User;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Optional;
 import java.util.Set;
 
 
-public interface IUserPersistenceService extends Serializable {
+public interface IUserPersistenceService{
 
     /**
      * Method used for persisting a user in DB

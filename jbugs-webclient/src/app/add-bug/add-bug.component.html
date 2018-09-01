@@ -68,7 +68,7 @@
           <select #assignedElement="ngModel" name="assignedTo" id="assignedTo" class="form-control"
                   [(ngModel)]="this.chosenUsername"  required>
             <option disabled [ngValue]="undefined">{{"add-bug.select-user" | translate}}</option>
-            <option *ngFor="let username of this.allUsers" [ngValue]="username.username">{{username.username}}
+            <option *ngFor="let username of allUsers" [ngValue]="username.username">{{username.username}}
             </option>
           </select>
           <div class="err" *ngIf="assignedElement.invalid && assignedElement.touched">{{"add-bug.assigned-to-message" |

@@ -11,7 +11,7 @@ import java.util.Set;
 public class Role {
     public static final String GET_ALL_ROLES = "get_all_roles";
     @Transient
-    private final static int MAX_STRING_LENGTH = 20;
+    private static final int MAX_STRING_LENGTH = 20;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;

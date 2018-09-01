@@ -1,5 +1,7 @@
 package ro.msg.edu.jbugs.business.dto.helper;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ro.msg.edu.jbugs.business.dto.bug.CommentDTO;
 import ro.msg.edu.jbugs.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
@@ -20,6 +22,8 @@ public class CommentDTOHelper {
 
     @EJB
     private BugDTOHelper bugDTOHelper;
+
+    private Logger logger = LogManager.getLogger(CommentDTOHelper.class);
 
     public CommentDTO fromEntity(Comment comment){
         CommentDTO commentDTO = new CommentDTO();
@@ -42,7 +46,7 @@ public class CommentDTOHelper {
             UserDTO userDTO = userBusinessService.getUserByUsername(commentDTO.getUser());
             comment.setUser(userDTOHelper.toEntity(userDTO));
         } catch (BusinessException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return comment;
     }

@@ -13,7 +13,6 @@ import java.util.Set;
 @Stateless
 public class UserPersistenceService implements IUserPersistenceService {
 
-    private static final long serialVersionUID = 1L;
 
     @PersistenceContext(unitName = "jbugs-persistence")
     private EntityManager em;
@@ -42,18 +41,20 @@ public class UserPersistenceService implements IUserPersistenceService {
     }
 
     public Optional<User> getUserById(long id) {
-        Query q = em.createQuery("SELECT u FROM User u WHERE u.idUser=" + id);
+        String query = "SELECT u FROM User u WHERE u.idUser= :id";
+        Query q = em.createQuery(query).setParameter("id",id);
         return Optional.of((User) q.getSingleResult());
     }
 
     public int countUnfinishedTasks(@NotNull User user){
-        Query q = em.createQuery("select b from Bug b where (b.status like '%FIXED%' or b.status like '%CLOSED%') and b.assignedTo=?1");
+        String query = "select b from Bug b where (b.status like '%FIXED%' or b.status like '%CLOSED%') and b.assignedTo=?1";
+        Query q = em.createQuery(query);
         q.setParameter(1,this.getUserById(user.getIdUser()).get());
         return q.getResultList().size();
     }
 
     public Set<User> getAllUsers() {
-        return new HashSet<User>(em.createNamedQuery(User.GET_ALL_USERS, User.class).getResultList());
+        return new HashSet<>(em.createNamedQuery(User.GET_ALL_USERS, User.class).getResultList());
     }
 
     public Optional<User> getUserByUsername(@NotNull String username) {
@@ -78,8 +79,9 @@ public class UserPersistenceService implements IUserPersistenceService {
     }
 
     public Set<String> getUsernamesLike(@NotNull String username) {
-        Query q = em.createQuery("select u.username from User u where u.username like '" + username + "%'");
-        return new HashSet<String>(q.getResultList());
+        String query = "select u.username from User u where u.username like '\" + username + \"%'";
+        Query q = em.createQuery(query);
+        return new HashSet<>(q.getResultList());
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class Bug {
     public static final String GET_ALL_BUGS = "get_All_Bugs";
     @Transient
-    private final static int MAX_STRING_LENGTH = 40;
+    private static final int MAX_STRING_LENGTH = 40;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBug;

@@ -27,9 +27,9 @@ public class JwtService {
     }
 
     public UserSessionDTO getUserSessionDot(final String token) {
-        String[] split_string = token.split("\\.");
+        String[] splitString = token.split("\\.");
         Base64 base64Url = new Base64(true);
-        String payload = new String(base64Url.decode(split_string[1]));
+        String payload = new String(base64Url.decode(splitString[1]));
         payload = payload.replace("\"[", "[");
         payload = payload.replace("]\"", "]");
         payload = payload.replace("username", "userName");

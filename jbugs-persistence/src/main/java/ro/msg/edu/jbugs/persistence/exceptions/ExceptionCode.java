@@ -6,7 +6,7 @@ package ro.msg.edu.jbugs.persistence.exceptions;
 public enum ExceptionCode {
     ROLE_NOT_FOUND_EXCEPTION(1001,"Role not found Exception");
 
-    int id;
+    private int id;
     String message;
 
     ExceptionCode(int id, String message) {
@@ -22,13 +22,7 @@ public enum ExceptionCode {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
 
 }

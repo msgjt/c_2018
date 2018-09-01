@@ -27,7 +27,6 @@ public class BugPersistenceService implements IBugPersistenceService {
 
     @Override
     public Optional<Bug> addBug(Bug bug,Attachment attachment) {
-     //   bug.getAttachments().add(attachment);
         User user = userPersistenceService.getUserByUsername(bug.getAssignedTo().getUsername()).get();
         bug.setAssignedTo(user);
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
@@ -40,7 +39,8 @@ public class BugPersistenceService implements IBugPersistenceService {
 
     @Override
     public Optional<Bug> findBugById(long id) {
-        Query q = em.createQuery("SELECT b FROM Bug b WHERE b.idBug=" + id);
+        String query = "SELECT b FROM Bug b WHERE b.idBug=" + id;
+        Query q = em.createQuery(query);
         return Optional.of((Bug) q.getSingleResult());
     }
 

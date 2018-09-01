@@ -11,18 +11,23 @@ import javax.ejb.Stateless;
 @Stateless
 public class GenerateNotificationMessageService {
 
-    public String generateMessage(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
+    public String generateMessage(NotificationEnum type, BugDTO newBugDTO) throws BusinessException {
         switch (type) {
             case BUG_UPDATED:
                 return newBugNotification(newBugDTO);
+            default:
+                break;
         }
-        return null;
+        throw new BusinessException(ExceptionCode.MESSAGE_GENRATITON_FAIL);
+
     }
 
-    public String generateMessage(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
+    public String generateMessage(NotificationEnum type, UserDTO newUserDTO) throws BusinessException {
         switch (type) {
             case WELCOME_NEW_USER:
                 return welcomeNewUserNotification(newUserDTO);
+            default:
+                break;
         }
         throw new BusinessException(ExceptionCode.MESSAGE_GENRATITON_FAIL);
     }

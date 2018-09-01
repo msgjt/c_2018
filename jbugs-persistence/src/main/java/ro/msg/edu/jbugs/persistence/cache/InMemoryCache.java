@@ -10,20 +10,20 @@ public class InMemoryCache implements Cache {
 
     private final ConcurrentHashMap<String, SoftReference<CacheObject>> cache = new ConcurrentHashMap<>();
 
-    private static InMemoryCache single_instance = null;
+    private static InMemoryCache singleInstance = null;
 
     public static InMemoryCache getInstance() {
-        if (single_instance == null)
-            single_instance = new InMemoryCache();
+        if (singleInstance == null)
+            singleInstance = new InMemoryCache();
 
-        return single_instance;
+        return singleInstance;
     }
 
     private InMemoryCache() {
         Thread cleanerThread = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    Thread.sleep(CLEAN_UP_PERIOD_IN_SEC * 1000);
+                    Thread.sleep((long)CLEAN_UP_PERIOD_IN_SEC * 1000);
                     cache.entrySet().removeIf(entry -> Optional.ofNullable(entry.getValue()).map(SoftReference::get).map(CacheObject::isExpired).orElse(false));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

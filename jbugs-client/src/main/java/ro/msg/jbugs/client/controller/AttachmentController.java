@@ -1,6 +1,7 @@
 package ro.msg.jbugs.client.controller;
 
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
 import ro.msg.edu.jbugs.business.dto.bug.AttachmentDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.business.service.bug.IBugBusinessService;
@@ -10,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import org.apache.logging.log4j.Logger;
 import java.util.stream.Collectors;
 
 @Path("/attachments")
@@ -17,7 +19,8 @@ public class AttachmentController {
     @EJB
     private IBugBusinessService bugBusinessService;
 
-    static byte[] fileBytes = new byte[10000000];
+    byte[] fileBytes = new byte[10000000];
+    private Logger logger = LogManager.getLogger(AttachmentController.class);
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +40,7 @@ public class AttachmentController {
         try {
             bugBusinessService.addAttachment(attachmentDTO);
         } catch (BusinessException e) {
-            e.printStackTrace();
+           logger.info(e.getMessage());
         }
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTO))
@@ -73,7 +76,7 @@ public class AttachmentController {
         try {
              bugBusinessService.deleteAttachment(attachmentDTO);
         } catch (BusinessException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return Response.status(Response.Status.OK)
                 .entity(new Gson().toJson(attachmentDTO))

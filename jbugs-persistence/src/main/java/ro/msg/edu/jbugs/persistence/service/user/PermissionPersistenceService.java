@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Stateless(name = "PermissionManagementImpl", mappedName = "PermissionPersistenceService")
 public class PermissionPersistenceService implements IPermissionPersistenceService {
-    private static final long serialVersionUID = 1L;
+
     private InMemoryCache memoryCache = InMemoryCache.getInstance();
 
     @PersistenceContext(unitName = "jbugs-persistence")
