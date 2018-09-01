@@ -22,6 +22,7 @@ public class Notification {
     @Column(nullable = false)
     private NotificationEnum type;
     private Date date;
+    @Column(length = 1000)
     private String message;
 
     public Notification() {

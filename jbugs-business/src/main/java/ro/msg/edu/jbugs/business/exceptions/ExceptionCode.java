@@ -19,6 +19,7 @@ public enum ExceptionCode {
     UNFINISHED_TASKS(2000, "Unfinished tasks for user Exception"),
     DESCRIPTION_VALIDATION_EXCEPTION(2001,"Description length is too large"),
     MESSAGE_GENRATITON_FAIL(1015, "Can not generate notification message"),
+    USER__GENRATITON_FAIL(2002,"Can not generate notification users"),
     COMMENT_VALIDATION_EXCEPTION(2002,"Comment text too long");
     int id;
     String message;

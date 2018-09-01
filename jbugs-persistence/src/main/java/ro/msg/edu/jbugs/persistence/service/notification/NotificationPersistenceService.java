@@ -23,7 +23,6 @@ public class NotificationPersistenceService implements INotificationPersistenceS
     @Override
     public void createNotification(@NotNull Notification notification) {
         em.persist(notification);
-        em.flush();
     }
 
     @Override

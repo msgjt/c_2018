@@ -58,7 +58,7 @@ public class UserBusinessService implements IUserBusinessService {
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
         UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
-        notificationBusinessService.generateNotification(NotificationEnum.WELCOME_NEW_USER, null, userDTOAfterPersist);
+        notificationBusinessService.generateNotification(NotificationEnum.WELCOME_NEW_USER, null, userDTOAfterPersist, null);
         return userDTOAfterPersist;
     }
 
@@ -203,7 +203,10 @@ public class UserBusinessService implements IUserBusinessService {
         if (!userDTO.getIsActive() && userPersistenceService.countUnfinishedTasks(userDTOHelper.toEntity(userDTO)) != 0) {
             throw new BusinessException(ExceptionCode.UNFINISHED_TASKS);
         }
-        return userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
+        UserDTO olsUserDTO = getUserByUsername(userDTO.getUsername());
+        UserDTO newUserDTO = userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
+        notificationBusinessService.generateNotification(NotificationEnum.USER_UPDATED, olsUserDTO, newUserDTO, userDTO.getUsername());
+        return newUserDTO;
     }
 
     @Override
