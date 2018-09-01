@@ -1,5 +1,5 @@
 <div class="card fixedColumns"
-     *ngFor="let notification of notificationData.notifications| paginate: { itemsPerPage: 4  , currentPage: page }"
+     *ngFor="let notification of notifications| paginate: { itemsPerPage: 4  , currentPage: page }"
      style="width: 100%"
     >
   <h5 class="card-header">{{notification.type}}</h5>

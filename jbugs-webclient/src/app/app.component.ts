@@ -15,25 +15,29 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
+    //setTimeout(this.updateNotifications(),6000);
   }
 
 
   updateNotifications(){
     let username = localStorage.getItem('currentUser');
-    if(username){
+    if(username != null){
+      //console.log(username);
       this.newNotifications = [];
       this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) =>{
         response.forEach((value => {
           this.newNotifications.push(value);
+          console.log(response)
         }))
       });
-      this.notificationData.notifications = this.newNotifications;
+      //console.log('notifications: ' + this.newNotifications.toString());
+      this.notificationData.updateNotifications(this.newNotifications);
     }
 
-    setTimeout(this.updateNotifications(),60000);
+    //setTimeout(this.updateNotifications(),600000);
   }
 
   ngAfterViewInit(): void {
-    //setTimeout(this.updateNotifications(),500000);
+    //setTimeout(this.updateNotifications(),50000);
   }
 }

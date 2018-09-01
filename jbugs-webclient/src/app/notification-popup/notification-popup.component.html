@@ -2,9 +2,9 @@
   <div id="sidebar-wrapper" style="left: 0px !important;" (blur)=loseFocus()>
     <nav id="spy">
       <ul class="sidebar-nav nav">
-        <li class="list-group-item" style="width: 100%" *ngFor="let notification of notificationData.notifications">
+        <li class="list-group-item" style="width: 100%" *ngFor="let notification of notifications">
           <div style="width: inherit">{{notification.type}}</div>
-          <div style="width: inherit">{{notification.message}}</div>
+          <div style="width: inherit">{{(notification.message.length>10)?(notification.message | slice:0:10)+'..':(notification.message)}}</div>
         </li>
         <button type="button"  class="btn btn-dark" style="margin-left: 29% !important;" routerLink="notification" (click)="toggle">See
           all

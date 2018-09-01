@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LoginService, User} from "../services/login.service";
 import {FilterService} from "../services/filter.service";
 import {Router} from "@angular/router";
@@ -16,7 +16,7 @@ import {Notification} from "../types/notification";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
   userModel: User;
   wrongCredentials = false;
   loggedIn = false;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   baseURL = 'http://localhost:8080/jbugs/rest';
 
 
-  constructor(private notificationService: NotificationService, private notificationData: NotificationDataService, private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
+  constructor( private loginService: LoginService, private filterService: FilterService, private router: Router, private http: HttpClient, private userService: UserService,private alertService: AlertService) {
     this.userModel = {
       username: '',
       password: ''
@@ -48,12 +48,6 @@ export class LoginComponent implements OnInit {
             this.login(response, this.userModel.username);
             this.router.navigate(["home"]);
             this.succes("alerts.SUCCES-LOGIN");
-            let username = localStorage.getItem('currentUser')
-            this.notificationService.getAllNotifications(username).subscribe((response: Notification[]) =>{
-              response.forEach((value => {
-                this.notificationData.notifications.push(value);
-              }))
-            });
           } else {
             this.wrongCredentials = true;
             this.loggedIn = false;
@@ -110,4 +104,5 @@ export class LoginComponent implements OnInit {
   public succes(message: string):void{
     this.alertService.success(message);
   }
+
 }
