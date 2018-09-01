@@ -54,8 +54,7 @@ public class BugBusinessService implements IBugBusinessService {
         }
         Bug bug = bugDTOHelper.toEntity(bugDTO);
         Bug addedBug = bugPersistenceService.addBug(bug,new Attachment()).get();
-
-        notificationBusinessService.generateNotification(NotificationEnum.BUG_UPDATED, null, bugDTO);
+        //notificationBusinessService.generateNotification(NotificationType.BUG_UPDATED, null, bugDTO);
         return bugDTOHelper.fromEntity(addedBug);
     }
 

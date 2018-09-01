@@ -140,21 +140,18 @@
                 <input #versionElement="ngModel" class="form-control" [ngModel]="bug.version"
                        pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" required minlength="3"
                        (ngModelChange)="bug.version = $event" />
-                <div *ngIf="versionElement.valid && versionElement.touched" [ngModel]="validation(true)"></div>
-                <div class="err" *ngIf="versionElement.invalid" [ngModel]="validation(false)">invalid format</div>
+                <div class="err" *ngIf="versionElement.invalid">invalid format</div>
               </div>
               <div *ngIf="!this.editableFunction(bug)">
                 {{bug.version}}
               </div>
             </td>
-
             <td>
               <div class="fixedColumns" *ngIf="this.editableFunction(bug)">
                 <input #fversionElement="ngModel" class="form-control" [ngModel]="bug.fixedVersion"
                        required pattern="(^[1-9][0-9]{0,}(\.[0-9]{1,}){1,}$)" minlength="3"
                        (ngModelChange)="bug.fixedVersion = $event"/>
-                <div *ngIf="fversionElement.valid && fversionElement.touched" [ngModel]="validation(true)"></div>
-                <div class="err" *ngIf="fversionElement.invalid" [ngModel]="validation(false)">invalid format</div>
+                <div class="err" *ngIf="fversionElement.invalid">invalid format</div>
               </div>
               <div *ngIf="!this.editableFunction(bug)">
                 {{bug.fixedVersion}}
@@ -207,7 +204,7 @@
             </td>
 
             <td>
-              <button class="btn" (click)="onSubmit(bug)"><i class="fa fa-refresh"></i>
+              <button class="btn"  [disabled]="!checkUpdatedVersions(bug.version,bug.fixedVersion)" (click)="onSubmit(bug)"><i class="fa fa-refresh"></i>
               </button>
             </td>
             <td>
