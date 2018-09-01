@@ -114,7 +114,8 @@
     "PASSWORD-CONFIRMATION-MISSMATCH": "You haven't confirmed correctly your new password!",
     "FORMAT-FILE-ERROR":"Invalid format file",
     "DESCRIPTION_VALIDATION_EXCEPTION": "Description length is too large",
-    "COMMENT_VALIDATION_EXCEPTION": "Comment text too long"
+    "COMMENT_VALIDATION_EXCEPTION": "Comment text too long",
+    "ERROR-UPDATE": "You are viewing details for another user. Please click on Show details!"
 
   },
   "add-bug": {

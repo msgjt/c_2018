@@ -125,6 +125,8 @@ export class UpdateUserComponent implements OnInit {
     }, () => {
       this.showDetails = true;
       this.showState = true;
+      var element = <HTMLInputElement> document.getElementById("changeStatus");
+      element.checked = false;
     });
   }
 
@@ -146,6 +148,7 @@ export class UpdateUserComponent implements OnInit {
         if (isChecked) {
           this.selectedItem[0].isActive = !this.selectedItem[0].isActive;
         }
+        this.user = this.selectedItem[0];
         this.userService.updateUser(this.selectedItem[0]).subscribe(user => {
           this.success("alerts.SUCCES-UPDATE");
           window.location.reload();
@@ -153,6 +156,8 @@ export class UpdateUserComponent implements OnInit {
           this.selectedItem = [];
         }, (error: HttpErrorResponse) => {
           this.error("alerts." + error.error.toString());
+          this.selectedItem[0] = this.user;
+          this.selectedItem[0].fullname = this.user.username + ' : ' + this.user.firstName + ' ' + this.user.lastName;
         });
 
       }
