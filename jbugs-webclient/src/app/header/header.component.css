@@ -44,3 +44,11 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+img{
+  padding-left: 7px;
+  cursor: pointer;
+}
+.nav-item{
+  cursor: pointer;
+}
