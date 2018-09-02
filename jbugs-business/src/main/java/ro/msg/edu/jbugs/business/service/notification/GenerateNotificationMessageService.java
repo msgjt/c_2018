@@ -22,7 +22,6 @@ public class GenerateNotificationMessageService {
                 return bugStatusChangedNotification(oldBugDTO, newBugDTO);
             case BUG_CLOSED:
                 return bugClosedNotification(oldBugDTO, newBugDTO);
-
         }
         throw new BusinessException(ExceptionCode.MESSAGE_GENRATITON_FAIL);
     }
@@ -46,6 +45,8 @@ public class GenerateNotificationMessageService {
     private String newBugNotification(BugDTO bugDTO) {
         return "A new bug was created: " + bugDTO.toString() + ", status: " + bugDTO.getStatus();
     }
+
+
 
     private String updateUserNotification(UserDTO oldUserDTO, UserDTO newUserDTO) {
         return "a user was updated: FirstName " + oldUserDTO.getFirstName() + " is now " + newUserDTO.getFirstName() +
