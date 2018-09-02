@@ -26,8 +26,9 @@ public class LoginBusinessService implements ILoginBusinessService {
     private UserDTOHelper userDTOHelper;
     @EJB
     private IUserPersistenceService userPersistenceManager;
+    @EJB
+    private SessionSingleton sessionSingleton;
 
-    private HashMap<String, Integer> userOverflow = new HashMap<>();
 
     @Override
     public String login(UserLoginDTO loginDTO) throws BusinessException {
@@ -37,7 +38,7 @@ public class LoginBusinessService implements ILoginBusinessService {
         }
         addUserLoginRequest(loginDTO.getUsername());
         validatePassword(loginDTO, userDTO);
-        userOverflow.remove(loginDTO.getUsername());
+        sessionSingleton.userOverflow.remove(loginDTO.getUsername());
         validateUserActive(loginDTO.getUsername());
         return jwtService.generateToken(userDTOHelper.toEntity(loginDTO));
     }
@@ -52,20 +53,20 @@ public class LoginBusinessService implements ILoginBusinessService {
     @Override
     public void addUserLoginRequest(String userName) throws BusinessException {
         validateUserActive(userName);
-        if (userOverflow.get(userName) == null) {
-            userOverflow.put(userName, 0);
+        if (sessionSingleton.userOverflow.get(userName) == null) {
+            sessionSingleton.userOverflow.put(userName, 0);
         } else {
-            userOverflow.put(userName, userOverflow.get(userName) + 1);
+            sessionSingleton.userOverflow.put(userName, sessionSingleton.userOverflow.get(userName) + 1);
         }
     }
 
     @Override
     public void removeUserFromOverflow(String userName) {
-        userOverflow.remove(userName);
+        sessionSingleton.userOverflow.remove(userName);
     }
 
     private void validateUserActive(String userName) throws BusinessException {
-        if(userOverflow.get(userName) != null && userOverflow.get(userName) > 5) {
+        if(sessionSingleton.userOverflow.get(userName) != null && sessionSingleton.userOverflow.get(userName) > 5) {
             userBusinessService.deactivateUser(userName);
             throw new BusinessException(ExceptionCode.INVALID_USER_LOGIN);
         }
