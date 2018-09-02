@@ -26,6 +26,7 @@ public class GenerateNotificationService {
         notificationDTO.setMessage(messageGenerator.generateMessage(type, oldBugDTO, newBugDTO));
         notificationDTO.setDate(new Date());
         notificationDTO.setUsernames(usersGenerator.generateUsers(oldBugDTO, newBugDTO));
+        notificationDTO.setBugId(newBugDTO.getIdBug());
         return notificationDTO;
     }
 
