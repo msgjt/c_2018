@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class AttachmentController {
     @EJB
     private IBugBusinessService bugBusinessService;
-    static private byte[] fileBytes = new byte[10000000];
+    private static byte[] fileBytes = new byte[10000000];
     private Logger logger = LogManager.getLogger(AttachmentController.class);
 
     @GET
