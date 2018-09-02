@@ -32,6 +32,7 @@ public class BugPersistenceService implements IBugPersistenceService {
         User createByUser = userPersistenceService.getUserByUsername(bug.getCreatedByUser().getUsername()).get();
         bug.setCreatedByUser(createByUser);
         em.persist(bug);
+        em.flush();
         return Optional.of(bug);
     }
 
