@@ -102,6 +102,9 @@ public class BugBusinessService implements IBugBusinessService {
         Bug updatedBugBug = null;
         if(bugOptional.isPresent()){
             updatedBugBug = (Bug) bugOptional.get();
+            if(updatedBugBug.getStatus()==StatusEnum.CLOSED){
+                notificationBusinessService.generateNotification(NotificationEnum.BUG_CLOSED,null,bugDTO);
+            }
             return bugDTOHelper.fromEntity(updatedBugBug);
         }
         return null;
