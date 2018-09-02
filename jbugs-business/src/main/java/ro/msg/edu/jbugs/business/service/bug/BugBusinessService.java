@@ -60,6 +60,7 @@ public class BugBusinessService implements IBugBusinessService {
         Bug addedBug = null;
         if (bugOptional.isPresent()) {
             addedBug = (Bug) bugOptional.get();
+            bugDTO.setIdBug(bug.getIdBug());
             notificationBusinessService.generateNotification(null, bugDTO);
             return bugDTOHelper.fromEntity(addedBug);
         }
@@ -108,6 +109,7 @@ public class BugBusinessService implements IBugBusinessService {
         Optional bugOptional = bugPersistenceService.updateBug(bug);
         Bug updatedBugBug = null;
         if (bugOptional.isPresent()) {
+
             notificationBusinessService.generateNotification(oldBug, bugDTO);
             updatedBugBug = (Bug) bugOptional.get();
             return bugDTOHelper.fromEntity(updatedBugBug);

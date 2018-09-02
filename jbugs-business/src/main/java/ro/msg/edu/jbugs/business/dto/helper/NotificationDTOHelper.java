@@ -40,7 +40,7 @@ public class NotificationDTOHelper {
         notification.setDate(notificationDTO.getDate());
         notification.setType(notificationDTO.getType());
         if (notificationDTO.getBugId() != null)
-//            notification.setBug(bugDTOHelper.toEntity(bugBusinessService.findBugById(notificationDTO.getBugId())));
+           notification.setBug(bugDTOHelper.toEntity(bugBusinessService.findBugById(notificationDTO.getBugId())));
         if (notificationDTO.getUsernames() != null)
             notification.setUsers(notificationDTO.getUsernames()
                     .stream()
