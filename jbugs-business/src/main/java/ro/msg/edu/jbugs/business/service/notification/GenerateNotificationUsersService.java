@@ -7,6 +7,7 @@ import ro.msg.edu.jbugs.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
 import ro.msg.edu.jbugs.business.exceptions.ExceptionCode;
 import ro.msg.edu.jbugs.business.service.user.IUserBusinessService;
+import ro.msg.edu.jbugs.business.service.utils.Encryptor;
 import ro.msg.edu.jbugs.persistence.entity.NotificationEnum;
 
 import javax.ejb.EJB;
@@ -49,9 +50,9 @@ public class GenerateNotificationUsersService {
 
     private void sendWelcomeEmail(UserDTO newUserDTO) throws BusinessException {
         EmailDto emailDto = new EmailDto();
-        emailDto.setTo(newUserDTO.getEmail());
+        emailDto.setTo("florin.baciu20@gmail.com");
         emailDto.setSubject("Welcome");
-        emailDto.setMessage("welcome " + newUserDTO.getFirstName() + ",\npassword: " + newUserDTO.getPassword());
+        emailDto.setMessage("Welcome " + newUserDTO.getFirstName()+", you have a JBugger account now" + "\nPlease Log In with your credentials and change the password from MyProfile" +",\nusername: "+newUserDTO.getUsername()+",\npassword: " + Encryptor.decrypt(newUserDTO.getPassword()));
         emailBusinessService.sendEmail(emailDto);
     }
 }

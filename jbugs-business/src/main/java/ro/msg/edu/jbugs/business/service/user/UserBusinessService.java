@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
     private static final int MAX_LAST_NAME_LENGTH = 5;
-    private static final  int MIN_USERNAME_LENGTH = 6;
+    private static final int MIN_USERNAME_LENGTH = 6;
     private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
 
     @EJB
@@ -280,4 +280,5 @@ public class UserBusinessService implements IUserBusinessService {
         if (!userPersistenceService.getUserByUsername(userName).isPresent())
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
     }
+
 }
