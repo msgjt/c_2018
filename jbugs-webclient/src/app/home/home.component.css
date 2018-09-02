@@ -1,9 +1,16 @@
 .about-sec {
-  background: url("../../assets/img/background1.jpg") no-repeat center center;
+  background: url("../../assets/img/background1.jpg");
   background-size: cover;
   color: #fff;
   position: relative;
-  padding-top: 100px;
+  padding-top: 100px;;
+  /* Full height */
+  height: 550px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .about-sec:before {
   content: ' ';
