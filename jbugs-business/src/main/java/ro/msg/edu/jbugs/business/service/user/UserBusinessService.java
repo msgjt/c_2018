@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class UserBusinessService implements IUserBusinessService {
     private static final int MAX_LAST_NAME_LENGTH = 5;
-    private static final  int MIN_USERNAME_LENGTH = 6;
+    private static final int MIN_USERNAME_LENGTH = 6;
     private static final Logger logger = LogManager.getLogger(UserBusinessService.class);
 
     @EJB
@@ -58,7 +58,7 @@ public class UserBusinessService implements IUserBusinessService {
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
         UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
-        notificationBusinessService.generateNotification(NotificationEnum.WELCOME_NEW_USER, null, userDTOAfterPersist, null);
+        notificationBusinessService.generateNotification( null, userDTOAfterPersist);
         return userDTOAfterPersist;
     }
 
@@ -205,7 +205,7 @@ public class UserBusinessService implements IUserBusinessService {
         }
         UserDTO olsUserDTO = getUserByUsername(userDTO.getUsername());
         UserDTO newUserDTO = userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
-        notificationBusinessService.generateNotification(NotificationEnum.USER_UPDATED, olsUserDTO, newUserDTO, userDTO.getUsername());
+        notificationBusinessService.generateNotification(olsUserDTO, newUserDTO);
         return newUserDTO;
     }
 
@@ -280,4 +280,5 @@ public class UserBusinessService implements IUserBusinessService {
         if (!userPersistenceService.getUserByUsername(userName).isPresent())
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
     }
+
 }

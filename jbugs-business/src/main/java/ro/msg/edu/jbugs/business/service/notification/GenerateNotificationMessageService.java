@@ -14,10 +14,14 @@ public class GenerateNotificationMessageService {
 
     public String generateMessage(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
         switch (type) {
-            case BUG_UPDATED:
+            case BUG_CREATED:
                 return newBugNotification(newBugDTO);
+            case BUG_UPDATED:
+                return bugUpdatedNotification(oldBugDTO, newBugDTO);
+            case BUG_STATUS_UPDATED:
+                return bugStatusChangedNotification(oldBugDTO, newBugDTO);
             case BUG_CLOSED:
-                return closedBugNotification(newBugDTO);
+                return bugClosedNotification(oldBugDTO, newBugDTO);
         }
         throw new BusinessException(ExceptionCode.MESSAGE_GENRATITON_FAIL);
     }
@@ -28,6 +32,8 @@ public class GenerateNotificationMessageService {
                 return welcomeNewUserNotification(newUserDTO);
             case USER_UPDATED:
                 return updateUserNotification(oldUserDTO, newUserDTO);
+            case USER_DEACTIVATED:
+                return userDeactivated(newUserDTO);
         }
         throw new BusinessException(ExceptionCode.MESSAGE_GENRATITON_FAIL);
     }
@@ -40,9 +46,7 @@ public class GenerateNotificationMessageService {
         return "A new bug was created: " + bugDTO.toString() + ", status: " + bugDTO.getStatus();
     }
 
-    private String closedBugNotification(BugDTO bugDTO){
-        return "The bug was closed "+bugDTO.toString()+", status: "+bugDTO.getStatus();
-    }
+
 
     private String updateUserNotification(UserDTO oldUserDTO, UserDTO newUserDTO) {
         return "a user was updated: FirstName " + oldUserDTO.getFirstName() + " is now " + newUserDTO.getFirstName() +
@@ -55,5 +59,31 @@ public class GenerateNotificationMessageService {
 
     private String getRolesForUser(UserDTO userDTO) {
         return userDTO.getRoles().stream().map(r -> r.getType() + " ").collect(Collectors.joining(","));
+    }
+
+    private String userDeactivated(UserDTO userDTO) {
+        return "user: " + userDTO.getUsername() + " has been deactivated";
+    }
+
+    private String bugUpdatedNotification(BugDTO oldBugDTO, BugDTO newBugDTO) {
+        return "a bug was updated: Title " + oldBugDTO.getTitle() + " is now " + newBugDTO.getTitle() +
+                ",\n Version " + oldBugDTO.getVersion() + " is now " + newBugDTO.getVersion() +
+                ",\n Fixed version " + oldBugDTO.getFixedVersion() + " is now " + newBugDTO.getFixedVersion() +
+                ",\n Severity " + oldBugDTO.getSeverity() + " is now " + newBugDTO.getSeverity() +
+                ",\n Status " + oldBugDTO.getStatus() + " is now " + newBugDTO.getStatus() +
+                ",\n Assigned to " + oldBugDTO.getAssignedTo().getUsername() + " is now " + newBugDTO.getAssignedTo().getUsername() +
+                ".";
+    }
+
+    private String bugStatusChangedNotification(BugDTO oldBugDTO, BugDTO newBugDTO) {
+        return "a bug status was updated: Title " + oldBugDTO.getTitle() + " is now " + newBugDTO.getTitle() +
+                ",\n Status " + oldBugDTO.getStatus() + " is now " + newBugDTO.getStatus() +
+                ".";
+    }
+
+    private String bugClosedNotification(BugDTO oldBugDTO, BugDTO newBugDTO) {
+        return "a bug was closed: Title " + oldBugDTO.getTitle() + " is now " + newBugDTO.getTitle() +
+                ",\n Status " + oldBugDTO.getStatus() + " is now " + newBugDTO.getStatus() +
+                ".";
     }
 }

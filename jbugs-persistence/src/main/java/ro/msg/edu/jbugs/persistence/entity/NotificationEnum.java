@@ -5,5 +5,7 @@ public enum NotificationEnum {
     USER_UPDATED,
     BUG_UPDATED,
     USER_DEACTIVATED,
-    BUG_CLOSED
+    BUG_CREATED,
+    BUG_CLOSED,
+    BUG_STATUS_UPDATED
 }

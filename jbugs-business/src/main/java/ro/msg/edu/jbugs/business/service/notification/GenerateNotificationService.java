@@ -16,22 +16,27 @@ public class GenerateNotificationService {
     private GenerateNotificationMessageService messageGenerator;
     @EJB
     private GenerateNotificationUsersService usersGenerator;
+    @EJB
+    private NotificationTypeService notificationTypeService;
 
-    public NotificationDTO generateNotification(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
+    public NotificationDTO generateNotification(BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
+        NotificationEnum type = notificationTypeService.getNotificationType(oldBugDTO, newBugDTO);
         NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setType(type);
         notificationDTO.setMessage(messageGenerator.generateMessage(type, oldBugDTO, newBugDTO));
         notificationDTO.setDate(new Date());
         notificationDTO.setUsernames(usersGenerator.generateUsers(oldBugDTO, newBugDTO));
+        notificationDTO.setBugId(newBugDTO.getIdBug());
         return notificationDTO;
     }
 
-    public NotificationDTO generateNotification(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO, String creator) throws BusinessException {
+    public NotificationDTO generateNotification(UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
+        NotificationEnum type = notificationTypeService.getNotificationType(oldUserDTO, newUserDTO);
         NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setMessage(messageGenerator.generateMessage(type, oldUserDTO, newUserDTO));
         notificationDTO.setType(type);
         notificationDTO.setDate(new Date());
-        notificationDTO.setUsernames(usersGenerator.generateUsers(type, oldUserDTO, newUserDTO, creator));
+        notificationDTO.setUsernames(usersGenerator.generateUsers(type, oldUserDTO, newUserDTO));
         return notificationDTO;
     }
 
