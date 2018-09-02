@@ -58,7 +58,7 @@ public class UserBusinessService implements IUserBusinessService {
         user.setPassword(Encryptor.encrypt(generatePassword(user.getUsername())));
         userPersistenceService.createUser(user);
         UserDTO userDTOAfterPersist = userDTOHelper.fromEntity(user);
-        notificationBusinessService.generateNotification(NotificationEnum.WELCOME_NEW_USER, null, userDTOAfterPersist, null);
+        notificationBusinessService.generateNotification( null, userDTOAfterPersist);
         return userDTOAfterPersist;
     }
 
@@ -205,7 +205,7 @@ public class UserBusinessService implements IUserBusinessService {
         }
         UserDTO olsUserDTO = getUserByUsername(userDTO.getUsername());
         UserDTO newUserDTO = userDTOHelper.fromEntity(userPersistenceService.updateUser(userDTOHelper.toEntity(userDTO)).get());
-        notificationBusinessService.generateNotification(NotificationEnum.USER_UPDATED, olsUserDTO, newUserDTO, userDTO.getUsername());
+        notificationBusinessService.generateNotification(olsUserDTO, newUserDTO);
         return newUserDTO;
     }
 

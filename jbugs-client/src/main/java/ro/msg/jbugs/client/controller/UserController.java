@@ -15,8 +15,6 @@ import javax.ws.rs.core.Response;
 public class UserController {
     @EJB
     private IUserBusinessService userBusinessService;
-    @EJB
-    private SendEmailBusinessService emailService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

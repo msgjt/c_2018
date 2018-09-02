@@ -4,5 +4,8 @@ public enum NotificationEnum {
     WELCOME_NEW_USER,
     USER_UPDATED,
     BUG_UPDATED,
-    USER_DEACTIVATED
+    USER_DEACTIVATED,
+    BUG_CREATED,
+    BUG_CLOSED,
+    BUG_STATUS_UPDATED
 }

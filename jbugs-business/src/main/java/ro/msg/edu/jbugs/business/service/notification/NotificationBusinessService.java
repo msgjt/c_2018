@@ -1,11 +1,10 @@
 package ro.msg.edu.jbugs.business.service.notification;
 
-import ro.msg.edu.jbugs.business.dto.notification.NotificationDTO;
 import ro.msg.edu.jbugs.business.dto.bug.BugDTO;
 import ro.msg.edu.jbugs.business.dto.helper.NotificationDTOHelper;
+import ro.msg.edu.jbugs.business.dto.notification.NotificationDTO;
 import ro.msg.edu.jbugs.business.dto.user.UserDTO;
 import ro.msg.edu.jbugs.business.exceptions.BusinessException;
-import ro.msg.edu.jbugs.persistence.entity.NotificationEnum;
 import ro.msg.edu.jbugs.persistence.service.notification.INotificationPersistenceService;
 
 import javax.ejb.EJB;
@@ -25,13 +24,13 @@ public class NotificationBusinessService {
     @EJB
     private NotificationDTOHelper notificationDTOHelper;
 
-    public void generateNotification(NotificationEnum type, BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
-        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldBugDTO, newBugDTO)));
+    public void generateNotification(BugDTO oldBugDTO, BugDTO newBugDTO) throws BusinessException {
+        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(oldBugDTO, newBugDTO)));
         deleteOutdatedNotifications();
     }
 
-    public void generateNotification(NotificationEnum type, UserDTO oldUserDTO, UserDTO newUserDTO, String creator) throws BusinessException {
-        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(type, oldUserDTO, newUserDTO, creator)));
+    public void generateNotification(UserDTO oldUserDTO, UserDTO newUserDTO) throws BusinessException {
+        INotificationPersistenceService.createNotification(notificationDTOHelper.toEntity(generateNotificationService.generateNotification(oldUserDTO, newUserDTO)));
         deleteOutdatedNotifications();
     }
 
